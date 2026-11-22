@@ -32,3 +32,4 @@ require_once get_stylesheet_directory() . '/inc/workshop-booking.php';
 require_once get_stylesheet_directory() . '/inc/zalo-contact.php';
 require_once get_stylesheet_directory() . '/inc/performance.php';
 require_once get_stylesheet_directory() . '/inc/product-reviews.php';
+require_once get_stylesheet_directory() . '/inc/header-footer.php';
