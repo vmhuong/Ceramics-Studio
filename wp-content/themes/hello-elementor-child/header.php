@@ -103,7 +103,7 @@ $logged_in    = is_user_logged_in();
 				<div class="bv-drawer-brand">
 					<span class="bv-brand-name">CERAMIC STUDIO</span>
 				</div>
-				<button type="button" class="bv-drawer-close" aria-label="Đóng menu">Đóng</button>
+				<button type="button" class="bv-drawer-close" aria-label="Đóng menu">Đóng [✕]</button>
 			</div>
 
 			<div class="bv-drawer-body">
