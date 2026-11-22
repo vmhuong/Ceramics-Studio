@@ -39,10 +39,10 @@ function bv_define_vietqr_class() {
 			$this->title        = $this->get_option( 'title', 'Chuyển khoản VietQR (Quét mã tự động)' );
 			$this->description  = $this->get_option( 'description', 'Quét mã QR bằng bất kỳ ứng dụng ngân hàng nào để thanh toán nhanh chóng và chính xác.' );
 			$this->bank_id      = $this->get_option( 'bank_id', 'MB' );
-			$this->account_no   = $this->get_option( 'account_no', '0901234567' );
-			$this->account_name = $this->get_option( 'account_name', 'TIEM GOM CERAMICS' );
+			$this->account_no   = $this->get_option( 'account_no', '0363292271' );
+			$this->account_name = $this->get_option( 'account_name', 'VU MANH HUONG' );
 			$this->template     = $this->get_option( 'template', 'compact2' );
-			$this->prefix       = $this->get_option( 'prefix', 'GOM' );
+			$this->prefix       = $this->get_option( 'prefix', 'HD' );
 
 			add_action( 'woocommerce_update_options_payment_gateways_' . $this->id, [ $this, 'process_admin_options' ] );
 			add_action( 'woocommerce_thankyou_' . $this->id, [ $this, 'thankyou_page' ] );
@@ -95,19 +95,19 @@ function bv_define_vietqr_class() {
 					'title'       => 'Số tài khoản',
 					'type'        => 'text',
 					'description' => 'Số tài khoản ngân hàng thụ hưởng.',
-					'default'     => '0901234567',
+					'default'     => '0363292271',
 				],
 				'account_name' => [
 					'title'       => 'Tên chủ tài khoản',
 					'type'        => 'text',
 					'description' => 'Tên chủ tài khoản (viết hoa không dấu hoặc có dấu).',
-					'default'     => 'TIEM GOM CERAMICS',
+					'default'     => 'VU MANH HUONG',
 				],
 				'prefix'       => [
 					'title'       => 'Tiền tố mã đơn',
 					'type'        => 'text',
-					'description' => 'Tiền tố ghi trong nội dung chuyển khoản (Ví dụ: GOM).',
-					'default'     => 'GOM',
+					'description' => 'Tiền tố ghi trong nội dung chuyển khoản (Ví dụ: HD).',
+					'default'     => 'HD',
 				],
 				'template'     => [
 					'title'   => 'Mẫu mã VietQR',
