@@ -19,6 +19,9 @@ add_action(
 			filemtime( get_stylesheet_directory() . '/style.css' )
 		);
 		wp_enqueue_script( 'bv-sticky-header', get_stylesheet_directory_uri() . '/assets/sticky-header.js', [], filemtime( get_stylesheet_directory() . '/assets/sticky-header.js' ), true );
+		if ( is_front_page() ) {
+			wp_enqueue_style( 'bv-wabi-sabi-home', get_stylesheet_directory_uri() . '/assets/wabi-sabi-home.css', [ 'hello-elementor-child' ], filemtime( get_stylesheet_directory() . '/assets/wabi-sabi-home.css' ) );
+		}
 	},
 	30
 );
