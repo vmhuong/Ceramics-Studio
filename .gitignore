@@ -1,0 +1,29 @@
+# Environment & sensitive configs
+wp-config.php
+.env
+.env.*
+!*.example
+
+# Uploads and User Content
+wp-content/uploads/
+wp-content/upgrade/
+wp-content/upgrade-temp-backup/
+*.zip
+*.tar.gz
+*.sql
+
+# Logs & Temporary files
+*.log
+debug.log
+error_log
+
+# Commerce tools python virtualenv & visual test screenshots
+.commerce-tools/vendor/
+.commerce-tools/*.png
+.commerce-tools/pottery-catalog/
+
+# OS metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini

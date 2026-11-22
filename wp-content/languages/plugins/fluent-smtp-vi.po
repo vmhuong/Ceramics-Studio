@@ -1,0 +1,1399 @@
+# Translation of Plugins - FluentSMTP – WP Mail SMTP Plugin with Amazon SES, SendGrid, Mailgun, Postmark, Cloudflare, toSend, Gmail and Any SMTP - Stable (latest release) in Vietnamese
+# This file is distributed under the same license as the Plugins - FluentSMTP – WP Mail SMTP Plugin with Amazon SES, SendGrid, Mailgun, Postmark, Cloudflare, toSend, Gmail and Any SMTP - Stable (latest release) package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2025-09-17 02:33:47+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: GlotPress/4.1.0\n"
+"Language: vi_VN\n"
+"Project-Id-Version: Plugins - FluentSMTP – WP Mail SMTP Plugin with Amazon SES, SendGrid, Mailgun, Postmark, Cloudflare, toSend, Gmail and Any SMTP - Stable (latest release)\n"
+
+#: app/Services/Mailer/Providers/config.php:92
+msgid "Asia Pacific (Osaka)"
+msgstr "Asia Pacific (Osaka)"
+
+#: app/Services/TransStrings.php:490
+msgid "change"
+msgstr "thay đổi"
+
+#: app/Services/TransStrings.php:399
+msgid "Wednesday"
+msgstr "Thứ Tư"
+
+#: app/Services/TransStrings.php:387
+msgid "Tuesday"
+msgstr "Thứ Ba"
+
+#: app/Services/TransStrings.php:375
+msgid "Thursday"
+msgstr "Thứ Năm"
+
+#: app/Services/TransStrings.php:359
+msgid "Sunday"
+msgstr "Chủ Nhật"
+
+#: app/Services/TransStrings.php:327
+msgid "Send To"
+msgstr "Gửi đến"
+
+#: app/Services/TransStrings.php:312
+msgid "Saturday"
+msgstr "Thứ Bảy"
+
+#: app/Services/TransStrings.php:309
+msgid "SMTP2GO API Settings"
+msgstr "Cài đặt API SMTP2GO"
+
+#: app/Services/TransStrings.php:293
+msgid "Recommended Plugin"
+msgstr "Plugin được đề xuất"
+
+#: app/Services/TransStrings.php:250
+msgid "Monday"
+msgstr "Thứ Hai"
+
+#: app/Services/TransStrings.php:191
+msgid "Friday"
+msgstr "Thứ Sáu"
+
+#: app/Services/TransStrings.php:129
+msgid "Delete All Logs"
+msgstr "Xóa tất cả nhật ký"
+
+#: app/Services/TransStrings.php:97
+msgid "Community"
+msgstr "Cộng đồng"
+
+#: app/Services/Mailer/Providers/Smtp2Go/ValidatorTrait.php:24
+msgid "Please define FLUENTMAIL_SMTP2GO_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SMTP2GO_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/config.php:208
+msgid "SMTP2GO"
+msgstr "SMTP2GO"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:514
+msgid "Loading data..."
+msgstr "Đang tải dữ liệu..."
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:133
+msgid "You do not have permission to see this data"
+msgstr "Bạn không có quyền xem dữ liệu này"
+
+#: app/Services/TransStrings.php:11
+msgid " - Simulated"
+msgstr " - Mô phỏng"
+
+#: app/Services/Mailer/Providers/config.php:29
+msgid " for how to configure any SMTP with FluentSMTP."
+msgstr " về cách cấu hình bất kỳ SMTP nào với FluentSMTP."
+
+#: app/Services/NotificationHelper.php:278
+#: app/Services/NotificationHelper.php:338
+#: app/Services/NotificationHelper.php:402
+msgid "[%s] Failed to send email"
+msgstr "[%s] Không gửi được email"
+
+#: app/Models/Traits/SendTestEmailTrait.php:13
+msgid "Fluent SMTP: Test Email - %s"
+msgstr "Fluent SMTP: Email thử nghiệm - %s"
+
+#: app/Http/Controllers/LoggerController.php:46
+msgid "%s deleted successfully."
+msgstr "%s đã được xóa thành công."
+
+#: app/Services/TransStrings.php:438
+msgid "Google API version has been upgraded. Please %s."
+msgstr "Phiên bản Google API đã được nâng cấp. Vui lòng %s."
+
+#: app/Services/TransStrings.php:437
+msgid "Please %s to create API keys on the Google Cloud Platform."
+msgstr "Vui lòng %s để tạo API Key trên Google Cloud Platform."
+
+#: app/Services/TransStrings.php:470
+msgid "I agree to the %s of this Telegram integration."
+msgstr "Tôi đồng ý với %s của việc tích hợp Telegram này."
+
+#: app/Services/TransStrings.php:468
+msgid "Please find %s on Telegram and send the following text to activate this connection."
+msgstr "Vui lòng tìm %s trên Telegram và gửi văn bản sau để kích hoạt kết nối này."
+
+#: app/Services/TransStrings.php:439
+msgid "If you are a developer and would like to contribute to the project, please %s"
+msgstr "Nếu bạn là một nhà phát triển và muốn đóng góp cho dự án, vui lòng %s"
+
+#: app/Services/TransStrings.php:461
+msgid "I agree to the %1$s of this Slack integration."
+msgstr "Tôi đồng ý với %1$s của tích hợp Slack này."
+
+#: app/Services/TransStrings.php:442
+msgid "If you are operating under EU laws, you may be required to use the EU region. %s."
+msgstr "Nếu bạn đang hoạt động theo luật EU, bạn có thể được yêu cầu sử dụng khu vực EU. %s."
+
+#: app/views/admin/ses_connection_info.php:59
+msgid "Increase Sending Limits"
+msgstr "Tăng giới hạn gửi"
+
+#: app/views/admin/ses_connection_info.php:56
+msgid "Read More here."
+msgstr "Đọc thêm tại đây."
+
+#: app/views/admin/ses_connection_info.php:43
+#: app/views/admin/tosend_mailer_connection_info.php:51
+msgid "Valid Sending Emails"
+msgstr "Email gửi hợp lệ"
+
+#: app/views/admin/ses_connection_info.php:26
+msgid "Max Sending Rate"
+msgstr "Tốc độ gửi tối đa"
+
+#: app/views/admin/ses_connection_info.php:20
+#: app/views/admin/tosend_mailer_connection_info.php:19
+msgid "Sent in last 24 hours"
+msgstr "Đã gửi trong 24 giờ qua"
+
+#: app/views/admin/ses_connection_info.php:14
+msgid "Max Send in 24 hours"
+msgstr "Tối đa gửi trong 24 giờ"
+
+#: app/views/admin/general_connection_info.php:8
+#: app/views/admin/ses_connection_info.php:31
+#: app/views/admin/tosend_mailer_connection_info.php:38
+msgid "Sender Email"
+msgstr "Email người gửi"
+
+#: app/views/admin/general_connection_info.php:4
+#: app/views/admin/ses_connection_info.php:9
+#: app/views/admin/tosend_mailer_connection_info.php:8
+msgid "Connection Type"
+msgstr "Loại kết nối"
+
+#: app/views/admin/email_html.php:30
+msgid "Learn why it's free"
+msgstr "Tìm hiểu lý do tại sao nó miễn phí"
+
+#: app/views/admin/email_html.php:30
+msgid "Thank you for using Fluent SMTP Plugin. The ultimate SMTP plugin you need for making sure your emails are delivered."
+msgstr "Cảm ơn bạn đã sử dụng Fluent SMTP Plugin. Plugin SMTP tối ưu mà bạn cần để đảm bảo email của bạn được gửi đi."
+
+#: app/views/admin/email_html.php:27
+msgid "Congrats, test email was sent successfully!"
+msgstr "Chúc mừng, email thử nghiệm đã được gửi thành công!"
+
+#: app/views/admin/email_html.php:7
+msgid "FluentSMTP Test Email"
+msgstr "Email thử nghiệm FluentSMTP"
+
+#: app/views/admin/digest_email.php:82
+msgid "Email Sending Health"
+msgstr "Tình trạng gửi email"
+
+#: app/views/admin/digest_email.php:7
+msgid "FluentSMTP Email Health Report"
+msgstr "Báo cáo tình trạng email FluentSMTP"
+
+#: app/Services/NotificationHelper.php:410
+msgid "[View Failed Email(s)]("
+msgstr "[Xem Email Không thành công(s)]("
+
+#: app/Services/NotificationHelper.php:409
+msgid "**Error Message:** ```"
+msgstr "**Thông báo lỗi:** ```"
+
+#: app/Services/Mailer/Providers/SparkPost/Handler.php:79
+msgid "SparkPost API Error"
+msgstr "Lỗi API SparkPost"
+
+#: app/Services/Mailer/Providers/Mailgun/Handler.php:108
+#: app/Services/Mailer/Providers/TransMail/Handler.php:113
+msgid "Mailgun API Error"
+msgstr "Lỗi API Mailgun"
+
+#: app/Services/Mailer/Providers/AmazonSes/Validator.php:50
+msgid "The from email is not verified"
+msgstr "Email \"Từ\" chưa được xác minh"
+
+#: app/Services/Mailer/Providers/AmazonSes/Handler.php:254
+#: app/Services/Mailer/Providers/ToSend/Handler.php:415
+msgid "Email address already exists with another connection. Please choose a different email."
+msgstr "Địa chỉ email đã tồn tại với một kết nối khác. Vui lòng chọn một email khác."
+
+#: app/Services/Mailer/BaseHandler.php:660
+#: app/Services/Mailer/BaseHandler.php:665
+msgid "Not implemented"
+msgstr "Chưa được triển khai"
+
+#: app/Services/Converter.php:429
+msgid "Import From Easy WP SMTP"
+msgstr "Nhập từ Easy WP SMTP"
+
+#: app/Services/Converter.php:425
+msgid "Import data from your current plugin (Easy WP SMTP)"
+msgstr "Nhập dữ liệu từ plugin hiện tại của bạn (Easy WP SMTP)"
+
+#: app/Services/Converter.php:136
+msgid "Import From WP Mail SMTP"
+msgstr "Nhập từ WP Mail SMTP"
+
+#: app/Services/Converter.php:134 app/Services/Converter.php:426
+msgid "We have detected other SMTP plugin's settings available on your site. Click bellow to pre-populate the values"
+msgstr "Chúng tôi đã phát hiện các cài đặt của plugin SMTP khác có sẵn trên trang web của bạn. Nhấp vào bên dưới để điền trước các giá trị"
+
+#: app/Services/Converter.php:133
+msgid "Import data from your current plugin (WP Mail SMTP)"
+msgstr "Nhập dữ liệu từ plugin hiện tại của bạn (WP Mail SMTP)"
+
+#: app/Http/Controllers/SettingsController.php:835
+msgid "Please define FLUENTMAIL_OUTLOOK_CLIENT_SECRET in your wp-config.php file"
+msgstr "Vui lòng định nghĩa FLUENTMAIL_OUTLOOK_CLIENT_SECRET trong tệp wp-config.php của bạn"
+
+#: app/Http/Controllers/SettingsController.php:826
+msgid "Please define FLUENTMAIL_OUTLOOK_CLIENT_ID in your wp-config.php file"
+msgstr "Vui lòng định nghĩa FLUENTMAIL_OUTLOOK_CLIENT_ID trong tệp wp-config.php của bạn"
+
+#: app/Http/Controllers/SettingsController.php:743
+msgid "Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in your wp-config.php file"
+msgstr "Vui lòng định nghĩa FLUENTMAIL_GMAIL_CLIENT_SECRET trong tệp wp-config.php của bạn"
+
+#: app/Http/Controllers/SettingsController.php:734
+msgid "Please define FLUENTMAIL_GMAIL_CLIENT_ID in your wp-config.php file"
+msgstr "Vui lòng định nghĩa FLUENTMAIL_GMAIL_CLIENT_ID trong tệp wp-config.php của bạn"
+
+#: app/Http/Controllers/SettingsController.php:364
+#: app/Services/Mailer/ValidatorTrait.php:36
+msgid "Unprocessable Entity"
+msgstr "Thực thể không thể xử lý"
+
+#: app/Services/NotificationHelper.php:148
+#: app/Services/NotificationHelper.php:186
+msgid "Something went wrong"
+msgstr "Đã có lỗi xảy ra"
+
+#: app/Services/TransStrings.php:497
+msgid "open an issue on GitHub"
+msgstr "mở một vấn đề trên GitHub"
+
+#: app/Services/TransStrings.php:492
+msgid "copy"
+msgstr "sao chép"
+
+#: app/Services/TransStrings.php:491
+msgid "click here"
+msgstr "nhấp vào đây"
+
+#: app/Services/TransStrings.php:442
+msgid "More information on Mailgun.com"
+msgstr "Thêm thông tin trên Mailgun.com"
+
+#: app/Services/TransStrings.php:438
+msgid "read the doc and upgrade your API connection"
+msgstr "đọc tài liệu và nâng cấp kết nối API của bạn"
+
+#: app/Services/TransStrings.php:437
+msgid "check the documentation"
+msgstr "kiểm tra tài liệu"
+
+#: app/Services/TransStrings.php:439
+msgid "contribute on GitHub"
+msgstr "góp phần trên GitHub"
+
+#: app/Services/TransStrings.php:461 app/Services/TransStrings.php:470
+msgid "terms and conditions"
+msgstr "điều khoản và điều kiện"
+
+#: app/Services/TransStrings.php:465
+msgid "documentation"
+msgstr "tài liệu"
+
+#: app/Services/TransStrings.php:444
+msgid "Looking for a WordPress table plugin for your website? Then you’re in the right place."
+msgstr "Bạn đang tìm plugin bảng WordPress cho trang web của mình? Vậy thì bạn đã đến đúng nơi rồi."
+
+#: app/Services/TransStrings.php:435
+msgid "is the ultimate user-friendly, fast, customizable drag-and-drop WordPress Contact Form Plugin that offers you all the premium features, plus many more completely unique additional features."
+msgstr "là plugin tạo biểu mẫu liên hệ WordPress thân thiện với người dùng, nhanh chóng, tùy chỉnh, kéo và thả tối ưu, cung cấp cho bạn tất cả các tính năng cao cấp, cộng với nhiều tính năng bổ sung hoàn toàn độc đáo khác."
+
+#: app/Services/TransStrings.php:416
+msgid "Your SMTP Username"
+msgstr "Tên người dùng SMTP của bạn"
+
+#: app/Services/TransStrings.php:415
+msgid "Your Name"
+msgstr "Tên của bạn"
+
+#: app/Services/TransStrings.php:414
+msgid "Your Email Address"
+msgstr "Địa chỉ Email của bạn"
+
+#: app/Services/TransStrings.php:413
+msgid "Your Email"
+msgstr "Email của bạn"
+
+#: app/Services/TransStrings.php:406
+msgid "Yes, Disconnect"
+msgstr "Có, Ngắt kết nối"
+
+#: app/Services/TransStrings.php:390
+msgid "Use Auto TLS"
+msgstr "Sử dụng Auto TLS"
+
+#: app/Services/TransStrings.php:385
+msgid "Try Again"
+msgstr "Thử lại"
+
+#: app/Services/TransStrings.php:384
+msgid "Transactional"
+msgstr "Giao dịch"
+
+#: app/Services/TransStrings.php:381
+msgid "Track Opens"
+msgstr "Theo dõi lượt mở"
+
+#: app/Services/TransStrings.php:361
+msgid "TLS"
+msgstr "TLS"
+
+#: app/Services/TransStrings.php:357
+msgid "Summary Email"
+msgstr "Email tóm tắt"
+
+#: app/Services/TransStrings.php:350
+msgid "SparkPost API Settings"
+msgstr "Cài đặt API SparkPost"
+
+#: app/Services/TransStrings.php:339
+msgid "Server Response"
+msgstr "Phản hồi máy chủ"
+
+#: app/Services/TransStrings.php:333
+msgid "Sendinblue API Settings"
+msgstr "Cài đặt API Sendinblue"
+
+#: app/views/admin/general_connection_info.php:12
+#: app/views/admin/ses_connection_info.php:35
+#: app/views/admin/tosend_mailer_connection_info.php:42
+msgid "Sender Name"
+msgstr "Tên người gửi"
+
+#: app/Services/TransStrings.php:331
+msgid "SendGrid API Settings"
+msgstr "Cài đặt API SendGrid"
+
+#: app/Services/TransStrings.php:326
+msgid "Send Test Message"
+msgstr "Gửi tin nhắn thử nghiệm"
+
+#: app/Services/TransStrings.php:325
+msgid "Send Test Email"
+msgstr "Gửi email thử nghiệm"
+
+#: app/Services/TransStrings.php:322
+msgid "Select Region"
+msgstr "Chọn khu vực"
+
+#: app/Services/TransStrings.php:320
+msgid "Secret Key"
+msgstr "Khóa bí mật"
+
+#: app/Services/TransStrings.php:310
+msgid "SSL"
+msgstr "SSL"
+
+#: app/Services/TransStrings.php:308
+msgid "SMTP Username"
+msgstr "Tên người dùng SMTP"
+
+#: app/Services/TransStrings.php:306
+msgid "SMTP Port"
+msgstr "Cổng SMTP"
+
+#: app/Services/TransStrings.php:305
+msgid "SMTP Password"
+msgstr "Mật khẩu SMTP"
+
+#: app/Services/TransStrings.php:296
+msgid "Remove"
+msgstr "Xóa"
+
+#: app/Services/TransStrings.php:286
+msgid "Private API Key"
+msgstr "Private API Key"
+
+#: app/Services/TransStrings.php:283
+msgid "Postmark API Settings"
+msgstr "Cài đặt API Postmark"
+
+#: app/Services/TransStrings.php:279
+msgid "Pin copied to clipboard"
+msgstr "Mã PIN đã được sao chép vào clipboard"
+
+#: app/Services/TransStrings.php:277
+msgid "Pepipost API Settings"
+msgstr "Cài đặt API Pepipost"
+
+#: app/Services/TransStrings.php:273
+msgid "Outlook / Office365 API Settings"
+msgstr "Cài đặt API Outlook / Office365"
+
+#: app/Services/TransStrings.php:268
+msgid "On"
+msgstr "Bật"
+
+#: app/Services/TransStrings.php:267
+msgid "Off"
+msgstr "Tắt"
+
+#: app/Services/TransStrings.php:262
+msgid "None"
+msgstr "Không có"
+
+#: app/Services/TransStrings.php:248
+msgid "Message Stream"
+msgstr "Luồng tin nhắn"
+
+#: app/Services/TransStrings.php:244
+msgid "Marketing"
+msgstr "Tiếp thị"
+
+#: app/Services/TransStrings.php:242
+msgid "Manage Additional Senders"
+msgstr "Quản lý người gửi bổ sung"
+
+#: app/Services/TransStrings.php:240
+msgid "Mailgun API Settings"
+msgstr "Cài đặt API Mailgun"
+
+#: app/Services/TransStrings.php:238
+msgid "Log Emails"
+msgstr "Ghi nhật ký email"
+
+#: app/Services/TransStrings.php:224
+msgid "Join FluentForms Facebook Community"
+msgstr "Tham gia cộng đồng FluentForms trên Facebook"
+
+#: app/Services/TransStrings.php:223
+msgid "Join FluentCRM Facebook Community"
+msgstr "Tham gia cộng đồng FluentCRM trên Facebook"
+
+#: app/Services/TransStrings.php:221
+msgid "Install Ninja Tables (Free)"
+msgstr "Cài đặt Ninja Tables (Miễn phí)"
+
+#: app/Services/TransStrings.php:220
+msgid "Install FluentCRM (Free)"
+msgstr "Cài đặt FluentCRM (Miễn phí)"
+
+#: app/Services/TransStrings.php:219
+msgid "Install Fluent Forms (Free)"
+msgstr "Cài đặt Fluent Forms (Miễn phí)"
+
+#: app/Services/TransStrings.php:216
+msgid "I have sent the code"
+msgstr "Tôi đã gửi mã"
+
+#: app/Services/TransStrings.php:207
+msgid "Gmail / Google Workspace API Settings"
+msgstr "Cài đặt API Gmail / Google Workspace"
+
+#: app/Services/TransStrings.php:206
+msgid "Get v3 API Key."
+msgstr "Lấy API Key v3."
+
+#: app/Services/TransStrings.php:200
+msgid "Get a Private API Key."
+msgstr "Lấy Private API Key."
+
+#: app/Services/TransStrings.php:199
+msgid "Get a Domain Name."
+msgstr "Lấy tên miền."
+
+#: app/Services/TransStrings.php:198
+msgid "Get API Key."
+msgstr "Lấy API Key."
+
+#: app/Services/TransStrings.php:192
+msgid "From"
+msgstr "Từ"
+
+#: app/Services/TransStrings.php:181
+msgid "Fastest Contact Form Builder Plugin for WordPress"
+msgstr "Plugin tạo biểu mẫu liên hệ nhanh nhất cho WordPress"
+
+#: app/Services/TransStrings.php:171
+msgid "Encryption"
+msgstr "Mã hóa"
+
+#: app/Services/TransStrings.php:164
+msgid "Email Type"
+msgstr "Loại Email"
+
+#: app/Services/TransStrings.php:160
+msgid "Email Sending Error Notifications"
+msgstr "Thông báo lỗi gửi Email"
+
+#: app/Services/TransStrings.php:159
+msgid "Email Marketing Automation and CRM Plugin for WordPress"
+msgstr "Plugin tự động hóa tiếp thị Email và CRM cho WordPress"
+
+#: app/Services/TransStrings.php:157
+msgid "Email Log"
+msgstr "Nhật ký Email"
+
+#: app/Services/TransStrings.php:156
+msgid "Email Headers"
+msgstr "Tiêu đề Email"
+
+#: app/Services/TransStrings.php:146
+msgid "Domain Name"
+msgstr "Tên miền"
+
+#: app/Services/TransStrings.php:145
+msgid "Documentation"
+msgstr "Tài liệu"
+
+#: app/Services/TransStrings.php:142
+msgid "Discord Webhook URL"
+msgstr "URL Webhook Discord"
+
+#: app/Services/TransStrings.php:141
+msgid "Disconnect & Reconnect"
+msgstr "Ngắt kết nối & Kết nối lại"
+
+#: app/Services/TransStrings.php:140
+msgid "Disconnect"
+msgstr "Ngắt kết nối"
+
+#: app/Services/TransStrings.php:131
+msgid "Delete Selected"
+msgstr "Xóa đã chọn"
+
+#: app/Services/TransStrings.php:117
+msgid "Create API Key."
+msgstr "Tạo API Key."
+
+#: app/Services/TransStrings.php:107
+msgid "Contributors"
+msgstr "Người đóng góp"
+
+#: app/Services/TransStrings.php:106
+msgid "Continue to Slack"
+msgstr "Tiếp tục đến Slack"
+
+#: app/Services/TransStrings.php:105
+msgid "Continue"
+msgstr "Tiếp tục"
+
+#: app/Services/TransStrings.php:85
+msgid "Cancel"
+msgstr "Hủy"
+
+#: app/Services/TransStrings.php:79
+msgid "Authorized Redirect URIs"
+msgstr "URI chuyển hướng được ủy quyền"
+
+#: app/Services/TransStrings.php:78
+msgid "Authorized Redirect URI"
+msgstr "URI chuyển hướng được ủy quyền"
+
+#: app/Services/TransStrings.php:77
+msgid "Authentication"
+msgstr "Xác thực"
+
+#: app/Services/TransStrings.php:71
+msgid "Are you sure you want to remove this email address?"
+msgstr "Bạn có chắc chắn muốn xóa địa chỉ email này?"
+
+#: app/Services/TransStrings.php:67
+msgid "Application Client Secret"
+msgstr "Application Client Secret"
+
+#: app/Services/TransStrings.php:66
+msgid "Application Client ID"
+msgstr "Application Client ID"
+
+#: app/Services/TransStrings.php:59
+msgid "After 90 Days"
+msgstr "Sau 90 Ngày"
+
+#: app/Services/TransStrings.php:58
+msgid "After 7 Days"
+msgstr "Sau 7 Ngày"
+
+#: app/Services/TransStrings.php:57
+msgid "After 60 Days"
+msgstr "Sau 60 Ngày"
+
+#: app/Services/TransStrings.php:56
+msgid "After 6 Months"
+msgstr "Sau 6 Tháng"
+
+#: app/Services/TransStrings.php:55
+msgid "After 30 Days"
+msgstr "Sau 30 Ngày"
+
+#: app/Services/TransStrings.php:54
+msgid "After 2 Years"
+msgstr "Sau 2 Năm"
+
+#: app/Services/TransStrings.php:53
+msgid "After 14 Days"
+msgstr "Sau 14 Ngày"
+
+#: app/Services/TransStrings.php:52
+msgid "After 1 Year"
+msgstr "Sau 1 Năm"
+
+#: app/Services/TransStrings.php:43
+msgid "Add"
+msgstr "Thêm"
+
+#: app/Services/TransStrings.php:39
+msgid "Activation Pin"
+msgstr "Mã Kích hoạt"
+
+#: app/Services/TransStrings.php:37
+msgid "Access Token"
+msgstr "Access Token"
+
+#: app/Services/TransStrings.php:36
+msgid "Access Key"
+msgstr "Access Key"
+
+#: app/Services/TransStrings.php:35
+msgid "About"
+msgstr "Giới thiệu"
+
+#: app/Services/TransStrings.php:32
+msgid "API Key"
+msgstr "API Key"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:123
+msgid "Go To FluentSMTP Settings"
+msgstr "Đi đến Cài đặt FluentSMTP"
+
+#: app/views/admin/ses_connection_info.php:56
+msgid "Looks like you are in sandbox mode. Please apply to Amazon AWS to approve your account. "
+msgstr "Có vẻ như bạn đang ở chế độ sandbox. Vui lòng đăng ký với Amazon AWS để phê duyệt tài khoản của bạn. "
+
+#: app/views/admin/ses_connection_info.php:4
+#: app/views/admin/tosend_mailer_connection_info.php:3
+msgid "Connection Error: "
+msgstr "Lỗi kết nối: "
+
+#: app/views/admin/email_html.php:60
+msgid "PS: if you have a minute please "
+msgstr "PS: Nếu bạn có một chút thời gian vui lòng "
+
+#: app/views/admin/email_html.php:30
+msgid "FluentSMTP is a free opensource plugin and it will be always free "
+msgstr "FluentSMTP là một plugin mã nguồn mở miễn phí và sẽ luôn miễn phí "
+
+#: app/views/admin/digest_email.php:200
+msgid "You received this email because the Email Sending Health Report is enabled in your FluentSMTP settings. Simply turn it off to stop these emails at "
+msgstr "Bạn nhận được email này vì Báo cáo tình trạng gửi email đã được bật trong cài đặt FluentSMTP của bạn. Chỉ cần tắt nó đi để ngừng nhận những email này. "
+
+#: app/Services/NotificationHelper.php:408
+msgid "**Email Subject:** "
+msgstr "**Tiêu đề email:** "
+
+#: app/Services/NotificationHelper.php:407
+msgid "**To Email Address:** "
+msgstr "**Địa chỉ email đến:** "
+
+#: app/Services/NotificationHelper.php:405
+msgid "**Website URL:** "
+msgstr "**URL trang web:** "
+
+#: app/Services/Mailer/Providers/Factory.php:77
+msgid "There is no matching provider found by email: "
+msgstr "Không tìm thấy nhà cung cấp nào khớp với email: "
+
+#: app/Services/Mailer/Providers/config.php:204
+msgid " for how to configure Elastic Email with FluentSMTP."
+msgstr " hướng dẫn cấu hình Elastic Email với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:189
+msgid " for how to configure Postmark with FluentSMTP."
+msgstr " hướng dẫn cấu hình Postmark với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:172
+msgid " for how to configure Netcore (formerly Pepipost) with FluentSMTP."
+msgstr " hướng dẫn cấu hình Netcore (trước đây là Pepipost) với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:158
+msgid " for how to configure SparkPost with FluentSMTP."
+msgstr " hướng dẫn cấu hình SparkPost với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:144
+msgid " for how to configure Sendinblue with FluentSMTP."
+msgstr " hướng dẫn cấu hình Sendinblue với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:130
+msgid " for how to configure SendGrid with FluentSMTP."
+msgstr " hướng dẫn cấu hình SendGrid với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:116
+msgid " for how to configure Mailgun with FluentSMTP."
+msgstr " hướng dẫn cấu hình Mailgun với FluentSMTP."
+
+#: app/Services/Mailer/Providers/config.php:99
+msgid " for how to configure Amazon SES with FluentSMTP."
+msgstr " hướng dẫn cấu hình Amazon SES với FluentSMTP."
+
+#: app/Services/Mailer/BaseHandler.php:545
+msgid "Tried to send using fallback but failed. "
+msgstr "Đã thử gửi bằng kết nối dự phòng nhưng không thành công. "
+
+#: app/Services/Mailer/BaseHandler.php:542
+msgid "Sent using fallback connection "
+msgstr "Đã gửi bằng kết nối dự phòng "
+
+#: app/views/admin/email_html.php:60
+msgid "write a review for FluentSMTP"
+msgstr "viết đánh giá cho FluentSMTP"
+
+#: app/Services/TransStrings.php:484
+msgid "activate "
+msgstr "kích hoạt "
+
+#: app/Services/TransStrings.php:445
+msgid "the best WP table plugin that comes with all the solutions to the problems you face while creating tables on your posts/pages."
+msgstr "plugin bảng WP tốt nhất đi kèm với tất cả các giải pháp cho các vấn đề bạn gặp phải khi tạo bảng trên bài đăng/trang của bạn."
+
+#: app/Services/TransStrings.php:367
+msgid "The email address must match the domain: "
+msgstr "Địa chỉ email phải khớp với tên miền: "
+
+#: app/Services/TransStrings.php:295
+msgid "Region "
+msgstr "Vùng "
+
+#: app/Services/TransStrings.php:246
+msgid "Meet "
+msgstr "Gặp gỡ "
+
+#: app/Services/TransStrings.php:217
+msgid "If you find an issue or have a suggestion please "
+msgstr "Nếu bạn tìm thấy sự cố hoặc có đề xuất, vui lòng "
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:121
+msgid "learn why it's free"
+msgstr "tìm hiểu lý do tại sao nó miễn phí"
+
+#: app/Services/TransStrings.php:304
+msgid "SMTP Host"
+msgstr "SMTP Host"
+
+#: app/Services/Mailer/Providers/config.php:29
+#: app/Services/Mailer/Providers/config.php:54
+#: app/Services/Mailer/Providers/config.php:99
+#: app/Services/Mailer/Providers/config.php:116
+#: app/Services/Mailer/Providers/config.php:130
+#: app/Services/Mailer/Providers/config.php:144
+#: app/Services/Mailer/Providers/config.php:158
+#: app/Services/Mailer/Providers/config.php:172
+#: app/Services/Mailer/Providers/config.php:189
+#: app/Services/Mailer/Providers/config.php:204
+#: app/Services/TransStrings.php:291
+msgid "Read the documentation"
+msgstr "Đọc tài liệu"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:566 app/Services/TransStrings.php:63
+msgid "All Time"
+msgstr "Tất cả thời gian"
+
+#: app/Services/TransStrings.php:228
+msgid "Last 30 Days"
+msgstr "30 ngày gần đây"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:560
+#: app/Services/TransStrings.php:229
+msgid "Last 7 Days"
+msgstr "7 ngày gần đây"
+
+#: app/Services/TransStrings.php:234
+msgid "Less"
+msgstr "Ít hơn"
+
+#: app/Services/TransStrings.php:251
+msgid "More"
+msgstr "Thêm"
+
+#: app/Services/TransStrings.php:335
+msgid "Sending by time of day"
+msgstr "Gửi theo thời gian trong ngày"
+
+#: app/Services/TransStrings.php:60
+msgid "Alerts"
+msgstr "Cảnh báo"
+
+#: app/Services/Mailer/Providers/config.php:275
+msgid "PHP mail()"
+msgstr "PHP mail()"
+
+#: app/Services/Mailer/Providers/config.php:240
+msgid "Outlook or Office 365"
+msgstr "Outlook hoặc Office 365"
+
+#: app/Services/Mailer/Providers/config.php:162
+msgid "Netcore Email API, formerly Pepipost"
+msgstr "Netcore Email API, trước đây là Pepipost"
+
+#: app/Services/Mailer/Providers/config.php:193
+msgid "Elastic Email"
+msgstr "Elastic Email"
+
+#: app/Hooks/filters.php:6
+msgid "SMTP/Mail Settings"
+msgstr "Cài đặt SMTP/Mail"
+
+#: app/Services/Mailer/Providers/ElasticMail/ValidatorTrait.php:23
+msgid "Please define FLUENTMAIL_ELASTICMAIL_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_ELASTICMAIL_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Postmark/ValidatorTrait.php:24
+msgid "Please define FLUENTMAIL_POSTMARK_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_POSTMARK_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/config.php:176
+msgid "Postmark"
+msgstr "Postmark"
+
+#: app/views/admin/digest_email.php:182
+msgid "Your email sending health is perfect"
+msgstr "Tình trạng gửi email của bạn hoàn hảo"
+
+#: app/views/admin/digest_email.php:180
+msgid "Awesome! no failures! 🎉"
+msgstr "Tuyệt vời! Không có lỗi nào! 🎉"
+
+#: app/views/admin/digest_email.php:165
+msgid "Failed Count"
+msgstr "Số lượng thất bại"
+
+#: app/views/admin/digest_email.php:133
+msgid "If this is unusual you should probably check if your site is broken."
+msgstr "Nếu điều này bất thường, bạn nên kiểm tra xem trang web của mình có bị hỏng không."
+
+#: app/views/admin/digest_email.php:131
+msgid "Looks like no email has been sent to the time period"
+msgstr "Có vẻ như không có email nào được gửi trong khoảng thời gian này"
+
+#: app/Services/Mailer/Providers/Outlook/Handler.php:316
+msgid "Please define FLUENTMAIL_OUTLOOK_CLIENT_SECRET in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_OUTLOOK_CLIENT_SECRET trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Outlook/Handler.php:310
+msgid "Please define FLUENTMAIL_OUTLOOK_CLIENT_ID in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_OUTLOOK_CLIENT_ID trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Gmail/Handler.php:336
+#: app/Services/Mailer/Providers/Outlook/Handler.php:504
+msgid "Token Validity"
+msgstr "Thời hạn Token"
+
+#: app/Services/Mailer/Providers/config.php:256
+msgid "Outlook/Office365 is not recommended for sending mass marketing emails."
+msgstr "Không khuyến nghị sử dụng Outlook/Office365 để gửi email marketing hàng loạt."
+
+#: app/Services/Mailer/Providers/config.php:97
+msgid "China (Ningxia)"
+msgstr "Trung Quốc (Ningxia)"
+
+#: app/Services/Mailer/Providers/config.php:96
+msgid "Africa (Cape Town)"
+msgstr "Châu Phi (Cape Town)"
+
+#: app/Services/Mailer/Providers/config.php:84
+msgid "Europe (Milan)"
+msgstr "Châu Âu (Milan)"
+
+#: app/Hooks/Handlers/SchedulerHandler.php:150
+msgid "Email Failures"
+msgstr "Thất bại gửi email"
+
+#: app/Hooks/Handlers/SchedulerHandler.php:146
+#: app/views/admin/digest_email.php:115
+msgid "Emails Sent"
+msgstr "Email đã gửi"
+
+#. translators: 1: number of subject lines shown, 2: number of unique subject
+#. lines, 3: reporting period, e.g. "7 days"
+#: app/Hooks/Handlers/SchedulerHandler.php:140
+msgid "Showing %1$s of %2$s different subject lines failed in the past %3$s"
+msgstr "Hiển thị %1$s trong số %2$s dòng tiêu đề khác nhau đã thất bại trong %3$s qua"
+
+#. translators: 1: number of subject lines shown, 2: number of unique subject
+#. lines, 3: reporting period, e.g. "7 days"
+#: app/Hooks/Handlers/SchedulerHandler.php:132
+msgid "Showing %1$s of %2$s different subject lines sent in the past %3$s"
+msgstr "Hiển thị %1$s trong số %2$s dòng tiêu đề khác nhau đã được gửi trong %3$s qua"
+
+#: app/Services/TransStrings.php:162
+msgid "Email Simulation"
+msgstr "Mô phỏng email"
+
+#: app/Services/TransStrings.php:130
+msgid "Delete Logs"
+msgstr "Xóa Nhật ký"
+
+#: app/Services/TransStrings.php:314
+msgid "Save Settings"
+msgstr "Lưu Cài đặt"
+
+#: app/Services/TransStrings.php:153
+msgid "Email Address"
+msgstr "Địa chỉ Email"
+
+#: app/Services/TransStrings.php:170
+msgid "Enable Email Summary"
+msgstr "Bật Tóm tắt Email"
+
+#: app/Services/TransStrings.php:150
+msgid "Edit Connection"
+msgstr "Chỉnh sửa Kết nối"
+
+#: app/Services/TransStrings.php:197
+msgid "General Settings"
+msgstr "Cài đặt Chung"
+
+#: app/Services/TransStrings.php:93
+msgid "Close"
+msgstr "Đóng"
+
+#: app/Services/TransStrings.php:102
+msgid "Connection Details"
+msgstr "Chi tiết Kết nối"
+
+#: app/Services/TransStrings.php:40
+msgid "Active Email Connections"
+msgstr "Kết nối Email đang hoạt động"
+
+#: app/Services/TransStrings.php:498
+msgid "Please select your email service provider"
+msgstr "Vui lòng chọn nhà cung cấp dịch vụ email của bạn"
+
+#: app/Services/TransStrings.php:313
+msgid "Save Connection Settings"
+msgstr "Lưu Cài đặt Kết nối"
+
+#: app/Services/TransStrings.php:189
+#: app/views/admin/general_connection_info.php:16
+#: app/views/admin/ses_connection_info.php:39
+#: app/views/admin/tosend_mailer_connection_info.php:46
+msgid "Force Sender Name"
+msgstr "Tên người gửi bắt buộc"
+
+#: app/Services/TransStrings.php:194
+msgid "From Name"
+msgstr "Tên người gửi"
+
+#: app/Services/TransStrings.php:344
+msgid "Set the return-path to match the From Email"
+msgstr "Đặt đường dẫn trả về khớp với Email người gửi"
+
+#: app/Services/TransStrings.php:193
+msgid "From Email"
+msgstr "Email người gửi"
+
+#: app/Services/TransStrings.php:332
+msgid "Sender Settings"
+msgstr "Cài đặt người gửi"
+
+#: app/Services/TransStrings.php:317
+msgid "Search Results for"
+msgstr "Kết quả tìm kiếm cho"
+
+#: app/Services/TransStrings.php:285
+msgid "Prev"
+msgstr "Trước"
+
+#: app/Services/TransStrings.php:255
+msgid "Next"
+msgstr "Tiếp"
+
+#: app/Services/TransStrings.php:72
+msgid "Attachments"
+msgstr "Tệp đính kèm"
+
+#: app/Services/TransStrings.php:154
+msgid "Email Body"
+msgstr "Nội dung email"
+
+#: app/Services/TransStrings.php:388
+msgid "Turn On"
+msgstr "Bật"
+
+#: app/Services/TransStrings.php:298
+msgid "Resend"
+msgstr "Gửi lại"
+
+#: app/Services/TransStrings.php:303
+msgid "Retry"
+msgstr "Thử lại"
+
+#: app/Services/TransStrings.php:38
+msgid "Actions"
+msgstr "Hành động"
+
+#: app/Services/TransStrings.php:378
+msgid "To"
+msgstr "Đến"
+
+#: app/Services/TransStrings.php:355 app/views/admin/digest_email.php:114
+#: app/views/admin/digest_email.php:164
+msgid "Subject"
+msgstr "Chủ đề"
+
+#: app/Services/TransStrings.php:182
+msgid "Filter"
+msgstr "Bộ lọc"
+
+#: app/Services/TransStrings.php:172
+msgid "End date"
+msgstr "Ngày kết thúc"
+
+#: app/Services/TransStrings.php:351
+msgid "Start date"
+msgstr "Ngày bắt đầu"
+
+#: app/Services/TransStrings.php:352
+msgid "Status"
+msgstr "Trạng thái"
+
+#: app/Services/TransStrings.php:84
+msgid "Bulk Action"
+msgstr "Hành động hàng loạt"
+
+#: app/Services/TransStrings.php:68
+msgid "Apply"
+msgstr "Áp dụng"
+
+#: app/Services/TransStrings.php:356
+msgid "Subscribe To Updates"
+msgstr "Đăng ký cập nhật"
+
+#: app/Services/TransStrings.php:334
+msgid "Sending Stats"
+msgstr "Đang gửi thống kê"
+
+#: app/Services/TransStrings.php:483
+msgid "Welcome to FluentSMTP"
+msgstr "Chào mừng đến với FluentSMTP"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:592
+#: app/Services/TransStrings.php:394
+msgid "View All"
+msgstr "Xem tất cả"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:577
+#: app/Services/TransStrings.php:176
+msgid "Failed"
+msgstr "Thất bại"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:576
+#: app/Services/TransStrings.php:336
+msgid "Sent"
+msgstr "Đã gửi"
+
+#: app/Services/TransStrings.php:123
+msgid "Date"
+msgstr "Ngày"
+
+#: app/Services/TransStrings.php:62
+msgid "All"
+msgstr "Tất cả"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:553
+#: app/Services/TransStrings.php:379
+msgid "Today"
+msgstr "Hôm nay"
+
+#: app/Services/TransStrings.php:158
+msgid "Email Logs"
+msgstr "Nhật ký Email"
+
+#: app/Services/TransStrings.php:163
+msgid "Email Test"
+msgstr "Kiểm tra Email"
+
+#: app/Services/Mailer/Providers/config.php:236
+msgid "Gmail/Google Workspace is not recommended for sending mass marketing emails."
+msgstr "Gmail/Google Workspace không được khuyến nghị để gửi email tiếp thị hàng loạt."
+
+#: app/Services/Mailer/Providers/config.php:221
+msgid "Gmail or Google Workspace"
+msgstr "Gmail hoặc Google Workspace"
+
+#: app/Services/Mailer/Providers/Gmail/Handler.php:133
+msgid "Please define FLUENTMAIL_GMAIL_CLIENT_SECRET in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_GMAIL_CLIENT_SECRET trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Gmail/Handler.php:127
+msgid "Please define FLUENTMAIL_GMAIL_CLIENT_ID in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_GMAIL_CLIENT_ID trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Gmail/Handler.php:119
+#: app/Services/Mailer/Providers/Outlook/Handler.php:302
+msgid "Application Client ID is required."
+msgstr "Cần có Application Client ID"
+
+#: app/Functions/helpers.php:1151
+msgid "Possible Conflict: "
+msgstr "Xung đột có thể xảy ra: "
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:33
+msgid "Please define FLUENTMAIL_SMTP_PASSWORD in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SMTP_PASSWORD trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:29
+msgid "Please define FLUENTMAIL_SMTP_USERNAME in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SMTP_USERNAME trong tệp wp-config.php."
+
+#: app/Hooks/filters.php:18 app/Services/TransStrings.php:345
+msgid "Settings"
+msgstr "Cài đặt"
+
+#: app/Hooks/filters.php:17
+msgid "Go to Fluent SMTP Settings page"
+msgstr "Đi đến trang Cài đặt Fluent SMTP"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:437
+msgid "Configure FluentSMTP"
+msgstr "Cấu hình FluentSMTP"
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:425
+msgid "WordPress version 5.5 or greater is required for FluentSMTP. You are using version %s currently. Please update your WordPress Core to use FluentSMTP Plugin."
+msgstr "Phiên bản WordPress 5.5 trở lên là bắt buộc đối với FluentSMTP. Hiện tại bạn đang sử dụng phiên bản %s. Vui lòng cập nhật WordPress Core để sử dụng Plugin FluentSMTP."
+
+#: app/Hooks/Handlers/AdminMenuHandler.php:495
+msgid "Fluent SMTP"
+msgstr "Fluent SMTP"
+
+#: app/Http/Controllers/LoggerController.php:75
+msgid "Email sent successfully."
+msgstr "Email đã được gửi thành công."
+
+#: app/Http/Controllers/SettingsController.php:517
+msgid "Plugin has been successfully installed."
+msgstr "Plugin đã được cài đặt thành công."
+
+#: app/Http/Controllers/SettingsController.php:510
+msgid "Go to Ninja Tables Dashboard"
+msgstr "Đi đến bảng điều khiển Ninja Tables"
+
+#: app/Http/Controllers/SettingsController.php:506
+msgid "Go to FluentCRM Dashboard"
+msgstr "Đi đến bảng điều khiển FluentCRM"
+
+#: app/Http/Controllers/SettingsController.php:502
+msgid "Go to Fluent Forms Dashboard"
+msgstr "Đi đến bảng điều khiển Fluent Forms"
+
+#: app/Http/Controllers/SettingsController.php:265
+msgid "Email delivered successfully."
+msgstr "Email đã được gửi thành công."
+
+#: app/Http/Controllers/SettingsController.php:244
+msgid "The email field is required."
+msgstr "Trường email là bắt buộc."
+
+#: app/Services/Mailer/Providers/SendInBlue/ValidatorTrait.php:23
+msgid "Please define FLUENTMAIL_SENDINBLUE_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SENDINBLUE_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/SparkPost/ValidatorTrait.php:24
+msgid "Please define FLUENTMAIL_SPARKPOST_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SPARKPOST_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/SendGrid/ValidatorTrait.php:24
+msgid "Please define FLUENTMAIL_SENDGRID_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_SENDGRID_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Mailgun/ValidatorTrait.php:31
+#: app/Services/Mailer/Providers/TransMail/ValidatorTrait.php:31
+msgid "Please define FLUENTMAIL_MAILGUN_DOMAIN in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_MAILGUN_DOMAIN trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Mailgun/ValidatorTrait.php:27
+#: app/Services/Mailer/Providers/TransMail/ValidatorTrait.php:27
+msgid "Please define FLUENTMAIL_MAILGUN_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_MAILGUN_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/Mailgun/ValidatorTrait.php:23
+#: app/Services/Mailer/Providers/TransMail/ValidatorTrait.php:23
+msgid "Domain name is required."
+msgstr "Tên miền là bắt buộc."
+
+#: app/Services/Mailer/Providers/AmazonSes/ValidatorTrait.php:32
+msgid "Please define FLUENTMAIL_AWS_SECRET_ACCESS_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_AWS_SECRET_ACCESS_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/AmazonSes/ValidatorTrait.php:28
+msgid "Please define FLUENTMAIL_AWS_ACCESS_KEY_ID in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_AWS_ACCESS_KEY_ID trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/AmazonSes/ValidatorTrait.php:24
+msgid "Secret key is required."
+msgstr "Khóa bí mật là bắt buộc."
+
+#: app/Services/Mailer/Providers/AmazonSes/ValidatorTrait.php:20
+msgid "Access key is required."
+msgstr "Access Key là bắt buộc."
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:41
+msgid "SMTP password is required."
+msgstr "Mật khẩu SMTP là bắt buộc."
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:37
+msgid "SMTP username is required."
+msgstr "Tên người dùng SMTP là bắt buộc."
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:23
+msgid "SMTP port is required."
+msgstr "Cổng SMTP là bắt buộc."
+
+#: app/Services/Mailer/Providers/Smtp/ValidatorTrait.php:19
+msgid "SMTP host is required."
+msgstr "Host SMTP là bắt buộc."
+
+#: app/Services/Mailer/Providers/config.php:148
+msgid "SparkPost"
+msgstr "SparkPost"
+
+#: app/Services/Mailer/Providers/config.php:134
+msgid "Sendinblue"
+msgstr "Sendinblue"
+
+#: app/Services/Mailer/Providers/config.php:120
+msgid "SendGrid"
+msgstr "SendGrid"
+
+#: app/Services/Mailer/Providers/config.php:103
+msgid "Mailgun"
+msgstr "Mailgun"
+
+#: app/Services/Mailer/Providers/config.php:95
+msgid "AWS GovCloud (US)"
+msgstr "AWS GovCloud (US)"
+
+#: app/Services/Mailer/Providers/config.php:94
+msgid "Middle East (Bahrain)"
+msgstr "Trung đông (Bahrain)"
+
+#: app/Services/Mailer/Providers/config.php:93
+msgid "South America (São Paulo)"
+msgstr "Nam Mỹ (São Paulo)"
+
+#: app/Services/Mailer/Providers/config.php:91
+msgid "Asia Pacific (Tokyo)"
+msgstr "Châu Á Thái Bình Dương (Tokyo)"
+
+#: app/Services/Mailer/Providers/config.php:90
+msgid "Asia Pacific (Sydney)"
+msgstr "Châu Á Thái Bình Dương (Sydney)"
+
+#: app/Services/Mailer/Providers/config.php:89
+msgid "Asia Pacific (Singapore)"
+msgstr "Châu Á Thái Bình Dương (Singapore)"
+
+#: app/Services/Mailer/Providers/config.php:88
+msgid "Asia Pacific (Seoul)"
+msgstr "Châu Á Thái Bình Dương (Seoul)"
+
+#: app/Services/Mailer/Providers/config.php:87
+msgid "Asia Pacific (Mumbai)"
+msgstr "Châu Á Thái Bình Dương (Mumbai)"
+
+#: app/Services/Mailer/Providers/config.php:85
+msgid "Europe (Stockholm)"
+msgstr "Châu Âu (Stockholm)"
+
+#: app/Services/Mailer/Providers/config.php:83
+msgid "EU (Frankfurt)"
+msgstr "EU (Frankfurt)"
+
+#: app/Services/Mailer/Providers/config.php:82
+msgid "Europe (Paris)"
+msgstr "Châu Âu (Paris)"
+
+#: app/Services/Mailer/Providers/config.php:81
+msgid "EU (London)"
+msgstr "EU (London)"
+
+#: app/Services/Mailer/Providers/config.php:80
+msgid "EU (Ireland)"
+msgstr "EU (Ireland)"
+
+#: app/Services/Mailer/Providers/config.php:78
+msgid "Canada (Central)"
+msgstr "Canada (Trung tâm)"
+
+#: app/Services/Mailer/Providers/config.php:77
+msgid "US West (Oregon)"
+msgstr "Mỹ Tây (Oregon)"
+
+#: app/Services/Mailer/Providers/config.php:76
+msgid "US West (N. California)"
+msgstr "Mỹ Tây (Bắc California)"
+
+#: app/Services/Mailer/Providers/config.php:75
+msgid "US East (Ohio)"
+msgstr "Mỹ Đông (Ohio)"
+
+#: app/Services/Mailer/Providers/config.php:74
+msgid "US East (N. Virginia)"
+msgstr "Mỹ Đông (Bắc Virginia)"
+
+#: app/Services/Mailer/Providers/config.php:58
+msgid "Amazon SES"
+msgstr "Amazon SES"
+
+#: app/Services/Mailer/Providers/PepiPost/ValidatorTrait.php:24
+msgid "Please define FLUENTMAIL_PEPIPOST_API_KEY in wp-config.php file."
+msgstr "Vui lòng định nghĩa FLUENTMAIL_PEPIPOST_API_KEY trong tệp wp-config.php."
+
+#: app/Services/Mailer/Providers/ElasticMail/ValidatorTrait.php:19
+#: app/Services/Mailer/Providers/Mailgun/ValidatorTrait.php:19
+#: app/Services/Mailer/Providers/PepiPost/ValidatorTrait.php:20
+#: app/Services/Mailer/Providers/Postmark/ValidatorTrait.php:20
+#: app/Services/Mailer/Providers/SendGrid/ValidatorTrait.php:20
+#: app/Services/Mailer/Providers/SendInBlue/ValidatorTrait.php:19
+#: app/Services/Mailer/Providers/Smtp2Go/ValidatorTrait.php:20
+#: app/Services/Mailer/Providers/SparkPost/ValidatorTrait.php:20
+#: app/Services/Mailer/Providers/ToSend/ValidatorTrait.php:23
+#: app/Services/Mailer/Providers/TransMail/ValidatorTrait.php:19
+msgid "Api key is required."
+msgstr "API Key là bắt buộc."
+
+#: app/Services/Mailer/ValidatorTrait.php:20
+msgid "Invalid email address."
+msgstr "Địa chỉ email không hợp lệ."
+
+#: app/Services/Mailer/ValidatorTrait.php:16
+msgid "Sender email is required."
+msgstr "Email người gửi là bắt buộc."
+
+#. Author of the plugin
+#: fluent-smtp.php
+msgid "FluentSMTP & WPManageNinja Team"
+msgstr "Nhóm FluentSMTP & WPManageNinja"
+
+#. Description of the plugin
+#: fluent-smtp.php
+msgid "The Ultimate SMTP Connection Plugin for WordPress."
+msgstr "Plugin kết nối SMTP tối ưu cho WordPress."
+
+#. Plugin URI of the plugin
+#. Author URI of the plugin
+#: fluent-smtp.php
+msgid "https://fluentsmtp.com"
+msgstr "https://fluentsmtp.com"
+
+#. Plugin Name of the plugin
+#: fluent-smtp.php app/Hooks/Handlers/AdminMenuHandler.php:146
+msgid "FluentSMTP"
+msgstr "FluentSMTP"

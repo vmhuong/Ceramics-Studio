@@ -1,0 +1,78 @@
+/* Account-only presentation; native forms, nonces and endpoint permissions are retained. */
+body.woocommerce-account { background: var(--bv-site-background, #f4f0ee); }
+#content.bv-account-page { max-width: 1180px; padding-top: 32px; padding-bottom: 72px; color: #382728; }
+.bv-account-page .bv-commerce-heading { margin-bottom: 42px; padding-bottom: 26px; border-color: #e9dfcd; }
+.bv-account-page .bv-commerce-heading h1 { font-family: Georgia, 'Times New Roman', serif; font-size: 38px; font-weight: 400; }
+.bv-account-page .bv-commerce-heading .bv-back-link { color: #7c292d; }
+.bv-account-page .bv-account-subtitle { color: #83766b; font-size: 14px; margin: 12px 0 0; }
+.bv-account-guest .bv-commerce-heading { text-align: center; border: 0; margin-bottom: 30px; }
+.bv-account-guest .bv-commerce-heading .bv-back-link { display: flex; width: fit-content; margin-bottom: 36px; }
+.bv-account-guest .bv-commerce-heading h1 { margin-top: 0; }
+.woocommerce-account .bv-account-page #customer_login, .woocommerce-account .bv-account-page .woocommerce-ResetPassword { max-width: 440px; }
+.bv-account-page .bv-account-tabs { margin-bottom: 30px; gap: 28px; justify-content: center; border-bottom: 1px solid #e9dfcd; }
+.bv-account-page .bv-account-tabs button { flex: 0 1 50%; border-bottom-width: 2px; background: transparent; color: #8b7b72; padding: 10px 12px 16px; font-size: 15px; font-weight: 500; }
+.bv-account-page .bv-account-tabs button[aria-selected="true"] { background: transparent; color: #7c292d; border-bottom-color: #7c292d; }
+.woocommerce-account .bv-account-page .form-row label { color: #594640; font-weight: 500; font-size: 13px; margin-bottom: 9px; }
+.woocommerce-account .bv-account-page input.input-text, .woocommerce-account .bv-account-page select { min-height: 48px; border-radius: 3px; border: 1px solid #ded4c7; background: #fff; box-shadow: none; font-size: 14px; }
+.woocommerce-account .bv-account-page input.input-text:focus { border-color: #7c292d; outline: 2px solid #f2e4dc; outline-offset: 1px; }
+.woocommerce-account .bv-account-page .form-row { margin-bottom: 23px; }
+.woocommerce-account .bv-account-page .woocommerce-form-login__rememberme { display: flex; align-items: center; gap: 8px; }
+.woocommerce-account .bv-account-page .woocommerce-form-login__submit, .woocommerce-account .bv-account-page .woocommerce-form-register__submit { min-height: 49px; margin: 8px 0 0; border-radius: 3px; font-size: 14px; }
+.bv-account-page .lost_password { text-align: center; margin-top: 22px; }
+.bv-account-page .woocommerce-privacy-policy-text { line-height: 1.8; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation { width: 25%; background: transparent; border-top: 0; border-right: 1px solid #e9dfcd; padding-right: 26px; }
+.bv-account-identity { display: flex; gap: 12px; align-items: center; padding: 0 0 24px; border-bottom: 1px solid #e9dfcd; margin-bottom: 14px; }
+.bv-account-identity > i { display: grid; place-items: center; flex: 0 0 44px; height: 44px; font-size: 26px; background: #f8efd9; color: #7c292d; border-radius: 50%; }
+.bv-account-identity div { min-width: 0; }
+.bv-account-identity small { display: block; color: #8b7b72; font-size: 11px; }
+.bv-account-identity strong { display: block; overflow-wrap: anywhere; font-size: 14px; font-weight: 500; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation ul { display: block; padding: 0; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li { border: 0; padding: 0; margin: 4px 0; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li a { display: flex; align-items: center; gap: 12px; padding: 13px 12px; border: 0; font-size: 14px; color: #74645b; border-radius: 3px; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li a::before, .woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li a::after { display: none; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li.is-active a { background: #f8efd9; color: #7c292d; font-weight: 600; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li a:hover { background: #faf4e7; color: #7c292d; }
+.bv-account-page .woocommerce-MyAccount-navigation i { font-size: 18px; }
+.woocommerce-account .bv-account-page .woocommerce-MyAccount-content { width: 69%; }
+.bv-account-eyebrow { font-size: 10px; color: #8b7b72; }
+.bv-account-page .bv-account-welcome h2 { font: 400 30px/1.35 Georgia, 'Times New Roman', serif; margin: 10px 0 30px; overflow-wrap: anywhere; }
+.bv-account-section-title { display: flex; justify-content: space-between; gap: 16px; align-items: baseline; border-bottom: 1px solid #e9dfcd; padding-bottom: 15px; }
+.bv-account-page .bv-account-section-title h3 { margin: 0; font-size: 17px; }
+.bv-account-section-title a { font-size: 12px; }
+.bv-account-empty { text-align: center; padding: 24px 0 32px; }
+.bv-account-page .bv-account-pottery { width: 118px; height: 130px; object-fit: cover; object-position: center; display: block; margin: 0 auto 18px; }
+.bv-account-page .bv-account-empty h3 { font: 400 21px/1.4 Georgia, 'Times New Roman', serif; margin: 0 0 20px; }
+.bv-account-quicklinks { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid #e9dfcd; gap: 28px; }
+.bv-account-quicklinks a { display: flex; align-items: center; gap: 12px; padding: 22px 0; font-size: 13px; }
+.bv-account-quicklinks a i:last-child { margin-left: auto; }
+.bv-recent-order { display: grid; grid-template-columns: .7fr 1fr 1fr 1fr; gap: 12px; padding: 20px 0; border-bottom: 1px solid #e9dfcd; align-items: center; font-size: 13px; }
+.woocommerce-account .bv-account-page fieldset { border: 0; border-top: 1px solid #e9dfcd; padding: 24px 0 0; margin-top: 28px; }
+.woocommerce-account .bv-account-page legend { font: 400 23px Georgia, 'Times New Roman', serif; padding: 0 14px 0 0; }
+.woocommerce-account .bv-account-page .woocommerce-Address { border-top: 2px solid #e9dfcd; padding-top: 20px; }
+.woocommerce-account .bv-account-page .woocommerce-Addresses .woocommerce-Address:only-child { width: 100%; float: none; }
+.bv-account-page .woocommerce-Address h2, .bv-account-page .woocommerce-Address h3 { font: 400 23px/1.4 Georgia, 'Times New Roman', serif; }
+.bv-account-page .woocommerce-Address .edit { font-size: 12px; text-decoration: underline; text-underline-offset: 4px; }
+.bv-account-page .woocommerce-Address address { font-size: 14px; line-height: 1.9; color: #74645b; }
+.bv-account-page .woocommerce-notices-wrapper { border: 0; padding: 0; margin-bottom: 20px; }
+.bv-account-page .woocommerce-notices-wrapper:empty { display: none; }
+.bv-account-page .woocommerce-info, .bv-account-page .woocommerce-message { border-top-width: 1px; background: #faf4e7; }
+@media (max-width: 768px) {
+    .woocommerce-account .bv-account-page table.woocommerce-orders-table tbody th[scope="row"] { display: block; text-align: right; }
+    .woocommerce-account .bv-account-page table.woocommerce-orders-table tbody th[scope="row"]::before { content: attr(data-title) ": "; float: left; font-weight: 700; }
+}
+@media (max-width: 767px) {
+    #content.bv-account-page { padding: 24px 20px 48px; }
+    .bv-account-page .bv-commerce-heading h1 { font-size: 30px; }
+    .bv-account-page .bv-commerce-heading { margin-bottom: 26px; }
+    .bv-account-guest .bv-commerce-heading .bv-back-link { margin-bottom: 28px; }
+    .woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation { width: 100%; border: 0; padding: 0; margin-bottom: 28px; }
+    .woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 6px; border-bottom: 1px solid #e9dfcd; padding-bottom: 16px; }
+    .woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation li a { font-size: 12px; gap: 8px; padding: 12px 8px; }
+    .bv-account-identity { padding-bottom: 16px; margin-bottom: 10px; }
+    .woocommerce-account .bv-account-page .woocommerce-MyAccount-content { width: 100%; }
+    .bv-account-page .bv-account-welcome h2 { font-size: 25px; }
+    .bv-account-section-title { flex-wrap: wrap; gap: 8px; }
+    .bv-account-quicklinks { grid-template-columns: 1fr; gap: 0; }
+    .bv-account-quicklinks a { padding: 17px 0; border-bottom: 1px solid #e9dfcd; }
+    .bv-recent-order { grid-template-columns: 1fr 1fr; }
+}

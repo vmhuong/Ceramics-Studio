@@ -1,0 +1,65 @@
+import sys
+from pathlib import Path
+sys.stdout.reconfigure(encoding='utf-8')
+root = Path(__file__).parent
+sys.path.insert(0, str(root / 'vendor'))
+from playwright.sync_api import sync_playwright, expect
+expect.set_options(timeout=30000)
+base = 'http://localhost/bookverse/'
+with sync_playwright() as p:
+    browser = p.chromium.launch(channel='chrome', headless=True)
+    page = browser.new_page(viewport={'width':1440,'height':1000})
+    page.set_default_timeout(60000)
+    page.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost/') else r.abort())
+    for slug in ['binh-gom-dang-ruou-bo-suu-tap-men-pastel', 'chen-cham-thap-9cm']:
+        page.goto(base + 'san-pham/' + slug + '/', wait_until='domcontentloaded')
+        expect(page.locator('.summary .single_add_to_cart_button')).to_be_enabled()
+        for width in [1440,768,390,320]:
+            page.set_viewport_size({'width':width,'height':1000})
+            page.evaluate('window.scrollTo(0,0)')
+            expect(page.locator('.related')).to_be_attached()
+            qty = page.locator('.summary form.cart .quantity').bounding_box()
+            button = page.locator('.summary .single_add_to_cart_button').bounding_box()
+            assert abs(qty['y'] - button['y']) < 2, (slug,width,qty,button)
+            assert qty['x'] + qty['width'] < button['x'], (slug,width,'purchase overlap')
+            assert abs(qty['height'] - button['height']) < 2
+            assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
+            related_y = page.locator('.related').evaluate('(e)=>e.getBoundingClientRect().top + scrollY')
+            for y in [0, related_y - 450, related_y - 100, related_y + 100]:
+                page.evaluate('(y)=>window.scrollTo(0,y)', max(0,y))
+                page.wait_for_timeout(150)
+                gallery = page.locator('.woocommerce-product-gallery').bounding_box()
+                related = page.locator('.related').bounding_box()
+                assert gallery['y'] + gallery['height'] <= related['y'], (slug,width,y,gallery,related)
+            page.screenshot(path=str(root / f'polish-related-{width}-{slug[:4]}.png'))
+        page.set_viewport_size({'width':390,'height':844})
+        page.locator('.summary input.qty').fill('2')
+        page.locator('.summary input.qty').dispatch_event('change')
+        page.locator('.summary .single_add_to_cart_button').click()
+        expect(page.locator('.bv-product-toast')).to_be_visible()
+        expect(page.locator('.bv-product-toast')).to_contain_text('2 sản phẩm')
+        expect(page.locator('.woocommerce-product-gallery')).to_have_css('opacity', '1')
+        page.wait_for_timeout(300)
+        expect(page.locator('.bv-cart-count')).to_have_text('2')
+        toast = page.locator('.bv-product-toast').bounding_box()
+        assert toast['x'] >= 0 and toast['x'] + toast['width'] <= 390 and toast['height'] < 150
+        page.screenshot(path=str(root / ('polish-toast-' + slug[:4] + '.png')))
+        page.locator('.bv-toast-close').click()
+        expect(page.locator('.bv-product-toast')).to_have_count(0)
+        page.goto(base + 'gio-hang-gom/', wait_until='domcontentloaded')
+        expect(page.locator('.cart_item')).to_have_count(1)
+        page.locator('.cart_item .remove').click()
+        expect(page.locator('.bv-cart-count')).to_have_text('0')
+        print('PASS:',slug,'scroll boundaries, purchase row, mobile toast and add/remove.',flush=True)
+    page.set_viewport_size({'width':1440,'height':1000})
+    page.goto(base + 'san-pham/binh-gom-dang-ruou-bo-suu-tap-men-pastel/', wait_until='domcontentloaded')
+    expect(page.locator('.summary > p.price')).to_contain_text('285.000')
+    expect(page.locator('.woocommerce-product-gallery')).to_have_css('opacity', '1')
+    page.screenshot(path=str(root / 'polish-product-desktop.png'))
+    page.locator('.additional_information_tab a').click()
+    page.locator('.related').scroll_into_view_if_needed()
+    gallery = page.locator('.woocommerce-product-gallery').bounding_box()
+    related = page.locator('.related').bounding_box()
+    assert gallery['y'] + gallery['height'] <= related['y']
+    print('PASS: short information tab cannot push the sticky gallery into related products.',flush=True)
+    browser.close()
