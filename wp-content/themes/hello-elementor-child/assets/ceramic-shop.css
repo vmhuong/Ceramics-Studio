@@ -38,9 +38,11 @@
 	border-bottom: 1px solid rgba(232, 226, 216, 0.7);
 }
 
+.bv-breadcrumb-trail,
 .bv-breadcrumb-list {
 	display: flex;
 	align-items: center;
+	flex-wrap: wrap;
 	gap: 10px;
 	list-style: none;
 	margin: 0;
@@ -49,12 +51,14 @@
 	color: var(--bv-c-muted);
 }
 
+.bv-breadcrumb-trail a,
 .bv-breadcrumb-list a {
 	color: var(--bv-c-ink);
 	text-decoration: none;
 	transition: color 0.2s;
 }
 
+.bv-breadcrumb-trail a:hover,
 .bv-breadcrumb-list a:hover {
 	color: var(--bv-c-clay);
 }

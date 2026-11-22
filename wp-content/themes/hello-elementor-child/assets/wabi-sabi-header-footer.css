@@ -282,17 +282,17 @@ body.bv-wabi-sabi-body {
 	color: var(--bv-c-clay);
 }
 
-/* Cart Icon Button */
+/* Cart Link (Pure Text - No Icons) */
 .bv-header-cart {
-	position: relative;
 	display: inline-flex;
 	align-items: center;
-	justify-content: center;
-	width: 42px;
-	height: 42px;
-	border-radius: 50%;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-size: 13.5px;
+	font-weight: 500;
 	color: var(--bv-c-ink);
 	text-decoration: none;
+	white-space: nowrap;
 	transition: background-color 0.2s, color 0.2s;
 }
 
@@ -302,38 +302,22 @@ body.bv-wabi-sabi-body {
 }
 
 .bv-cart-count {
-	position: absolute;
-	top: 3px;
-	right: 2px;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	min-width: 19px;
-	height: 19px;
-	padding: 0 4px;
-	background-color: var(--bv-c-clay);
-	color: #FFFFFF;
-	font-size: 11px;
 	font-weight: 700;
-	border-radius: 10px;
-	box-shadow: 0 2px 5px rgba(179, 89, 43, 0.4);
-	transition: transform 0.25s ease;
+	color: var(--bv-c-clay);
+	margin-left: 1px;
 }
 
-.bv-header-cart:hover .bv-cart-count {
-	transform: scale(1.12);
-}
-
-/* User Account Icon */
+/* User Account Link (Pure Text - No Icons) */
 .bv-header-account {
 	display: inline-flex;
 	align-items: center;
-	justify-content: center;
-	width: 42px;
-	height: 42px;
-	border-radius: 50%;
+	padding: 8px 12px;
+	border-radius: 4px;
+	font-size: 13.5px;
+	font-weight: 500;
 	color: var(--bv-c-ink);
 	text-decoration: none;
+	white-space: nowrap;
 	transition: background-color 0.2s, color 0.2s;
 }
 
@@ -640,6 +624,20 @@ body.bv-wabi-sabi-body {
 	line-height: 1.7;
 	color: var(--bv-c-footer-muted);
 	margin: 0 0 22px 0;
+}
+
+.bv-footer-craft-notes {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	font-size: 13px;
+	color: #D6CBC2;
+}
+
+.bv-f-sep {
+	color: #6B5E55;
+	font-size: 11px;
 }
 
 .bv-footer-craft-badges {

@@ -1,5 +1,5 @@
 /**
- * Ceramic Single Product Styling (Inspired by Anh Ceramics)
+ * Ceramic Single Product Styling (Luxury Ceramic Minimalism - No Icons)
  * Project: Ceramic Studio (Bookverse)
  * Author: Vu Manh Huong (PM28.11)
  */
@@ -13,7 +13,6 @@
 	--bv-c-ink: #2C2523;
 	--bv-c-muted: #7A6D65;
 	--bv-c-border: #E8E2D8;
-	--bv-c-card-bg: #F8F5EF;
 	--bv-font-serif: 'Cormorant Garamond', Georgia, serif;
 	--bv-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -24,13 +23,51 @@
 	padding-bottom: 80px;
 }
 
+.bv-container {
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
 /* ==========================================================================
-   1. BREADCRUMB
+   1. BREADCRUMBS (CLEAN HORIZONTAL TRAIL - NO NUMBERS)
    ========================================================================== */
 .bv-product-breadcrumb {
-	padding: 16px 0;
-	border-bottom: 1px solid rgba(232, 226, 216, 0.7);
-	margin-bottom: 32px;
+	padding: 18px 0;
+	border-bottom: 1px solid var(--bv-c-border);
+	margin-bottom: 36px;
+}
+
+.bv-breadcrumb-trail {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	font-size: 13px;
+	color: var(--bv-c-muted);
+	line-height: 1.4;
+	margin: 0;
+	padding: 0;
+}
+
+.bv-breadcrumb-trail a {
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.bv-breadcrumb-trail a:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-b-sep {
+	color: #BDB2A7;
+	font-weight: 300;
+}
+
+.bv-b-current {
+	color: var(--bv-c-muted);
+	font-weight: 500;
 }
 
 /* ==========================================================================
@@ -39,7 +76,7 @@
 .bv-product-columns {
 	display: grid;
 	grid-template-columns: 1.15fr 0.95fr;
-	gap: 48px;
+	gap: 52px;
 	align-items: start;
 	margin-bottom: 64px;
 }
@@ -54,9 +91,8 @@
 	position: relative;
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 14px;
+	border-radius: 8px;
 	overflow: hidden;
-	box-shadow: 0 8px 24px rgba(44, 37, 35, 0.05);
 }
 
 .bv-stage-inner {
@@ -74,59 +110,11 @@
 	height: 100%;
 	object-fit: cover;
 	object-position: center;
-	transition: opacity 0.3s ease;
+	display: block;
+	transition: opacity 0.25s ease;
 }
 
-.bv-stage-badges {
-	position: absolute;
-	top: 16px;
-	left: 16px;
-	display: flex;
-	flex-direction: column;
-	gap: 8px;
-	z-index: 2;
-}
-
-.bv-sbadge {
-	display: inline-block;
-	padding: 5px 12px;
-	background: rgba(44, 37, 35, 0.85);
-	backdrop-filter: blur(4px);
-	color: #FAF7F2;
-	border-radius: 4px;
-	font-size: 11px;
-	font-weight: 700;
-	letter-spacing: 0.5px;
-	text-transform: uppercase;
-}
-
-.bv-stage-zoom-btn {
-	position: absolute;
-	top: 16px;
-	right: 16px;
-	width: 40px;
-	height: 40px;
-	background: #FFFFFF;
-	border: 1px solid var(--bv-c-border);
-	border-radius: 50%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	color: var(--bv-c-ink);
-	cursor: pointer;
-	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-	transition: all 0.2s ease;
-	z-index: 2;
-}
-
-.bv-stage-zoom-btn:hover {
-	background: var(--bv-c-clay);
-	color: #FFFFFF;
-	border-color: var(--bv-c-clay);
-	transform: scale(1.08);
-}
-
-/* Gallery Thumbnails Strip (Anh Ceramics Style) */
+/* Gallery Thumbnails Strip */
 .bv-gallery-thumbs {
 	display: flex;
 	gap: 12px;
@@ -136,16 +124,16 @@
 }
 
 .bv-thumb-item {
-	flex: 0 0 76px;
-	width: 76px;
-	height: 76px;
+	flex: 0 0 80px;
+	width: 80px;
+	height: 80px;
 	padding: 0;
 	background: #FFFFFF;
 	border: 2px solid transparent;
-	border-radius: 8px;
+	border-radius: 4px;
 	overflow: hidden;
 	cursor: pointer;
-	transition: border-color 0.2s, transform 0.2s;
+	transition: border-color 0.2s;
 }
 
 .bv-thumb-item img {
@@ -156,16 +144,14 @@
 }
 
 .bv-thumb-item:hover {
-	transform: translateY(-2px);
 	border-color: #D6CBC0;
 }
 
 .bv-thumb-item.is-active {
 	border-color: var(--bv-c-clay);
-	box-shadow: 0 4px 10px rgba(179, 89, 43, 0.25);
 }
 
-/* RIGHT: BUY BOX & PRODUCT SUMMARY */
+/* RIGHT: BUY BOX & PRODUCT DETAILS */
 .bv-product-summary {
 	display: flex;
 	flex-direction: column;
@@ -173,13 +159,13 @@
 
 .bv-summary-category a {
 	display: inline-block;
-	font-size: 12px;
+	font-size: 11.5px;
 	font-weight: 700;
-	letter-spacing: 1.5px;
+	letter-spacing: 2px;
 	text-transform: uppercase;
 	color: var(--bv-c-clay);
 	text-decoration: none;
-	margin-bottom: 8px;
+	margin-bottom: 10px;
 }
 
 .bv-summary-title {
@@ -195,23 +181,15 @@
 	display: flex;
 	align-items: center;
 	gap: 10px;
-	font-size: 13.5px;
+	font-size: 13px;
 	color: var(--bv-c-muted);
-	margin-bottom: 18px;
+	margin-bottom: 20px;
 	flex-wrap: wrap;
 }
 
-.bv-stars-group {
-	display: flex;
-	align-items: center;
-	gap: 2px;
-	color: #F5A623;
-}
-
-.bv-stars-group strong {
+.bv-meta-rating {
 	color: var(--bv-c-ink);
-	margin-left: 4px;
-	font-size: 13px;
+	font-weight: 600;
 }
 
 .bv-meta-sep {
@@ -230,15 +208,16 @@
 
 .bv-craft-certified {
 	color: #2E7D32;
-	font-weight: 600;
+	font-weight: 500;
 }
 
 /* Price */
 .bv-summary-price {
 	font-size: 28px;
-	font-weight: 800;
+	font-weight: 700;
 	color: var(--bv-c-clay);
 	margin-bottom: 18px;
+	line-height: 1.2;
 }
 
 .bv-summary-price del {
@@ -252,52 +231,18 @@
 	text-decoration: none;
 }
 
-/* Stock Scarcity Bar */
+/* Scarcity Status */
 .bv-stock-scarcity {
-	background: #FFF8F3;
-	border: 1px solid #F3D9C8;
-	border-radius: 8px;
-	padding: 12px 16px;
+	padding: 10px 14px;
+	background: #FAF3EC;
+	border-left: 3px solid var(--bv-c-clay);
+	font-size: 13px;
+	color: #7A4222;
 	margin-bottom: 22px;
 }
 
-.bv-scarcity-text {
-	display: flex;
-	align-items: center;
-	gap: 8px;
-	font-size: 13px;
-	color: #8C4724;
-	font-weight: 500;
-	margin-bottom: 6px;
-}
-
-.bv-pulse-dot {
-	width: 8px;
-	height: 8px;
-	background: #D94A38;
-	border-radius: 50%;
-	display: inline-block;
-	animation: bvPulse 1.8s infinite;
-}
-
-@keyframes bvPulse {
-	0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 74, 56, 0.7); }
-	70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 74, 56, 0); }
-	100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 74, 56, 0); }
-}
-
-.bv-scarcity-bar {
-	width: 100%;
-	height: 5px;
-	background: #EFE2D8;
-	border-radius: 3px;
-	overflow: hidden;
-}
-
-.bv-scarcity-fill {
-	height: 100%;
-	background: linear-gradient(90deg, #D94A38, #B3592B);
-	border-radius: 3px;
+.bv-stock-scarcity strong {
+	color: var(--bv-c-ink);
 }
 
 /* Excerpt */
@@ -312,15 +257,15 @@
 	margin: 0 0 10px 0;
 }
 
-/* FORM: QUANTITY & BUTTONS */
+/* FORM: QUANTITY & BUTTONS (OVERRIDE WOOCOMMERCE PURPLE) */
 .bv-summary-form-wrap {
-	margin-bottom: 32px;
+	margin-bottom: 36px;
 }
 
 .bv-qty-and-cta {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 14px;
 	margin-bottom: 14px;
 }
 
@@ -330,16 +275,16 @@
 	align-items: center;
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 8px;
+	border-radius: 4px;
 	overflow: hidden;
 }
 
 .bv-qty-btn {
-	width: 42px;
+	width: 44px;
 	height: 48px;
 	background: transparent;
 	border: none;
-	font-size: 18px;
+	font-size: 16px;
 	color: var(--bv-c-ink);
 	cursor: pointer;
 	transition: background 0.2s;
@@ -356,7 +301,7 @@
 	text-align: center;
 	border: none;
 	font-size: 15px;
-	font-weight: 700;
+	font-weight: 600;
 	color: var(--bv-c-ink);
 	background: transparent;
 	outline: none;
@@ -369,57 +314,64 @@
 	margin: 0;
 }
 
-/* Add to Cart Button */
-.bv-btn-add-to-cart {
-	flex: 1;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-	height: 50px;
-	padding: 0 24px;
-	background: #FFFFFF;
-	color: var(--bv-c-clay) !important;
-	border: 2px solid var(--bv-c-clay) !important;
-	border-radius: 8px;
-	font-size: 15px;
-	font-weight: 700;
-	cursor: pointer;
-	transition: all 0.25s ease;
+/* Add to Cart Button (CRUSH WOOCOMMERCE PURPLE) */
+.woocommerce div.product form.cart .bv-btn-add-to-cart,
+.bv-btn-add-to-cart,
+button.bv-btn-add-to-cart {
+	flex: 1 !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	height: 50px !important;
+	padding: 0 24px !important;
+	background: #2C2523 !important;
+	color: #FFFFFF !important;
+	border: 1px solid #2C2523 !important;
+	border-radius: 4px !important;
+	font-size: 13.5px !important;
+	font-weight: 600 !important;
+	letter-spacing: 1px !important;
+	text-transform: uppercase !important;
+	cursor: pointer !important;
+	transition: all 0.25s ease !important;
+	box-shadow: none !important;
 }
 
-.bv-btn-add-to-cart:hover {
-	background: #FAF0E8;
-	transform: translateY(-2px);
-	box-shadow: 0 4px 14px rgba(179, 89, 43, 0.2);
+.bv-btn-add-to-cart:hover,
+button.bv-btn-add-to-cart:hover {
+	background: var(--bv-c-clay) !important;
+	border-color: var(--bv-c-clay) !important;
+	color: #FFFFFF !important;
 }
 
-/* Buy Now Button (Direct VietQR Checkout) */
+/* Buy Now Button */
 .bv-buynow-wrap {
 	margin-bottom: 14px;
 }
 
 .bv-btn-buy-now {
-	width: 100%;
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	height: 52px;
-	background: var(--bv-c-clay);
+	width: 100% !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	height: 50px !important;
+	background: var(--bv-c-clay) !important;
 	color: #FFFFFF !important;
-	border: none;
-	border-radius: 8px;
-	font-size: 15.5px;
-	font-weight: 700;
-	cursor: pointer;
-	box-shadow: 0 4px 16px rgba(179, 89, 43, 0.35);
-	transition: all 0.25s ease;
+	border: 1px solid var(--bv-c-clay) !important;
+	border-radius: 4px !important;
+	font-size: 13.5px !important;
+	font-weight: 600 !important;
+	letter-spacing: 1px !important;
+	text-transform: uppercase !important;
+	cursor: pointer !important;
+	transition: all 0.25s ease !important;
+	box-shadow: none !important;
 }
 
 .bv-btn-buy-now:hover {
-	background: var(--bv-c-clay-dark);
-	transform: translateY(-2px);
-	box-shadow: 0 8px 22px rgba(179, 89, 43, 0.45);
+	background: var(--bv-c-clay-dark) !important;
+	border-color: var(--bv-c-clay-dark) !important;
+	color: #FFFFFF !important;
 }
 
 /* Zalo Consultation Button */
@@ -427,56 +379,68 @@
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
-	gap: 8px;
 	width: 100%;
-	padding: 12px 18px;
-	background: #EFF7FF;
-	border: 1px solid #B8DCFE;
-	border-radius: 8px;
-	color: #0068FF;
-	font-size: 14px;
-	font-weight: 600;
+	padding: 13px 20px;
+	background: #FAF7F2;
+	border: 1px solid #D6CBC0;
+	border-radius: 4px;
+	color: var(--bv-c-ink);
+	font-size: 13.5px;
+	font-weight: 500;
 	text-decoration: none;
-	transition: all 0.2s ease;
+	transition: all 0.2s;
 }
 
 .bv-btn-zalo-consult:hover {
-	background: #DDECFF;
-	transform: translateY(-1px);
+	background: #F0E8DC;
+	border-color: var(--bv-c-clay);
+	color: var(--bv-c-clay);
 }
 
-/* STUDIO GUARANTEE BOX (ANH CERAMICS TRUST) */
+/* STUDIO GUARANTEE BOX (NO EMOJIS - EDITORIAL NUMBERS) */
 .bv-guarantee-box {
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 12px;
-	padding: 20px;
+	border-radius: 6px;
+	padding: 24px;
 	display: flex;
 	flex-direction: column;
-	gap: 14px;
+	gap: 16px;
 }
 
 .bv-g-item {
 	display: flex;
 	align-items: flex-start;
-	gap: 12px;
+	gap: 16px;
+	padding-bottom: 14px;
+	border-bottom: 1px solid #F0ECE4;
 }
 
-.bv-g-icon {
-	font-size: 20px;
+.bv-g-item:last-child {
+	padding-bottom: 0;
+	border-bottom: none;
+}
+
+.bv-g-num {
+	font-family: var(--bv-font-serif);
+	font-size: 18px;
+	font-weight: 700;
+	color: var(--bv-c-clay);
 	flex-shrink: 0;
-	margin-top: 1px;
+	width: 24px;
+	line-height: 1.2;
 }
 
 .bv-g-item strong {
 	display: block;
-	font-size: 13.5px;
+	font-size: 14px;
 	color: var(--bv-c-ink);
-	margin-bottom: 2px;
+	margin-bottom: 3px;
+	font-weight: 600;
 }
 
 .bv-g-item p {
-	font-size: 12.5px;
+	font-size: 13px;
 	color: var(--bv-c-muted);
 	margin: 0;
 	line-height: 1.5;
@@ -493,7 +457,7 @@
 .bv-tabs-wrapper {
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 14px;
+	border-radius: 8px;
 	overflow: hidden;
 }
 
@@ -508,11 +472,13 @@
 	padding: 18px 28px;
 	background: transparent;
 	border: none;
-	font-size: 15px;
+	font-size: 14px;
 	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
 	color: var(--bv-c-muted);
 	cursor: pointer;
-	border-bottom: 3px solid transparent;
+	border-bottom: 2px solid transparent;
 	transition: all 0.25s ease;
 	white-space: nowrap;
 }
@@ -549,13 +515,13 @@
 	margin-top: 32px;
 	background: #FAF7F2;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 10px;
+	border-radius: 6px;
 	padding: 24px;
 }
 
 .bv-specs-title {
 	font-family: var(--bv-font-serif);
-	font-size: 20px;
+	font-size: 19px;
 	font-weight: 700;
 	color: var(--bv-c-ink);
 	margin: 0 0 16px 0;
@@ -574,7 +540,7 @@
 	justify-content: space-between;
 	padding-bottom: 10px;
 	border-bottom: 1px solid #EBE4D8;
-	font-size: 14px;
+	font-size: 13.5px;
 }
 
 .bv-spec-row dt {
@@ -589,7 +555,7 @@
 	text-align: right;
 }
 
-/* Usage & Care Grid */
+/* Usage & Care Grid (No Emojis) */
 .bv-care-grid {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
@@ -599,25 +565,19 @@
 .bv-care-card {
 	background: #FAF7F2;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 10px;
+	border-radius: 6px;
 	padding: 24px;
 }
 
-.bv-care-icon {
-	font-size: 32px;
-	display: block;
-	margin-bottom: 12px;
-}
-
 .bv-care-card h4 {
-	font-size: 16px;
+	font-size: 15px;
 	font-weight: 700;
 	color: var(--bv-c-ink);
 	margin: 0 0 8px 0;
 }
 
 .bv-care-card p {
-	font-size: 13.5px;
+	font-size: 13px;
 	color: var(--bv-c-muted);
 	line-height: 1.6;
 	margin: 0;
@@ -635,74 +595,22 @@
 	margin-bottom: 36px;
 }
 
+.bv-sub-tag {
+	display: inline-block;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	text-transform: uppercase;
+	color: var(--bv-c-clay);
+	margin-bottom: 8px;
+}
+
 .bv-related-title {
 	font-family: var(--bv-font-serif);
-	font-size: 32px;
+	font-size: 30px;
 	font-weight: 700;
 	color: var(--bv-c-ink);
-	margin: 6px 0 0 0;
-}
-
-/* ==========================================================================
-   5. LIGHTBOX MODAL (IMAGE ZOOM)
-   ========================================================================== */
-.bv-image-modal {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 100000;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	opacity: 0;
-	visibility: hidden;
-	transition: opacity 0.3s ease, visibility 0.3s ease;
-}
-
-.bv-image-modal.is-open {
-	opacity: 1;
-	visibility: visible;
-}
-
-.bv-modal-overlay {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: rgba(30, 26, 24, 0.85);
-	backdrop-filter: blur(6px);
-}
-
-.bv-modal-content {
-	position: relative;
-	max-width: 90vw;
-	max-height: 90vh;
-	z-index: 2;
-}
-
-.bv-modal-img {
-	max-width: 100%;
-	max-height: 85vh;
-	border-radius: 8px;
-	box-shadow: 0 10px 40px rgba(0,0,0,0.4);
-	display: block;
-}
-
-.bv-modal-close {
-	position: absolute;
-	top: -44px;
-	right: -10px;
-	width: 40px;
-	height: 40px;
-	background: transparent;
-	border: none;
-	color: #FFFFFF;
-	font-size: 36px;
-	line-height: 1;
-	cursor: pointer;
+	margin: 0;
 }
 
 /* ==========================================================================

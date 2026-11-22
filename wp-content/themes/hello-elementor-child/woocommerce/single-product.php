@@ -1,7 +1,8 @@
 <?php
 /**
  * The Template for displaying single product detail.
- * Inspired by Anh Ceramics (Wabi-Sabi Craft Aesthetic).
+ * Style: Luxury Ceramic Minimalism (No Icons / Pure Typography & Craft)
+ * Inspired by Anh Ceramics.
  *
  * @package HelloElementorChild
  */
@@ -39,18 +40,18 @@ while ( have_posts() ) : the_post();
 
 <div class="bv-single-product-page">
 	
-	<!-- 1. BREADCRUMB -->
+	<!-- 1. BREADCRUMB (NO ORDERED LIST NUMBERS - CLEAN TRAIL) -->
 	<nav class="bv-product-breadcrumb" aria-label="Đường dẫn">
 		<div class="bv-container">
-			<ol class="bv-breadcrumb-list">
-				<li><a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a></li>
-				<li class="bv-b-sep">/</li>
-				<li><a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Cửa hàng gốm</a></li>
-				<li class="bv-b-sep">/</li>
-				<li><a href="<?php echo esc_url( $cat_link ); ?>"><?php echo esc_html( $cat_name ); ?></a></li>
-				<li class="bv-b-sep">/</li>
-				<li aria-current="page"><?php echo esc_html( $title ); ?></li>
-			</ol>
+			<div class="bv-breadcrumb-trail">
+				<a href="<?php echo esc_url( home_url( '/' ) ); ?>">Trang chủ</a>
+				<span class="bv-b-sep">/</span>
+				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Cửa hàng gốm</a>
+				<span class="bv-b-sep">/</span>
+				<a href="<?php echo esc_url( $cat_link ); ?>"><?php echo esc_html( $cat_name ); ?></a>
+				<span class="bv-b-sep">/</span>
+				<span class="bv-b-current" aria-current="page"><?php echo esc_html( $title ); ?></span>
+			</div>
 		</div>
 	</nav>
 
@@ -59,24 +60,15 @@ while ( have_posts() ) : the_post();
 		<div class="bv-container">
 			<div class="bv-product-columns">
 				
-				<!-- COLUMN 1: PRODUCT GALLERY (LEFT - 55%) -->
+				<!-- COLUMN 1: PRODUCT GALLERY (LEFT) -->
 				<div class="bv-product-gallery">
 					<div class="bv-gallery-stage">
-						<div class="bv-stage-inner" id="bv-gallery-stage">
+						<div class="bv-stage-inner">
 							<img src="<?php echo esc_url( $main_img_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="bv-stage-img" id="bv-main-product-img">
-							
-							<div class="bv-stage-badges">
-								<span class="bv-sbadge">✦ Nung củi 1.250°C</span>
-								<span class="bv-sbadge">Men tro tự nhiên</span>
-							</div>
-
-							<button type="button" class="bv-stage-zoom-btn" id="bv-zoom-btn" aria-label="Xem ảnh phóng to" title="Phóng to ảnh">
-								<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line><line x1="11" y1="8" x2="11" y2="14"></line><line x1="8" y1="11" x2="14" y2="11"></line></svg>
-							</button>
 						</div>
 					</div>
 
-					<!-- Thumbnails Strip (Anh Ceramics Style) -->
+					<!-- Thumbnails Strip -->
 					<?php if ( count( $all_img_ids ) > 1 ) : ?>
 						<div class="bv-gallery-thumbs" id="bv-gallery-thumbs">
 							<?php foreach ( $all_img_ids as $idx => $img_id ) : 
@@ -84,7 +76,7 @@ while ( have_posts() ) : the_post();
 								$large_url = wp_get_attachment_image_url( $img_id, 'large' );
 								$is_active = ( 0 === $idx );
 							?>
-								<button type="button" class="bv-thumb-item <?php echo $is_active ? 'is-active' : ''; ?>" data-large-src="<?php echo esc_url( $large_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'Xem ảnh số %d', $idx + 1 ) ); ?>">
+								<button type="button" class="bv-thumb-item <?php echo $is_active ? 'is-active' : ''; ?>" data-large-src="<?php echo esc_url( $large_url ); ?>" aria-label="<?php echo esc_attr( sprintf( 'Ảnh số %d', $idx + 1 ) ); ?>">
 									<img src="<?php echo esc_url( $thumb_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" loading="lazy">
 								</button>
 							<?php endforeach; ?>
@@ -92,7 +84,7 @@ while ( have_posts() ) : the_post();
 					<?php endif; ?>
 				</div>
 
-				<!-- COLUMN 2: BUY BOX & PRODUCT DETAILS (RIGHT - 45%) -->
+				<!-- COLUMN 2: BUY BOX & PRODUCT DETAILS (RIGHT) -->
 				<div class="bv-product-summary">
 					
 					<!-- Category Tag -->
@@ -103,20 +95,13 @@ while ( have_posts() ) : the_post();
 					<!-- Product Title -->
 					<h1 class="bv-summary-title"><?php echo esc_html( $title ); ?></h1>
 
-					<!-- Rating & Orders Meta -->
+					<!-- Rating & Verification Meta (No cartoon stars) -->
 					<div class="bv-summary-rating-row">
-						<div class="bv-stars-group">
-							<span class="bv-star">★</span>
-							<span class="bv-star">★</span>
-							<span class="bv-star">★</span>
-							<span class="bv-star">★</span>
-							<span class="bv-star">★</span>
-							<strong>5.0</strong>
-						</div>
+						<span class="bv-meta-rating">Đánh giá: 5.0 / 5.0</span>
 						<span class="bv-meta-sep">•</span>
-						<a href="#bv-reviews-tab" class="bv-rating-count-link">18 lượt đánh giá mộc</a>
+						<a href="#bv-product-tabs" class="bv-rating-count-link">18 nhận xét từ người dùng</a>
 						<span class="bv-meta-sep">•</span>
-						<span class="bv-craft-certified">✓ Thành phẩm ra lò</span>
+						<span class="bv-craft-certified">Thành phẩm xưởng gốm</span>
 					</div>
 
 					<!-- Price -->
@@ -124,15 +109,9 @@ while ( have_posts() ) : the_post();
 						<?php echo wp_kses_post( $price_html ); ?>
 					</div>
 
-					<!-- Stock Scarcity Status -->
+					<!-- Scarcity / Stock Status -->
 					<div class="bv-stock-scarcity">
-						<div class="bv-scarcity-text">
-							<span class="bv-pulse-dot" aria-hidden="true"></span>
-							<span>Chỉ còn lại <strong>2 - 3 chiếc độc bản</strong> trong mẻ nung này</span>
-						</div>
-						<div class="bv-scarcity-bar" aria-hidden="true">
-							<div class="bv-scarcity-fill" style="width: 25%;"></div>
-						</div>
+						<span>Tình trạng: <strong>Còn 2 sản phẩm</strong> trong mẻ nung này</span>
 					</div>
 
 					<!-- Short Description -->
@@ -148,71 +127,69 @@ while ( have_posts() ) : the_post();
 							<form class="cart bv-addcart-form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
 								
 								<div class="bv-qty-and-cta">
-									<!-- Quantity Input with +/- buttons -->
+									<!-- Quantity Input [-] 1 [+] -->
 									<div class="bv-quantity-box">
-										<button type="button" class="bv-qty-btn bv-qty-minus" aria-label="Giảm số lượng">-</button>
-										<input type="number" id="bv-quantity" class="bv-qty-input input-text qty text" step="1" min="1" max="10" name="quantity" value="1" title="Số lượng" size="4" inputmode="numeric">
-										<button type="button" class="bv-qty-btn bv-qty-plus" aria-label="Tăng số lượng">+</button>
+										<button type="button" class="bv-qty-btn bv-qty-minus" aria-label="Giảm">-</button>
+										<input type="number" id="bv-quantity" class="bv-qty-input" step="1" min="1" max="10" name="quantity" value="1" title="Số lượng">
+										<button type="button" class="bv-qty-btn bv-qty-plus" aria-label="Tăng">+</button>
 									</div>
 
 									<!-- Add to Cart Button -->
-									<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $pid ); ?>" class="bv-btn-add-to-cart single_add_to_cart_button button alt">
-										<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
-										<span>Thêm Vào Giỏ Hàng</span>
+									<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $pid ); ?>" class="bv-btn-add-to-cart">
+										Thêm Vào Giỏ Hàng
 									</button>
 								</div>
 
 								<!-- Buy Now (Direct Checkout) Button -->
 								<div class="bv-buynow-wrap">
 									<button type="button" class="bv-btn-buy-now" data-product-id="<?php echo esc_attr( $pid ); ?>" data-checkout-url="<?php echo esc_url( wc_get_checkout_url() ); ?>">
-										<span>⚡ Mua Ngay (Thanh toán VietQR MBBank)</span>
+										Mua Ngay (Thanh toán VietQR)
 									</button>
 								</div>
 
 							</form>
 						<?php else : ?>
 							<div class="bv-out-of-stock-box">
-								<p>Tác phẩm hiện đã hết trong mẻ nung này. Mời bạn chọn sản phẩm khác hoặc nhắn Zalo để đặt hàng cho mẻ nung tiếp theo.</p>
+								<p>Tác phẩm hiện đã hết trong mẻ nung này. Mời bạn liên hệ xưởng để đặt làm cho mẻ nung tiếp theo.</p>
 							</div>
 						<?php endif; ?>
 
-						<!-- Zalo Consultation CTA Button -->
+						<!-- Zalo Consultation Text Button -->
 						<div class="bv-zalo-consult-wrap">
 							<a href="https://zalo.me/0363292271" target="_blank" rel="noopener" class="bv-btn-zalo-consult">
-								<span class="bv-zalo-icon">💬</span>
-								<span>Nhắn Zalo tư vấn chi tiết tác phẩm này (Mr. Hướng)</span>
+								Tư vấn trực tiếp qua Zalo: 0363 292 271 (Mr. Hướng)
 							</a>
 						</div>
 					</div>
 
-					<!-- STUDIO GUARANTEE BOX (ANH CERAMICS TRUST) -->
+					<!-- STUDIO POLICY & GUARANTEE (NO EMOJIS - EDITORIAL MINIMALISM) -->
 					<div class="bv-guarantee-box">
 						<div class="bv-g-item">
-							<span class="bv-g-icon">📦</span>
+							<span class="bv-g-num">01</span>
 							<div>
 								<strong>Bảo hành bể vỡ 100%</strong>
-								<p>Quay video khui kiện gốm, xưởng hoàn tiền hoặc gửi tác phẩm thay thế ngay nếu có bất kỳ nứt vỡ nào.</p>
+								<p>Đổi mới hoặc hoàn tiền ngay nếu có bất kỳ nứt mẻ nào trong quá trình vận chuyển.</p>
 							</div>
 						</div>
 						<div class="bv-g-item">
-							<span class="bv-g-icon">🍃</span>
+							<span class="bv-g-num">02</span>
 							<div>
 								<strong>Men khoáng tự nhiên 100%</strong>
-								<p>Nung lửa lớn 1.250°C, khử hoàn toàn kim loại nặng, an toàn tuyệt đối cho thực phẩm và lò vi sóng.</p>
+								<p>Nung nhiệt 1.250°C, an toàn cho thực phẩm, lò vi sóng và máy rửa bát.</p>
 							</div>
 						</div>
 						<div class="bv-g-item">
-							<span class="bv-g-icon">🔄</span>
+							<span class="bv-g-num">03</span>
 							<div>
 								<strong>Hỗ trợ đổi trả trong 7 ngày</strong>
-								<p>Đổi miễn phí nếu tác phẩm không đúng hình ảnh hoặc kỳ vọng thẩm mỹ của bạn.</p>
+								<p>Đổi miễn phí nếu sản phẩm không đúng hình ảnh hoặc kỳ vọng thẩm mỹ.</p>
 							</div>
 						</div>
 						<div class="bv-g-item">
-							<span class="bv-g-icon">🚚</span>
+							<span class="bv-g-num">04</span>
 							<div>
-								<strong>Giao hàng an toàn toàn quốc</strong>
-								<p>Đóng gói chống sốc 3 lớp chuyên dụng bằng xốp và giấy carton mộc thân thiện môi trường.</p>
+								<strong>Đóng gói xốp 3 lớp an toàn</strong>
+								<p>Đóng gói chống sốc chuyên dụng cho đồ gốm thủ công, giao hàng toàn quốc.</p>
 							</div>
 						</div>
 					</div>
@@ -223,7 +200,7 @@ while ( have_posts() ) : the_post();
 		</div>
 	</div>
 
-	<!-- 3. DETAILED PRODUCT INFORMATION TABS / ACCORDION -->
+	<!-- 3. DETAILED PRODUCT INFORMATION TABS -->
 	<section class="bv-product-tabs-section" id="bv-product-tabs">
 		<div class="bv-container">
 			<div class="bv-tabs-wrapper">
@@ -231,13 +208,13 @@ while ( have_posts() ) : the_post();
 				<!-- Tabs Nav -->
 				<div class="bv-tabs-nav" role="tablist">
 					<button type="button" class="bv-tab-btn is-active" data-tab="tab-desc" role="tab" aria-selected="true">
-						Chi Tiết Tác Phẩm & Kích Thước
+						Chi Tiết Tác Phẩm &amp; Kích Thước
 					</button>
 					<button type="button" class="bv-tab-btn" data-tab="tab-usage" role="tab" aria-selected="false">
-						Hướng Dẫn Sử Dụng & Bảo Quản
+						Hướng Dẫn Sử Dụng &amp; Bảo Quản
 					</button>
-					<button type="button" class="bv-tab-btn" data-tab="tab-reviews" id="bv-reviews-tab" role="tab" aria-selected="false">
-						Đánh Giá Khách Hàng (<?php echo esc_html( $product->get_review_count() ?: 5 ); ?>)
+					<button type="button" class="bv-tab-btn" data-tab="tab-reviews" role="tab" aria-selected="false">
+						Đánh Giá Từ Khách Hàng (18)
 					</button>
 				</div>
 
@@ -247,7 +224,7 @@ while ( have_posts() ) : the_post();
 						<?php if ( $desc ) : ?>
 							<?php echo wpautop( $desc ); ?>
 						<?php else : ?>
-							<p>Tác phẩm gốm mộc được tạo hình hoàn toàn thủ công trên bàn xoay truyền thống từ bàn tay người thợ làng gốm. Mỗi đường vân, vệt loang ngẫu hứng của men tro và sắc nung 1.250°C mang theo linh hồn độc bản, không sản phẩm nào giống hệt sản phẩm nào.</p>
+							<p>Tác phẩm gốm mộc được tạo hình thủ công trên bàn xoay truyền thống từ bàn tay người thợ lành nghề. Mỗi đường vân, vệt loang ngẫu hứng của men tro và sắc nung 1.250°C mang theo dấu ấn độc bản riêng biệt.</p>
 						<?php endif; ?>
 
 						<!-- Specifications Table -->
@@ -256,15 +233,15 @@ while ( have_posts() ) : the_post();
 							<dl class="bv-specs-list">
 								<div class="bv-spec-row">
 									<dt>Chất liệu đất</dt>
-									<dd>Đất sét phù sa sông Hồng tinh lọc, ủ tự nhiên</dd>
+									<dd>Đất sét phù sa sông Hồng tinh lọc</dd>
 								</div>
 								<div class="bv-spec-row">
 									<dt>Nước men</dt>
-									<dd>Men tro trấu & khoáng thiên nhiên, không chì</dd>
+									<dd>Men tro trấu &amp; khoáng thiên nhiên, không chì</dd>
 								</div>
 								<div class="bv-spec-row">
-									<dt>Nhiệt độ lò nung</dt>
-									<dd>1.250°C (Nung lửa bền vĩnh cửu, độ đanh như đá)</dd>
+									<dt>Nhiệt độ nung</dt>
+									<dd>1.250°C (Độ đanh chắc, bền vĩnh cửu)</dd>
 								</div>
 								<div class="bv-spec-row">
 									<dt>Phương pháp chế tác</dt>
@@ -279,34 +256,30 @@ while ( have_posts() ) : the_post();
 					</div>
 				</div>
 
-				<!-- Tab 2: Usage & Care -->
+				<!-- Tab 2: Usage & Care (No Emojis) -->
 				<div class="bv-tab-content" id="tab-usage" role="tabpanel">
 					<div class="bv-tab-prose">
 						<div class="bv-care-grid">
 							<div class="bv-care-card">
-								<span class="bv-care-icon">♨️</span>
-								<h4>Lò vi sóng & Lò nướng</h4>
-								<p>Sản phẩm đã được nung ở 1.250°C nên chịu nhiệt hoàn hảo. Dùng an toàn trong lò vi sóng để hâm nóng đồ ăn.</p>
+								<h4>Lò vi sóng &amp; Lò nướng</h4>
+								<p>Sản phẩm nung 1.250°C chịu nhiệt rất tốt, sử dụng an toàn trong lò vi sóng để hâm nóng đồ ăn.</p>
 							</div>
 							<div class="bv-care-card">
-								<span class="bv-care-icon">🧼</span>
-								<h4>Vệ sinh & Máy rửa bát</h4>
-								<p>An toàn tuyệt đối với máy rửa bát. Với vết ố trà hoặc cà phê lâu ngày, bạn chỉ cần dùng baking soda hoặc chanh chà nhẹ là sạch bóng.</p>
+								<h4>Vệ sinh &amp; Máy rửa bát</h4>
+								<p>An toàn với máy rửa bát. Với vết ố trà hoặc cà phê, dùng baking soda hoặc chanh chà nhẹ là sạch bóng.</p>
 							</div>
 							<div class="bv-care-card">
-								<span class="bv-care-icon">❄️</span>
-								<h4>Tránh sốc nhiệt đột ngột</h4>
-								<p>Không chuyển gốm trực tiếp từ ngăn đông tủ lạnh sang lò nướng hoặc đổ ngay nước sôi sùng sục khi gốm đang lạnh băng.</p>
+								<h4>Tránh sốc nhiệt</h4>
+								<p>Không chuyển gốm đột ngột từ ngăn đông tủ lạnh sang nước sôi hoặc lò nướng nhiệt cao.</p>
 							</div>
 						</div>
 					</div>
 				</div>
 
-				<!-- Tab 3: Reviews with Photos -->
+				<!-- Tab 3: Reviews -->
 				<div class="bv-tab-content" id="tab-reviews" role="tabpanel">
 					<div class="bv-reviews-container">
 						<?php
-						// Output WooCommerce comments / reviews template
 						if ( comments_open() || pings_open() ) {
 							comments_template();
 						} else {
@@ -320,7 +293,7 @@ while ( have_posts() ) : the_post();
 		</div>
 	</section>
 
-	<!-- 4. RELATED PRODUCTS (4 CARDS - ANH CERAMICS) -->
+	<!-- 4. RELATED PRODUCTS -->
 	<?php
 	$related_args = [
 		'post_type'      => 'product',
@@ -362,15 +335,9 @@ while ( have_posts() ) : the_post();
 										<img src="<?php echo esc_url( $r_hover ); ?>" alt="<?php echo esc_attr( $r_prod->get_name() ); ?>" class="bv-card-img bv-card-img--hover" loading="lazy">
 									<?php endif; ?>
 								</a>
-								<div class="bv-card-badges">
-									<span class="bv-badge bv-badge--craft">✦ Độc bản</span>
-								</div>
 							</div>
 							<div class="bv-card-body">
-								<div class="bv-card-stars">
-									<span class="bv-star">★</span><span class="bv-star">★</span><span class="bv-star">★</span><span class="bv-star">★</span><span class="bv-star">★</span>
-									<span class="bv-rating-note">(5.0)</span>
-								</div>
+								<div class="bv-card-meta-line">Gốm Mộc Thủ Công</div>
 								<h3 class="bv-card-title">
 									<a href="<?php echo esc_url( $r_prod->get_permalink() ); ?>">
 										<?php echo esc_html( $r_prod->get_name() ); ?>
@@ -387,15 +354,6 @@ while ( have_posts() ) : the_post();
 		</section>
 	<?php endif; ?>
 
-</div>
-
-<!-- LIGHTBOX MODAL FOR PRODUCT IMAGE ZOOM -->
-<div id="bv-image-modal" class="bv-image-modal" aria-hidden="true" tabindex="-1">
-	<div class="bv-modal-overlay"></div>
-	<div class="bv-modal-content">
-		<button type="button" class="bv-modal-close" id="bv-modal-close" aria-label="Đóng ảnh lớn">&times;</button>
-		<img src="" alt="" id="bv-modal-img" class="bv-modal-img">
-	</div>
 </div>
 
 <?php endwhile; ?>
