@@ -1,0 +1,188 @@
+/**
+ * VietQR Styles for Ceramic Studio
+ */
+.bv-vietqr-card {
+    margin: 28px 0;
+    padding: 28px;
+    background: #faf7f2;
+    border: 1px solid #e2d9cf;
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(107, 76, 53, 0.05);
+    font-family: inherit;
+}
+
+.bv-vietqr-header {
+    text-align: center;
+    margin-bottom: 24px;
+    border-bottom: 1px dashed #d9cbbe;
+    padding-bottom: 18px;
+}
+
+.bv-vietqr-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #e9f5ec;
+    color: #2b7a40;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.bv-vietqr-header h3 {
+    margin: 6px 0;
+    color: #4a3325;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.bv-vietqr-sub {
+    color: #7a6a5f;
+    font-size: 14px;
+    margin: 0;
+}
+
+.bv-vietqr-body {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+    justify-content: center;
+}
+
+.bv-vietqr-image-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #fff;
+    padding: 14px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.06);
+    border: 1px solid #ebd9cb;
+}
+
+.bv-vietqr-image {
+    max-width: 250px;
+    height: auto;
+    display: block;
+    border-radius: 6px;
+}
+
+.bv-vietqr-tip {
+    font-size: 12px;
+    color: #8c786a;
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.bv-vietqr-details {
+    flex: 1;
+    min-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bv-detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #eee5dd;
+    font-size: 14px;
+}
+
+.bv-detail-label {
+    color: #7a6a5f;
+    min-width: 100px;
+}
+
+.bv-detail-value {
+    color: #3b281c;
+    font-weight: 600;
+    margin-left: auto;
+    margin-right: 12px;
+    word-break: break-all;
+}
+
+.bv-detail-value.bv-amount {
+    color: #b3592b;
+    font-size: 16px;
+}
+
+.bv-highlight-row {
+    background: #fbf0e6;
+    border-color: #e8c6ad;
+}
+
+.bv-btn-copy {
+    background: #eedfd3;
+    border: none;
+    color: #6b4c35;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.bv-btn-copy:hover {
+    background: #b3592b;
+    color: #fff;
+}
+
+.bv-btn-copy.is-copied {
+    background: #2b7a40;
+    color: #fff;
+}
+
+.bv-vietqr-notice {
+    margin-top: 10px;
+    padding: 10px 14px;
+    background: #fff8e8;
+    border-left: 3px solid #e0973a;
+    border-radius: 4px;
+    font-size: 13px;
+    color: #6c5333;
+}
+
+.bv-vietqr-notice p {
+    margin: 0;
+}
+
+.bv-vietqr-notice code {
+    background: #f7e6ce;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #9c5512;
+}
+
+@media (max-width: 600px) {
+    .bv-vietqr-card {
+        padding: 16px;
+    }
+    .bv-vietqr-body {
+        gap: 20px;
+    }
+    .bv-vietqr-image {
+        max-width: 220px;
+    }
+    .bv-detail-row {
+        flex-wrap: wrap;
+        gap: 6px;
+    }
+    .bv-detail-value {
+        margin-right: 0;
+    }
+}
