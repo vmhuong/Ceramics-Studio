@@ -53,7 +53,7 @@ $logged_in = is_user_logged_in();
 					</div>
 					<div class="bv-brand-text">
 						<span class="bv-brand-name">CERAMIC STUDIO</span>
-						<span class="bv-brand-slogan">Gốm Mộc Thủ Công & Workshop</span>
+						<span class="bv-brand-slogan">Gốm Mộc &amp; Workshop</span>
 					</div>
 				</a>
 			</div>

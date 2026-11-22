@@ -19,6 +19,17 @@ if ( ! is_admin() ) {
 	add_filter( 'pre_option_wpr_footer_conditions', function () {
 		return '[]';
 	} );
+
+	// Ensure the Wabi-Sabi front-page.php is always used for the homepage, overriding Elementor canvas/template hijack
+	add_filter( 'template_include', function ( $template ) {
+		if ( is_front_page() ) {
+			$front = get_stylesheet_directory() . '/front-page.php';
+			if ( file_exists( $front ) ) {
+				return $front;
+			}
+		}
+		return $template;
+	}, 99999 );
 }
 
 // 2. Enqueue Global Wabi-Sabi Header & Footer Assets

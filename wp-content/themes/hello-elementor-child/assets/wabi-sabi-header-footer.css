@@ -53,9 +53,9 @@ body.bv-wabi-sabi-body {
 }
 
 .bv-header-container {
-	max-width: 1240px;
+	max-width: 1380px;
 	margin: 0 auto;
-	padding: 0 24px;
+	padding: 0 32px;
 }
 
 .bv-header-row {
@@ -64,6 +64,7 @@ body.bv-wabi-sabi-body {
 	justify-content: space-between;
 	height: var(--bv-header-height);
 	transition: height 0.3s ease;
+	gap: 20px;
 }
 
 .bv-site-header.is-compact .bv-header-row {
@@ -77,6 +78,7 @@ body.bv-wabi-sabi-body {
 	display: flex;
 	align-items: center;
 	flex-shrink: 0;
+	margin-right: 24px;
 }
 
 .bv-brand-link {
@@ -91,11 +93,12 @@ body.bv-wabi-sabi-body {
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	width: 44px;
-	height: 44px;
+	width: 42px;
+	height: 42px;
 	background: #F3ECE2;
 	border: 1px solid #E2D7C8;
 	border-radius: 50%;
+	flex-shrink: 0;
 	transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
@@ -107,11 +110,12 @@ body.bv-wabi-sabi-body {
 .bv-brand-text {
 	display: flex;
 	flex-direction: column;
+	white-space: nowrap;
 }
 
 .bv-brand-name {
 	font-family: var(--bv-font-serif);
-	font-size: 22px;
+	font-size: 21px;
 	font-weight: 700;
 	letter-spacing: 2px;
 	color: var(--bv-c-ink);
@@ -119,11 +123,11 @@ body.bv-wabi-sabi-body {
 }
 
 .bv-brand-slogan {
-	font-size: 11px;
-	letter-spacing: 1px;
+	font-size: 10.5px;
+	letter-spacing: 1.2px;
 	text-transform: uppercase;
 	color: var(--bv-c-wood);
-	font-weight: 500;
+	font-weight: 600;
 	margin-top: 3px;
 }
 
@@ -133,6 +137,9 @@ body.bv-wabi-sabi-body {
 .bv-header-nav {
 	display: flex;
 	align-items: center;
+	flex: 1 1 auto;
+	justify-content: center;
+	min-width: 0;
 }
 
 .bv-nav-menu {
@@ -141,23 +148,30 @@ body.bv-wabi-sabi-body {
 	list-style: none;
 	margin: 0;
 	padding: 0;
-	gap: 32px;
+	gap: 22px;
+	flex-wrap: nowrap;
 }
 
 .bv-nav-menu > li {
 	position: relative;
 	margin: 0;
 	padding: 0;
+	white-space: nowrap !important;
 }
 
 .bv-nav-menu > li > a {
 	display: inline-block;
-	padding: 10px 0;
-	font-size: 15px;
+	padding: 8px 4px;
+	font-size: 14.5px;
 	font-weight: 500;
 	color: var(--bv-c-ink);
 	text-decoration: none;
-	letter-spacing: 0.3px;
+	letter-spacing: 0.2px;
+	white-space: nowrap !important;
+	position: relative;
+	transition: color 0.25s ease;
+	line-height: 1.4;
+}
 	position: relative;
 	transition: color 0.25s ease;
 }
@@ -234,7 +248,9 @@ body.bv-wabi-sabi-body {
 .bv-header-actions {
 	display: flex;
 	align-items: center;
-	gap: 16px;
+	gap: 12px;
+	flex-shrink: 0;
+	margin-left: 20px;
 }
 
 /* Hotline Pill */
@@ -826,6 +842,25 @@ body.bv-wabi-sabi-body {
 /* ==========================================================================
    RESPONSIVE DESIGN (MEDIA QUERIES)
    ========================================================================== */
+@media (max-width: 1280px) {
+	.bv-action-hotline {
+		display: none;
+	}
+	.bv-nav-menu {
+		gap: 16px;
+	}
+	.bv-header-brand {
+		margin-right: 16px;
+	}
+	.bv-header-actions {
+		margin-left: 14px;
+		gap: 10px;
+	}
+	.bv-header-container {
+		padding: 0 18px;
+	}
+}
+
 @media (max-width: 1024px) {
 	.bv-header-nav {
 		display: none;
