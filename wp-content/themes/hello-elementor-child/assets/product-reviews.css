@@ -1,0 +1,214 @@
+/**
+ * Craft Product Reviews Styles - Ceramic Studio
+ */
+.bv-review-summary-card {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 32px;
+    align-items: center;
+    background: #faf7f2;
+    border: 1px solid #ebd9cb;
+    border-radius: 12px;
+    padding: 24px 28px;
+    margin-bottom: 30px;
+}
+
+.bv-summary-left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-right: 28px;
+    border-right: 1px dashed #d8cbbe;
+    min-width: 160px;
+}
+
+.bv-score-number {
+    font-size: 42px;
+    font-weight: 800;
+    color: #b3592b;
+    line-height: 1;
+    margin-bottom: 6px;
+}
+
+.bv-score-stars {
+    display: flex;
+    gap: 4px;
+    color: #d8cbbe;
+    font-size: 16px;
+    margin-bottom: 8px;
+}
+
+.bv-score-stars .is-filled {
+    color: #f5a623;
+}
+
+.bv-review-total {
+    font-size: 13px;
+    color: #7a6a5f;
+    margin-bottom: 6px;
+}
+
+.bv-verified-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #2b7a40;
+    background: #e9f5ec;
+    padding: 3px 10px;
+    border-radius: 20px;
+}
+
+.bv-summary-right {
+    flex: 1;
+    min-width: 260px;
+}
+
+.bv-tag-title {
+    display: block;
+    font-size: 14px;
+    font-weight: 700;
+    color: #3b281c;
+    margin-bottom: 12px;
+}
+
+.bv-feedback-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.bv-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: #fff;
+    border: 1px solid #ebd9cb;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #6a574a;
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+}
+
+.bv-tag i {
+    color: #b3592b;
+}
+
+/* Individual Comments */
+.woocommerce-Reviews .commentlist {
+    padding: 0;
+    list-style: none;
+}
+
+.woocommerce-Reviews .commentlist li.review {
+    background: #fff;
+    border: 1px solid #ebd9cb;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(80, 50, 30, 0.03);
+}
+
+.bv-comment-badges {
+    margin-bottom: 8px;
+}
+
+.bv-verified-buyer {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: #e9f5ec;
+    color: #2b7a40;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.bv-comment-photos {
+    margin-top: 14px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.bv-review-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ebd9cb;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.bv-review-thumb:hover {
+    transform: scale(1.05);
+    border-color: #b3592b;
+}
+
+/* Photo Upload Field in Review Form */
+.bv-review-photo-field {
+    margin: 18px 0;
+    padding: 16px 20px;
+    background: #faf7f2;
+    border: 1px dashed #c7b3a3;
+    border-radius: 8px;
+}
+
+.bv-photo-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #4a3325;
+    cursor: pointer;
+    margin-bottom: 6px;
+}
+
+.bv-photo-input {
+    display: block;
+    font-size: 13px;
+    color: #7a6a5f;
+    margin-top: 6px;
+}
+
+.bv-photo-preview {
+    margin-top: 12px;
+}
+
+.bv-photo-preview img {
+    max-width: 100px;
+    height: auto;
+    border-radius: 6px;
+    border: 2px solid #b3592b;
+}
+
+.bv-photo-hint {
+    display: block;
+    margin-top: 6px;
+    font-size: 12px;
+    color: #8c786a;
+}
+
+@media (max-width: 680px) {
+    .bv-review-summary-card {
+        flex-direction: column;
+        padding: 20px 16px;
+        gap: 20px;
+    }
+    .bv-summary-left {
+        border-right: none;
+        border-bottom: 1px dashed #d8cbbe;
+        padding-right: 0;
+        padding-bottom: 16px;
+        width: 100%;
+    }
+}
