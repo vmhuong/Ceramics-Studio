@@ -1,0 +1,565 @@
+/**
+ * Ceramic Shop & Collection Styling (Inspired by Anh Ceramics)
+ * Project: Ceramic Studio (Bookverse)
+ * Author: Vu Manh Huong (PM28.11)
+ */
+
+:root {
+	--bv-c-bg: #FAF7F2;
+	--bv-c-white: #FFFFFF;
+	--bv-c-clay: #B3592B;
+	--bv-c-clay-dark: #8F401B;
+	--bv-c-wood: #6B4C35;
+	--bv-c-ink: #2C2523;
+	--bv-c-muted: #7A6D65;
+	--bv-c-border: #E8E2D8;
+	--bv-c-card-bg: #F8F5EF;
+	--bv-font-serif: 'Cormorant Garamond', Georgia, serif;
+	--bv-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bv-shop-archive-page {
+	background-color: var(--bv-c-bg);
+	min-height: 80vh;
+	padding-bottom: 80px;
+}
+
+.bv-container {
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+/* ==========================================================================
+   1. BREADCRUMBS
+   ========================================================================== */
+.bv-archive-breadcrumb {
+	padding: 16px 0;
+	border-bottom: 1px solid rgba(232, 226, 216, 0.7);
+}
+
+.bv-breadcrumb-list {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+	font-size: 13px;
+	color: var(--bv-c-muted);
+}
+
+.bv-breadcrumb-list a {
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.bv-breadcrumb-list a:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-b-sep {
+	color: #C7BDB3;
+}
+
+/* ==========================================================================
+   2. COLLECTION HERO BANNER
+   ========================================================================== */
+.bv-collection-hero {
+	padding: 40px 0 24px;
+	text-align: center;
+}
+
+.bv-hero-text-wrap {
+	max-width: 680px;
+	margin: 0 auto 32px;
+}
+
+.bv-collection-eyebrow {
+	display: inline-block;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 2.5px;
+	color: var(--bv-c-clay);
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.bv-collection-title {
+	font-family: var(--bv-font-serif);
+	font-size: 38px;
+	font-weight: 700;
+	letter-spacing: 1px;
+	color: var(--bv-c-ink);
+	line-height: 1.2;
+	margin: 0 0 12px;
+}
+
+.bv-collection-desc {
+	font-size: 15px;
+	color: var(--bv-c-muted);
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* Category Pills Bar (Anh Ceramics Signature) */
+.bv-category-pills-bar {
+	margin-top: 20px;
+}
+
+.bv-pills-scroll {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.bv-pill {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 18px;
+	background: #F3ECE2;
+	border: 1px solid #E2D7C8;
+	border-radius: 24px;
+	font-size: 13.5px;
+	font-weight: 500;
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: all 0.25s ease;
+}
+
+.bv-pill-count {
+	font-size: 11.5px;
+	opacity: 0.8;
+}
+
+.bv-pill:hover {
+	background: #EBDDCE;
+	border-color: var(--bv-c-clay);
+	color: var(--bv-c-clay);
+	transform: translateY(-2px);
+}
+
+.bv-pill.is-active {
+	background: var(--bv-c-clay);
+	border-color: var(--bv-c-clay);
+	color: #FFFFFF !important;
+	box-shadow: 0 4px 14px rgba(179, 89, 43, 0.3);
+}
+
+/* ==========================================================================
+   3. TOOLBAR: COUNT & SORTING
+   ========================================================================== */
+.bv-shop-toolbar {
+	padding: 16px 0;
+	margin-bottom: 24px;
+	border-top: 1px solid var(--bv-c-border);
+	border-bottom: 1px solid var(--bv-c-border);
+	background: rgba(255, 255, 255, 0.5);
+}
+
+.bv-toolbar-inner {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 16px;
+}
+
+.bv-toolbar-count {
+	font-size: 14px;
+	color: var(--bv-c-muted);
+}
+
+.bv-toolbar-count strong {
+	color: var(--bv-c-ink);
+}
+
+.bv-sort-form {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+}
+
+.bv-sort-label {
+	font-size: 13px;
+	color: var(--bv-c-muted);
+	font-weight: 500;
+}
+
+.bv-sort-select {
+	padding: 7px 14px;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 6px;
+	font-size: 13px;
+	font-family: inherit;
+	color: var(--bv-c-ink);
+	cursor: pointer;
+	outline: none;
+	transition: border-color 0.2s;
+}
+
+.bv-sort-select:focus {
+	border-color: var(--bv-c-clay);
+}
+
+/* ==========================================================================
+   4. CERAMIC PRODUCT GRID (4 COLUMNS - ANH CERAMICS)
+   ========================================================================== */
+.bv-ceramic-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 28px;
+}
+
+/* Product Card */
+.bv-product-card {
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
+	position: relative;
+}
+
+.bv-product-card:hover {
+	transform: translateY(-6px);
+	box-shadow: 0 14px 32px rgba(44, 37, 35, 0.1);
+	border-color: #D6CBC0;
+}
+
+/* Media Box with Hover Image Flip */
+.bv-card-media {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	background: var(--bv-c-card-bg);
+	overflow: hidden;
+}
+
+.bv-card-img-link {
+	display: block;
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.bv-card-img {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.bv-card-img--primary {
+	opacity: 1;
+	z-index: 1;
+}
+
+.bv-card-img--hover {
+	opacity: 0;
+	z-index: 2;
+}
+
+/* Hover flip effect (Anh Ceramics) */
+.bv-product-card.has-hover-image:hover .bv-card-img--hover {
+	opacity: 1;
+	transform: scale(1.04);
+}
+
+.bv-product-card.has-hover-image:hover .bv-card-img--primary {
+	opacity: 0;
+}
+
+.bv-product-card:not(.has-hover-image):hover .bv-card-img--primary {
+	transform: scale(1.05);
+}
+
+/* Badges */
+.bv-card-badges {
+	position: absolute;
+	top: 12px;
+	left: 12px;
+	display: flex;
+	flex-direction: column;
+	gap: 6px;
+	z-index: 3;
+}
+
+.bv-badge {
+	display: inline-block;
+	padding: 4px 10px;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.bv-badge--craft {
+	background: rgba(44, 37, 35, 0.85);
+	backdrop-filter: blur(4px);
+	color: #F6F2EC;
+}
+
+.bv-badge--sale {
+	background: #D94A38;
+	color: #FFFFFF;
+}
+
+.bv-badge--out {
+	background: #887B73;
+	color: #FFFFFF;
+}
+
+/* Quick Actions Overlay (Slide-up on hover) */
+.bv-card-actions {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	padding: 12px;
+	z-index: 4;
+	opacity: 0;
+	transform: translateY(10px);
+	transition: opacity 0.25s ease, transform 0.25s ease;
+	background: linear-gradient(0deg, rgba(44, 37, 35, 0.6) 0%, transparent 100%);
+}
+
+.bv-product-card:hover .bv-card-actions {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+.bv-btn-quick-cart {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	width: 100%;
+	padding: 9px 14px;
+	background: #FFFFFF;
+	color: var(--bv-c-ink) !important;
+	border-radius: 6px;
+	font-size: 12.5px;
+	font-weight: 600;
+	text-decoration: none !important;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+	transition: background 0.2s, color 0.2s;
+}
+
+.bv-btn-quick-cart:hover {
+	background: var(--bv-c-clay);
+	color: #FFFFFF !important;
+}
+
+.bv-btn-quick-cart--view {
+	background: rgba(255, 255, 255, 0.9);
+}
+
+/* Product Info Body */
+.bv-card-body {
+	padding: 18px;
+	display: flex;
+	flex-direction: column;
+	flex: 1;
+}
+
+.bv-card-stars {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	font-size: 13px;
+	color: #F5A623;
+	margin-bottom: 6px;
+}
+
+.bv-rating-note {
+	font-size: 11px;
+	color: var(--bv-c-muted);
+	margin-left: 4px;
+}
+
+.bv-card-title {
+	font-family: var(--bv-font-sans);
+	font-size: 15px;
+	font-weight: 600;
+	line-height: 1.4;
+	margin: 0 0 10px 0;
+	flex-grow: 1;
+}
+
+.bv-card-title a {
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: color 0.2s;
+	display: -webkit-box;
+	-webkit-line-clamp: 2;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.bv-card-title a:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-card-price {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--bv-c-clay);
+	margin-top: auto;
+}
+
+.bv-card-price del {
+	font-size: 13px;
+	color: #A0948A;
+	font-weight: 400;
+	margin-right: 6px;
+}
+
+.bv-card-price ins {
+	text-decoration: none;
+}
+
+/* ==========================================================================
+   5. PAGINATION
+   ========================================================================== */
+.bv-shop-pagination {
+	margin-top: 56px;
+	display: flex;
+	justify-content: center;
+}
+
+.bv-shop-pagination .nav-links {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 10px;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 30px;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+
+.bv-shop-pagination .page-numbers {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	min-width: 38px;
+	height: 38px;
+	padding: 0 10px;
+	border-radius: 50%;
+	font-size: 14px;
+	font-weight: 600;
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.bv-shop-pagination .page-numbers:hover {
+	background: #F3ECE2;
+	color: var(--bv-c-clay);
+}
+
+.bv-shop-pagination .page-numbers.current {
+	background: var(--bv-c-clay);
+	color: #FFFFFF;
+	box-shadow: 0 2px 8px rgba(179, 89, 43, 0.4);
+}
+
+/* Empty State */
+.bv-no-products {
+	text-align: center;
+	padding: 80px 24px;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 12px;
+	max-width: 580px;
+	margin: 0 auto;
+}
+
+.bv-no-products-icon {
+	font-size: 48px;
+	margin-bottom: 16px;
+}
+
+.bv-no-products h3 {
+	font-family: var(--bv-font-serif);
+	font-size: 24px;
+	color: var(--bv-c-ink);
+	margin: 0 0 10px;
+}
+
+.bv-no-products p {
+	font-size: 14.5px;
+	color: var(--bv-c-muted);
+	margin: 0 0 24px;
+	line-height: 1.6;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1180px) {
+	.bv-ceramic-grid {
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+}
+
+@media (max-width: 768px) {
+	.bv-collection-title {
+		font-size: 28px;
+	}
+	.bv-ceramic-grid {
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+	.bv-card-body {
+		padding: 12px;
+	}
+	.bv-card-title {
+		font-size: 13.5px;
+	}
+	.bv-card-price {
+		font-size: 14.5px;
+	}
+	/* Always show cart button on mobile */
+	.bv-card-actions {
+		opacity: 1;
+		transform: translateY(0);
+		background: transparent;
+		padding: 6px;
+		top: auto;
+		bottom: 6px;
+		right: 6px;
+		left: auto;
+		width: auto;
+	}
+	.bv-btn-quick-cart {
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		border-radius: 50%;
+		border: 1px solid var(--bv-c-border);
+	}
+	.bv-btn-quick-cart span {
+		display: none;
+	}
+}
+
+@media (max-width: 420px) {
+	.bv-ceramic-grid {
+		grid-template-columns: 1fr;
+	}
+}

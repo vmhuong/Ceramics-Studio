@@ -20,7 +20,7 @@ if ( ! is_admin() ) {
 		return '[]';
 	} );
 
-	// Ensure the Wabi-Sabi front-page.php is always used for the homepage, overriding Elementor canvas/template hijack
+	// Ensure the Wabi-Sabi front-page.php and woocommerce.php are always used, overriding Elementor canvas/template hijack
 	add_filter( 'template_include', function ( $template ) {
 		if ( is_front_page() ) {
 			$front = get_stylesheet_directory() . '/front-page.php';
@@ -28,11 +28,17 @@ if ( ! is_admin() ) {
 				return $front;
 			}
 		}
+		if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
+			$woo = get_stylesheet_directory() . '/woocommerce.php';
+			if ( file_exists( $woo ) ) {
+				return $woo;
+			}
+		}
 		return $template;
 	}, 99999 );
 }
 
-// 2. Enqueue Global Wabi-Sabi Header & Footer Assets
+// 2. Enqueue Global Wabi-Sabi Header & Footer Assets & Ceramic Shop Assets
 add_action( 'wp_enqueue_scripts', function () {
 	$css_file = get_stylesheet_directory() . '/assets/wabi-sabi-header-footer.css';
 	$js_file  = get_stylesheet_directory() . '/assets/wabi-sabi-header-footer.js';
@@ -51,6 +57,22 @@ add_action( 'wp_enqueue_scripts', function () {
 		file_exists( $js_file ) ? filemtime( $js_file ) : '1.0.0',
 		true
 	);
+
+	// Ceramic Shop & Collections Assets (Anh Ceramics Style)
+	if ( function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() ) ) {
+		$shop_css = get_stylesheet_directory() . '/assets/ceramic-shop.css';
+		$shop_js  = get_stylesheet_directory() . '/assets/ceramic-shop.js';
+		wp_enqueue_style( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.css', [ 'bv-wabi-sabi-header-footer' ], file_exists( $shop_css ) ? filemtime( $shop_css ) : '1.0.0' );
+		wp_enqueue_script( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.js', [ 'jquery' ], file_exists( $shop_js ) ? filemtime( $shop_js ) : '1.0.0', true );
+	}
+
+	// Ceramic Single Product Assets (Anh Ceramics Style)
+	if ( function_exists( 'is_product' ) && is_product() ) {
+		$prod_css = get_stylesheet_directory() . '/assets/ceramic-product.css';
+		$shop_js  = get_stylesheet_directory() . '/assets/ceramic-shop.js';
+		wp_enqueue_style( 'bv-ceramic-product', get_stylesheet_directory_uri() . '/assets/ceramic-product.css', [ 'bv-wabi-sabi-header-footer' ], file_exists( $prod_css ) ? filemtime( $prod_css ) : '1.0.0' );
+		wp_enqueue_script( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.js', [ 'jquery' ], file_exists( $shop_js ) ? filemtime( $shop_js ) : '1.0.0', true );
+	}
 }, 25 );
 
 // 3. Sync WooCommerce Cart Fragments for the Header Cart Badge

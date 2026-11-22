@@ -1,0 +1,739 @@
+/**
+ * Ceramic Single Product Styling (Inspired by Anh Ceramics)
+ * Project: Ceramic Studio (Bookverse)
+ * Author: Vu Manh Huong (PM28.11)
+ */
+
+:root {
+	--bv-c-bg: #FAF7F2;
+	--bv-c-white: #FFFFFF;
+	--bv-c-clay: #B3592B;
+	--bv-c-clay-dark: #8F401B;
+	--bv-c-wood: #6B4C35;
+	--bv-c-ink: #2C2523;
+	--bv-c-muted: #7A6D65;
+	--bv-c-border: #E8E2D8;
+	--bv-c-card-bg: #F8F5EF;
+	--bv-font-serif: 'Cormorant Garamond', Georgia, serif;
+	--bv-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bv-single-product-page {
+	background-color: var(--bv-c-bg);
+	min-height: 80vh;
+	padding-bottom: 80px;
+}
+
+/* ==========================================================================
+   1. BREADCRUMB
+   ========================================================================== */
+.bv-product-breadcrumb {
+	padding: 16px 0;
+	border-bottom: 1px solid rgba(232, 226, 216, 0.7);
+	margin-bottom: 32px;
+}
+
+/* ==========================================================================
+   2. MAIN 2-COLUMN SECTION (GALLERY & BUY BOX)
+   ========================================================================== */
+.bv-product-columns {
+	display: grid;
+	grid-template-columns: 1.15fr 0.95fr;
+	gap: 48px;
+	align-items: start;
+	margin-bottom: 64px;
+}
+
+/* LEFT: GALLERY */
+.bv-product-gallery {
+	position: sticky;
+	top: 100px;
+}
+
+.bv-gallery-stage {
+	position: relative;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 8px 24px rgba(44, 37, 35, 0.05);
+}
+
+.bv-stage-inner {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 1 / 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: #F8F5EF;
+}
+
+.bv-stage-img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+	transition: opacity 0.3s ease;
+}
+
+.bv-stage-badges {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	z-index: 2;
+}
+
+.bv-sbadge {
+	display: inline-block;
+	padding: 5px 12px;
+	background: rgba(44, 37, 35, 0.85);
+	backdrop-filter: blur(4px);
+	color: #FAF7F2;
+	border-radius: 4px;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+}
+
+.bv-stage-zoom-btn {
+	position: absolute;
+	top: 16px;
+	right: 16px;
+	width: 40px;
+	height: 40px;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--bv-c-ink);
+	cursor: pointer;
+	box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+	transition: all 0.2s ease;
+	z-index: 2;
+}
+
+.bv-stage-zoom-btn:hover {
+	background: var(--bv-c-clay);
+	color: #FFFFFF;
+	border-color: var(--bv-c-clay);
+	transform: scale(1.08);
+}
+
+/* Gallery Thumbnails Strip (Anh Ceramics Style) */
+.bv-gallery-thumbs {
+	display: flex;
+	gap: 12px;
+	margin-top: 16px;
+	overflow-x: auto;
+	padding-bottom: 6px;
+}
+
+.bv-thumb-item {
+	flex: 0 0 76px;
+	width: 76px;
+	height: 76px;
+	padding: 0;
+	background: #FFFFFF;
+	border: 2px solid transparent;
+	border-radius: 8px;
+	overflow: hidden;
+	cursor: pointer;
+	transition: border-color 0.2s, transform 0.2s;
+}
+
+.bv-thumb-item img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.bv-thumb-item:hover {
+	transform: translateY(-2px);
+	border-color: #D6CBC0;
+}
+
+.bv-thumb-item.is-active {
+	border-color: var(--bv-c-clay);
+	box-shadow: 0 4px 10px rgba(179, 89, 43, 0.25);
+}
+
+/* RIGHT: BUY BOX & PRODUCT SUMMARY */
+.bv-product-summary {
+	display: flex;
+	flex-direction: column;
+}
+
+.bv-summary-category a {
+	display: inline-block;
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	text-transform: uppercase;
+	color: var(--bv-c-clay);
+	text-decoration: none;
+	margin-bottom: 8px;
+}
+
+.bv-summary-title {
+	font-family: var(--bv-font-serif);
+	font-size: 34px;
+	font-weight: 700;
+	line-height: 1.25;
+	color: var(--bv-c-ink);
+	margin: 0 0 14px 0;
+}
+
+.bv-summary-rating-row {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	font-size: 13.5px;
+	color: var(--bv-c-muted);
+	margin-bottom: 18px;
+	flex-wrap: wrap;
+}
+
+.bv-stars-group {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+	color: #F5A623;
+}
+
+.bv-stars-group strong {
+	color: var(--bv-c-ink);
+	margin-left: 4px;
+	font-size: 13px;
+}
+
+.bv-meta-sep {
+	color: #C7BDB3;
+}
+
+.bv-rating-count-link {
+	color: var(--bv-c-muted);
+	text-decoration: none;
+	border-bottom: 1px dashed var(--bv-c-muted);
+}
+
+.bv-rating-count-link:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-craft-certified {
+	color: #2E7D32;
+	font-weight: 600;
+}
+
+/* Price */
+.bv-summary-price {
+	font-size: 28px;
+	font-weight: 800;
+	color: var(--bv-c-clay);
+	margin-bottom: 18px;
+}
+
+.bv-summary-price del {
+	font-size: 18px;
+	color: #A0948A;
+	font-weight: 400;
+	margin-right: 10px;
+}
+
+.bv-summary-price ins {
+	text-decoration: none;
+}
+
+/* Stock Scarcity Bar */
+.bv-stock-scarcity {
+	background: #FFF8F3;
+	border: 1px solid #F3D9C8;
+	border-radius: 8px;
+	padding: 12px 16px;
+	margin-bottom: 22px;
+}
+
+.bv-scarcity-text {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font-size: 13px;
+	color: #8C4724;
+	font-weight: 500;
+	margin-bottom: 6px;
+}
+
+.bv-pulse-dot {
+	width: 8px;
+	height: 8px;
+	background: #D94A38;
+	border-radius: 50%;
+	display: inline-block;
+	animation: bvPulse 1.8s infinite;
+}
+
+@keyframes bvPulse {
+	0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 74, 56, 0.7); }
+	70% { transform: scale(1.1); box-shadow: 0 0 0 6px rgba(217, 74, 56, 0); }
+	100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(217, 74, 56, 0); }
+}
+
+.bv-scarcity-bar {
+	width: 100%;
+	height: 5px;
+	background: #EFE2D8;
+	border-radius: 3px;
+	overflow: hidden;
+}
+
+.bv-scarcity-fill {
+	height: 100%;
+	background: linear-gradient(90deg, #D94A38, #B3592B);
+	border-radius: 3px;
+}
+
+/* Excerpt */
+.bv-summary-excerpt {
+	font-size: 15px;
+	line-height: 1.7;
+	color: #554A44;
+	margin-bottom: 26px;
+}
+
+.bv-summary-excerpt p {
+	margin: 0 0 10px 0;
+}
+
+/* FORM: QUANTITY & BUTTONS */
+.bv-summary-form-wrap {
+	margin-bottom: 32px;
+}
+
+.bv-qty-and-cta {
+	display: flex;
+	align-items: center;
+	gap: 16px;
+	margin-bottom: 14px;
+}
+
+/* Quantity Box */
+.bv-quantity-box {
+	display: inline-flex;
+	align-items: center;
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.bv-qty-btn {
+	width: 42px;
+	height: 48px;
+	background: transparent;
+	border: none;
+	font-size: 18px;
+	color: var(--bv-c-ink);
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.bv-qty-btn:hover {
+	background: #F3ECE2;
+	color: var(--bv-c-clay);
+}
+
+.bv-qty-input {
+	width: 48px;
+	height: 48px;
+	text-align: center;
+	border: none;
+	font-size: 15px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	background: transparent;
+	outline: none;
+	-moz-appearance: textfield;
+}
+
+.bv-qty-input::-webkit-outer-spin-button,
+.bv-qty-input::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+	margin: 0;
+}
+
+/* Add to Cart Button */
+.bv-btn-add-to-cart {
+	flex: 1;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	height: 50px;
+	padding: 0 24px;
+	background: #FFFFFF;
+	color: var(--bv-c-clay) !important;
+	border: 2px solid var(--bv-c-clay) !important;
+	border-radius: 8px;
+	font-size: 15px;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.25s ease;
+}
+
+.bv-btn-add-to-cart:hover {
+	background: #FAF0E8;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 14px rgba(179, 89, 43, 0.2);
+}
+
+/* Buy Now Button (Direct VietQR Checkout) */
+.bv-buynow-wrap {
+	margin-bottom: 14px;
+}
+
+.bv-btn-buy-now {
+	width: 100%;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	height: 52px;
+	background: var(--bv-c-clay);
+	color: #FFFFFF !important;
+	border: none;
+	border-radius: 8px;
+	font-size: 15.5px;
+	font-weight: 700;
+	cursor: pointer;
+	box-shadow: 0 4px 16px rgba(179, 89, 43, 0.35);
+	transition: all 0.25s ease;
+}
+
+.bv-btn-buy-now:hover {
+	background: var(--bv-c-clay-dark);
+	transform: translateY(-2px);
+	box-shadow: 0 8px 22px rgba(179, 89, 43, 0.45);
+}
+
+/* Zalo Consultation Button */
+.bv-btn-zalo-consult {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	width: 100%;
+	padding: 12px 18px;
+	background: #EFF7FF;
+	border: 1px solid #B8DCFE;
+	border-radius: 8px;
+	color: #0068FF;
+	font-size: 14px;
+	font-weight: 600;
+	text-decoration: none;
+	transition: all 0.2s ease;
+}
+
+.bv-btn-zalo-consult:hover {
+	background: #DDECFF;
+	transform: translateY(-1px);
+}
+
+/* STUDIO GUARANTEE BOX (ANH CERAMICS TRUST) */
+.bv-guarantee-box {
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 12px;
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+.bv-g-item {
+	display: flex;
+	align-items: flex-start;
+	gap: 12px;
+}
+
+.bv-g-icon {
+	font-size: 20px;
+	flex-shrink: 0;
+	margin-top: 1px;
+}
+
+.bv-g-item strong {
+	display: block;
+	font-size: 13.5px;
+	color: var(--bv-c-ink);
+	margin-bottom: 2px;
+}
+
+.bv-g-item p {
+	font-size: 12.5px;
+	color: var(--bv-c-muted);
+	margin: 0;
+	line-height: 1.5;
+}
+
+/* ==========================================================================
+   3. PRODUCT TABS SECTION
+   ========================================================================== */
+.bv-product-tabs-section {
+	padding: 48px 0;
+	border-top: 1px solid var(--bv-c-border);
+}
+
+.bv-tabs-wrapper {
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 14px;
+	overflow: hidden;
+}
+
+.bv-tabs-nav {
+	display: flex;
+	border-bottom: 1px solid var(--bv-c-border);
+	background: #FBF8F3;
+	overflow-x: auto;
+}
+
+.bv-tab-btn {
+	padding: 18px 28px;
+	background: transparent;
+	border: none;
+	font-size: 15px;
+	font-weight: 600;
+	color: var(--bv-c-muted);
+	cursor: pointer;
+	border-bottom: 3px solid transparent;
+	transition: all 0.25s ease;
+	white-space: nowrap;
+}
+
+.bv-tab-btn:hover {
+	color: var(--bv-c-clay);
+	background: rgba(255, 255, 255, 0.6);
+}
+
+.bv-tab-btn.is-active {
+	color: var(--bv-c-clay);
+	border-bottom-color: var(--bv-c-clay);
+	background: #FFFFFF;
+}
+
+.bv-tab-content {
+	display: none;
+	padding: 36px 32px;
+}
+
+.bv-tab-content.is-active {
+	display: block;
+}
+
+.bv-tab-prose {
+	max-width: 840px;
+	font-size: 15px;
+	line-height: 1.8;
+	color: #4A3E39;
+}
+
+/* Specifications Table Card */
+.bv-specs-card {
+	margin-top: 32px;
+	background: #FAF7F2;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 10px;
+	padding: 24px;
+}
+
+.bv-specs-title {
+	font-family: var(--bv-font-serif);
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	margin: 0 0 16px 0;
+}
+
+.bv-specs-list {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	margin: 0;
+	padding: 0;
+}
+
+.bv-spec-row {
+	display: flex;
+	justify-content: space-between;
+	padding-bottom: 10px;
+	border-bottom: 1px solid #EBE4D8;
+	font-size: 14px;
+}
+
+.bv-spec-row dt {
+	color: var(--bv-c-muted);
+	font-weight: 500;
+}
+
+.bv-spec-row dd {
+	color: var(--bv-c-ink);
+	font-weight: 600;
+	margin: 0;
+	text-align: right;
+}
+
+/* Usage & Care Grid */
+.bv-care-grid {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 24px;
+}
+
+.bv-care-card {
+	background: #FAF7F2;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 10px;
+	padding: 24px;
+}
+
+.bv-care-icon {
+	font-size: 32px;
+	display: block;
+	margin-bottom: 12px;
+}
+
+.bv-care-card h4 {
+	font-size: 16px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	margin: 0 0 8px 0;
+}
+
+.bv-care-card p {
+	font-size: 13.5px;
+	color: var(--bv-c-muted);
+	line-height: 1.6;
+	margin: 0;
+}
+
+/* ==========================================================================
+   4. RELATED PRODUCTS SECTION
+   ========================================================================== */
+.bv-related-section {
+	padding-top: 48px;
+}
+
+.bv-related-header {
+	text-align: center;
+	margin-bottom: 36px;
+}
+
+.bv-related-title {
+	font-family: var(--bv-font-serif);
+	font-size: 32px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	margin: 6px 0 0 0;
+}
+
+/* ==========================================================================
+   5. LIGHTBOX MODAL (IMAGE ZOOM)
+   ========================================================================== */
+.bv-image-modal {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 100000;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.bv-image-modal.is-open {
+	opacity: 1;
+	visibility: visible;
+}
+
+.bv-modal-overlay {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: rgba(30, 26, 24, 0.85);
+	backdrop-filter: blur(6px);
+}
+
+.bv-modal-content {
+	position: relative;
+	max-width: 90vw;
+	max-height: 90vh;
+	z-index: 2;
+}
+
+.bv-modal-img {
+	max-width: 100%;
+	max-height: 85vh;
+	border-radius: 8px;
+	box-shadow: 0 10px 40px rgba(0,0,0,0.4);
+	display: block;
+}
+
+.bv-modal-close {
+	position: absolute;
+	top: -44px;
+	right: -10px;
+	width: 40px;
+	height: 40px;
+	background: transparent;
+	border: none;
+	color: #FFFFFF;
+	font-size: 36px;
+	line-height: 1;
+	cursor: pointer;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (SINGLE PRODUCT)
+   ========================================================================== */
+@media (max-width: 992px) {
+	.bv-product-columns {
+		grid-template-columns: 1fr;
+		gap: 36px;
+	}
+	.bv-product-gallery {
+		position: static;
+	}
+	.bv-care-grid {
+		grid-template-columns: 1fr;
+		gap: 16px;
+	}
+	.bv-tab-content {
+		padding: 24px 20px;
+	}
+}
+
+@media (max-width: 600px) {
+	.bv-summary-title {
+		font-size: 26px;
+	}
+	.bv-qty-and-cta {
+		flex-direction: column;
+		align-items: stretch;
+	}
+	.bv-quantity-box {
+		justify-content: center;
+	}
+}
