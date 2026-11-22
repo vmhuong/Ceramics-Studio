@@ -27,3 +27,4 @@ require_once get_stylesheet_directory() . '/inc/commerce.php';
 require_once get_stylesheet_directory() . '/inc/class-wc-gateway-vietqr.php';
 require_once get_stylesheet_directory() . '/inc/workshop-booking.php';
 require_once get_stylesheet_directory() . '/inc/zalo-contact.php';
+require_once get_stylesheet_directory() . '/inc/performance.php';
