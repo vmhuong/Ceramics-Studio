@@ -171,17 +171,17 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 								</a>
 
 								<?php if ( $discount_pct > 0 ) : ?>
-									<span class="bv-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
+									<span class="bv-card-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
 								<?php endif; ?>
 
-								<!-- Quick Actions overlay on hover -->
-								<div class="bv-card-actions">
+								<!-- Quick Actions overlay on photo -->
+								<div class="bv-card-actions-bar">
 									<?php if ( $is_in_stock && $product->is_type( 'simple' ) ) : ?>
-										<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $pid ); ?>" class="bv-btn-quick-cart ajax_add_to_cart add_to_cart_button">
+										<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $pid ); ?>" class="bv-btn-overlay-cart ajax_add_to_cart add_to_cart_button">
 											Thêm vào giỏ
 										</a>
 									<?php else : ?>
-										<a href="<?php echo esc_url( $permalink ); ?>" class="bv-btn-quick-cart bv-btn-quick-cart--view">
+										<a href="<?php echo esc_url( $permalink ); ?>" class="bv-btn-overlay-cart">
 											Xem chi tiết
 										</a>
 									<?php endif; ?>
@@ -199,15 +199,24 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 									</a>
 								</h3>
 
-								<!-- Price & Rating Inline -->
-								<div class="bv-card-price-bar">
-									<div class="bv-card-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
-										<?php echo wp_kses_post( $price_html ); ?>
+								<!-- Price & Rating Row (Anh Ceramics Style) -->
+								<div class="bv-card-bottom-row">
+									<div class="bv-card-price-col">
+										<div class="bv-card-price-line">
+											<?php if ( $is_on_sale && $product->get_regular_price() ) : ?>
+												<del class="bv-price-del"><?php echo wc_price( $product->get_regular_price() ); ?></del>
+												<ins class="bv-price-ins"><?php echo wc_price( $product->get_sale_price() ); ?></ins>
+											<?php else : ?>
+												<span class="bv-price-main"><?php echo wp_kses_post( $price_html ); ?></span>
+											<?php endif; ?>
+										</div>
 										<?php if ( $discount_pct > 0 ) : ?>
 											<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
 										<?php endif; ?>
 									</div>
-									<span class="bv-pt-star-pill">★ 5.0</span>
+									<div class="bv-card-rating-badge">
+										<span class="bv-star">★</span> 5.0
+									</div>
 								</div>
 							</div>
 

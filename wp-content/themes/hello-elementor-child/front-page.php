@@ -160,32 +160,43 @@ $workshop_url = home_url( '/workshop/' );
 						}
 					?>
 						<article class="bv-product-tile <?php echo $is_on_sale ? 'is-on-sale' : ''; ?>">
-							<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="bv-pt-image-wrap">
-								<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy">
-								<span class="bv-pt-badge">Thủ công</span>
+							<div class="bv-pt-image-wrap">
+								<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="bv-pt-img-link" tabindex="-1">
+									<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy">
+								</a>
 								<?php if ( $discount_pct > 0 ) : ?>
-									<span class="bv-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
+									<span class="bv-card-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
 								<?php endif; ?>
-							</a>
+								<div class="bv-card-actions-bar">
+									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-overlay-cart">
+										Thêm vào giỏ
+									</a>
+								</div>
+							</div>
 							<div class="bv-pt-body">
+								<div class="bv-card-meta-line">Gốm Mộc Thủ Công</div>
 								<h3 class="bv-pt-title">
 									<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
 										<?php echo esc_html( $product->get_name() ); ?>
 									</a>
 								</h3>
-								<div class="bv-pt-price-bar">
-									<div class="bv-pt-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
-										<?php echo wp_kses_post( $price_html ); ?>
+								<div class="bv-card-bottom-row">
+									<div class="bv-card-price-col">
+										<div class="bv-card-price-line">
+											<?php if ( $is_on_sale && $product->get_regular_price() ) : ?>
+												<del class="bv-price-del"><?php echo wc_price( $product->get_regular_price() ); ?></del>
+												<ins class="bv-price-ins"><?php echo wc_price( $product->get_sale_price() ); ?></ins>
+											<?php else : ?>
+												<span class="bv-price-main"><?php echo wp_kses_post( $price_html ); ?></span>
+											<?php endif; ?>
+										</div>
 										<?php if ( $discount_pct > 0 ) : ?>
 											<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
 										<?php endif; ?>
 									</div>
-									<span class="bv-pt-star-pill">★ 5.0</span>
-								</div>
-								<div class="bv-pt-action">
-									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-cart">
-										Thêm Vào Giỏ
-									</a>
+									<div class="bv-card-rating-badge">
+										<span class="bv-star">★</span> 5.0
+									</div>
 								</div>
 							</div>
 						</article>
