@@ -33,6 +33,40 @@ $pottery_products = array_slice( $pottery_products, 0, 8 );
 
 $shop_url     = wc_get_page_permalink( 'shop' );
 $workshop_url = home_url( '/workshop/' );
+
+// Hero auto-rotating showcase slides (4s cycle)
+$hero_slides = [
+	[
+		'image' => home_url( '/wp-content/uploads/2026/09/gom-demo-15-e3ec755cc48b7069c346.webp' ),
+		'alt'   => 'Bộ chén đĩa gốm mộc Men Nâu Rustic',
+		'title' => 'Men Nâu Rustic',
+		'desc'  => 'Bộ sưu tập mùa thu',
+	],
+	[
+		'image' => home_url( '/wp-content/uploads/2026/09/gom-demo-20-8e65a9da8b2256ebbe41.webp' ),
+		'alt'   => 'Bình hoa gốm mộc men pastel Bát Tràng',
+		'title' => 'Bình Gốm Men Mộc',
+		'desc'  => 'Hỏa biến nung lò 1.250°C',
+	],
+	[
+		'image' => home_url( '/wp-content/uploads/2026/09/gom-demo-13-32f4983a4ea37d864f73.webp' ),
+		'alt'   => 'Tách ly cafe men tro chuốt tay thủ công',
+		'title' => 'Tách Cafe Men Tro',
+		'desc'  => 'Chuốt tay bàn xoay độc bản',
+	],
+	[
+		'image' => home_url( '/wp-content/uploads/2026/09/gom-demo-14-fe71c673139dfcff9e29.webp' ),
+		'alt'   => 'Bộ chén đĩa bàn ăn cơm nhà gốm mộc',
+		'title' => 'Bộ Bàn Ăn Cơm Nhà',
+		'desc'  => 'Men khoáng an toàn 100%',
+	],
+	[
+		'image' => home_url( '/wp-content/uploads/2026/09/gom-demo-19-a77d35793ddead77097f.webp' ),
+		'alt'   => 'Bình hoa gốm mộc dáng tròn tĩnh tại',
+		'title' => 'Bình Hoa Dáng Tròn',
+		'desc'  => 'Tĩnh tại cho không gian sống',
+	],
+];
 ?>
 
 <main id="content" class="site-main bv-wabi-sabi-home">
@@ -70,13 +104,28 @@ $workshop_url = home_url( '/workshop/' );
 				</div>
 			</div>
 			<div class="bv-hero-visual">
-				<div class="bv-hero-image-card">
-					<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-15-e3ec755cc48b7069c346.webp' ) ); ?>" alt="Đồ gốm mộc thủ công Ceramic Studio" class="bv-hero-img" loading="eager" fetchpriority="high">
-					<div class="bv-hero-floating-card">
-						<div>
-							<strong>Men Nâu Rustic</strong>
-							<small>Bộ sưu tập mùa thu</small>
+				<div class="bv-hero-image-card" id="bv-hero-slider" aria-label="Bộ sưu tập gốm tiêu biểu">
+					<div class="bv-hero-slides">
+						<?php foreach ( $hero_slides as $idx => $slide ) : ?>
+							<div class="bv-hero-slide <?php echo $idx === 0 ? 'is-active' : ''; ?>" data-slide-index="<?php echo esc_attr( $idx ); ?>" data-title="<?php echo esc_attr( $slide['title'] ); ?>" data-desc="<?php echo esc_attr( $slide['desc'] ); ?>">
+								<img src="<?php echo esc_url( $slide['image'] ); ?>" alt="<?php echo esc_attr( $slide['alt'] ); ?>" class="bv-hero-img" <?php echo $idx === 0 ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'; ?>>
+							</div>
+						<?php endforeach; ?>
+					</div>
+
+					<!-- Floating badge with dynamic title & description -->
+					<div class="bv-hero-floating-card" id="bv-hero-badge">
+						<div class="bv-hero-badge-inner" id="bv-hero-badge-inner">
+							<strong id="bv-hero-badge-title"><?php echo esc_html( $hero_slides[0]['title'] ); ?></strong>
+							<small id="bv-hero-badge-desc"><?php echo esc_html( $hero_slides[0]['desc'] ); ?></small>
 						</div>
+					</div>
+
+					<!-- Subtle dots indicator -->
+					<div class="bv-hero-dots" aria-label="Chuyển ảnh">
+						<?php foreach ( $hero_slides as $idx => $slide ) : ?>
+							<button type="button" class="bv-hero-dot <?php echo $idx === 0 ? 'is-active' : ''; ?>" data-index="<?php echo esc_attr( $idx ); ?>" aria-label="Xem ảnh <?php echo esc_attr( $idx + 1 ); ?>"></button>
+						<?php endforeach; ?>
 					</div>
 				</div>
 			</div>

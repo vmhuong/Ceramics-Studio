@@ -128,6 +128,82 @@
 				}
 			});
 		}
+
+		// 5. HERO VISUAL AUTO SLIDER (4-second interval with cross-fade & description update)
+		var heroSlider = document.getElementById('bv-hero-slider');
+		if (heroSlider) {
+			var slides = heroSlider.querySelectorAll('.bv-hero-slide');
+			var dots = heroSlider.querySelectorAll('.bv-hero-dot');
+			var badgeInner = document.getElementById('bv-hero-badge-inner');
+			var badgeTitle = document.getElementById('bv-hero-badge-title');
+			var badgeDesc = document.getElementById('bv-hero-badge-desc');
+			var currentIdx = 0;
+			var total = slides.length;
+			var autoTimer = null;
+			var INTERVAL = 4000; // 4 seconds per user request
+
+			function switchSlide(nextIdx) {
+				if (nextIdx === currentIdx || nextIdx < 0 || nextIdx >= total) return;
+
+				// Change slides
+				slides[currentIdx].classList.remove('is-active');
+				slides[nextIdx].classList.add('is-active');
+
+				// Change dots
+				if (dots.length) {
+					dots[currentIdx].classList.remove('is-active');
+					dots[nextIdx].classList.add('is-active');
+				}
+
+				// Change floating badge with smooth transition
+				if (badgeInner && badgeTitle && badgeDesc) {
+					badgeInner.classList.add('is-changing');
+					setTimeout(function () {
+						var targetSlide = slides[nextIdx];
+						badgeTitle.textContent = targetSlide.getAttribute('data-title') || '';
+						badgeDesc.textContent = targetSlide.getAttribute('data-desc') || '';
+						badgeInner.classList.remove('is-changing');
+					}, 220);
+				}
+
+				currentIdx = nextIdx;
+			}
+
+			function nextSlide() {
+				var next = (currentIdx + 1) % total;
+				switchSlide(next);
+			}
+
+			function startTimer() {
+				stopTimer();
+				autoTimer = setInterval(nextSlide, INTERVAL);
+			}
+
+			function stopTimer() {
+				if (autoTimer) {
+					clearInterval(autoTimer);
+					autoTimer = null;
+				}
+			}
+
+			// Dot click handlers
+			dots.forEach(function (dot) {
+				dot.addEventListener('click', function () {
+					var idx = parseInt(this.getAttribute('data-index'), 10);
+					if (!isNaN(idx)) {
+						switchSlide(idx);
+						startTimer();
+					}
+				});
+			});
+
+			// Pause on hover
+			heroSlider.addEventListener('mouseenter', stopTimer);
+			heroSlider.addEventListener('mouseleave', startTimer);
+
+			// Start timer
+			startTimer();
+		}
 	}
 
 	if (document.readyState === 'loading') {
