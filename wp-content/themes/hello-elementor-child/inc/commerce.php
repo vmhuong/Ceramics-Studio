@@ -103,6 +103,35 @@ add_filter( 'gettext_with_context', function ( $translation, $text, $context, $d
 	return $translation;
 }, 10, 4 );
 
+// Disable redundant "Product added to cart" flash notices
+// The modern Mini-Cart sliding drawer provides immediate visual feedback
+add_filter( 'wc_add_to_cart_message_html', '__return_false' );
+
+// Clean up redundant cart notices on the Cart and Checkout pages
+add_action( 'template_redirect', function () {
+	if ( ! function_exists( 'is_cart' ) || ! function_exists( 'wc_clear_notices' ) ) {
+		return;
+	}
+	if ( is_cart() || is_checkout() ) {
+		$notices = wc_get_notices( 'success' );
+		if ( ! empty( $notices ) ) {
+			$filtered = [];
+			foreach ( $notices as $notice ) {
+				$text = is_array( $notice ) ? ( $notice['notice'] ?? '' ) : (string) $notice;
+				if ( strpos( $text, 'thêm vào giỏ hàng' ) === false && strpos( $text, 'added to your cart' ) === false ) {
+					$filtered[] = $notice;
+				}
+			}
+			wc_clear_notices();
+			foreach ( $filtered as $f ) {
+				$notice_text = is_array( $f ) ? ( $f['notice'] ?? '' ) : (string) $f;
+				$notice_data = is_array( $f ) ? ( $f['data'] ?? [] ) : [];
+				wc_add_notice( $notice_text, 'success', $notice_data );
+			}
+		}
+	}
+} );
+
 // Customize WooCommerce My Account Navigation Menu Items
 add_filter( 'woocommerce_account_menu_items', function ( $items ) {
 	unset( $items['downloads'] ); // Remove downloads for ceramic craft studio

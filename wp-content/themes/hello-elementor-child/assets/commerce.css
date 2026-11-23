@@ -243,17 +243,20 @@ main.site-main.bv-commerce-shell {
     text-underline-offset: 3px !important;
 }
 
-/* Success notice with forward button */
-.bv-commerce-shell .woocommerce-message {
+/* Success notice with forward button - Clean layout: Text on Left, Action on Right */
+.bv-commerce-shell .woocommerce-message,
+.bv-commerce-shell .woocommerce-info {
     display: flex !important;
     align-items: center !important;
-    justify-content: space-between !important;
+    justify-content: flex-start !important;
     flex-wrap: wrap !important;
-    gap: 12px !important;
+    gap: 14px !important;
 }
 
-.bv-commerce-shell .woocommerce-message .button.wc-forward {
-    order: 2 !important;
+.bv-commerce-shell .woocommerce-message .button.wc-forward,
+.bv-commerce-shell .woocommerce-info .button.wc-forward {
+    margin-left: auto !important;
+    order: 99 !important;
     background: #FAF7F2 !important;
     border: 1px solid var(--bv-clay) !important;
     color: var(--bv-clay) !important;
@@ -264,12 +267,21 @@ main.site-main.bv-commerce-shell {
     text-decoration: none !important;
     transition: all 0.2s !important;
     float: none !important;
-    margin: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+    margin-right: 0 !important;
 }
 
-.bv-commerce-shell .woocommerce-message .button.wc-forward:hover {
+.bv-commerce-shell .woocommerce-message .button.wc-forward:hover,
+.bv-commerce-shell .woocommerce-info .button.wc-forward:hover {
     background: var(--bv-clay) !important;
     color: #FFFFFF !important;
+}
+
+/* Hide redundant "Xem giỏ hàng" forward buttons on the Cart page itself */
+body.woocommerce-cart .bv-commerce-shell .woocommerce-message .button.wc-forward,
+body.woocommerce-cart .bv-commerce-shell .woocommerce-info .button.wc-forward {
+    display: none !important;
 }
 
 /* Compact Toggle Info Bars on Checkout */
