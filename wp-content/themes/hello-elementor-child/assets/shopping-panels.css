@@ -742,46 +742,7 @@ body.woocommerce-cart .bv-commerce-heading h1 {
     font-size: 13px;
 }
 
-body.woocommerce-cart .bv-commerce-shell .cart-collaterals .cart_totals {
-    background: transparent;
-    border-top: 1px solid #dcd4ce;
-    padding-top: 20px;
-}
-
-@media (min-width: 768px) {
-    body.woocommerce-cart #content .bv-commerce-content > .woocommerce {
-        display: grid;
-        grid-template-columns: 1.15fr 1fr;
-        gap: 24px 48px;
-    }
-    body.woocommerce-cart #content .woocommerce-notices-wrapper,
-    body.woocommerce-cart #content .cart-empty,
-    body.woocommerce-cart #content .bv-empty-cart,
-    body.woocommerce-cart #content .return-to-shop {
-        grid-column: 1 / -1;
-    }
-    body.woocommerce-cart #content .woocommerce-cart-form {
-        display: contents;
-    }
-    body.woocommerce-cart #content .woocommerce-cart-form > table {
-        grid-column: 1 / -1;
-        width: 100%;
-        margin-bottom: 0;
-    }
-    body.woocommerce-cart #content .bv-cart-note {
-        grid-column: 1;
-        margin: 0;
-    }
-    body.woocommerce-cart #content .cart-collaterals {
-        grid-column: 2;
-        width: 100%;
-        float: none;
-    }
-    body.woocommerce-cart #content .cart-collaterals .cart_totals {
-        padding: 0;
-    }
-}
-
+/* Responsive styles for drawer */
 @media (max-width: 767px) {
     .bv-shopping-panel.bv-side-drawer {
         width: 100vw !important;

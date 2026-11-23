@@ -173,73 +173,158 @@ main.site-main.bv-commerce-shell {
 }
 
 /* ==========================================================================
-   2. SYSTEM NOTICES (ZERO ICONS / ZERO BOX GLYPHS)
+   2. SYSTEM NOTICES (ZERO ICONS / ZERO BOX GLYPHS / CLEAN STACKED NOTICES)
    ========================================================================== */
 .bv-commerce-shell .woocommerce-error,
+.bv-commerce-shell ul.woocommerce-error,
 .bv-commerce-shell .woocommerce-info,
 .bv-commerce-shell .woocommerce-message {
+    display: block !important;
     background: #FFFFFF !important;
     color: var(--bv-ink) !important;
     border: 1px solid var(--bv-line) !important;
     border-left: 4px solid var(--bv-clay) !important;
     border-radius: 8px !important;
-    font-size: 14px !important;
+    font-size: 13.5px !important;
     line-height: 1.6 !important;
-    padding: 16px 22px !important;
-    margin: 0 0 24px !important;
-    box-shadow: 0 4px 16px rgba(44, 37, 35, 0.04) !important;
+    padding: 14px 20px !important;
+    margin: 0 0 20px !important;
+    box-shadow: 0 3px 14px rgba(44, 37, 35, 0.04) !important;
+    list-style: none !important;
+    box-sizing: border-box !important;
 }
 
 .bv-commerce-shell .woocommerce-info::before,
 .bv-commerce-shell .woocommerce-message::before,
-.bv-commerce-shell .woocommerce-error::before {
+.bv-commerce-shell .woocommerce-error::before,
+.bv-commerce-shell ul.woocommerce-error::before {
     display: none !important;
     content: none !important;
 }
 
-.bv-commerce-shell .woocommerce-error {
+.bv-commerce-shell .woocommerce-error,
+.bv-commerce-shell ul.woocommerce-error {
     border-left-color: #D94A38 !important;
     background: #FFF9F8 !important;
 }
 
+.bv-commerce-shell .woocommerce-error li,
+.bv-commerce-shell ul.woocommerce-error li {
+    display: block !important;
+    width: 100% !important;
+    margin: 0 0 8px 0 !important;
+    padding: 0 0 0 16px !important;
+    position: relative !important;
+    color: #5C2818 !important;
+    line-height: 1.5 !important;
+}
+
+.bv-commerce-shell .woocommerce-error li::before,
+.bv-commerce-shell ul.woocommerce-error li::before {
+    content: '•' !important;
+    position: absolute !important;
+    left: 2px !important;
+    top: 0 !important;
+    color: #D94A38 !important;
+    font-weight: 700 !important;
+}
+
+.bv-commerce-shell .woocommerce-error li:last-child,
+.bv-commerce-shell ul.woocommerce-error li:last-child {
+    margin-bottom: 0 !important;
+}
+
 .bv-commerce-shell .woocommerce-info a,
-.bv-commerce-shell .woocommerce-message a {
+.bv-commerce-shell .woocommerce-message a,
+.bv-commerce-shell .woocommerce-error a {
     color: var(--bv-clay) !important;
     font-weight: 700 !important;
     text-decoration: underline !important;
     text-underline-offset: 3px !important;
 }
 
+/* Success notice with forward button */
+.bv-commerce-shell .woocommerce-message {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    flex-wrap: wrap !important;
+    gap: 12px !important;
+}
+
+.bv-commerce-shell .woocommerce-message .button.wc-forward {
+    order: 2 !important;
+    background: #FAF7F2 !important;
+    border: 1px solid var(--bv-clay) !important;
+    color: var(--bv-clay) !important;
+    padding: 6px 14px !important;
+    border-radius: 4px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+    float: none !important;
+    margin: 0 !important;
+}
+
+.bv-commerce-shell .woocommerce-message .button.wc-forward:hover {
+    background: var(--bv-clay) !important;
+    color: #FFFFFF !important;
+}
+
+/* Compact Toggle Info Bars on Checkout */
+.bv-commerce-shell .woocommerce-form-coupon-toggle .woocommerce-info,
+.bv-commerce-shell .woocommerce-form-login-toggle .woocommerce-info {
+    background: #FAF7F2 !important;
+    border: 1px solid #E2D7C8 !important;
+    border-left: 3px solid var(--bv-clay) !important;
+    padding: 12px 18px !important;
+    margin-bottom: 12px !important;
+    font-size: 13.5px !important;
+    color: #5C4E46 !important;
+}
+
 /* ==========================================================================
-   3. CART PAGE REDESIGN
+   3. CART PAGE REDESIGN - MODERN 2-COLUMN WABI-SABI GRID
    ========================================================================== */
-.bv-commerce-content > .woocommerce {
-    display: flow-root;
+body.woocommerce-cart .bv-commerce-shell .bv-commerce-content > .woocommerce {
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.45fr) minmax(360px, 0.95fr) !important;
+    gap: 36px !important;
+    align-items: start !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
+}
+
+body.woocommerce-cart .bv-commerce-shell .woocommerce-notices-wrapper {
+    grid-column: 1 / -1 !important;
 }
 
 body.woocommerce-cart .bv-commerce-shell .woocommerce-cart-form {
-    float: left;
-    width: calc(66% - 24px);
-    background: var(--bv-card-bg);
-    border: 1px solid var(--bv-line);
-    border-radius: 10px;
-    padding: 28px 24px;
-    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04);
+    float: none !important;
+    width: 100% !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--bv-line) !important;
+    border-radius: 12px !important;
+    padding: 28px 24px !important;
+    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04) !important;
 }
 
 body.woocommerce-cart .bv-commerce-shell .cart-collaterals {
-    float: right;
-    width: 34%;
+    float: none !important;
+    width: 100% !important;
+    position: sticky !important;
+    top: 90px !important;
 }
 
-.bv-commerce-shell .cart-collaterals .cart_totals {
-    width: 100%;
-    float: none;
-    background: var(--bv-card-bg);
-    padding: 26px 24px;
-    border: 1px solid var(--bv-line);
-    border-radius: 10px;
-    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04);
+body.woocommerce-cart .bv-commerce-shell .cart-collaterals .cart_totals {
+    width: 100% !important;
+    float: none !important;
+    background: #FFFFFF !important;
+    padding: 28px 26px !important;
+    border: 1px solid var(--bv-line) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04) !important;
 }
 
 .bv-commerce-shell .cart_totals h2 {
@@ -575,25 +660,28 @@ body.woocommerce-cart .bv-commerce-shell .cart-collaterals {
 }
 
 /* ==========================================================================
-   4. CHECKOUT PAGE REDESIGN
+   4. CHECKOUT PAGE REDESIGN - HIGH-END 2-COLUMN WABI-SABI GRID
    ========================================================================== */
 .bv-commerce-shell form.checkout {
-    display: grid;
-    grid-template-columns: minmax(0, 1.18fr) minmax(0, 0.95fr);
-    column-gap: 36px;
-    align-items: start;
+    display: grid !important;
+    grid-template-columns: minmax(0, 1.32fr) minmax(360px, 0.95fr) !important;
+    column-gap: 36px !important;
+    row-gap: 24px !important;
+    align-items: start !important;
+    max-width: 1240px !important;
+    margin: 0 auto !important;
 }
 
 /* Left Card: Customer Billing Details */
 .bv-commerce-shell form.checkout #customer_details {
-    grid-column: 1;
-    grid-row: 1 / span 3;
-    width: 100%;
-    background: var(--bv-card-bg);
-    border: 1.5px solid var(--bv-line);
-    border-radius: 10px;
-    padding: 32px 28px;
-    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04);
+    grid-column: 1 !important;
+    grid-row: 1 / span 3 !important;
+    width: 100% !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--bv-line) !important;
+    border-radius: 12px !important;
+    padding: 32px 28px !important;
+    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04) !important;
 }
 
 .bv-commerce-shell form.checkout #customer_details .col-1,
@@ -698,28 +786,28 @@ body.woocommerce-cart .bv-commerce-shell .cart-collaterals {
 
 /* Right Card: Order Summary Card */
 .bv-commerce-shell #order_review_heading {
-    grid-column: 2;
-    margin: 0;
-    padding: 20px 24px 16px;
-    background: #FAF7F2;
-    border: 1.5px solid var(--bv-line);
-    border-bottom: 0;
-    border-radius: 10px 10px 0 0;
-    font-family: var(--bv-font-serif);
-    font-size: 23px;
-    font-weight: 700;
-    color: var(--bv-ink);
+    grid-column: 2 !important;
+    margin: 0 !important;
+    padding: 24px 28px 16px !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--bv-line) !important;
+    border-bottom: 0 !important;
+    border-radius: 12px 12px 0 0 !important;
+    font-family: var(--bv-font-serif) !important;
+    font-size: 23px !important;
+    font-weight: 700 !important;
+    color: var(--bv-ink) !important;
 }
 
 .bv-commerce-shell #order_review {
-    grid-column: 2;
-    min-width: 0;
-    padding: 0 24px 24px;
-    background: var(--bv-card-bg);
-    border: 1.5px solid var(--bv-line);
-    border-top: 0;
-    border-radius: 0 0 10px 10px;
-    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04);
+    grid-column: 2 !important;
+    min-width: 0 !important;
+    padding: 0 28px 28px !important;
+    background: #FFFFFF !important;
+    border: 1px solid var(--bv-line) !important;
+    border-top: 0 !important;
+    border-radius: 0 0 12px 12px !important;
+    box-shadow: 0 4px 20px rgba(44, 37, 35, 0.04) !important;
 }
 
 /* Clean Review Order Table */
