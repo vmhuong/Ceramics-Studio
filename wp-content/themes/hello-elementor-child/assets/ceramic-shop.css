@@ -65,7 +65,8 @@ html {
 
 .bv-breadcrumb-trail a:hover,
 .bv-breadcrumb-list a:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	text-decoration: underline;
 }
 
 .bv-b-sep {
@@ -150,7 +151,7 @@ html {
 }
 
 .bv-toggle-collapse-btn:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 }
 
 .bv-toggle-sign {
@@ -198,12 +199,12 @@ html {
 
 .bv-filter-cat-link:hover,
 .bv-filter-cat-item.is-active .bv-filter-cat-link {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 	font-weight: 600;
 }
 
 .bv-filter-cat-item.is-active .bv-cat-bullet {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 }
 
 .bv-filter-heading-icon {
@@ -240,9 +241,13 @@ html {
 	transition: color 0.2s;
 }
 
-.bv-filter-nav-link:hover,
+.bv-filter-nav-link:hover {
+	color: var(--bv-c-ink);
+}
+
 .bv-filter-nav-item.is-active .bv-filter-nav-link {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	font-weight: 700;
 }
 
 .bv-filter-title {
@@ -274,7 +279,7 @@ html {
 
 .bv-filter-cat-item.is-active .bv-filter-cat-name,
 .bv-filter-cat-name:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 	font-weight: 600;
 }
 
@@ -317,7 +322,7 @@ html {
 }
 
 .bv-checkbox-label.is-checked {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 	font-weight: 600;
 }
 
@@ -335,8 +340,8 @@ html {
 }
 
 .bv-custom-checkbox.is-checked {
-	background: var(--bv-c-clay);
-	border-color: var(--bv-c-clay);
+	background: #2C2523;
+	border-color: #2C2523;
 }
 
 .bv-custom-checkbox.is-checked::after {
@@ -388,17 +393,18 @@ html {
 .bv-color-clear-btn {
 	display: inline-block;
 	font-size: 12px;
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
 	text-decoration: none;
 	font-weight: 600;
 	padding: 5px 10px;
-	background: rgba(179, 89, 43, 0.08);
+	background: #EFEBE4;
 	border-radius: 4px;
-	transition: background 0.2s;
+	transition: background 0.2s, color 0.2s;
 }
 
 .bv-color-clear-btn:hover {
-	background: rgba(179, 89, 43, 0.16);
+	background: #E2DDD5;
+	color: #000000;
 }
 
 /* RIGHT MAIN CATALOG */
@@ -592,7 +598,7 @@ html {
 }
 
 .bv-btn-quick-cart:hover {
-	background: var(--bv-c-clay);
+	background: #2C2523;
 	color: #FFFFFF !important;
 }
 
@@ -643,7 +649,8 @@ html {
 }
 
 .bv-card-title a:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	text-decoration: underline;
 }
 
 .bv-card-media .bv-sale-badge {
@@ -770,14 +777,14 @@ html {
 }
 
 .bv-shop-pagination .page-numbers:hover {
-	background: #F3ECE2;
-	color: var(--bv-c-clay);
+	background: #EFE8DE;
+	color: var(--bv-c-ink);
 }
 
 .bv-shop-pagination .page-numbers.current {
-	background: var(--bv-c-clay);
+	background: #2C2523;
 	color: #FFFFFF;
-	box-shadow: 0 2px 8px rgba(179, 89, 43, 0.4);
+	box-shadow: 0 2px 8px rgba(44, 37, 35, 0.3);
 }
 
 /* Empty State */

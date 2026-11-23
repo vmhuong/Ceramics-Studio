@@ -57,7 +57,8 @@
 }
 
 .bv-breadcrumb-trail a:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	text-decoration: underline;
 }
 
 .bv-b-sep {
@@ -126,7 +127,7 @@
 
 .bv-thumb-item:hover,
 .bv-thumb-item.is-active {
-	border-color: var(--bv-c-clay);
+	border-color: #2C2523;
 }
 
 .bv-gallery-stage {
@@ -206,7 +207,8 @@
 }
 
 .bv-rating-count-link:hover {
-	color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	text-decoration: underline;
 }
 
 .bv-craft-certified {
@@ -313,8 +315,8 @@
 }
 
 .bv-qty-btn:hover {
-	background: #F3ECE2;
-	color: var(--bv-c-clay);
+	background: #EFE8DE;
+	color: var(--bv-c-ink);
 }
 
 .bv-qty-input {
@@ -614,8 +616,8 @@ button.bv-btn-add-to-cart {
 
 .woocommerce div.product form.cart .single_add_to_cart_button:hover,
 .bv-btn-add-to-cart:hover {
-	background: #B3592B !important;
-	border-color: #B3592B !important;
+	background: #423835 !important;
+	border-color: #423835 !important;
 	color: #FFFFFF !important;
 }
 
@@ -696,9 +698,9 @@ button.bv-btn-add-to-cart {
 }
 
 .bv-btn-zalo-consult:hover {
-	background: #F0E8DC;
-	border-color: var(--bv-c-clay);
-	color: var(--bv-c-clay);
+	background: #EFE8DC;
+	border-color: #2C2523;
+	color: #2C2523;
 }
 
 /* STUDIO GUARANTEE BOX (NO EMOJIS - EDITORIAL NUMBERS) */
@@ -788,13 +790,13 @@ button.bv-btn-add-to-cart {
 }
 
 .bv-tab-btn:hover {
-	color: var(--bv-c-clay);
-	background: rgba(255, 255, 255, 0.6);
+	color: var(--bv-c-ink);
+	background: rgba(255, 255, 255, 0.85);
 }
 
 .bv-tab-btn.is-active {
-	color: var(--bv-c-clay);
-	border-bottom-color: var(--bv-c-clay);
+	color: var(--bv-c-ink);
+	border-bottom-color: var(--bv-c-ink);
 	background: #FFFFFF;
 }
 
@@ -1037,7 +1039,8 @@ button.bv-btn-add-to-cart {
 }
 
 .bv-product-card--compact .bv-card-title a:hover {
-	color: var(--bv-c-clay) !important;
+	color: var(--bv-c-ink) !important;
+	text-decoration: underline !important;
 }
 
 .bv-product-card--compact .bv-card-price-bar {

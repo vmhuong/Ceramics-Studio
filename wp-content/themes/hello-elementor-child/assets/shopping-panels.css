@@ -102,8 +102,8 @@ body.bv-panel-open {
 }
 
 .bv-panel-close:hover {
-    background: #B3592B !important;
-    border-color: #B3592B !important;
+    background: #2C2523 !important;
+    border-color: #2C2523 !important;
     color: #FFFFFF !important;
     transform: rotate(90deg);
 }
@@ -447,7 +447,8 @@ body.bv-panel-open {
 }
 
 .bv-mcart-title a:hover {
-    color: #B3592B !important;
+    color: #2C2523 !important;
+    text-decoration: underline !important;
 }
 
 /* REMOVE BUTTON (XÓA) */
@@ -474,8 +475,8 @@ body.bv-panel-open {
 
 .bv-shopping-panel .woocommerce-mini-cart li a.bv-mcart-remove:hover,
 .bv-shopping-panel .woocommerce-mini-cart li a.remove:hover {
-    background: #B3592B !important;
-    border-color: #B3592B !important;
+    background: #2C2523 !important;
+    border-color: #2C2523 !important;
     color: #FFFFFF !important;
 }
 
@@ -527,7 +528,7 @@ body.bv-panel-open {
 
 .bv-mcart-qty-btn:hover {
     background: #EAE0D3 !important;
-    color: #B3592B !important;
+    color: #2C2523 !important;
 }
 
 .bv-mcart-qty-btn:active {
@@ -649,8 +650,8 @@ body.bv-panel-open {
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a:not(.checkout):hover {
-    border-color: #B3592B !important;
-    color: #B3592B !important;
+    border-color: #2C2523 !important;
+    color: #2C2523 !important;
     background: #FAF7F2 !important;
 }
 
@@ -693,7 +694,7 @@ body.bv-panel-open {
 }
 
 .bv-panel-continue:hover {
-    color: #B3592B;
+    color: #2C2523;
 }
 
 /* ==========================================================================
