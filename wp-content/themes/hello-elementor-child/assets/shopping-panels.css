@@ -488,51 +488,59 @@ body.bv-panel-open {
     margin-top: 2px !important;
 }
 
-/* STEPPER: [-] [1] [+] */
+/* STEPPER: [-] 1 [+] - LUXURY CERAMIC CAPSULE */
 .bv-mcart-qty-stepper {
     display: inline-flex !important;
     align-items: center !important;
     border: 1px solid #E2D7C8 !important;
-    border-radius: 6px !important;
+    border-radius: 20px !important;
     background: #FAF7F2 !important;
     overflow: hidden !important;
     height: 30px !important;
+    padding: 0 2px !important;
+    box-shadow: 0 1px 3px rgba(44, 37, 35, 0.04) !important;
+    transition: border-color 0.2s, background-color 0.2s !important;
+}
+
+.bv-mcart-qty-stepper:hover {
+    border-color: #C8BAAA !important;
+    background: #F5EFE6 !important;
 }
 
 .bv-mcart-qty-btn {
-    width: 28px !important;
-    height: 30px !important;
+    width: 26px !important;
+    height: 26px !important;
     border: none !important;
+    border-radius: 50% !important;
     background: transparent !important;
-    color: #4A3C31 !important;
-    font-size: 15px !important;
-    font-weight: 700 !important;
+    color: #6E5F55 !important;
+    font-size: 14px !important;
+    font-weight: 600 !important;
     line-height: 1 !important;
     cursor: pointer !important;
     display: grid !important;
     place-items: center !important;
-    transition: background 0.15s, color 0.15s !important;
+    transition: all 0.2s ease !important;
     padding: 0 !important;
     user-select: none !important;
 }
 
 .bv-mcart-qty-btn:hover {
-    background: #EAE1D5 !important;
+    background: #EAE0D3 !important;
     color: #B3592B !important;
 }
 
 .bv-mcart-qty-btn:active {
-    background: #DFD3C4 !important;
+    background: #DFD1C0 !important;
+    transform: scale(0.92);
 }
 
 .bv-mcart-qty-input {
-    width: 36px !important;
-    min-height: 30px !important;
-    height: 30px !important;
+    width: 32px !important;
+    min-height: 26px !important;
+    height: 26px !important;
     border: none !important;
-    border-left: 1px solid #E2D7C8 !important;
-    border-right: 1px solid #E2D7C8 !important;
-    background: #FFFFFF !important;
+    background: transparent !important;
     color: #2C2523 !important;
     font-size: 13px !important;
     font-weight: 700 !important;
@@ -551,7 +559,6 @@ body.bv-panel-open {
 
 .bv-mcart-qty-input:focus {
     outline: none !important;
-    background: #FFFDF9 !important;
     box-shadow: none !important;
 }
 
@@ -608,9 +615,10 @@ body.bv-panel-open {
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+    margin-top: 6px !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons::before,
@@ -619,38 +627,45 @@ body.bv-panel-open {
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a {
-    display: block;
-    min-height: 46px;
-    line-height: 46px;
-    text-align: center;
-    border-radius: 4px;
-    font-size: 13.5px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s;
+    display: block !important;
+    min-height: 38px !important;
+    height: 38px !important;
+    line-height: 36px !important;
+    text-align: center !important;
+    border-radius: 6px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.3px !important;
+    text-decoration: none !important;
+    transition: all 0.2s ease !important;
+    padding: 0 16px !important;
+    box-sizing: border-box !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a:not(.checkout) {
-    background: #FFFFFF;
-    border: 1px solid #E2D7C8;
-    color: #2C2523;
+    background: #FFFFFF !important;
+    border: 1px solid #D6CBC0 !important;
+    color: #4A3C31 !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a:not(.checkout):hover {
-    border-color: #B3592B;
-    color: #B3592B;
+    border-color: #B3592B !important;
+    color: #B3592B !important;
+    background: #FAF7F2 !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a.checkout {
-    background: #B3592B;
-    color: #FFFFFF;
-    border: 1px solid #B3592B;
-    box-shadow: 0 3px 10px rgba(179, 89, 43, 0.2);
+    background: #B3592B !important;
+    color: #FFFFFF !important;
+    border: 1px solid #B3592B !important;
+    box-shadow: 0 2px 6px rgba(179, 89, 43, 0.18) !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a.checkout:hover {
-    background: #94451C;
-    border-color: #94451C;
+    background: #94451C !important;
+    border-color: #94451C !important;
+    box-shadow: 0 4px 10px rgba(179, 89, 43, 0.28) !important;
+    transform: translateY(-1px) !important;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__empty-message {
