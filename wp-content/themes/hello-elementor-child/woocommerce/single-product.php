@@ -59,7 +59,7 @@ while ( have_posts() ) : the_post();
 	<!-- 2. MAIN 2-COLUMN PRODUCT SECTION (COMPACT & BALANCED) -->
 	<div class="bv-product-main-section">
 		<div class="bv-container">
-			<div class="bv-product-columns">
+			<div id="product-<?php echo esc_attr( $pid ); ?>" <?php wc_product_class( 'bv-product-columns product', $product ); ?>>
 				
 				<!-- COLUMN 1: COMPACT GALLERY WITH VERTICAL THUMBNAILS (LEFT) -->
 				<div class="bv-product-gallery">

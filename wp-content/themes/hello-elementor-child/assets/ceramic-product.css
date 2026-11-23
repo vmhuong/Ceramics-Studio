@@ -349,104 +349,108 @@
 	margin-bottom: 14px !important;
 }
 
-/* Variations Table (Kích thước, Màu men) */
-.woocommerce div.product table.variations {
+/* Variations Table - CLEAN UNENCLOSED LAYOUT (NO GREY BOX, NO BORDERS) */
+.bv-single-product-page table.variations,
+.woocommerce div.product table.variations,
+.woocommerce table.variations,
+table.variations {
 	width: 100% !important;
 	border-collapse: collapse !important;
-	margin-bottom: 20px !important;
+	margin: 0 0 14px 0 !important;
 	border: none !important;
+	background: transparent !important;
+	box-shadow: none !important;
+	padding: 0 !important;
 }
 
-.woocommerce div.product table.variations tr {
+.bv-single-product-page table.variations tbody,
+.woocommerce div.product table.variations tbody,
+.woocommerce table.variations tbody,
+table.variations tbody {
 	display: block !important;
-	margin-bottom: 16px !important;
-	padding-bottom: 12px !important;
-	border-bottom: 1px dashed var(--bv-c-border) !important;
-	border-top: none !important;
+	border: none !important;
+	background: transparent !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.bv-single-product-page table.variations tr,
+.woocommerce div.product table.variations tr,
+.woocommerce table.variations tr,
+table.variations tr {
+	display: block !important;
+	margin: 0 0 12px 0 !important;
+	padding: 0 !important;
+	border: none !important;
 	background: transparent !important;
 }
 
+/* Hide duplicate label in left column <th> (label is shown in .bv-selected-variant-label) */
+.bv-single-product-page table.variations th,
 .woocommerce div.product table.variations th,
-.woocommerce div.product table.variations td {
+.woocommerce table.variations th,
+table.variations th {
+	display: none !important;
+	border: none !important;
+	background: transparent !important;
+	padding: 0 !important;
+}
+
+.bv-single-product-page table.variations td,
+.woocommerce div.product table.variations td,
+.woocommerce table.variations td,
+table.variations td {
 	display: block !important;
 	padding: 0 !important;
 	border: none !important;
 	background: transparent !important;
 	text-align: left !important;
-}
-
-.woocommerce div.product table.variations th.label label {
-	display: block !important;
-	font-size: 13.5px !important;
-	font-weight: 700 !important;
-	color: var(--bv-c-ink) !important;
-	margin-bottom: 8px !important;
-	text-transform: uppercase !important;
-	letter-spacing: 0.5px !important;
-}
-
-.woocommerce div.product table.variations td.value select {
 	width: 100% !important;
-	min-height: 46px !important;
-	padding: 10px 14px !important;
-	background: #FFFFFF !important;
-	border: 1px solid var(--bv-c-border) !important;
-	border-radius: 4px !important;
-	font-size: 14px !important;
-	font-family: var(--bv-font-sans) !important;
-	color: var(--bv-c-ink) !important;
-	outline: none !important;
-	cursor: pointer !important;
-	box-shadow: none !important;
-	box-sizing: border-box !important;
-	transition: border-color 0.2s !important;
 }
 
-.woocommerce div.product table.variations td.value select:focus {
-	border-color: var(--bv-c-clay) !important;
+.bv-single-product-page table.variations td.value select,
+.woocommerce div.product table.variations td.value select {
+	display: none !important;
 }
 
-.woocommerce div.product .reset_variations {
-	display: inline-block !important;
-	margin-top: 6px !important;
-	font-size: 12px !important;
-	color: var(--bv-c-clay) !important;
-	text-decoration: underline !important;
+.woocommerce div.product .reset_variations,
+.reset_variations {
+	display: none !important;
 }
 
-/* Variation Swatches (Anh Ceramics: Circular Swatches & Uppercase Pill Buttons) */
+/* Variation Swatches (Anh Ceramics: Compact Circular Swatches & Uppercase Pill Buttons) */
 .bv-variation-custom-wrap {
-	margin-bottom: 20px;
+	margin-bottom: 12px !important;
 }
 
 .bv-selected-variant-label {
-	font-size: 12px;
-	font-weight: 700;
-	text-transform: uppercase;
-	letter-spacing: 0.8px;
-	color: #2C2523;
-	margin-bottom: 10px;
+	font-size: 11.5px !important;
+	font-weight: 700 !important;
+	text-transform: uppercase !important;
+	letter-spacing: 0.8px !important;
+	color: #2C2523 !important;
+	margin-bottom: 7px !important;
 }
 
 .bv-active-val-name {
-	font-weight: 600;
-	color: #7A6D65;
-	margin-left: 4px;
+	font-weight: 700 !important;
+	color: #7A6D65 !important;
+	margin-left: 4px !important;
 }
 
 /* Color Swatches Row */
 .bv-color-swatches-wrap {
-	display: flex;
-	align-items: center;
-	gap: 12px;
-	margin-bottom: 12px;
-	flex-wrap: wrap;
+	display: flex !important;
+	align-items: center !important;
+	gap: 10px !important;
+	margin-bottom: 8px !important;
+	flex-wrap: wrap !important;
 }
 
 .bv-color-swatch-circle {
-	width: 24px !important;
-	height: 24px !important;
-	min-width: 24px !important;
+	width: 22px !important;
+	height: 22px !important;
+	min-width: 22px !important;
 	border-radius: 50% !important;
 	border: 2px solid #FFFFFF !important;
 	box-shadow: 0 0 0 1px #D6CBC0 !important;
@@ -457,37 +461,44 @@
 }
 
 .bv-color-swatch-circle:hover {
-	transform: scale(1.12) !important;
+	transform: scale(1.1) !important;
 }
 
 .bv-color-swatch-circle.is-active,
 .bv-color-swatch-circle[aria-pressed="true"] {
-	box-shadow: 0 0 0 2px #2C2523, 0 0 0 4px #FFFFFF !important;
-	transform: scale(1.12) !important;
+	box-shadow: 0 0 0 1.5px #2C2523, 0 0 0 3px #FFFFFF !important;
+	transform: scale(1.1) !important;
 }
 
-/* Variant Pill Buttons Row (Size / Style) */
+/* Variant Pill Buttons Row (Size / Style - COMPACT & BALANCED) */
 .bv-variant-buttons-wrap {
-	display: flex;
-	gap: 10px;
-	margin-bottom: 12px;
-	flex-wrap: wrap;
+	display: flex !important;
+	gap: 8px !important;
+	margin-bottom: 8px !important;
+	flex-wrap: wrap !important;
 }
 
 .bv-variant-btn {
-	min-width: 60px !important;
-	min-height: 38px !important;
-	padding: 7px 18px !important;
+	min-width: 50px !important;
+	height: 32px !important;
+	min-height: 32px !important;
+	padding: 4px 14px !important;
 	border: 1px solid #D6CBC0 !important;
 	border-radius: 2px !important;
 	background: #FFFFFF !important;
 	color: #2C2523 !important;
-	font-size: 12px !important;
+	font-family: var(--bv-font-sans) !important;
+	font-size: 11px !important;
 	font-weight: 700 !important;
 	letter-spacing: 0.8px !important;
 	text-transform: uppercase !important;
 	cursor: pointer !important;
 	transition: all 0.2s ease !important;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	line-height: 1 !important;
+	outline: none !important;
 }
 
 .bv-variant-btn:hover {
@@ -496,52 +507,47 @@
 
 .bv-variant-btn.is-active,
 .bv-variant-btn[aria-pressed="true"] {
-	background: #2C2523 !important;
+	background: #1F1C1A !important;
 	color: #FFFFFF !important;
-	border-color: #2C2523 !important;
+	border-color: #1F1C1A !important;
 }
 
-/* Single Variation Summary Box */
+/* Hide duplicate variation price and availability (already at top) */
+.single_variation_wrap .woocommerce-variation-price,
+.single_variation_wrap .woocommerce-variation-availability,
+.single_variation .woocommerce-variation-price,
+.single_variation .woocommerce-variation-availability {
+	display: none !important;
+}
+
 .single_variation_wrap {
-	margin-top: 14px !important;
-}
-
-.woocommerce-variation-price {
-	font-size: 24px !important;
-	font-weight: 700 !important;
-	color: var(--bv-c-clay) !important;
-	margin-bottom: 12px !important;
-}
-
-.woocommerce-variation-price .price {
-	color: inherit !important;
-	font-size: inherit !important;
-	font-weight: inherit !important;
-}
-
-.woocommerce-variation-availability {
-	font-size: 13px !important;
-	color: var(--bv-c-muted) !important;
-	margin-bottom: 14px !important;
+	margin-top: 6px !important;
 }
 
 /* Add to Cart Actions Row - STRICTLY SAME LINE */
 .woocommerce-variation-add-to-cart,
-.woocommerce div.product form.cart:not(.variations_form) {
+.bv-single-product-page form.cart:not(.variations_form),
+.woocommerce div.product form.cart:not(.variations_form),
+form.cart .woocommerce-variation-add-to-cart {
 	display: flex !important;
 	flex-direction: row !important;
 	align-items: center !important;
-	gap: 12px !important;
-	margin: 0 0 16px 0 !important;
+	gap: 10px !important;
+	margin: 8px 0 16px 0 !important;
 	width: 100% !important;
 	flex-wrap: nowrap !important;
 }
 
-/* Quantity Stepper Capsule */
-.woocommerce div.product .quantity {
-	flex: 0 0 108px !important;
-	width: 108px !important;
-	height: 44px !important;
+/* Quantity Stepper Capsule (COMPACT 38px HEIGHT) */
+.bv-single-product-page .quantity,
+.woocommerce div.product .quantity,
+.woocommerce form.cart .quantity,
+form.cart .quantity {
+	flex: 0 0 92px !important;
+	width: 92px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	max-height: 38px !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	background: #FFFFFF !important;
@@ -550,15 +556,19 @@
 	overflow: hidden !important;
 	float: none !important;
 	margin: 0 !important;
+	padding: 0 !important;
 	box-sizing: border-box !important;
 }
 
-.woocommerce div.product .quantity .bv-quantity-step {
-	width: 32px !important;
-	height: 42px !important;
+.bv-single-product-page .quantity .bv-quantity-step,
+.woocommerce div.product .quantity .bv-quantity-step,
+.woocommerce form.cart .quantity .bv-quantity-step,
+.quantity .bv-quantity-step {
+	width: 26px !important;
+	height: 36px !important;
 	background: transparent !important;
 	border: none !important;
-	font-size: 16px !important;
+	font-size: 15px !important;
 	color: #2C2523 !important;
 	cursor: pointer !important;
 	display: flex !important;
@@ -566,38 +576,52 @@
 	justify-content: center !important;
 	transition: background 0.2s !important;
 	padding: 0 !important;
+	box-shadow: none !important;
+	outline: none !important;
+	border-radius: 0 !important;
 }
 
-.woocommerce div.product .quantity .bv-quantity-step:hover {
+.bv-single-product-page .quantity .bv-quantity-step:hover,
+.woocommerce div.product .quantity .bv-quantity-step:hover,
+.quantity .bv-quantity-step:hover {
 	background: #F3ECE2 !important;
+	color: #2C2523 !important;
 }
 
-.woocommerce div.product .quantity .qty {
-	width: 44px !important;
-	height: 42px !important;
+.bv-single-product-page .quantity .qty,
+.woocommerce div.product .quantity .qty,
+.woocommerce form.cart .quantity .qty,
+.quantity .qty {
+	width: 40px !important;
+	height: 36px !important;
 	border: none !important;
 	text-align: center !important;
-	font-size: 14px !important;
+	font-size: 13px !important;
 	font-weight: 600 !important;
-	color: var(--bv-c-ink) !important;
+	color: #2C2523 !important;
 	background: transparent !important;
 	outline: none !important;
 	box-shadow: none !important;
 	padding: 0 !important;
+	margin: 0 !important;
 }
 
 /* Add to Cart Button (Warm Ceramic Clay with Left-to-Right Sliding Hover Fill) */
+.bv-single-product-page form.cart .single_add_to_cart_button,
 .woocommerce div.product form.cart .single_add_to_cart_button,
-.woocommerce div.product form.cart .bv-btn-add-to-cart,
+.woocommerce form.cart button.button.alt,
+.woocommerce form.cart .single_add_to_cart_button.button.alt,
 .bv-btn-add-to-cart,
-button.bv-btn-add-to-cart {
+button.single_add_to_cart_button {
 	flex: 1 !important;
 	min-width: 0 !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
-	height: 44px !important;
-	padding: 0 24px !important;
+	height: 38px !important;
+	min-height: 38px !important;
+	max-height: 38px !important;
+	padding: 0 18px !important;
 	position: relative !important;
 	overflow: hidden !important;
 	background-color: #6E5344 !important; /* Warm craft clay brown */
@@ -605,9 +629,9 @@ button.bv-btn-add-to-cart {
 	border: 1px solid #6E5344 !important;
 	border-radius: 3px !important;
 	font-family: var(--bv-font-sans) !important;
-	font-size: 13px !important;
+	font-size: 12.5px !important;
 	font-weight: 700 !important;
-	letter-spacing: 1.2px !important;
+	letter-spacing: 1px !important;
 	text-transform: uppercase !important;
 	cursor: pointer !important;
 	box-shadow: none !important;
@@ -619,10 +643,12 @@ button.bv-btn-add-to-cart {
 }
 
 /* Sliding hover fill effect: Left to Right */
+.bv-single-product-page form.cart .single_add_to_cart_button::before,
 .woocommerce div.product form.cart .single_add_to_cart_button::before,
-.woocommerce div.product form.cart .bv-btn-add-to-cart::before,
+.woocommerce form.cart button.button.alt::before,
+.woocommerce form.cart .single_add_to_cart_button.button.alt::before,
 .bv-btn-add-to-cart::before,
-button.bv-btn-add-to-cart::before {
+button.single_add_to_cart_button::before {
 	content: '' !important;
 	position: absolute !important;
 	top: 0 !important;
@@ -636,19 +662,24 @@ button.bv-btn-add-to-cart::before {
 	z-index: -1 !important;
 }
 
+.bv-single-product-page form.cart .single_add_to_cart_button:hover::before,
 .woocommerce div.product form.cart .single_add_to_cart_button:hover::before,
-.woocommerce div.product form.cart .bv-btn-add-to-cart:hover::before,
+.woocommerce form.cart button.button.alt:hover::before,
+.woocommerce form.cart .single_add_to_cart_button.button.alt:hover::before,
 .bv-btn-add-to-cart:hover::before,
-button.bv-btn-add-to-cart:hover::before {
+button.single_add_to_cart_button:hover::before {
 	transform: scaleX(1) !important;
 }
 
+.bv-single-product-page form.cart .single_add_to_cart_button:hover,
 .woocommerce div.product form.cart .single_add_to_cart_button:hover,
-.woocommerce div.product form.cart .bv-btn-add-to-cart:hover,
+.woocommerce form.cart button.button.alt:hover,
+.woocommerce form.cart .single_add_to_cart_button.button.alt:hover,
 .bv-btn-add-to-cart:hover,
-button.bv-btn-add-to-cart:hover {
+button.single_add_to_cart_button:hover {
 	color: #FFFFFF !important;
 	border-color: #241E1C !important;
+	background-color: #6E5344 !important;
 }
 
 /* Inline "Mô tả" Section (Anh Ceramics Signature) */
