@@ -7,7 +7,7 @@ $recent = wc_get_orders( [ 'customer_id' => get_current_user_id(), 'limit' => 3,
     <span class="bv-account-eyebrow">GÓC NHỎ CỦA BẠN</span>
     <h2>Xin chào, <?php echo esc_html( $current_user->first_name ?: $current_user->display_name ); ?>.</h2>
 </div>
-<div class="bv-account-section-title"><h3>Đơn hàng gần đây</h3><a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>">Tất cả đơn hàng <i class="eicon-arrow-right" aria-hidden="true"></i></a></div>
+<div class="bv-account-section-title"><h3>Đơn hàng gần đây</h3><a href="<?php echo esc_url( wc_get_account_endpoint_url( 'orders' ) ); ?>">Tất cả đơn hàng</a></div>
 <?php if ( $recent ) : ?>
 <div class="bv-recent-orders">
 <?php foreach ( $recent as $order ) : ?>
@@ -27,8 +27,8 @@ $recent = wc_get_orders( [ 'customer_id' => get_current_user_id(), 'limit' => 3,
 </div>
 <?php endif; ?>
 <div class="bv-account-quicklinks">
-    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-address' ) ); ?>"><i class="eicon-map-pin" aria-hidden="true"></i><span>Địa chỉ của tôi</span><i class="eicon-arrow-right" aria-hidden="true"></i></a>
-    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-account' ) ); ?>"><i class="eicon-user-circle-o" aria-hidden="true"></i><span>Thông tin &amp; mật khẩu</span><i class="eicon-arrow-right" aria-hidden="true"></i></a>
+    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-address' ) ); ?>"><span>Địa chỉ của tôi</span></a>
+    <a href="<?php echo esc_url( wc_get_account_endpoint_url( 'edit-account' ) ); ?>"><span>Thông tin &amp; mật khẩu</span></a>
 </div>
 <?php
 do_action( 'woocommerce_account_dashboard' );

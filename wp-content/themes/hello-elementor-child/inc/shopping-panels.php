@@ -37,17 +37,17 @@ add_action( 'wp_footer', function () {
     $account_url = wc_get_page_permalink( 'myaccount' );
     ?>
     <dialog id="bv-cart-panel" class="bv-shopping-panel" aria-labelledby="bv-cart-panel-title">
-        <header class="bv-panel-heading"><h2 id="bv-cart-panel-title">Giỏ hàng</h2><button type="button" class="bv-panel-close" aria-label="Đóng giỏ hàng" title="Đóng"><i class="eicon-close" aria-hidden="true"></i></button></header>
+        <header class="bv-panel-heading"><h2 id="bv-cart-panel-title">Giỏ hàng</h2><button type="button" class="bv-panel-close" aria-label="Đóng giỏ hàng" title="Đóng">✕</button></header>
         <div class="woocommerce widget_shopping_cart"><div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div></div>
-        <a class="bv-panel-continue" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Tiếp tục mua hàng <i class="eicon-arrow-right" aria-hidden="true"></i></a>
+        <a class="bv-panel-continue" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Tiếp tục mua hàng</a>
     </dialog>
     <dialog id="bv-account-panel" class="bv-shopping-panel" aria-labelledby="bv-account-panel-title">
-        <header class="bv-panel-heading"><h2 id="bv-account-panel-title"><?php echo is_user_logged_in() ? 'Tài khoản của tôi' : 'Đăng nhập tài khoản'; ?></h2><button type="button" class="bv-panel-close" aria-label="Đóng tài khoản" title="Đóng"><i class="eicon-close" aria-hidden="true"></i></button></header>
+        <header class="bv-panel-heading"><h2 id="bv-account-panel-title"><?php echo is_user_logged_in() ? 'Tài khoản của tôi' : 'Đăng nhập tài khoản'; ?></h2><button type="button" class="bv-panel-close" aria-label="Đóng tài khoản" title="Đóng">✕</button></header>
         <?php if ( is_user_logged_in() ) : ?>
             <p class="bv-panel-greeting">Xin chào, <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong></p>
             <nav class="bv-panel-account-links" aria-label="Quản lý tài khoản">
                 <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?><i class="eicon-arrow-right" aria-hidden="true"></i></a>
+                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
                 <?php endforeach; ?>
             </nav>
         <?php else : ?>
@@ -55,7 +55,7 @@ add_action( 'wp_footer', function () {
                 <form method="post" action="<?php echo esc_url( $account_url ); ?>" class="bv-panel-login">
                     <?php do_action( 'woocommerce_login_form_start' ); ?>
                     <p><label for="bv-panel-username">Email hoặc tên đăng nhập</label><input id="bv-panel-username" name="username" autocomplete="username" required></p>
-                    <p><label for="bv-panel-password">Mật khẩu</label><span class="bv-panel-password"><input id="bv-panel-password" type="password" name="password" autocomplete="current-password" required><button type="button" class="bv-password-toggle" aria-label="Hiện mật khẩu" title="Hiện mật khẩu"><i class="eicon-eye" aria-hidden="true"></i></button></span></p>
+                    <p><label for="bv-panel-password">Mật khẩu</label><span class="bv-panel-password"><input id="bv-panel-password" type="password" name="password" autocomplete="current-password" required><button type="button" class="bv-password-toggle" aria-label="Hiện mật khẩu" title="Hiện mật khẩu">Xem</button></span></p>
                     <label class="bv-panel-remember"><input type="checkbox" name="rememberme" value="forever"> Ghi nhớ đăng nhập</label>
                     <?php do_action( 'woocommerce_login_form' ); ?>
                     <input type="hidden" name="woocommerce-login-nonce" value="<?php echo esc_attr( wp_create_nonce( 'woocommerce-login' ) ); ?>">
@@ -103,7 +103,7 @@ add_filter( 'woocommerce_checkout_get_value', function ( $value, $key ) {
 }, 10, 2 );
 add_action( 'woocommerce_cart_emptied', function () { if ( WC()->session ) { WC()->session->__unset( 'bv_cart_note' ); } } );
 add_action( 'woocommerce_proceed_to_checkout', function () {
-    echo '<a class="bv-cart-continue" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '"><i class="eicon-arrow-left" aria-hidden="true"></i> Tiếp tục mua hàng</a>';
+    echo '<a class="bv-cart-continue" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Tiếp tục mua hàng</a>';
 }, 30 );
 
 add_action( 'woocommerce_register_form_start', function () {

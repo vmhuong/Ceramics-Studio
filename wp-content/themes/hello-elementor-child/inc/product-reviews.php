@@ -50,20 +50,18 @@ function bv_render_review_summary() {
 		<div class="bv-summary-left">
 			<div class="bv-score-number"><?php echo number_format( (float) $average, 1 ); ?></div>
 			<div class="bv-score-stars" aria-label="<?php echo esc_attr( $average ); ?> trên 5 sao">
-				<?php for ( $i = 1; $i <= 5; $i++ ) : ?>
-					<i class="eicon-star <?php echo $i <= round( $average ) ? 'is-filled' : ''; ?>" aria-hidden="true"></i>
-				<?php endfor; ?>
+				<span class="bv-star-text"><?php echo str_repeat( '★', (int) round( $average ) ) . str_repeat( '☆', 5 - (int) round( $average ) ); ?></span>
 			</div>
 			<span class="bv-review-total"><?php echo esc_html( $review_count ); ?> lượt đánh giá thực tế</span>
-			<span class="bv-verified-badge"><i class="eicon-check-circle" aria-hidden="true"></i> 100% Khách hàng hài lòng</span>
+			<span class="bv-verified-badge">100% Khách hàng hài lòng</span>
 		</div>
 		<div class="bv-summary-right">
 			<span class="bv-tag-title">Điểm khách hàng yêu thích nhất:</span>
 			<div class="bv-feedback-tags">
-				<span class="bv-tag"><i class="eicon-box" aria-hidden="true"></i> Đóng gói 3 lớp chống sốc kỹ càng</span>
-				<span class="bv-tag"><i class="eicon-paint-brush" aria-hidden="true"></i> Men gốm mộc đẹp hơn ảnh</span>
-				<span class="bv-tag"><i class="eicon-heart" aria-hidden="true"></i> Cầm đầm tay và chắc chắn</span>
-				<span class="bv-tag"><i class="eicon-clock" aria-hidden="true"></i> Giao hàng nguyên vẹn, đúng hẹn</span>
+				<span class="bv-tag">Đóng gói 3 lớp chống sốc kỹ càng</span>
+				<span class="bv-tag">Men gốm mộc đẹp hơn ảnh</span>
+				<span class="bv-tag">Cầm đầm tay và chắc chắn</span>
+				<span class="bv-tag">Giao hàng nguyên vẹn, đúng hẹn</span>
 			</div>
 		</div>
 	</div>
@@ -81,7 +79,7 @@ function bv_add_review_photo_field() {
 	?>
 	<div class="bv-review-photo-field">
 		<label for="bv_review_image" class="bv-photo-label">
-			<i class="eicon-camera" aria-hidden="true"></i> Đính kèm ảnh thực tế của bạn (tùy chọn)
+			Đính kèm ảnh thực tế của bạn (tùy chọn)
 		</label>
 		<input type="file" id="bv_review_image" name="bv_review_image" accept="image/png, image/jpeg, image/webp" class="bv-photo-input">
 		<div id="bv-photo-preview" class="bv-photo-preview" hidden></div>
@@ -112,7 +110,7 @@ add_action( 'comment_post', function ( $comment_id ) {
 // Display review photo and Verified Buyer badge inside the comment
 add_filter( 'comment_text', function ( $comment_text, $comment ) {
 	if ( ! is_admin() && $comment && 'review' === get_post_type( $comment->comment_post_ID ) || 'product' === get_post_type( $comment->comment_post_ID ) ) {
-		$badge_html = '<div class="bv-comment-badges"><span class="bv-verified-buyer"><i class="eicon-check" aria-hidden="true"></i> Đã mua hàng từ Tiệm Gốm</span></div>';
+		$badge_html = '<div class="bv-comment-badges"><span class="bv-verified-buyer">Đã mua hàng từ Tiệm Gốm</span></div>';
 
 		$photo_html = '';
 		$image_id = get_comment_meta( $comment->comment_ID, '_bv_review_image_id', true );

@@ -23,13 +23,12 @@ function bv_header_cart() {
 		return '';
 	}
 	$count = WC()->cart->get_cart_contents_count();
-	$label = sprintf( 'Giỏ hàng, %s sản phẩm', number_format_i18n( $count ) );
-	return '<a class="bv-header-cart" href="' . esc_url( wc_get_cart_url() ) . '" aria-label="' . esc_attr( $label ) . '" title="' . esc_attr( $label ) . '"><i class="eicon-cart-light" aria-hidden="true"></i><span class="bv-cart-count" aria-hidden="true">' . esc_html( $count > 99 ? '99+' : $count ) . '</span></a>';
+	return '<a class="bv-header-cart" href="' . esc_url( wc_get_cart_url() ) . '" title="Xem giỏ hàng"><span class="bv-cart-label">Giỏ hàng</span> <span class="bv-cart-num">(<span class="bv-cart-count">' . esc_html( $count ) . '</span>)</span></a>';
 }
 function bv_header_account() {
 	$logged_in = is_user_logged_in();
-	$label = $logged_in ? 'Tài khoản của bạn (đã đăng nhập)' : 'Đăng nhập hoặc đăng ký';
-	return '<a class="bv-header-account' . ( $logged_in ? ' is-signed-in' : '' ) . '" href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" aria-label="' . esc_attr( $label ) . '" title="' . esc_attr( $label ) . '"><i class="eicon-user-circle-o" aria-hidden="true"></i>' . ( $logged_in ? '<span class="bv-account-status" aria-hidden="true">&#10003;</span>' : '' ) . '</a>';
+	$label = $logged_in ? 'Tài khoản' : 'Đăng nhập';
+	return '<a class="bv-header-account' . ( $logged_in ? ' is-signed-in' : '' ) . '" href="' . esc_url( wc_get_page_permalink( 'myaccount' ) ) . '" title="' . esc_attr( $label ) . '"><span class="bv-account-label">' . esc_html( $label ) . '</span></a>';
 }
 add_shortcode( 'bookverse_header_cart', function () {
 	return function_exists( 'WC' ) ? '<span class="bv-header-tools">' . bv_header_cart() . bv_header_account() . '</span>' : '';
@@ -92,7 +91,7 @@ add_filter( 'woocommerce_cart_item_name', function ( $name, $item ) {
 }, 10, 2 );
 
 add_action( 'woocommerce_cart_is_empty', function () {
-	echo '<div class="bv-empty-cart"><i class="eicon-cart-light" aria-hidden="true"></i><h2>Giỏ hàng đang trống</h2><p>Một món gốm nhỏ, thêm chút ấm áp cho mỗi ngày.</p></div>';
+	echo '<div class="bv-empty-cart"><h2>Giỏ hàng đang trống</h2><p>Một món gốm nhỏ, thêm chút ấm áp cho mỗi ngày.</p></div>';
 }, 5 );
 
 add_filter( 'woocommerce_return_to_shop_text', function () { return 'Khám phá gốm thủ công'; } );

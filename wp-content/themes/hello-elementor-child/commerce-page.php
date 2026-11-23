@@ -13,7 +13,7 @@ if ( $account ) {
 ?>
 <main id="content" class="site-main bv-commerce-shell<?php echo $account ? ' bv-account-page' . ( $guest ? ' bv-account-guest' : '' ) : ''; ?>">
 	<header class="bv-commerce-heading">
-		<a class="bv-back-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>"><i class="eicon-arrow-left" aria-hidden="true"></i> Tiếp tục chọn gốm</a>
+		<a class="bv-back-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Tiếp tục chọn gốm</a>
 		<?php if ( is_cart() || is_checkout() ) { bv_commerce_steps(); } ?>
 		<h1><?php echo esc_html( $title ); ?></h1>
 		<?php if ( $guest ) : ?><p class="bv-account-subtitle">Một chút gốm, một chút an yên.</p><?php endif; ?>

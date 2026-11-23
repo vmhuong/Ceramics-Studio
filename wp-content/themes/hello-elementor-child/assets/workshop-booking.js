@@ -110,7 +110,7 @@ jQuery(function ($) {
             return;
         }
 
-        $submitBtn.prop('disabled', true).html('<i class="eicon-loading eicon-animation-spin" aria-hidden="true"></i> Đang chuẩn bị vé...');
+        $submitBtn.prop('disabled', true).text('Đang chuẩn bị vé...');
 
         $.ajax({
             url: bvWorkshopData.ajaxUrl,
@@ -128,12 +128,12 @@ jQuery(function ($) {
                 if (res.success && res.data && res.data.redirect) {
                     window.location.href = res.data.redirect;
                 } else {
-                    $submitBtn.prop('disabled', false).html('<i class="eicon-cart" aria-hidden="true"></i> Tiến hành Đặt lịch & Thanh toán');
+                    $submitBtn.prop('disabled', false).text('Tiến hành Đặt lịch & Thanh toán');
                     $msgEl.addClass('is-error').text(res.data && res.data.message ? res.data.message : 'Có lỗi xảy ra, vui lòng thử lại.');
                 }
             },
             error: function () {
-                $submitBtn.prop('disabled', false).html('<i class="eicon-cart" aria-hidden="true"></i> Tiến hành Đặt lịch & Thanh toán');
+                $submitBtn.prop('disabled', false).text('Tiến hành Đặt lịch & Thanh toán');
                 $msgEl.addClass('is-error').text('Lỗi kết nối máy chủ, vui lòng thử lại.');
             }
         });

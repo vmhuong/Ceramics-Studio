@@ -245,6 +245,9 @@ body.bv-wabi-sabi-body {
 /* ==========================================================================
    HEADER ACTIONS (HOTLINE, CART, ACCOUNT, CTA)
    ========================================================================== */
+/* ==========================================================================
+   HEADER ACTIONS: SYNCHRONIZED ACCOUNT & CART (HOTLINE & WORKSHOP CTA REMOVED)
+   ========================================================================== */
 .bv-header-actions {
 	display: flex;
 	align-items: center;
@@ -253,104 +256,72 @@ body.bv-wabi-sabi-body {
 	margin-left: 20px;
 }
 
-/* Hotline Pill */
-.bv-action-hotline {
-	display: inline-flex;
-	align-items: center;
-	gap: 6px;
-	padding: 7px 14px;
-	background: #F3ECE2;
-	border: 1px solid #E2D7C8;
-	border-radius: 20px;
-	font-size: 13px;
-	font-weight: 600;
-	color: var(--bv-c-wood);
-	text-decoration: none;
-	transition: background-color 0.25s, border-color 0.25s, transform 0.2s;
-}
-
-.bv-action-hotline:hover {
-	background: #EBDDCE;
-	border-color: var(--bv-c-clay);
-	color: var(--bv-c-clay);
-	transform: translateY(-1px);
-}
-
-.bv-hotline-icon {
-	display: flex;
-	align-items: center;
-	color: var(--bv-c-clay);
-}
-
-/* Cart Link (Pure Text - No Icons) */
+/* Synchronized Craft Buttons (Account & Cart) */
+.bv-header-account,
 .bv-header-cart {
-	display: inline-flex;
-	align-items: center;
-	padding: 8px 12px;
-	border-radius: 4px;
-	font-size: 13.5px;
-	font-weight: 500;
-	color: var(--bv-c-ink);
-	text-decoration: none;
-	white-space: nowrap;
-	transition: background-color 0.2s, color 0.2s;
+	display: inline-flex !important;
+	align-items: center !important;
+	justify-content: center !important;
+	gap: 6px !important;
+	padding: 9px 18px !important;
+	background: #FAF7F2 !important;
+	border: 1px solid #E8E2D8 !important;
+	border-radius: 4px !important;
+	font-family: var(--bv-font-sans) !important;
+	font-size: 13.5px !important;
+	font-weight: 500 !important;
+	letter-spacing: 0.3px !important;
+	color: #2C2523 !important;
+	text-decoration: none !important;
+	white-space: nowrap !important;
+	width: auto !important;
+	height: auto !important;
+	box-shadow: none !important;
+	transition: all 0.25s ease !important;
+	line-height: 1.2 !important;
 }
 
+.bv-header-account:hover,
 .bv-header-cart:hover {
-	background-color: rgba(179, 89, 43, 0.08);
-	color: var(--bv-c-clay);
-}
-
-.bv-cart-count {
-	font-weight: 700;
-	color: var(--bv-c-clay);
-	margin-left: 1px;
-}
-
-/* User Account Link (Pure Text - No Icons) */
-.bv-header-account {
-	display: inline-flex;
-	align-items: center;
-	padding: 8px 12px;
-	border-radius: 4px;
-	font-size: 13.5px;
-	font-weight: 500;
-	color: var(--bv-c-ink);
-	text-decoration: none;
-	white-space: nowrap;
-	transition: background-color 0.2s, color 0.2s;
-}
-
-.bv-header-account:hover {
-	background-color: rgba(179, 89, 43, 0.08);
-	color: var(--bv-c-clay);
+	background: #FFFFFF !important;
+	border-color: #B3592B !important;
+	color: #B3592B !important;
+	transform: translateY(-1px);
+	box-shadow: 0 4px 12px rgba(44, 37, 35, 0.06) !important;
 }
 
 .bv-header-account.is-logged-in {
-	color: var(--bv-c-clay);
+	border-color: #B3592B !important;
+	color: #B3592B !important;
 }
 
-/* CTA Button */
-.bv-header-cta {
-	display: inline-flex;
-	align-items: center;
-	justify-content: center;
-	padding: 10px 20px;
-	background-color: var(--bv-c-clay);
-	color: #FFFFFF !important;
-	border-radius: 24px;
-	font-size: 13.5px;
-	font-weight: 600;
-	letter-spacing: 0.3px;
-	text-decoration: none;
-	box-shadow: 0 3px 10px rgba(179, 89, 43, 0.25);
-	transition: background-color 0.25s, transform 0.2s, box-shadow 0.25s;
+.bv-cart-label,
+.bv-account-label {
+	display: inline !important;
+	font-size: inherit !important;
+	font-weight: inherit !important;
+	color: inherit !important;
 }
 
-.bv-header-cta:hover {
-	background-color: var(--bv-c-clay-dark);
-	transform: translateY(-2px);
-	box-shadow: 0 6px 16px rgba(179, 89, 43, 0.35);
+.bv-cart-num {
+	display: inline-flex !important;
+	align-items: center !important;
+	color: inherit !important;
+}
+
+.bv-cart-count {
+	display: inline !important;
+	position: static !important;
+	background: none !important;
+	color: #B3592B !important;
+	font-weight: 700 !important;
+	font-size: 13.5px !important;
+	padding: 0 !important;
+	border: none !important;
+	border-radius: 0 !important;
+	min-width: auto !important;
+	height: auto !important;
+	box-shadow: none !important;
 }
 
 /* Mobile Toggle Hamburger */

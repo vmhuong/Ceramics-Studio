@@ -1,11 +1,5 @@
 jQuery(function ($) {
     'use strict';
-    $('.summary .single_add_to_cart_button').each(function () {
-        var icon = document.createElement('i');
-        icon.className = 'eicon-cart-light';
-        icon.setAttribute('aria-hidden', 'true');
-        this.prepend(icon);
-    });
     $('.woocommerce-message').has('.bv-added-message').each(function () {
         var notice = this;
         var message = notice.querySelector('.bv-added-message');
@@ -24,15 +18,12 @@ jQuery(function ($) {
         notice.classList.add('bv-product-toast');
         notice.setAttribute('role', 'status');
         notice.setAttribute('aria-live', 'polite');
-        var icon = document.createElement('i');
-        icon.className = 'eicon-check bv-toast-icon';
-        icon.setAttribute('aria-hidden', 'true');
         var close = document.createElement('button');
         close.type = 'button';
         close.className = 'bv-toast-close';
         close.setAttribute('aria-label', 'Đóng thông báo');
         close.title = 'Đóng thông báo';
-        close.innerHTML = '<i class="eicon-close" aria-hidden="true"></i>';
+        close.textContent = '✕';
         close.addEventListener('click', function () {
             if (notice.contains(document.activeElement)) {
                 var button = document.querySelector('.summary .single_add_to_cart_button');
@@ -40,7 +31,6 @@ jQuery(function ($) {
             }
             notice.remove();
         });
-        notice.prepend(icon);
         notice.append(close);
         document.body.append(notice);
         function dismiss() {

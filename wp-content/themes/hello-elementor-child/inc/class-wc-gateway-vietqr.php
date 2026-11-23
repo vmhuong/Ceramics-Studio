@@ -179,14 +179,14 @@ function bv_define_vietqr_class() {
 			?>
 			<div class="bv-vietqr-card" id="bv-vietqr-section">
 				<div class="bv-vietqr-header">
-					<span class="bv-vietqr-badge"><i class="eicon-check-circle" aria-hidden="true"></i> Đặt hàng thành công</span>
+					<span class="bv-vietqr-badge">Đặt hàng thành công</span>
 					<h3>Quét mã VietQR để thanh toán</h3>
 					<p class="bv-vietqr-sub">Mở ứng dụng ngân hàng bất kỳ để quét mã QR và hoàn tất thanh toán đơn hàng gốm của bạn.</p>
 				</div>
 				<div class="bv-vietqr-body">
 					<div class="bv-vietqr-image-wrapper">
 						<img src="<?php echo esc_url( $qr_url ); ?>" alt="Mã thanh toán VietQR đơn hàng <?php echo esc_attr( $order_id ); ?>" class="bv-vietqr-image" width="280" height="280">
-						<span class="bv-vietqr-tip"><i class="eicon-info-circle" aria-hidden="true"></i> Tự động điền đúng số tiền & nội dung</span>
+						<span class="bv-vietqr-tip">Tự động điền đúng số tiền & nội dung</span>
 					</div>
 					<div class="bv-vietqr-details">
 						<div class="bv-detail-row">
@@ -196,7 +196,7 @@ function bv_define_vietqr_class() {
 						<div class="bv-detail-row">
 							<span class="bv-detail-label">Số tài khoản:</span>
 							<strong class="bv-detail-value" id="bv-copy-acc"><?php echo esc_html( $this->account_no ); ?></strong>
-							<button type="button" class="bv-btn-copy" data-target="#bv-copy-acc" title="Sao chép số tài khoản"><i class="eicon-copy" aria-hidden="true"></i> Chép</button>
+							<button type="button" class="bv-btn-copy" data-target="#bv-copy-acc" title="Sao chép số tài khoản">Sao chép</button>
 						</div>
 						<div class="bv-detail-row">
 							<span class="bv-detail-label">Chủ tài khoản:</span>
@@ -205,12 +205,12 @@ function bv_define_vietqr_class() {
 						<div class="bv-detail-row">
 							<span class="bv-detail-label">Số tiền:</span>
 							<strong class="bv-detail-value bv-amount" id="bv-copy-amount"><?php echo esc_html( $total ); ?></strong>
-							<button type="button" class="bv-btn-copy" data-copy="<?php echo esc_attr( (int) $order->get_total() ); ?>" title="Sao chép số tiền"><i class="eicon-copy" aria-hidden="true"></i> Chép</button>
+							<button type="button" class="bv-btn-copy" data-copy="<?php echo esc_attr( (int) $order->get_total() ); ?>" title="Sao chép số tiền">Sao chép</button>
 						</div>
 						<div class="bv-detail-row bv-highlight-row">
 							<span class="bv-detail-label">Nội dung CK:</span>
 							<strong class="bv-detail-value" id="bv-copy-memo"><?php echo esc_html( $transfer_content ); ?></strong>
-							<button type="button" class="bv-btn-copy" data-target="#bv-copy-memo" title="Sao chép nội dung chuyển khoản"><i class="eicon-copy" aria-hidden="true"></i> Chép</button>
+							<button type="button" class="bv-btn-copy" data-target="#bv-copy-memo" title="Sao chép nội dung chuyển khoản">Sao chép</button>
 						</div>
 						<div class="bv-vietqr-notice">
 							<p><strong>Lưu ý:</strong> Vui lòng giữ nguyên nội dung chuyển khoản <code><?php echo esc_html( $transfer_content ); ?></code> để đơn hàng được xưởng gốm xử lý và đóng gói nhanh nhất.</p>

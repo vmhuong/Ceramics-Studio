@@ -64,26 +64,16 @@ $logged_in    = is_user_logged_in();
 				?>
 			</nav>
 
-			<!-- ACTIONS: TEXT HOTLINE, CART COUNT, ACCOUNT, CTA (NO ICONS) -->
+			<!-- ACTIONS: ACCOUNT & CART (HOTLINE & WORKSHOP CTA REMOVED) -->
 			<div class="bv-header-actions">
-				<!-- Hotline Text -->
-				<a href="tel:0363292271" class="bv-action-hotline" title="Hotline xưởng: 0363 292 271">
-					Hotline: 0363 292 271
+				<!-- User Account / Login Link -->
+				<a class="bv-header-account" href="<?php echo esc_url( $account_url ); ?>" title="<?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?>">
+					<span class="bv-account-label"><?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?></span>
 				</a>
 
-				<!-- WooCommerce Cart Text -->
+				<!-- WooCommerce Cart Link -->
 				<a class="bv-header-cart" href="<?php echo esc_url( $cart_url ); ?>" title="Xem giỏ hàng">
-					Giỏ hàng (<span class="bv-cart-count"><?php echo esc_html( $cart_count ); ?></span>)
-				</a>
-
-				<!-- User Account Text -->
-				<a class="bv-header-account" href="<?php echo esc_url( $account_url ); ?>" title="Tài khoản">
-					<?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?>
-				</a>
-
-				<!-- Workshop CTA Button -->
-				<a href="<?php echo esc_url( $workshop_url ); ?>" class="bv-header-cta">
-					Đặt Workshop
+					<span class="bv-cart-label">Giỏ hàng</span> <span class="bv-cart-num">(<span class="bv-cart-count"><?php echo esc_html( $cart_count ); ?></span>)</span>
 				</a>
 
 				<!-- Mobile Menu Toggle Button -->

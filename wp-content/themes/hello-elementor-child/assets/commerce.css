@@ -23,25 +23,20 @@
 .elementor-92 .bv-header-actions .elementor-button:hover { background: #e8e1d8; color: var(--bv-ink); }
 .elementor-92 .wpr-nav-menu .wpr-menu-item { font-size: 15px; letter-spacing: 0; }
 .bv-header-cart {
-    position: relative; width: 44px; height: 44px; display: inline-flex; align-items: center; justify-content: center;
-    color: var(--bv-ink); border-radius: 50%; transition: background .2s, color .2s; flex-shrink: 0;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: var(--bv-ink); transition: background .2s, color .2s;
 }
-.bv-header-cart > i { font-size: 25px; }
-.bv-header-cart:hover { background: #f4e7c7; color: var(--bv-wine); }
+.bv-header-cart:hover { color: var(--bv-wine); }
 .elementor-92 a.bv-header-cart { color: var(--bv-ink); }
 .bv-cart-count {
-    position: absolute; top: 0; right: -2px; min-width: 20px; height: 20px; padding: 0 4px;
-    display: flex; align-items: center; justify-content: center; border-radius: 20px;
-    border: 2px solid #f4f0ee; background: var(--bv-clay); color: white; font: 600 10px/1 Arial, sans-serif;
+    color: var(--bv-clay); font-weight: 700;
 }
 .bv-header-cart:focus-visible, .bv-commerce-shell :focus-visible { outline: 2px solid var(--bv-wine); outline-offset: 4px; }
 
-.bv-header-tools { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; }
-.bv-header-account { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 44px; height: 44px; flex-shrink: 0; border-radius: 50%; }
+.bv-header-tools { display: inline-flex; align-items: center; gap: 8px; vertical-align: middle; }
+.bv-header-account { display: inline-flex; align-items: center; justify-content: center; }
 .elementor-92 a.bv-header-account { color: var(--bv-ink); }
-.bv-header-account > i { font-size: 25px; }
-.elementor-92 a.bv-header-account:hover, .elementor-92 a.bv-header-account.is-signed-in { background: var(--bv-soft); color: var(--bv-wine); }
-.bv-account-status { position: absolute; right: -1px; top: 0; display: grid; place-items: center; width: 17px; height: 17px; border-radius: 50%; background: var(--bv-wine); color: white; font: 11px/1 Arial, sans-serif; }
+.elementor-92 a.bv-header-account:hover, .elementor-92 a.bv-header-account.is-signed-in { color: var(--bv-wine); }
 .bv-header-account:focus-visible { outline: 2px solid var(--bv-wine); outline-offset: 2px; }
 
 /* Native WooCommerce forms and account endpoints retain their own security handling. */

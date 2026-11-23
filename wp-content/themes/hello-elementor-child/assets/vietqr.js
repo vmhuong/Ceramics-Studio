@@ -19,7 +19,7 @@ jQuery(function ($) {
 
         function markCopied() {
             var origText = $btn.html();
-            $btn.addClass('is-copied').html('<i class="eicon-check" aria-hidden="true"></i> Đã chép');
+            $btn.addClass('is-copied').text('Đã chép!');
             setTimeout(function () {
                 $btn.removeClass('is-copied').html(origText);
             }, 2500);
