@@ -1,7 +1,7 @@
 <?php
 /**
  * The Template for displaying product archives (Shop / Collections).
- * Style: Anh Ceramics 2-Column Minimalist Layout (Filter Sidebar + 4-Column Grid)
+ * Style: Anh Ceramics 2-Column Minimalist Layout (Sticky Filter Sidebar + 4-Column Grid)
  * Inspired by Anh Ceramics.
  *
  * @package HelloElementorChild
@@ -19,7 +19,34 @@ $is_on_sale  = ! empty( $_GET['on_sale'] );
 $is_featured = ! empty( $_GET['featured'] );
 $cur_min     = isset( $_GET['min_price'] ) ? (float) $_GET['min_price'] : 0;
 $cur_max     = isset( $_GET['max_price'] ) ? (float) $_GET['max_price'] : 0;
+$cur_color   = isset( $_GET['color'] ) ? sanitize_title( wp_unslash( $_GET['color'] ) ) : '';
 $orderby     = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['orderby'] ) ) : 'date';
+
+// Color swatches (Anh Ceramics Palette with functional slugs)
+$glaze_colors = [
+	[ 'slug' => 'be',       'name' => 'Mộc be cát',     'hex' => '#E8DFC8' ],
+	[ 'slug' => 'tro',      'name' => 'Men tro nhạt',    'hex' => '#D8C3A5' ],
+	[ 'slug' => 'dat-nung', 'name' => 'Đất nung mộc',    'hex' => '#B88258' ],
+	[ 'slug' => 'gach',     'name' => 'Đỏ gạch nung',    'hex' => '#8C3825' ],
+	[ 'slug' => 'nau',      'name' => 'Nâu sẫm nung',    'hex' => '#4A342B' ],
+	[ 'slug' => 'xam',      'name' => 'Xám men tro',     'hex' => '#3D4543' ],
+	[ 'slug' => 'suong',    'name' => 'Xanh sương',      'hex' => '#8CA39D' ],
+	[ 'slug' => 'bien',     'name' => 'Xanh biển sâu',   'hex' => '#314E59' ],
+	[ 'slug' => 'ngoc',     'name' => 'Men ngọc biển',   'hex' => '#508985' ],
+	[ 'slug' => 'cam',      'name' => 'Cam san hô',      'hex' => '#C4572E' ],
+	[ 'slug' => 'hong',     'name' => 'Hồng phấn gốm',   'hex' => '#CDB3A3' ],
+	[ 'slug' => 'nga',      'name' => 'Men mộc ngà',     'hex' => '#9D9F8E' ],
+];
+
+$active_color_name = '';
+if ( $cur_color ) {
+	foreach ( $glaze_colors as $c ) {
+		if ( $c['slug'] === $cur_color ) {
+			$active_color_name = $c['name'];
+			break;
+		}
+	}
+}
 
 // Determine page heading
 $page_title = 'Tất cả sản phẩm';
@@ -31,6 +58,10 @@ if ( $is_on_sale ) {
 	$page_title = $current_term->name;
 }
 
+if ( $active_color_name ) {
+	$page_title .= ' • Màu ' . $active_color_name;
+}
+
 // Fetch all product categories with products
 $categories = get_terms( [
 	'taxonomy'   => 'product_cat',
@@ -38,29 +69,14 @@ $categories = get_terms( [
 	'exclude'    => get_option( 'default_product_cat' ),
 ] );
 
-// Color swatches (Anh Ceramics Palette)
-$glaze_colors = [
-	[ 'name' => 'Mộc be cát',     'hex' => '#E8DFC8' ],
-	[ 'name' => 'Men tro nhạt',    'hex' => '#D8C3A5' ],
-	[ 'name' => 'Đất nung mộc',    'hex' => '#B88258' ],
-	[ 'name' => 'Đất nung đậm',    'hex' => '#9B5B33' ],
-	[ 'name' => 'Nâu sẫm nung',    'hex' => '#4A342B' ],
-	[ 'name' => 'Xám men tro',     'hex' => '#3D4543' ],
-	[ 'name' => 'Xanh ngọc sương', 'hex' => '#8CA39D' ],
-	[ 'name' => 'Xanh sương nhạt', 'hex' => '#A8BDB8' ],
-	[ 'name' => 'Nâu hạt dẻ',      'hex' => '#936037' ],
-	[ 'name' => 'Đỏ gạch nung',    'hex' => '#8C3825' ],
-	[ 'name' => 'Cam san hô',      'hex' => '#C4572E' ],
-	[ 'name' => 'Hồng phấn gốm',   'hex' => '#CDB3A3' ],
-	[ 'name' => 'Men rêu xanh',    'hex' => '#7B8C70' ],
-	[ 'name' => 'Men rêu đậm',     'hex' => '#586851' ],
-	[ 'name' => 'Men cát vàng',    'hex' => '#C99E4D' ],
-	[ 'name' => 'Cam gốm chín',    'hex' => '#BE6929' ],
-	[ 'name' => 'Xanh biển sâu',   'hex' => '#314E59' ],
-	[ 'name' => 'Men nâu đen',     'hex' => '#332E2C' ],
-	[ 'name' => 'Xanh ngọc biển',  'hex' => '#508985' ],
-	[ 'name' => 'Men mộc ngà',     'hex' => '#9D9F8E' ],
-];
+// Base URL for preserving or clearing query args
+$base_filter_url = $current_term ? get_term_link( $current_term ) : $shop_url;
+if ( $is_on_sale ) {
+	$base_filter_url = add_query_arg( 'on_sale', '1', $base_filter_url );
+}
+if ( $is_featured ) {
+	$base_filter_url = add_query_arg( 'featured', '1', $base_filter_url );
+}
 ?>
 
 <div class="bv-shop-archive-page">
@@ -83,120 +99,147 @@ $glaze_colors = [
 		<div class="bv-shop-layout">
 			
 			<!-- ===============================================================
-			     LEFT SIDEBAR FILTER (ANH CERAMICS SIGNATURE)
+			     LEFT STICKY SIDEBAR FILTER (COLLAPSIBLE GROUPS & FUNCTIONAL PALETTE)
 			     =============================================================== -->
-			<aside class="bv-shop-sidebar" aria-label="Bộ lọc sản phẩm">
+			<aside class="bv-shop-sidebar" id="bv-shop-sidebar" aria-label="Bộ lọc sản phẩm">
 				
-				<!-- Group 1: Collection Navigation Links -->
-				<div class="bv-filter-group bv-filter-collections">
-					<ul class="bv-filter-nav-list">
-						<li class="bv-filter-nav-item <?php echo $is_on_sale ? 'is-active' : ''; ?>">
-							<a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
-								<span class="bv-filter-text-wrap">
-									<strong class="bv-filter-title">Sản phẩm khuyến mãi</strong>
-									<span class="bv-filter-sub">Discounted product</span>
-								</span>
-								<span class="bv-filter-icon">−</span>
-							</a>
-						</li>
-						<li class="bv-filter-nav-item <?php echo $is_featured ? 'is-active' : ''; ?>">
-							<a href="<?php echo esc_url( add_query_arg( 'featured', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
-								<span class="bv-filter-text-wrap">
-									<strong class="bv-filter-title">Sản phẩm nổi bật</strong>
-								</span>
-							</a>
-						</li>
-						<li class="bv-filter-nav-item <?php echo ( ! $is_on_sale && ! $is_featured && ! $current_term ) ? 'is-active' : ''; ?>">
-							<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-filter-nav-link">
-								<span class="bv-filter-text-wrap">
-									<strong class="bv-filter-title">Tất cả sản phẩm</strong>
-								</span>
-							</a>
-						</li>
-						<?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
-							<?php foreach ( $categories as $cat ) : 
-								$is_cat_active = ( $current_term && $current_term->term_id === $cat->term_id );
+				<!-- Group 1: Collection & Category Navigation (Collapsible) -->
+				<div class="bv-filter-group bv-filter-collections" data-group-id="collections">
+					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
+						<span class="bv-filter-heading-text">DANH MỤC &amp; BỘ SƯU TẬP</span>
+						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
+					</div>
+					<div class="bv-filter-collapse-body">
+						<ul class="bv-filter-nav-list">
+							<li class="bv-filter-nav-item <?php echo $is_on_sale ? 'is-active' : ''; ?>">
+								<a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
+									<span class="bv-filter-text-wrap">
+										<strong class="bv-filter-title">Sản phẩm khuyến mãi</strong>
+										<span class="bv-filter-sub">Discounted product</span>
+									</span>
+								</a>
+							</li>
+							<li class="bv-filter-nav-item <?php echo $is_featured ? 'is-active' : ''; ?>">
+								<a href="<?php echo esc_url( add_query_arg( 'featured', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
+									<span class="bv-filter-text-wrap">
+										<strong class="bv-filter-title">Sản phẩm nổi bật</strong>
+									</span>
+								</a>
+							</li>
+							<li class="bv-filter-nav-item <?php echo ( ! $is_on_sale && ! $is_featured && ! $current_term && ! $cur_color && ! $cur_min && ! $cur_max ) ? 'is-active' : ''; ?>">
+								<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-filter-nav-link">
+									<span class="bv-filter-text-wrap">
+										<strong class="bv-filter-title">Tất cả sản phẩm</strong>
+									</span>
+								</a>
+							</li>
+							<?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
+								<?php foreach ( $categories as $cat ) : 
+									$is_cat_active = ( $current_term && $current_term->term_id === $cat->term_id );
+								?>
+									<li class="bv-filter-nav-item bv-filter-cat-item <?php echo $is_cat_active ? 'is-active' : ''; ?>">
+										<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="bv-filter-nav-link">
+											<span class="bv-filter-text-wrap">
+												<span class="bv-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
+											</span>
+										</a>
+									</li>
+								<?php endforeach; ?>
+							<?php endif; ?>
+						</ul>
+					</div>
+				</div>
+
+				<!-- Group 2: Price Filter Checkboxes (Collapsible) -->
+				<div class="bv-filter-group bv-filter-price" data-group-id="price">
+					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
+						<span class="bv-filter-heading-text">GIÁ SẢN PHẨM</span>
+						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
+					</div>
+					<div class="bv-filter-collapse-body">
+						<ul class="bv-price-filter-list">
+							<?php
+							$price_ranges = [
+								[ 'label' => 'Dưới 300,000₫',             'min' => 0,       'max' => 300000 ],
+								[ 'label' => '300,000₫ - 500,000₫',       'min' => 300000,  'max' => 500000 ],
+								[ 'label' => '500,000₫ - 1,000,000₫',     'min' => 500000,  'max' => 1000000 ],
+								[ 'label' => '1,000,000₫ - 2,000,000₫',   'min' => 1000000, 'max' => 2000000 ],
+								[ 'label' => 'Trên 2,000,000₫',           'min' => 2000000, 'max' => 0 ],
+							];
+
+							foreach ( $price_ranges as $range ) :
+								$checked = false;
+								if ( $range['min'] === 0 && $range['max'] > 0 ) {
+									$checked = ( $cur_max == $range['max'] && $cur_min == 0 );
+								} elseif ( $range['max'] === 0 && $range['min'] > 0 ) {
+									$checked = ( $cur_min == $range['min'] && $cur_max == 0 );
+								} else {
+									$checked = ( $cur_min == $range['min'] && $cur_max == $range['max'] );
+								}
+
+								// Target URL preserving active filters
+								$p_url = $base_filter_url;
+								if ( $cur_color ) {
+									$p_url = add_query_arg( 'color', $cur_color, $p_url );
+								}
+
+								if ( $checked ) {
+									$link_url = remove_query_arg( [ 'min_price', 'max_price' ], $p_url );
+								} else {
+									$params = [];
+									if ( $range['min'] > 0 ) $params['min_price'] = $range['min'];
+									if ( $range['max'] > 0 ) $params['max_price'] = $range['max'];
+									$link_url = add_query_arg( $params, $p_url );
+								}
 							?>
-								<li class="bv-filter-nav-item bv-filter-cat-item <?php echo $is_cat_active ? 'is-active' : ''; ?>">
-									<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="bv-filter-nav-link">
-										<span class="bv-filter-text-wrap">
-											<span class="bv-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
-										</span>
+								<li class="bv-price-filter-item">
+									<a href="<?php echo esc_url( $link_url ); ?>" class="bv-checkbox-label <?php echo $checked ? 'is-checked' : ''; ?>">
+										<span class="bv-custom-checkbox <?php echo $checked ? 'is-checked' : ''; ?>"></span>
+										<span class="bv-checkbox-text"><?php echo esc_html( $range['label'] ); ?></span>
 									</a>
 								</li>
 							<?php endforeach; ?>
-						<?php endif; ?>
-					</ul>
-				</div>
-
-				<!-- Group 2: Price Filter Checkboxes -->
-				<div class="bv-filter-group bv-filter-price">
-					<div class="bv-filter-heading">
-						<span class="bv-filter-heading-text">GIÁ SẢN PHẨM</span>
-						<span class="bv-filter-heading-icon">−</span>
+						</ul>
 					</div>
-					<ul class="bv-price-filter-list">
-						<?php
-						$price_ranges = [
-							[ 'label' => 'Dưới 300,000₫',             'min' => 0,       'max' => 300000 ],
-							[ 'label' => '300,000₫ - 500,000₫',       'min' => 300000,  'max' => 500000 ],
-							[ 'label' => '500,000₫ - 1,000,000₫',     'min' => 500000,  'max' => 1000000 ],
-							[ 'label' => '1,000,000₫ - 2,000,000₫',   'min' => 1000000, 'max' => 2000000 ],
-							[ 'label' => 'Trên 2,000,000₫',           'min' => 2000000, 'max' => 0 ],
-						];
-
-						foreach ( $price_ranges as $range ) :
-							$checked = false;
-							if ( $range['min'] === 0 && $range['max'] > 0 ) {
-								$checked = ( $cur_max == $range['max'] && $cur_min == 0 );
-							} elseif ( $range['max'] === 0 && $range['min'] > 0 ) {
-								$checked = ( $cur_min == $range['min'] && $cur_max == 0 );
-							} else {
-								$checked = ( $cur_min == $range['min'] && $cur_max == $range['max'] );
-							}
-
-							// Target URL
-							$target_url = $shop_url;
-							if ( $current_term ) {
-								$target_url = get_term_link( $current_term );
-							}
-							if ( $is_on_sale ) {
-								$target_url = add_query_arg( 'on_sale', '1', $target_url );
-							}
-							if ( $is_featured ) {
-								$target_url = add_query_arg( 'featured', '1', $target_url );
-							}
-
-							if ( $checked ) {
-								// Uncheck link
-								$link_url = remove_query_arg( [ 'min_price', 'max_price' ], $target_url );
-							} else {
-								$params = [];
-								if ( $range['min'] > 0 ) $params['min_price'] = $range['min'];
-								if ( $range['max'] > 0 ) $params['max_price'] = $range['max'];
-								$link_url = add_query_arg( $params, $target_url );
-							}
-						?>
-							<li class="bv-price-filter-item">
-								<a href="<?php echo esc_url( $link_url ); ?>" class="bv-checkbox-label <?php echo $checked ? 'is-checked' : ''; ?>">
-									<span class="bv-custom-checkbox <?php echo $checked ? 'is-checked' : ''; ?>"></span>
-									<span class="bv-checkbox-text"><?php echo esc_html( $range['label'] ); ?></span>
-								</a>
-							</li>
-						<?php endforeach; ?>
-					</ul>
 				</div>
 
-				<!-- Group 3: Color Swatches Grid -->
-				<div class="bv-filter-group bv-filter-colors">
-					<div class="bv-filter-heading">
+				<!-- Group 3: Color Swatches Grid (Functional Query Filter) -->
+				<div class="bv-filter-group bv-filter-colors" data-group-id="colors">
+					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
 						<span class="bv-filter-heading-text">MÀU SẮC</span>
-						<span class="bv-filter-heading-icon">−</span>
+						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
 					</div>
-					<div class="bv-color-palette-grid">
-						<?php foreach ( $glaze_colors as $color ) : ?>
-							<span class="bv-palette-swatch" style="background-color: <?php echo esc_attr( $color['hex'] ); ?>;" title="<?php echo esc_attr( $color['name'] ); ?>" aria-label="<?php echo esc_attr( $color['name'] ); ?>"></span>
-						<?php endforeach; ?>
+					<div class="bv-filter-collapse-body">
+						<div class="bv-color-palette-grid">
+							<?php foreach ( $glaze_colors as $color ) : 
+								$is_color_active = ( $cur_color === $color['slug'] );
+								// Toggle URL: Click active unselects, click inactive selects
+								$c_base = $base_filter_url;
+								if ( $cur_min > 0 ) $c_base = add_query_arg( 'min_price', $cur_min, $c_base );
+								if ( $cur_max > 0 ) $c_base = add_query_arg( 'max_price', $cur_max, $c_base );
+								
+								if ( $is_color_active ) {
+									$color_url = remove_query_arg( 'color', $c_base );
+								} else {
+									$color_url = add_query_arg( 'color', $color['slug'], $c_base );
+								}
+							?>
+								<a href="<?php echo esc_url( $color_url ); ?>" 
+								   class="bv-palette-swatch-link <?php echo $is_color_active ? 'is-active' : ''; ?>" 
+								   style="background-color: <?php echo esc_attr( $color['hex'] ); ?>;" 
+								   title="<?php echo esc_attr( $color['name'] . ( $is_color_active ? ' (Bấm để hủy lọc)' : '' ) ); ?>" 
+								   aria-label="<?php echo esc_attr( $color['name'] ); ?>">
+								</a>
+							<?php endforeach; ?>
+						</div>
+
+						<?php if ( $cur_color ) : ?>
+							<div class="bv-color-clear-wrap">
+								<a href="<?php echo esc_url( remove_query_arg( 'color', $base_filter_url ) ); ?>" class="bv-color-clear-btn">
+									✕ Bỏ lọc màu (<?php echo esc_html( $active_color_name ); ?>)
+								</a>
+							</div>
+						<?php endif; ?>
 					</div>
 				</div>
 

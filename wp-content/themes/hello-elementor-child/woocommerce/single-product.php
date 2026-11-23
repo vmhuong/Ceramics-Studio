@@ -1,7 +1,7 @@
 <?php
 /**
  * The Template for displaying single product detail.
- * Style: Anh Ceramics Minimalist Craft (Vertical Thumbnail Gallery + Clean Buy Box & Inline Mô tả)
+ * Style: Anh Ceramics Minimalist Craft (Compact Gallery + Aligned Add-to-Cart + 3 Detail Tabs)
  * Inspired by Anh Ceramics.
  *
  * @package HelloElementorChild
@@ -56,15 +56,15 @@ while ( have_posts() ) : the_post();
 		</div>
 	</nav>
 
-	<!-- 2. MAIN 2-COLUMN PRODUCT SECTION -->
+	<!-- 2. MAIN 2-COLUMN PRODUCT SECTION (COMPACT & BALANCED) -->
 	<div class="bv-product-main-section">
 		<div class="bv-container">
 			<div class="bv-product-columns">
 				
-				<!-- COLUMN 1: PRODUCT GALLERY WITH VERTICAL THUMBNAILS (LEFT - ANH CERAMICS) -->
+				<!-- COLUMN 1: COMPACT GALLERY WITH VERTICAL THUMBNAILS (LEFT) -->
 				<div class="bv-product-gallery">
 					
-					<!-- Vertical Thumbnails Column (Left Edge) -->
+					<!-- Vertical Thumbnails Strip (Left Edge) -->
 					<?php if ( count( $all_img_ids ) > 1 ) : ?>
 						<div class="bv-gallery-thumbs" id="bv-gallery-thumbs">
 							<?php foreach ( $all_img_ids as $idx => $img_id ) : 
@@ -79,7 +79,7 @@ while ( have_posts() ) : the_post();
 						</div>
 					<?php endif; ?>
 
-					<!-- Main Image Stage (Right of Thumbnails) -->
+					<!-- Main Image Stage (Compact) -->
 					<div class="bv-gallery-stage">
 						<div class="bv-stage-inner">
 							<img src="<?php echo esc_url( $main_img_url ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="bv-stage-img" id="bv-main-product-img">
@@ -88,7 +88,7 @@ while ( have_posts() ) : the_post();
 
 				</div>
 
-				<!-- COLUMN 2: BUY BOX & PRODUCT DETAILS (RIGHT - ANH CERAMICS) -->
+				<!-- COLUMN 2: BUY BOX & PRODUCT ACTIONS (RIGHT) -->
 				<div class="bv-product-summary">
 					
 					<!-- Product Title -->
@@ -110,19 +110,20 @@ while ( have_posts() ) : the_post();
 						<?php endif; ?>
 					</div>
 
-					<!-- ADD TO CART & VARIATIONS FORM (WOOCOMMERCE INTEGRATED) -->
+					<!-- ADD TO CART & VARIATIONS FORM (QUANTITY & BUTTON ON SAME LINE) -->
 					<div class="bv-summary-form-wrap">
 						<?php if ( $is_in_stock ) : ?>
 							<div class="bv-cart-actions-container">
 								
 								<!-- Stock Scarcity Status -->
 								<div class="bv-stock-scarcity">
-									<span>Còn lại <strong><?php echo esc_html( $stock_qty ); ?></strong> sản phẩm</span>
+									<span>Còn lại <strong><?php echo esc_html( $stock_qty ); ?></strong> sản phẩm trong mẻ nung</span>
 								</div>
 
+								<!-- WooCommerce Cart Form (Quantity & Add to Cart on same line) -->
 								<?php woocommerce_template_single_add_to_cart(); ?>
 								
-								<!-- Buy Now (Direct Checkout) -->
+								<!-- Buy Now (Direct VietQR Checkout) -->
 								<div class="bv-buynow-wrap">
 									<button type="button" class="bv-btn-buy-now" data-product-id="<?php echo esc_attr( $pid ); ?>" data-checkout-url="<?php echo esc_url( wc_get_checkout_url() ); ?>">
 										Mua Ngay (Thanh toán VietQR)
@@ -143,45 +144,27 @@ while ( have_posts() ) : the_post();
 						</div>
 					</div>
 
-					<!-- INLINE "MÔ TẢ" SECTION (ANH CERAMICS SIGNATURE) -->
-					<div class="bv-summary-desc-block">
-						<h3 class="bv-desc-heading">Mô tả</h3>
-						<div class="bv-desc-body">
-							<?php if ( $desc ) : ?>
-								<?php echo wpautop( $desc ); ?>
-							<?php elseif ( $short_desc ) : ?>
-								<?php echo wpautop( $short_desc ); ?>
-							<?php else : ?>
-								<p>Tác phẩm gốm mộc độc bản từ đất sét phù sa sông Hồng tinh lọc, vuốt nặn thủ công trên bàn xoay truyền thống và nung củi lớn 1.250°C.</p>
-								<p><strong>[Vi] Thông tin sản phẩm:</strong><br>
-								• Công dụng: Sử dụng thưởng trà, cà phê, trang trí không gian bàn ăn ấm cúng.<br>
-								• Chất liệu: Đất sét tự nhiên &amp; men khoáng tro trấu không chì.<br>
-								• Nung nhiệt: 1.250°C bền vĩnh cửu, an toàn lò vi sóng &amp; máy rửa bát.</p>
-							<?php endif; ?>
-						</div>
-					</div>
-
-					<!-- STUDIO POLICY & GUARANTEE -->
+					<!-- STUDIO POLICY & GUARANTEE (COMPACT EDITORIAL) -->
 					<div class="bv-guarantee-box">
 						<div class="bv-g-item">
 							<span class="bv-g-num">01</span>
 							<div>
 								<strong>Bảo hành bể vỡ 100%</strong>
-								<p>Đổi mới ngay nếu nứt vỡ trong quá trình vận chuyển toàn quốc.</p>
+								<p>Đổi mới ngay nếu có nứt vỡ trong quá trình vận chuyển toàn quốc.</p>
 							</div>
 						</div>
 						<div class="bv-g-item">
 							<span class="bv-g-num">02</span>
 							<div>
-								<strong>Men khoáng an toàn 1.250°C</strong>
-								<p>An toàn tuyệt đối cho thực phẩm, lò vi sóng và máy rửa bát.</p>
+								<strong>Men khoáng tự nhiên 1.250°C</strong>
+								<p>An toàn thực phẩm, sử dụng an toàn trong lò vi sóng và máy rửa bát.</p>
 							</div>
 						</div>
 						<div class="bv-g-item">
 							<span class="bv-g-num">03</span>
 							<div>
 								<strong>Đổi trả trong 7 ngày</strong>
-								<p>Hỗ trợ đổi miễn phí nếu sản phẩm không đúng kỳ vọng thẩm mỹ.</p>
+								<p>Hỗ trợ đổi miễn phí nếu tác phẩm không đúng kỳ vọng thẩm mỹ.</p>
 							</div>
 						</div>
 					</div>
@@ -192,7 +175,102 @@ while ( have_posts() ) : the_post();
 		</div>
 	</div>
 
-	<!-- 3. RELATED PRODUCTS -->
+	<!-- 3. DETAILED PRODUCT INFORMATION (3 MỤC DƯỚI SẢN PHẨM) -->
+	<section class="bv-product-tabs-section" id="bv-product-tabs">
+		<div class="bv-container">
+			<div class="bv-tabs-wrapper">
+				
+				<!-- Tabs Navigation -->
+				<div class="bv-tabs-nav" role="tablist">
+					<button type="button" class="bv-tab-btn is-active" data-tab="tab-desc" role="tab" aria-selected="true">
+						Chi Tiết Tác Phẩm &amp; Kích Thước
+					</button>
+					<button type="button" class="bv-tab-btn" data-tab="tab-usage" role="tab" aria-selected="false">
+						Hướng Dẫn Sử Dụng &amp; Bảo Quản
+					</button>
+					<button type="button" class="bv-tab-btn" data-tab="tab-reviews" role="tab" aria-selected="false">
+						Đánh Giá Từ Khách Hàng (18)
+					</button>
+				</div>
+
+				<!-- Tab 1: Chi Tiết & Thông Số Kỹ Thuật -->
+				<div class="bv-tab-content is-active" id="tab-desc" role="tabpanel">
+					<div class="bv-tab-prose">
+						<?php if ( $desc ) : ?>
+							<?php echo wpautop( $desc ); ?>
+						<?php elseif ( $short_desc ) : ?>
+							<?php echo wpautop( $short_desc ); ?>
+						<?php else : ?>
+							<p>Tác phẩm gốm mộc được vuốt nặn thủ công trên bàn xoay truyền thống từ đất sét phù sa sông Hồng tinh lọc. Nung củi lớn 1.250°C tạo nên độ đanh chắc vĩnh cửu và sắc men mộc tự nhiên mang đậm triết lý Wabi-Sabi.</p>
+						<?php endif; ?>
+
+						<!-- Specifications Table -->
+						<div class="bv-specs-card">
+							<h4 class="bv-specs-title">Thông Số Kỹ Thuật Tác Phẩm</h4>
+							<dl class="bv-specs-list">
+								<div class="bv-spec-row">
+									<dt>Chất liệu cốt gốm</dt>
+									<dd>Đất sét tự nhiên phù sa sông Hồng tinh tuyển</dd>
+								</div>
+								<div class="bv-spec-row">
+									<dt>Nước men chế tác</dt>
+									<dd>Men tro trấu &amp; khoáng tự nhiên, hoàn toàn không chì</dd>
+								</div>
+								<div class="bv-spec-row">
+									<dt>Nhiệt độ nung</dt>
+									<dd>1.250°C (Nung nhiệt cao đanh bền, không thấm ố)</dd>
+								</div>
+								<div class="bv-spec-row">
+									<dt>Phương pháp chế tác</dt>
+									<dd>Chuốt tay thủ công bàn xoay độc bản</dd>
+								</div>
+								<div class="bv-spec-row">
+									<dt>Xuất xứ xưởng</dt>
+									<dd>Xưởng Ceramic Studio (Thôn 1 Giang Cao, Bát Tràng, Hà Nội)</dd>
+								</div>
+							</dl>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tab 2: Hướng Dẫn Sử Dụng & Bảo Quản -->
+				<div class="bv-tab-content" id="tab-usage" role="tabpanel">
+					<div class="bv-tab-prose">
+						<div class="bv-care-grid">
+							<div class="bv-care-card">
+								<h4>Lò vi sóng &amp; Lò nướng</h4>
+								<p>Sản phẩm nung 1.250°C có khả năng chịu nhiệt cao bền bỉ, an toàn tuyệt đối khi dùng để hâm nóng đồ ăn trong lò vi sóng.</p>
+							</div>
+							<div class="bv-care-card">
+								<h4>Vệ sinh &amp; Máy rửa bát</h4>
+								<p>Sử dụng được trong máy rửa bát. Với các vết ố trà hoặc cà phê lâu ngày, chỉ cần dùng chút baking soda hoặc chanh chà nhẹ là sạch bóng.</p>
+							</div>
+							<div class="bv-care-card">
+								<h4>Tránh sốc nhiệt đột ngột</h4>
+								<p>Không nên chuyển đồ gốm đột ngột từ ngăn đông tủ lạnh vào ngay lò nướng nhiệt cao hoặc nước sôi 100°C.</p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Tab 3: Đánh Giá Khách Hàng -->
+				<div class="bv-tab-content" id="tab-reviews" role="tabpanel">
+					<div class="bv-reviews-container">
+						<?php
+						if ( comments_open() || pings_open() ) {
+							comments_template();
+						} else {
+							echo '<div class="bv-no-reviews-note"><p>Mục nhận xét và đánh giá cho sản phẩm thủ công này.</p></div>';
+						}
+						?>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</section>
+
+	<!-- 4. RELATED PRODUCTS (GỢI Ý TỪ XƯỞNG - BÉ LẠI & TINH GỌN) -->
 	<?php
 	$related_args = [
 		'post_type'      => 'product',
@@ -213,12 +291,12 @@ while ( have_posts() ) : the_post();
 	if ( $related_query->have_posts() ) :
 	?>
 		<section class="bv-related-section">
-			<div class="bv-container">
+			<div class="bv-container bv-container--compact">
 				<div class="bv-related-header">
 					<span class="bv-sub-tag">GỢI Ý TỪ XƯỞNG</span>
 					<h2 class="bv-related-title">Tác Phẩm Cùng Bộ Sưu Tập</h2>
 				</div>
-				<div class="bv-ceramic-grid bv-shop-grid">
+				<div class="bv-ceramic-grid bv-related-grid">
 					<?php while ( $related_query->have_posts() ) : $related_query->the_post(); 
 						$r_prod = wc_get_product( get_the_ID() );
 						if ( ! $r_prod || $r_prod->is_virtual() ) continue;
@@ -226,7 +304,7 @@ while ( have_posts() ) : the_post();
 						$r_gallery = $r_prod->get_gallery_image_ids();
 						$r_hover = ! empty( $r_gallery ) ? wp_get_attachment_image_url( $r_gallery[0], 'woocommerce_thumbnail' ) : '';
 					?>
-						<article class="bv-product-card <?php echo $r_hover ? 'has-hover-image' : ''; ?>">
+						<article class="bv-product-card bv-product-card--compact <?php echo $r_hover ? 'has-hover-image' : ''; ?>">
 							<div class="bv-card-media">
 								<a href="<?php echo esc_url( $r_prod->get_permalink() ); ?>" class="bv-card-img-link">
 									<img src="<?php echo esc_url( $r_img ); ?>" alt="<?php echo esc_attr( $r_prod->get_name() ); ?>" class="bv-card-img bv-card-img--primary" loading="lazy">

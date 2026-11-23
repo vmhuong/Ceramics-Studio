@@ -203,6 +203,31 @@
 				});
 			});
 		}
+
+		// =====================================================================
+		// 6. COLLAPSIBLE SIDEBAR FILTER ACCORDION
+		// =====================================================================
+		var collHeadings = document.querySelectorAll('.bv-collapsible-heading');
+		if (collHeadings.length > 0) {
+			collHeadings.forEach(function (heading) {
+				heading.addEventListener('click', function () {
+					var group = heading.closest('.bv-filter-group');
+					if (!group) return;
+					var isCollapsed = group.classList.toggle('is-collapsed');
+					var icon = heading.querySelector('.bv-filter-heading-icon');
+					if (icon) {
+						icon.textContent = isCollapsed ? '+' : '−';
+					}
+					heading.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
+				});
+				heading.addEventListener('keydown', function (e) {
+					if (e.key === 'Enter' || e.key === ' ') {
+						e.preventDefault();
+						heading.click();
+					}
+				});
+			});
+		}
 	}
 
 	if (document.readyState === 'loading') {

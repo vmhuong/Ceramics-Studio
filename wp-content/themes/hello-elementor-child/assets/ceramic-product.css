@@ -75,18 +75,19 @@
    ========================================================================== */
 .bv-product-columns {
 	display: grid;
-	grid-template-columns: 1.15fr 0.95fr;
-	gap: 52px;
+	grid-template-columns: 460px minmax(0, 1fr);
+	gap: 48px;
 	align-items: start;
-	margin-bottom: 64px;
+	max-width: 1140px;
+	margin: 0 auto 52px;
 }
 
-/* LEFT: GALLERY (ANH CERAMICS: VERTICAL THUMBNAILS ON LEFT + STAGE ON RIGHT) */
+/* LEFT: GALLERY (ANH CERAMICS: COMPACT VERTICAL THUMBNAILS ON LEFT + STAGE ON RIGHT) */
 .bv-product-gallery {
 	position: sticky;
 	top: 100px;
 	display: flex;
-	gap: 16px;
+	gap: 14px;
 	align-items: flex-start;
 }
 
@@ -94,19 +95,19 @@
 .bv-gallery-thumbs {
 	display: flex;
 	flex-direction: column;
-	gap: 10px;
-	width: 64px;
+	gap: 8px;
+	width: 54px;
 	flex-shrink: 0;
 	margin: 0;
 	padding: 0;
-	max-height: 520px;
+	max-height: 480px;
 	overflow-y: auto;
 }
 
 .bv-thumb-item {
-	flex: 0 0 64px;
-	width: 64px;
-	height: 64px;
+	flex: 0 0 54px;
+	width: 54px;
+	height: 54px;
 	padding: 0;
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
@@ -130,10 +131,11 @@
 
 .bv-gallery-stage {
 	flex: 1;
+	max-width: 390px;
 	position: relative;
 	background: #FFFFFF;
 	border: 1px solid var(--bv-c-border);
-	border-radius: 8px;
+	border-radius: 6px;
 	overflow: hidden;
 }
 
@@ -521,26 +523,28 @@
 	margin-bottom: 14px !important;
 }
 
-/* Add to Cart Actions Row */
+/* Add to Cart Actions Row - STRICTLY SAME LINE */
 .woocommerce-variation-add-to-cart,
 .woocommerce div.product form.cart:not(.variations_form) {
 	display: flex !important;
+	flex-direction: row !important;
 	align-items: center !important;
 	gap: 12px !important;
-	margin: 0 0 14px 0 !important;
+	margin: 0 0 16px 0 !important;
 	width: 100% !important;
+	flex-wrap: nowrap !important;
 }
 
 /* Quantity Stepper Capsule */
 .woocommerce div.product .quantity {
-	flex: 0 0 100px !important;
-	width: 100px !important;
-	height: 46px !important;
+	flex: 0 0 108px !important;
+	width: 108px !important;
+	height: 44px !important;
 	display: inline-flex !important;
 	align-items: center !important;
 	background: #FFFFFF !important;
 	border: 1px solid #D6CBC0 !important;
-	border-radius: 2px !important;
+	border-radius: 3px !important;
 	overflow: hidden !important;
 	float: none !important;
 	margin: 0 !important;
@@ -549,7 +553,7 @@
 
 .woocommerce div.product .quantity .bv-quantity-step {
 	width: 32px !important;
-	height: 44px !important;
+	height: 42px !important;
 	background: transparent !important;
 	border: none !important;
 	font-size: 16px !important;
@@ -567,8 +571,8 @@
 }
 
 .woocommerce div.product .quantity .qty {
-	width: 36px !important;
-	height: 44px !important;
+	width: 44px !important;
+	height: 42px !important;
 	border: none !important;
 	text-align: center !important;
 	font-size: 14px !important;
@@ -580,7 +584,7 @@
 	padding: 0 !important;
 }
 
-/* Add to Cart Button (Anh Ceramics Refined Terracotta Button) */
+/* Add to Cart Button (Obsidian Craft Charcoal - NEW COLOR) */
 .woocommerce div.product form.cart .single_add_to_cart_button,
 .woocommerce div.product form.cart .bv-btn-add-to-cart,
 .bv-btn-add-to-cart,
@@ -590,12 +594,12 @@ button.bv-btn-add-to-cart {
 	display: inline-flex !important;
 	align-items: center !important;
 	justify-content: center !important;
-	height: 46px !important;
-	padding: 0 24px !important;
-	background: #7A4F3E !important;
+	height: 44px !important;
+	padding: 0 20px !important;
+	background: #1F1C1A !important;
 	color: #FFFFFF !important;
-	border: 1px solid #7A4F3E !important;
-	border-radius: 2px !important;
+	border: 1px solid #1F1C1A !important;
+	border-radius: 3px !important;
 	font-size: 13px !important;
 	font-weight: 700 !important;
 	letter-spacing: 1px !important;
@@ -610,8 +614,8 @@ button.bv-btn-add-to-cart {
 
 .woocommerce div.product form.cart .single_add_to_cart_button:hover,
 .bv-btn-add-to-cart:hover {
-	background: #633D2F !important;
-	border-color: #633D2F !important;
+	background: #B3592B !important;
+	border-color: #B3592B !important;
 	color: #FFFFFF !important;
 }
 
@@ -987,45 +991,76 @@ button.bv-btn-add-to-cart {
 	transform: scale(1.05) !important;
 }
 
-.bv-related-section .bv-card-body {
-	padding: 18px 20px 22px !important;
+/* Compact Related Products Section */
+.bv-container--compact {
+	max-width: 980px !important;
+	margin: 0 auto !important;
+}
+
+.bv-related-grid {
+	grid-template-columns: repeat(4, 1fr) !important;
+	gap: 16px !important;
+}
+
+.bv-product-card--compact {
+	border-radius: 8px !important;
+}
+
+.bv-product-card--compact .bv-card-body {
+	padding: 10px 12px 14px !important;
 	display: flex !important;
 	flex-direction: column !important;
 	flex-grow: 1 !important;
 }
 
-.bv-related-section .bv-card-meta-line {
-	font-size: 11px !important;
+.bv-product-card--compact .bv-card-meta-line {
+	font-size: 10px !important;
 	font-weight: 700 !important;
 	text-transform: uppercase !important;
-	letter-spacing: 1px !important;
+	letter-spacing: 0.8px !important;
 	color: var(--bv-c-clay) !important;
-	margin-bottom: 6px !important;
+	margin-bottom: 4px !important;
 }
 
-.bv-related-section .bv-card-title {
-	font-family: var(--bv-font-serif) !important;
-	font-size: 18px !important;
-	font-weight: 700 !important;
-	line-height: 1.35 !important;
-	margin: 0 0 10px !important;
+.bv-product-card--compact .bv-card-title {
+	font-family: var(--bv-font-sans) !important;
+	font-size: 13px !important;
+	font-weight: 600 !important;
+	line-height: 1.4 !important;
+	margin: 0 0 6px !important;
 }
 
-.bv-related-section .bv-card-title a {
+.bv-product-card--compact .bv-card-title a {
 	color: var(--bv-c-ink) !important;
 	text-decoration: none !important;
 	transition: color 0.2s !important;
 }
 
-.bv-related-section .bv-card-title a:hover {
+.bv-product-card--compact .bv-card-title a:hover {
 	color: var(--bv-c-clay) !important;
 }
 
-.bv-related-section .bv-card-price {
-	font-size: 15px !important;
+.bv-product-card--compact .bv-card-price-bar {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
+	margin-top: auto !important;
+}
+
+.bv-product-card--compact .bv-card-price {
+	font-size: 13px !important;
 	font-weight: 700 !important;
 	color: var(--bv-c-clay) !important;
-	margin-top: auto !important;
+}
+
+.bv-product-card--compact .bv-pt-star-pill {
+	font-size: 10.5px !important;
+	padding: 2px 6px !important;
+	background: #FAF3EC !important;
+	border: 1px solid #E8DEC8 !important;
+	border-radius: 4px !important;
+	color: #B3592B !important;
+	font-weight: 600 !important;
 }
 
 /* ==========================================================================

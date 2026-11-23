@@ -194,9 +194,84 @@ add_action( 'pre_get_posts', function ( $query ) {
 			}
 		}
 
+		// 5. Filter: Ceramic Color Swatch
+		if ( ! empty( $_GET['color'] ) ) {
+			$color_slug = sanitize_title( wp_unslash( $_GET['color'] ) );
+			$color_ids  = bv_get_product_ids_by_color( $color_slug );
+			$existing_ids = $query->get( 'post__in' );
+			if ( ! empty( $existing_ids ) ) {
+				$query->set( 'post__in', array_intersect( $existing_ids, ! empty( $color_ids ) ? $color_ids : [ 0 ] ) );
+			} else {
+				$query->set( 'post__in', ! empty( $color_ids ) ? $color_ids : [ 0 ] );
+			}
+		}
+
 		$query->set( 'meta_query', $meta_query );
 	}
 } );
+
+/**
+ * Find product IDs matching a specific glaze color slug.
+ */
+function bv_get_product_ids_by_color( $color_slug ) {
+	$color_keywords = [
+		'be'       => [ 'mộc', 'be', 'cát', 'ngà', 'trắng ngà' ],
+		'tro'      => [ 'tro', 'men tro', 'đá' ],
+		'dat-nung' => [ 'nung', 'đất nung', 'gạch', 'đồng quê' ],
+		'nau'      => [ 'nâu', 'rustic', 'nâu đỏ', 'nâu mộc' ],
+		'xam'      => [ 'xám', 'tro' ],
+		'suong'    => [ 'sương', 'xanh sương', 'pastel' ],
+		'cam'      => [ 'cam', 'màu cam', 'san hô' ],
+		'hong'     => [ 'hồng', 'hồng phấn', 'pastel' ],
+		'bien'     => [ 'biển', 'men biển', 'lam', 'men lam', 'xanh biển' ],
+		'ngoc'     => [ 'ngọc', 'xanh ngọc', 'biển', 'sương' ],
+		'nga'      => [ 'ngà', 'trắng', 'trắng ngà', 'mộc' ],
+		'gach'     => [ 'gạch', 'đỏ', 'đất nung' ],
+	];
+
+	if ( ! isset( $color_keywords[ $color_slug ] ) ) {
+		return [];
+	}
+
+	$keywords = $color_keywords[ $color_slug ];
+	$all_products = wc_get_products( [ 'limit' => -1 ] );
+	$matched_ids = [];
+
+	foreach ( $all_products as $p ) {
+		if ( $p->is_virtual() ) {
+			continue;
+		}
+		$pid = $p->get_id();
+		$text = mb_strtolower( $p->get_name() . ' ' . $p->get_short_description() . ' ' . $p->get_description() );
+		$is_match = false;
+		foreach ( $keywords as $kw ) {
+			if ( false !== mb_stripos( $text, $kw ) ) {
+				$is_match = true;
+				break;
+			}
+		}
+		if ( ! $is_match && $p->is_type( 'variable' ) ) {
+			$vars = $p->get_available_variations();
+			foreach ( $vars as $v ) {
+				if ( ! empty( $v['attributes'] ) ) {
+					foreach ( $v['attributes'] as $attr_val ) {
+						foreach ( $keywords as $kw ) {
+							if ( false !== mb_stripos( $attr_val, $kw ) ) {
+								$is_match = true;
+								break 2;
+							}
+						}
+					}
+				}
+			}
+		}
+		if ( $is_match ) {
+			$matched_ids[] = $pid;
+		}
+	}
+
+	return $matched_ids;
+}
 
 require_once __DIR__ . '/shopping-panels.php';
 require_once __DIR__ . '/product-detail.php';
