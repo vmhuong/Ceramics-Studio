@@ -133,7 +133,7 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 				<div class="bv-ceramic-grid">
 					<?php while ( have_posts() ) : the_post(); 
 						global $product;
-						if ( ! is_a( $product, 'WC_Product' ) ) {
+						if ( ! is_a( $product, 'WC_Product' ) || $product->is_virtual() || 0 === strpos( $product->get_sku(), 'WS-TICKET' ) || false !== stripos( $product->get_name(), 'vé' ) ) {
 							continue;
 						}
 						
@@ -142,6 +142,15 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 						$permalink    = $product->get_permalink();
 						$price_html   = $product->get_price_html();
 						$is_in_stock  = $product->is_in_stock();
+						$is_on_sale   = $product->is_on_sale();
+						$discount_pct = 0;
+						if ( $is_on_sale ) {
+							$reg = (float) $product->get_regular_price();
+							$sal = (float) $product->get_sale_price();
+							if ( $reg > 0 && $sal > 0 && $reg > $sal ) {
+								$discount_pct = round( ( ( $reg - $sal ) / $reg ) * 100 );
+							}
+						}
 						
 						// Images: Primary + Hover Flip
 						$image_id     = $product->get_image_id();
@@ -150,7 +159,7 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 						$hover_img    = ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_thumbnail' ) : '';
 						$has_hover    = ! empty( $hover_img );
 					?>
-						<article class="bv-product-card <?php echo $has_hover ? 'has-hover-image' : ''; ?>" data-product-id="<?php echo esc_attr( $pid ); ?>">
+						<article class="bv-product-card <?php echo $has_hover ? 'has-hover-image' : ''; ?> <?php echo $is_on_sale ? 'is-on-sale' : ''; ?>" data-product-id="<?php echo esc_attr( $pid ); ?>">
 							
 							<!-- Product Image Box with Hover Flip -->
 							<div class="bv-card-media">
@@ -160,6 +169,10 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 										<img src="<?php echo esc_url( $hover_img ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="bv-card-img bv-card-img--hover" loading="lazy">
 									<?php endif; ?>
 								</a>
+
+								<?php if ( $discount_pct > 0 ) : ?>
+									<span class="bv-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
+								<?php endif; ?>
 
 								<!-- Quick Actions overlay on hover -->
 								<div class="bv-card-actions">
@@ -187,8 +200,11 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 								</h3>
 
 								<!-- Price -->
-								<div class="bv-card-price">
+								<div class="bv-card-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
 									<?php echo wp_kses_post( $price_html ); ?>
+									<?php if ( $discount_pct > 0 ) : ?>
+										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
+									<?php endif; ?>
 								</div>
 							</div>
 

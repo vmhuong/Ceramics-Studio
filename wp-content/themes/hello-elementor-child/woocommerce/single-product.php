@@ -107,6 +107,12 @@ while ( have_posts() ) : the_post();
 					<!-- Price -->
 					<div class="bv-summary-price">
 						<?php echo wp_kses_post( $price_html ); ?>
+						<?php if ( $is_on_sale && $product->get_regular_price() > 0 && $product->get_sale_price() > 0 ) : 
+							$pct = round( ( ( (float) $product->get_regular_price() - (float) $product->get_sale_price() ) / (float) $product->get_regular_price() ) * 100 );
+							if ( $pct > 0 ) : ?>
+								<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $pct ); ?>%</span>
+							<?php endif; ?>
+						<?php endif; ?>
 					</div>
 
 					<!-- Scarcity / Stock Status -->

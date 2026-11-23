@@ -213,6 +213,10 @@
 
 /* Price */
 .bv-summary-price {
+	display: flex;
+	align-items: baseline;
+	flex-wrap: wrap;
+	gap: 12px;
 	font-size: 28px;
 	font-weight: 700;
 	color: var(--bv-c-clay);
@@ -222,13 +226,28 @@
 
 .bv-summary-price del {
 	font-size: 18px;
-	color: #A0948A;
+	color: #9C8E84;
 	font-weight: 400;
-	margin-right: 10px;
+	text-decoration: line-through;
+	opacity: 0.85;
 }
 
 .bv-summary-price ins {
 	text-decoration: none;
+	color: var(--bv-c-clay);
+}
+
+.bv-summary-price .bv-price-save-tag {
+	display: inline-flex;
+	align-items: center;
+	font-size: 12px;
+	font-weight: 600;
+	color: var(--bv-c-clay);
+	background: rgba(179, 89, 43, 0.08);
+	border: 1px solid rgba(179, 89, 43, 0.25);
+	border-radius: 4px;
+	padding: 3px 8px;
+	line-height: 1.2;
 }
 
 /* Scarcity Status */

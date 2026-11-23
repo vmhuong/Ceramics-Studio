@@ -13,13 +13,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 get_header();
 
-// Fetch featured pottery products
+// Fetch featured pottery products (exclude virtual and workshop tickets)
 $pottery_products = wc_get_products( [
-	'limit'   => 8,
-	'status'  => 'publish',
-	'orderby' => 'date',
-	'order'   => 'DESC',
+	'limit'      => 12,
+	'status'     => 'publish',
+	'visibility' => 'catalog',
+	'virtual'    => false,
+	'orderby'    => 'date',
+	'order'      => 'DESC',
 ] );
+
+// Strict filter: keep only actual pottery products
+$pottery_products = array_values( array_filter( $pottery_products, function ( $p ) {
+	return ! $p->is_virtual() && 0 !== strpos( $p->get_sku(), 'WS-TICKET' ) && false === stripos( $p->get_name(), 'vé' );
+} ) );
+
+// Limit to 8 items for the grid
+$pottery_products = array_slice( $pottery_products, 0, 8 );
 
 $shop_url     = wc_get_page_permalink( 'shop' );
 $workshop_url = home_url( '/workshop/' );
@@ -137,13 +147,25 @@ $workshop_url = home_url( '/workshop/' );
 			<div class="bv-products-grid">
 				<?php if ( ! empty( $pottery_products ) ) : ?>
 					<?php foreach ( $pottery_products as $product ) : 
-						$img_url = wp_get_attachment_image_url( $product->get_image_id(), 'medium' ) ?: home_url( '/wp-content/uploads/woocommerce-placeholder.webp' );
-						$price_html = $product->get_price_html();
+						$img_url      = wp_get_attachment_image_url( $product->get_image_id(), 'medium' ) ?: home_url( '/wp-content/uploads/woocommerce-placeholder.webp' );
+						$is_on_sale   = $product->is_on_sale();
+						$price_html   = $product->get_price_html();
+						$discount_pct = 0;
+						if ( $is_on_sale ) {
+							$reg = (float) $product->get_regular_price();
+							$sal = (float) $product->get_sale_price();
+							if ( $reg > 0 && $sal > 0 && $reg > $sal ) {
+								$discount_pct = round( ( ( $reg - $sal ) / $reg ) * 100 );
+							}
+						}
 					?>
-						<article class="bv-product-tile">
+						<article class="bv-product-tile <?php echo $is_on_sale ? 'is-on-sale' : ''; ?>">
 							<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="bv-pt-image-wrap">
 								<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy">
 								<span class="bv-pt-badge">Thủ công</span>
+								<?php if ( $discount_pct > 0 ) : ?>
+									<span class="bv-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
+								<?php endif; ?>
 							</a>
 							<div class="bv-pt-body">
 								<div class="bv-pt-meta-rating">
@@ -154,8 +176,11 @@ $workshop_url = home_url( '/workshop/' );
 										<?php echo esc_html( $product->get_name() ); ?>
 									</a>
 								</h3>
-								<div class="bv-pt-price">
+								<div class="bv-pt-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
 									<?php echo wp_kses_post( $price_html ); ?>
+									<?php if ( $discount_pct > 0 ) : ?>
+										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
+									<?php endif; ?>
 								</div>
 								<div class="bv-pt-action">
 									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-cart">
