@@ -94,7 +94,7 @@ add_action( 'woocommerce_cart_is_empty', function () {
 	echo '<div class="bv-empty-cart"><h2>Giỏ hàng đang trống</h2><p>Một món gốm nhỏ, thêm chút ấm áp cho mỗi ngày.</p></div>';
 }, 5 );
 
-add_filter( 'woocommerce_return_to_shop_text', function () { return 'Khám phá gốm thủ công'; } );
+add_filter( 'woocommerce_return_to_shop_text', function () { return 'Khám phá sản phẩm'; } );
 add_filter( 'gettext_with_context', function ( $translation, $text, $context, $domain ) {
 	if ( 'woocommerce' === $domain && 'shipping packages' === $context ) {
 		$labels = [ 'Shipment' => 'Giao hàng', 'Shipment %d' => 'Giao hàng %d' ];
@@ -124,14 +124,77 @@ add_filter( 'woocommerce_account_menu_items', function ( $items ) {
 	return $items;
 } );
 
-// Ensure shop archive displays exact multiples of 4 columns (12 products = 3 full rows)
+// Ensure shop archive displays exact multiples of 4 columns (12 or 16 products)
 add_filter( 'loop_shop_per_page', function ( $cols ) {
-	return 12;
+	return 16;
 }, 20 );
 
 add_action( 'pre_get_posts', function ( $query ) {
 	if ( ! is_admin() && $query->is_main_query() && ( $query->is_post_type_archive( 'product' ) || $query->is_tax( get_object_taxonomies( 'product' ) ) ) ) {
-		$query->set( 'posts_per_page', 12 );
+		$query->set( 'posts_per_page', 16 );
+
+		// 1. Exclude virtual / workshop tickets from physical product shop
+		$meta_query = (array) $query->get( 'meta_query' );
+		$meta_query[] = [
+			'relation' => 'OR',
+			[
+				'key'     => '_virtual',
+				'compare' => 'NOT EXISTS',
+			],
+			[
+				'key'     => '_virtual',
+				'value'   => 'yes',
+				'compare' => '!=',
+			],
+		];
+
+		// 2. Filter: On sale products
+		if ( ! empty( $_GET['on_sale'] ) ) {
+			$sale_ids = wc_get_product_ids_on_sale();
+			$query->set( 'post__in', ! empty( $sale_ids ) ? $sale_ids : [ 0 ] );
+		}
+
+		// 3. Filter: Featured products
+		if ( ! empty( $_GET['featured'] ) ) {
+			$tax_query = (array) $query->get( 'tax_query' );
+			$tax_query[] = [
+				'taxonomy' => 'product_visibility',
+				'field'    => 'name',
+				'terms'    => 'featured',
+				'operator' => 'IN',
+			];
+			$query->set( 'tax_query', $tax_query );
+		}
+
+		// 4. Filter: Price range
+		if ( isset( $_GET['min_price'] ) || isset( $_GET['max_price'] ) ) {
+			$min = isset( $_GET['min_price'] ) ? floatval( $_GET['min_price'] ) : 0;
+			$max = isset( $_GET['max_price'] ) ? floatval( $_GET['max_price'] ) : 0;
+			if ( $min > 0 && $max > 0 ) {
+				$meta_query[] = [
+					'key'     => '_price',
+					'value'   => [ $min, $max ],
+					'type'    => 'NUMERIC',
+					'compare' => 'BETWEEN',
+				];
+			} elseif ( $min > 0 ) {
+				$meta_query[] = [
+					'key'     => '_price',
+					'value'   => $min,
+					'type'    => 'NUMERIC',
+					'compare' => '>=',
+				];
+			} elseif ( $max > 0 ) {
+				$meta_query[] = [
+					'key'     => '_price',
+					'value'   => $max,
+					'type'    => 'NUMERIC',
+					'compare' => '<=',
+				];
+			}
+		}
+
+		$query->set( 'meta_query', $meta_query );
 	}
 } );
 
