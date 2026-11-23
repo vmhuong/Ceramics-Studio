@@ -253,7 +253,7 @@
 			});
 
 			// Accessibility keyboard support
-			$(document).on('keydown', '.bv-collapsible-heading', function (e) {
+			$(document).on('keydown', '.bv-collapsible-heading, .bv-toggle-collapse-btn', function (e) {
 				if (e.key === 'Enter' || e.key === ' ') {
 					e.preventDefault();
 					$(this).trigger('click');

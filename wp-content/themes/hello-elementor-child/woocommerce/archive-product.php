@@ -129,9 +129,9 @@ if ( $is_featured ) {
 									<strong class="bv-filter-title">Tất cả sản phẩm</strong>
 								</a>
 								<?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
-									<button type="button" class="bv-toggle-collapse-btn" data-target="bv-cat-sublist" aria-label="Thu gọn/Mở rộng danh mục" aria-expanded="true" title="Thu gọn/Mở rộng">
+									<span class="bv-toggle-collapse-btn" role="button" tabindex="0" data-target="bv-cat-sublist" aria-label="Thu gọn/Mở rộng danh mục" aria-expanded="true" title="Thu gọn/Mở rộng">
 										<span class="bv-toggle-sign">−</span>
-									</button>
+									</span>
 								<?php endif; ?>
 							</div>
 
@@ -160,9 +160,9 @@ if ( $is_featured ) {
 				<div class="bv-filter-group bv-filter-price" data-group-id="price">
 					<div class="bv-filter-heading bv-collapsible-heading" data-target="bv-price-sublist" role="button" tabindex="0" aria-expanded="true">
 						<span class="bv-filter-heading-text">GIÁ SẢN PHẨM</span>
-						<button type="button" class="bv-toggle-collapse-btn" data-target="bv-price-sublist" aria-label="Thu gọn/Mở rộng giá" tabindex="-1">
+						<span class="bv-toggle-collapse-btn" role="button" tabindex="0" data-target="bv-price-sublist" aria-label="Thu gọn/Mở rộng giá" title="Thu gọn/Mở rộng">
 							<span class="bv-toggle-sign">−</span>
-						</button>
+						</span>
 					</div>
 					<div class="bv-smooth-collapse" id="bv-price-sublist">
 						<ul class="bv-price-filter-list">
@@ -215,9 +215,9 @@ if ( $is_featured ) {
 				<div class="bv-filter-group bv-filter-colors" data-group-id="colors">
 					<div class="bv-filter-heading bv-collapsible-heading" data-target="bv-color-sublist" role="button" tabindex="0" aria-expanded="true">
 						<span class="bv-filter-heading-text">MÀU SẮC</span>
-						<button type="button" class="bv-toggle-collapse-btn" data-target="bv-color-sublist" aria-label="Thu gọn/Mở rộng màu sắc" tabindex="-1">
+						<span class="bv-toggle-collapse-btn" role="button" tabindex="0" data-target="bv-color-sublist" aria-label="Thu gọn/Mở rộng màu sắc" title="Thu gọn/Mở rộng">
 							<span class="bv-toggle-sign">−</span>
-						</button>
+						</span>
 					</div>
 					<div class="bv-smooth-collapse" id="bv-color-sublist">
 						<div class="bv-color-palette-grid">
