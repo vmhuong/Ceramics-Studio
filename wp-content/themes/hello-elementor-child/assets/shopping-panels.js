@@ -132,6 +132,81 @@ jQuery(function ($) {
 
     $(document.body).on('wc_fragments_loaded wc_fragments_refreshed removed_from_cart updated_wc_div', bindTriggers);
 
+    // QUANTITY STEPPER BUTTONS IN MINI-CART
+    $(document).on('click', '.bv-mcart-qty-btn', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $btn = $(this);
+        var action = $btn.data('action');
+        var $stepper = $btn.closest('.bv-mcart-qty-stepper');
+        var $input = $stepper.find('.bv-mcart-qty-input');
+        var currentVal = parseInt($input.val(), 10) || 1;
+        var min = parseInt($input.attr('min'), 10) || 1;
+        var max = parseInt($input.attr('max'), 10) || 99;
+
+        if (action === 'plus') {
+            if (currentVal < max) {
+                $input.val(currentVal + 1).trigger('change');
+            }
+        } else if (action === 'minus') {
+            if (currentVal > min) {
+                $input.val(currentVal - 1).trigger('change');
+            }
+        }
+    });
+
+    // AJAX QUANTITY UPDATE (DEBOUNCED)
+    var qtyTimer = null;
+    $(document).on('change', '.bv-mcart-qty-input', function () {
+        var $input = $(this);
+        var cartKey = $input.data('cart_item_key') || $input.closest('.bv-mcart-qty-stepper').data('cart_item_key');
+        var qty = parseInt($input.val(), 10);
+        var min = parseInt($input.attr('min'), 10) || 1;
+        var max = parseInt($input.attr('max'), 10) || 99;
+
+        if (isNaN(qty) || qty < min) qty = min;
+        if (qty > max) qty = max;
+        $input.val(qty);
+
+        var $card = $input.closest('.bv-mini-cart-card');
+
+        clearTimeout(qtyTimer);
+        qtyTimer = setTimeout(function () {
+            if (!cartKey || typeof bvShopping === 'undefined' || !bvShopping.qtyUrl) return;
+            $card.addClass('is-updating');
+
+            $.ajax({
+                type: 'POST',
+                url: bvShopping.qtyUrl,
+                data: {
+                    cart_item_key: cartKey,
+                    quantity: qty,
+                    nonce: bvShopping.qtyNonce
+                },
+                dataType: 'json',
+                success: function (response) {
+                    if (response && response.fragments) {
+                        $.each(response.fragments, function (key, value) {
+                            $(key).replaceWith(value);
+                        });
+                        $(document.body).trigger('wc_fragments_refreshed');
+                        $(document.body).trigger('updated_wc_div');
+                    }
+                },
+                complete: function () {
+                    $card.removeClass('is-updating');
+                }
+            });
+        }, 300);
+    });
+
+    $(document).on('keydown', '.bv-mcart-qty-input', function (e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            $(this).trigger('change');
+        }
+    });
+
     // CART NOTE PERSISTENCE LOGIC
     var timer, pending = Promise.resolve(), savedNote = $('#bv-cart-note').val() || '';
     function saveNote() {

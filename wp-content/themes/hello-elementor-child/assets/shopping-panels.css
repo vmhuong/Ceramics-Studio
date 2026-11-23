@@ -346,73 +346,249 @@ body.bv-panel-open {
     font-size: 15px;
 }
 
-/* MINI-CART INSIDE SIDE DRAWER */
+/* MINI-CART INSIDE SIDE DRAWER (WABI-SABI CRAFT STYLE) */
 .bv-shopping-panel .woocommerce-mini-cart {
-    padding: 0;
-    margin: 0;
-    list-style: none;
+    padding: 0 !important;
+    margin: 0 0 16px 0 !important;
+    list-style: none !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 12px !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart li {
-    position: relative;
-    padding: 14px 30px 14px 80px !important;
-    margin-bottom: 14px;
-    background: #FFFFFF;
-    border: 1px solid #E8E2D8;
-    border-radius: 4px;
-}
-
-.bv-shopping-panel .woocommerce-mini-cart li img {
-    position: absolute;
-    left: 10px;
-    top: 10px;
-    width: 58px !important;
-    height: 58px !important;
-    object-fit: cover;
-    border-radius: 3px;
+.bv-shopping-panel .woocommerce-mini-cart li.bv-mini-cart-card,
+.bv-shopping-panel .woocommerce-mini-cart li.mini_cart_item {
+    position: relative !important;
+    padding: 12px 14px !important;
     margin: 0 !important;
+    background: #FFFFFF !important;
+    border: 1px solid #E8E2D8 !important;
+    border-radius: 10px !important;
+    display: flex !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    box-shadow: 0 2px 8px rgba(44, 37, 35, 0.04) !important;
+    transition: border-color 0.2s, box-shadow 0.2s, opacity 0.2s !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart li > a:not(.remove) {
-    font-size: 14px;
-    font-weight: 600;
-    color: #2C2523;
-    text-decoration: none;
-    line-height: 1.35;
-    display: block;
+.bv-shopping-panel .woocommerce-mini-cart li.bv-mini-cart-card:hover,
+.bv-shopping-panel .woocommerce-mini-cart li.mini_cart_item:hover {
+    border-color: #D6CBC0 !important;
+    box-shadow: 0 4px 14px rgba(44, 37, 35, 0.08) !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart li > a:not(.remove):hover {
-    color: #B3592B;
+.bv-shopping-panel .woocommerce-mini-cart li.is-updating {
+    opacity: 0.5 !important;
+    pointer-events: none !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart li a.remove {
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    width: 22px;
-    height: 22px;
-    display: grid;
-    place-items: center;
-    border-radius: 50%;
-    color: #A0938A !important;
-    font-size: 15px;
-    text-decoration: none;
-    transition: all 0.2s;
-    line-height: 1;
+/* THUMBNAIL */
+.bv-mcart-thumb {
+    width: 68px !important;
+    height: 68px !important;
+    border-radius: 8px !important;
+    overflow: hidden !important;
+    background: #F8F5EF !important;
+    flex-shrink: 0 !important;
+    display: block !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart li a.remove:hover {
-    background: #EBDDCE;
+.bv-mcart-thumb img,
+.bv-shopping-panel .woocommerce-mini-cart li img {
+    position: static !important;
+    width: 68px !important;
+    height: 68px !important;
+    min-width: 68px !important;
+    object-fit: cover !important;
+    display: block !important;
+    margin: 0 !important;
+    border-radius: 8px !important;
+    transition: transform 0.3s ease !important;
+}
+
+.bv-mcart-thumb:hover img {
+    transform: scale(1.05);
+}
+
+/* DETAILS COLUMN */
+.bv-mcart-details {
+    flex: 1 1 auto !important;
+    min-width: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 8px !important;
+}
+
+.bv-mcart-header-line {
+    display: flex !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: 8px !important;
+}
+
+.bv-mcart-title {
+    margin: 0 !important;
+    font-size: 13.5px !important;
+    font-weight: 600 !important;
+    line-height: 1.35 !important;
+    color: #2C2523 !important;
+    font-family: inherit !important;
+    flex: 1 !important;
+}
+
+.bv-mcart-title a {
+    color: #2C2523 !important;
+    text-decoration: none !important;
+    transition: color 0.2s !important;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.bv-mcart-title a:hover {
     color: #B3592B !important;
 }
 
-.bv-shopping-panel .woocommerce-mini-cart .quantity {
-    display: block;
-    margin-top: 6px;
-    font-size: 13px;
-    color: #B3592B;
-    font-weight: 600;
+/* REMOVE BUTTON (XÓA) */
+.bv-shopping-panel .woocommerce-mini-cart li a.bv-mcart-remove,
+.bv-shopping-panel .woocommerce-mini-cart li a.remove {
+    position: static !important;
+    width: 22px !important;
+    height: 22px !important;
+    min-width: 22px !important;
+    display: grid !important;
+    place-items: center !important;
+    border-radius: 50% !important;
+    color: #A0938A !important;
+    font-size: 16px !important;
+    line-height: 1 !important;
+    text-decoration: none !important;
+    background: #FAF7F2 !important;
+    border: 1px solid #EBD9CB !important;
+    cursor: pointer !important;
+    transition: all 0.2s ease !important;
+    flex-shrink: 0 !important;
+    padding: 0 !important;
+}
+
+.bv-shopping-panel .woocommerce-mini-cart li a.bv-mcart-remove:hover,
+.bv-shopping-panel .woocommerce-mini-cart li a.remove:hover {
+    background: #B3592B !important;
+    border-color: #B3592B !important;
+    color: #FFFFFF !important;
+}
+
+/* CONTROLS ROW: QUANTITY STEPPER + PRICE */
+.bv-mcart-controls-line {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px !important;
+    margin-top: 2px !important;
+}
+
+/* STEPPER: [-] [1] [+] */
+.bv-mcart-qty-stepper {
+    display: inline-flex !important;
+    align-items: center !important;
+    border: 1px solid #E2D7C8 !important;
+    border-radius: 6px !important;
+    background: #FAF7F2 !important;
+    overflow: hidden !important;
+    height: 30px !important;
+}
+
+.bv-mcart-qty-btn {
+    width: 28px !important;
+    height: 30px !important;
+    border: none !important;
+    background: transparent !important;
+    color: #4A3C31 !important;
+    font-size: 15px !important;
+    font-weight: 700 !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    display: grid !important;
+    place-items: center !important;
+    transition: background 0.15s, color 0.15s !important;
+    padding: 0 !important;
+    user-select: none !important;
+}
+
+.bv-mcart-qty-btn:hover {
+    background: #EAE1D5 !important;
+    color: #B3592B !important;
+}
+
+.bv-mcart-qty-btn:active {
+    background: #DFD3C4 !important;
+}
+
+.bv-mcart-qty-input {
+    width: 36px !important;
+    min-height: 30px !important;
+    height: 30px !important;
+    border: none !important;
+    border-left: 1px solid #E2D7C8 !important;
+    border-right: 1px solid #E2D7C8 !important;
+    background: #FFFFFF !important;
+    color: #2C2523 !important;
+    font-size: 13px !important;
+    font-weight: 700 !important;
+    text-align: center !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    -moz-appearance: textfield !important;
+}
+
+.bv-mcart-qty-input::-webkit-outer-spin-button,
+.bv-mcart-qty-input::-webkit-inner-spin-button {
+    -webkit-appearance: none !important;
+    margin: 0 !important;
+}
+
+.bv-mcart-qty-input:focus {
+    outline: none !important;
+    background: #FFFDF9 !important;
+    box-shadow: none !important;
+}
+
+/* PRICE DISPLAY */
+.bv-mcart-price-box {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-end !important;
+    line-height: 1.2 !important;
+}
+
+.bv-mcart-total-price {
+    font-size: 14.5px !important;
+    font-weight: 700 !important;
+    color: #B3592B !important;
+}
+
+.bv-mcart-total-price .woocommerce-Price-amount {
+    color: #B3592B !important;
+}
+
+.bv-mcart-unit-price {
+    font-size: 11px !important;
+    color: #9C8E84 !important;
+    margin-top: 2px !important;
+}
+
+/* EMPTY STATE */
+.bv-mini-cart-empty {
+    text-align: center;
+    padding: 40px 10px;
+}
+
+.bv-mini-cart-empty .woocommerce-mini-cart__empty-message {
+    font-size: 14.5px;
+    color: #6B5B52;
+    margin-bottom: 24px;
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__total {

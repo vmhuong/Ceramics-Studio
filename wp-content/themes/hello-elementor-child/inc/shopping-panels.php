@@ -27,10 +27,39 @@ add_filter( 'gettext', function ( $translation, $text, $domain ) {
 
 add_action( 'wp_enqueue_scripts', function () {
     if ( ! function_exists( 'WC' ) ) { return; }
-    wp_enqueue_style( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.css', [ 'bv-commerce' ], filemtime( __DIR__ . '/../assets/shopping-panels.css' ) );
-    wp_enqueue_script( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.js', [ 'bv-commerce', 'wc-add-to-cart' ], filemtime( __DIR__ . '/../assets/shopping-panels.js' ), true );
-    wp_localize_script( 'bv-shopping-panels', 'bvShopping', [ 'noteUrl' => WC_AJAX::get_endpoint( 'bv_cart_note' ), 'nonce' => wp_create_nonce( 'bv_cart_note' ) ] );
+    wp_enqueue_style( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.css', [ 'bv-commerce' ], time() );
+    wp_enqueue_script( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.js', [ 'bv-commerce', 'wc-add-to-cart' ], time(), true );
+    wp_localize_script( 'bv-shopping-panels', 'bvShopping', [ 
+        'noteUrl'  => WC_AJAX::get_endpoint( 'bv_cart_note' ), 
+        'nonce'    => wp_create_nonce( 'bv_cart_note' ),
+        'qtyUrl'   => WC_AJAX::get_endpoint( 'bv_update_cart_quantity' ),
+        'qtyNonce' => wp_create_nonce( 'bv_cart_qty_nonce' ),
+    ] );
 }, 50 );
+
+// AJAX Handler for Quantity Update in Mini-Cart Drawer
+add_action( 'wc_ajax_bv_update_cart_quantity', 'bv_update_cart_quantity_ajax' );
+add_action( 'wp_ajax_bv_update_cart_quantity', 'bv_update_cart_quantity_ajax' );
+add_action( 'wp_ajax_nopriv_bv_update_cart_quantity', 'bv_update_cart_quantity_ajax' );
+
+function bv_update_cart_quantity_ajax() {
+    check_ajax_referer( 'bv_cart_qty_nonce', 'nonce' );
+    $cart_item_key = sanitize_text_field( $_POST['cart_item_key'] ?? '' );
+    $quantity      = isset( $_POST['quantity'] ) ? max( 0, intval( $_POST['quantity'] ) ) : 1;
+
+    if ( $cart_item_key && WC()->cart && WC()->cart->get_cart_item( $cart_item_key ) ) {
+        if ( $quantity <= 0 ) {
+            WC()->cart->remove_cart_item( $cart_item_key );
+        } else {
+            WC()->cart->set_quantity( $cart_item_key, $quantity, true );
+        }
+        WC()->cart->calculate_totals();
+
+        WC_AJAX::get_refreshed_fragments();
+    } else {
+        wp_send_json_error( [ 'message' => 'Mục không hợp lệ' ] );
+    }
+}
 
 add_action( 'wp_footer', function () {
     if ( ! function_exists( 'WC' ) || ! WC()->cart ) { return; }
