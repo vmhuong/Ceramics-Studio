@@ -19,6 +19,13 @@ add_action(
 			filemtime( get_stylesheet_directory() . '/style.css' )
 		);
 		wp_enqueue_script( 'bv-sticky-header', get_stylesheet_directory_uri() . '/assets/sticky-header.js', [], filemtime( get_stylesheet_directory() . '/assets/sticky-header.js' ), true );
+		
+		// Global Smooth Scroll Reveal
+		$reveal_css = get_stylesheet_directory() . '/assets/scroll-reveal.css';
+		$reveal_js  = get_stylesheet_directory() . '/assets/scroll-reveal.js';
+		wp_enqueue_style( 'bv-scroll-reveal', get_stylesheet_directory_uri() . '/assets/scroll-reveal.css', [ 'hello-elementor-child' ], file_exists( $reveal_css ) ? filemtime( $reveal_css ) : '1.0.0' );
+		wp_enqueue_script( 'bv-scroll-reveal', get_stylesheet_directory_uri() . '/assets/scroll-reveal.js', [], file_exists( $reveal_js ) ? filemtime( $reveal_js ) : '1.0.0', true );
+
 		if ( is_front_page() ) {
 			wp_enqueue_style( 'bv-wabi-sabi-home', get_stylesheet_directory_uri() . '/assets/wabi-sabi-home.css', [ 'hello-elementor-child' ], time() );
 		}

@@ -1,0 +1,82 @@
+/**
+ * Ceramic Studio - Smooth Scroll Reveal Animations
+ * Aesthetic: Wabi-Sabi Luxury Craft Minimalism (Silky ease-out slide-up)
+ * 
+ * Works across Homepage, About Us, Workshop, Contact Us, Shop & Single Product
+ */
+
+/* ==========================================================================
+   1. BASE REVEAL STATE (PROGRESSIVE ENHANCEMENT)
+   ========================================================================== */
+html.bv-reveal-ready .bv-reveal {
+	opacity: 0;
+	transform: translateY(32px);
+	transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+	will-change: opacity, transform;
+}
+
+/* Fallback for browsers / devices with reduced motion */
+@media (prefers-reduced-motion: reduce) {
+	html.bv-reveal-ready .bv-reveal {
+		opacity: 1 !important;
+		transform: none !important;
+		transition: none !important;
+	}
+}
+
+/* ==========================================================================
+   2. REVEALED STATE (ACTIVE IN VIEWPORT)
+   ========================================================================== */
+html.bv-reveal-ready .bv-reveal.is-revealed {
+	opacity: 1;
+	transform: translateY(0);
+}
+
+/* Once entrance animation completes, free up transform so hover effects take over smoothly */
+html.bv-reveal-ready .bv-reveal.reveal-done {
+	transform: none;
+	will-change: auto;
+	transition-delay: 0s !important;
+}
+
+/* ==========================================================================
+   3. STAGGERED WAVE DELAYS (FOR GRIDS AND LISTS)
+   ========================================================================== */
+html.bv-reveal-ready .bv-reveal-delay-1 { transition-delay: 0.08s; }
+html.bv-reveal-ready .bv-reveal-delay-2 { transition-delay: 0.16s; }
+html.bv-reveal-ready .bv-reveal-delay-3 { transition-delay: 0.24s; }
+html.bv-reveal-ready .bv-reveal-delay-4 { transition-delay: 0.32s; }
+html.bv-reveal-ready .bv-reveal-delay-5 { transition-delay: 0.40s; }
+html.bv-reveal-ready .bv-reveal-delay-6 { transition-delay: 0.48s; }
+html.bv-reveal-ready .bv-reveal-delay-7 { transition-delay: 0.56s; }
+html.bv-reveal-ready .bv-reveal-delay-8 { transition-delay: 0.64s; }
+
+/* ==========================================================================
+   4. ELEGANT CARD HOVER TRANSITIONS (FOR HOMEPAGE CRAFT / REVIEW / PROMISE)
+   ========================================================================== */
+.bv-step-item,
+.bv-review-card,
+.bv-promise-item,
+.bv-ws-box {
+	transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), 
+	            box-shadow 0.35s ease, 
+	            border-color 0.35s ease;
+}
+
+.bv-step-item:hover,
+.bv-review-card:hover,
+.bv-promise-item:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 10px 24px rgba(44, 37, 35, 0.07);
+	border-color: #d8c4b2;
+}
+
+.bv-step-item:hover .bv-step-index {
+	transform: scale(1.08);
+	transition: transform 0.25s ease;
+}
+
+.bv-promise-item:hover .bv-pi-num {
+	transform: scale(1.08);
+	transition: transform 0.25s ease;
+}
