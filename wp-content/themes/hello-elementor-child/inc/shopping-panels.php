@@ -36,47 +36,113 @@ add_action( 'wp_footer', function () {
     if ( ! function_exists( 'WC' ) || ! WC()->cart ) { return; }
     $account_url = wc_get_page_permalink( 'myaccount' );
     ?>
-    <dialog id="bv-cart-panel" class="bv-shopping-panel" aria-labelledby="bv-cart-panel-title">
-        <header class="bv-panel-heading"><h2 id="bv-cart-panel-title">Giỏ hàng</h2><button type="button" class="bv-panel-close" aria-label="Đóng giỏ hàng" title="Đóng">✕</button></header>
-        <div class="woocommerce widget_shopping_cart"><div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div></div>
-        <a class="bv-panel-continue" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">Tiếp tục mua hàng</a>
+    <!-- SIDE DRAWER: GIỎ HÀNG -->
+    <dialog id="bv-cart-panel" class="bv-shopping-panel bv-side-drawer" aria-labelledby="bv-cart-panel-title">
+        <header class="bv-panel-heading">
+            <div class="bv-panel-title-group">
+                <span class="bv-panel-eyebrow">GỐM THỦ CÔNG</span>
+                <h2 id="bv-cart-panel-title">Giỏ hàng của bạn</h2>
+            </div>
+            <button type="button" class="bv-panel-close" aria-label="Đóng giỏ hàng" title="Đóng">✕</button>
+        </header>
+        <div class="bv-panel-content-wrap">
+            <div class="woocommerce widget_shopping_cart"><div class="widget_shopping_cart_content"><?php woocommerce_mini_cart(); ?></div></div>
+        </div>
+        <footer class="bv-panel-footer">
+            <a class="bv-panel-continue" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">← Tiếp tục xem gốm</a>
+        </footer>
     </dialog>
-    <dialog id="bv-account-panel" class="bv-shopping-panel" aria-labelledby="bv-account-panel-title">
-        <header class="bv-panel-heading"><h2 id="bv-account-panel-title"><?php echo is_user_logged_in() ? 'Tài khoản của tôi' : 'Đăng nhập tài khoản'; ?></h2><button type="button" class="bv-panel-close" aria-label="Đóng tài khoản" title="Đóng">✕</button></header>
+
+    <!-- SIDE DRAWER: ĐĂNG NHẬP / TÀI KHOẢN -->
+    <dialog id="bv-account-panel" class="bv-shopping-panel bv-side-drawer" aria-labelledby="bv-account-panel-title">
+        <header class="bv-panel-heading">
+            <div class="bv-panel-title-group">
+                <span class="bv-panel-eyebrow">XƯỞNG GỐM MỘC</span>
+                <h2 id="bv-account-panel-title"><?php echo is_user_logged_in() ? 'Tài khoản của bạn' : 'Đăng nhập'; ?></h2>
+            </div>
+            <button type="button" class="bv-panel-close" aria-label="Đóng tài khoản" title="Đóng">✕</button>
+        </header>
+
+        <div class="bv-panel-content-wrap">
         <?php if ( is_user_logged_in() ) : ?>
-            <p class="bv-panel-greeting">Xin chào, <strong><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong></p>
+            <div class="bv-panel-user-box">
+                <div class="bv-panel-user-initial">
+                    <?php echo esc_html( mb_substr( wp_get_current_user()->display_name, 0, 1 ) ); ?>
+                </div>
+                <div class="bv-panel-user-details">
+                    <span class="bv-user-label">Chào mừng trở lại,</span>
+                    <strong class="bv-user-name"><?php echo esc_html( wp_get_current_user()->display_name ); ?></strong>
+                </div>
+            </div>
+
             <nav class="bv-panel-account-links" aria-label="Quản lý tài khoản">
                 <?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
+                    <a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>" class="bv-account-nav-item">
+                        <span><?php echo esc_html( $label ); ?></span>
+                        <span class="bv-nav-arrow" aria-hidden="true">→</span>
+                    </a>
                 <?php endforeach; ?>
             </nav>
         <?php else : ?>
-            <div data-account-view="login">
+            <div data-account-view="login" class="bv-account-view">
+                <p class="bv-account-lead">Đăng nhập để xem trạng thái đơn hàng gốm và theo dõi lịch hẹn workshop của bạn.</p>
+
                 <form method="post" action="<?php echo esc_url( $account_url ); ?>" class="bv-panel-login">
                     <?php do_action( 'woocommerce_login_form_start' ); ?>
-                    <p><label for="bv-panel-username">Email hoặc tên đăng nhập</label><input id="bv-panel-username" name="username" autocomplete="username" required></p>
-                    <p><label for="bv-panel-password">Mật khẩu</label><span class="bv-panel-password"><input id="bv-panel-password" type="password" name="password" autocomplete="current-password" required><button type="button" class="bv-password-toggle" aria-label="Hiện mật khẩu" title="Hiện mật khẩu">Xem</button></span></p>
-                    <label class="bv-panel-remember"><input type="checkbox" name="rememberme" value="forever"> Ghi nhớ đăng nhập</label>
+                    <div class="bv-form-field">
+                        <label for="bv-panel-username">Email hoặc tên đăng nhập <span class="required">*</span></label>
+                        <input id="bv-panel-username" name="username" autocomplete="username" placeholder="Nhập email hoặc tên tài khoản" required>
+                    </div>
+
+                    <div class="bv-form-field">
+                        <label for="bv-panel-password">Mật khẩu <span class="required">*</span></label>
+                        <span class="bv-panel-password">
+                            <input id="bv-panel-password" type="password" name="password" autocomplete="current-password" placeholder="Nhập mật khẩu" required>
+                            <button type="button" class="bv-password-toggle" aria-label="Hiện mật khẩu" title="Hiện mật khẩu">Hiện</button>
+                        </span>
+                    </div>
+
+                    <div class="bv-form-aux-row">
+                        <label class="bv-panel-remember">
+                            <input type="checkbox" name="rememberme" value="forever">
+                            <span>Ghi nhớ</span>
+                        </label>
+                        <button type="button" class="bv-panel-text-button" data-account-switch="recover">Quên mật khẩu?</button>
+                    </div>
+
                     <?php do_action( 'woocommerce_login_form' ); ?>
                     <input type="hidden" name="woocommerce-login-nonce" value="<?php echo esc_attr( wp_create_nonce( 'woocommerce-login' ) ); ?>">
                     <input type="hidden" name="redirect" value="<?php echo esc_url( $account_url ); ?>">
                     <button type="submit" class="bv-panel-primary" name="login" value="1">Đăng nhập</button>
                     <?php do_action( 'woocommerce_login_form_end' ); ?>
                 </form>
-                <p class="bv-panel-switch">Khách hàng mới? <a href="<?php echo esc_url( $account_url . '#register' ); ?>">Tạo tài khoản</a></p>
-                <button type="button" class="bv-panel-text-button" data-account-switch="recover">Quên mật khẩu?</button>
+
+                <div class="bv-panel-switch">
+                    <span>Khách hàng mới?</span>
+                    <a href="<?php echo esc_url( $account_url . '#register' ); ?>" class="bv-register-link">Tạo tài khoản</a>
+                </div>
             </div>
-            <div data-account-view="recover" hidden>
-                <form method="post" action="<?php echo esc_url( wc_get_account_endpoint_url( 'lost-password' ) ); ?>">
-                    <p><label for="bv-panel-recover">Email hoặc tên đăng nhập</label><input id="bv-panel-recover" name="user_login" autocomplete="username" required></p>
+
+            <div data-account-view="recover" class="bv-account-view" hidden>
+                <p class="bv-account-lead">Vui lòng nhập email tài khoản của bạn. Xưởng gốm sẽ gửi đường dẫn đặt lại mật khẩu mới.</p>
+
+                <form method="post" action="<?php echo esc_url( wc_get_account_endpoint_url( 'lost-password' ) ); ?>" class="bv-panel-login">
+                    <div class="bv-form-field">
+                        <label for="bv-panel-recover">Email hoặc tên đăng nhập <span class="required">*</span></label>
+                        <input id="bv-panel-recover" name="user_login" autocomplete="username" placeholder="Nhập email đăng ký" required>
+                    </div>
                     <?php do_action( 'woocommerce_lostpassword_form' ); ?>
                     <input type="hidden" name="wc_reset_password" value="true">
                     <input type="hidden" name="woocommerce-lost-password-nonce" value="<?php echo esc_attr( wp_create_nonce( 'lost_password' ) ); ?>">
                     <button type="submit" class="bv-panel-primary">Khôi phục mật khẩu</button>
                 </form>
-                <button type="button" class="bv-panel-text-button" data-account-switch="login">Trở về đăng nhập</button>
+
+                <div class="bv-panel-switch">
+                    <button type="button" class="bv-panel-back-btn" data-account-switch="login">← Quay lại Đăng nhập</button>
+                </div>
             </div>
         <?php endif; ?>
+        </div>
     </dialog>
     <?php
 }, 30 );
