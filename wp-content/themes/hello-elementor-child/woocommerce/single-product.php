@@ -117,18 +117,11 @@ while ( have_posts() ) : the_post();
 								
 								<!-- Stock Scarcity Status -->
 								<div class="bv-stock-scarcity">
-									<span>Còn lại <strong><?php echo esc_html( $stock_qty ); ?></strong> sản phẩm trong mẻ nung</span>
+									<span>Còn lại <strong><?php echo esc_html( $stock_qty ); ?></strong> sản phẩm</span>
 								</div>
 
 								<!-- WooCommerce Cart Form (Quantity & Add to Cart on same line) -->
 								<?php woocommerce_template_single_add_to_cart(); ?>
-								
-								<!-- Buy Now (Direct VietQR Checkout) -->
-								<div class="bv-buynow-wrap">
-									<button type="button" class="bv-btn-buy-now" data-product-id="<?php echo esc_attr( $pid ); ?>" data-checkout-url="<?php echo esc_url( wc_get_checkout_url() ); ?>">
-										Mua Ngay (Thanh toán VietQR)
-									</button>
-								</div>
 							</div>
 						<?php else : ?>
 							<div class="bv-out-of-stock-box">
@@ -141,6 +134,22 @@ while ( have_posts() ) : the_post();
 							<a href="https://zalo.me/0363292271" target="_blank" rel="noopener" class="bv-btn-zalo-consult">
 								Tư vấn trực tiếp qua Zalo: 0363 292 271 (Mr. Hướng)
 							</a>
+						</div>
+					</div>
+
+					<!-- INLINE PRODUCT DESCRIPTION (ANH CERAMICS STYLE) -->
+					<div class="bv-summary-desc-block">
+						<h3 class="bv-desc-heading">Mô tả</h3>
+						<div class="bv-desc-body">
+							<?php if ( $short_desc ) : ?>
+								<?php echo wpautop( $short_desc ); ?>
+							<?php else : ?>
+								<p><?php echo esc_html( $title ); ?>, chế tác thủ công mộc mạc theo phong cách gốm Việt Nam đương đại.</p>
+								<p><strong>[Vi] Thông tin sản phẩm:</strong><br>
+								- Công dụng: thưởng trà, cà phê, trang trí không gian hoặc quà tặng.<br>
+								- Nhiệt độ nung: 1.250°C đanh chắc, bền vĩnh cửu.<br>
+								- Chế tác: Chuốt tay thủ công bàn xoay độc bản.</p>
+							<?php endif; ?>
 						</div>
 					</div>
 

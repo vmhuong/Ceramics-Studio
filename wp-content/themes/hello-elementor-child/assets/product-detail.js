@@ -141,14 +141,48 @@ jQuery(function ($) {
                     }
                 });
 
-                activeTextSpan.textContent = currentText || 'Vui lòng chọn';
+                activeTextSpan.textContent = currentText ? currentText.toUpperCase() : 'VUI LÒNG CHỌN';
             }
 
             $select.on('change', syncState);
             form.on('woocommerce_update_variation_values found_variation reset_data', syncState);
             
-            // Initial sync (if preselected)
-            syncState();
+            // Pre-select first option if none is selected (eliminates WooCommerce validation redirect)
+            if (!select.value && options.length > 0) {
+                $select.val(options[0].value).trigger('change');
+            } else {
+                syncState();
+            }
+        });
+    });
+
+    // AJAX Add to Cart on Single Product (Smooth Drawer Opening, No Page Reload)
+    $(document).on('submit', 'form.cart', function (e) {
+        var form = $(this);
+        var btn = form.find('.single_add_to_cart_button, .bv-btn-add-to-cart');
+
+        // If button is disabled or still needs selection, let WC handle it
+        if (btn.is('.disabled') || btn.hasClass('wc-variation-selection-needed')) {
+            return;
+        }
+
+        e.preventDefault();
+        btn.addClass('loading').css('opacity', '0.7');
+
+        $.ajax({
+            url: window.location.href,
+            type: 'POST',
+            data: form.serialize(),
+            success: function () {
+                btn.removeClass('loading').css('opacity', '1');
+                // Trigger fragment refresh and open mini-cart drawer
+                $(document.body).trigger('wc_fragment_refresh');
+                $(document.body).trigger('added_to_cart', [null, null, btn]);
+            },
+            error: function () {
+                btn.removeClass('loading').css('opacity', '1');
+                form.off('submit').submit();
+            }
         });
     });
 

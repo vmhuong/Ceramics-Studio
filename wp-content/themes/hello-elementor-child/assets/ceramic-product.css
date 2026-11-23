@@ -586,7 +586,7 @@
 	padding: 0 !important;
 }
 
-/* Add to Cart Button (Obsidian Craft Charcoal - NEW COLOR) */
+/* Add to Cart Button (Warm Ceramic Clay with Left-to-Right Sliding Hover Fill) */
 .woocommerce div.product form.cart .single_add_to_cart_button,
 .woocommerce div.product form.cart .bv-btn-add-to-cart,
 .bv-btn-add-to-cart,
@@ -597,34 +597,65 @@ button.bv-btn-add-to-cart {
 	align-items: center !important;
 	justify-content: center !important;
 	height: 44px !important;
-	padding: 0 20px !important;
-	background: #1F1C1A !important;
+	padding: 0 24px !important;
+	position: relative !important;
+	overflow: hidden !important;
+	background-color: #6E5344 !important; /* Warm craft clay brown */
 	color: #FFFFFF !important;
-	border: 1px solid #1F1C1A !important;
+	border: 1px solid #6E5344 !important;
 	border-radius: 3px !important;
+	font-family: var(--bv-font-sans) !important;
 	font-size: 13px !important;
 	font-weight: 700 !important;
-	letter-spacing: 1px !important;
+	letter-spacing: 1.2px !important;
 	text-transform: uppercase !important;
 	cursor: pointer !important;
-	transition: all 0.25s ease !important;
 	box-shadow: none !important;
 	float: none !important;
 	margin: 0 !important;
 	white-space: nowrap !important;
+	z-index: 1 !important;
+	transition: color 0.35s ease, border-color 0.35s ease !important;
+}
+
+/* Sliding hover fill effect: Left to Right */
+.woocommerce div.product form.cart .single_add_to_cart_button::before,
+.woocommerce div.product form.cart .bv-btn-add-to-cart::before,
+.bv-btn-add-to-cart::before,
+button.bv-btn-add-to-cart::before {
+	content: '' !important;
+	position: absolute !important;
+	top: 0 !important;
+	left: 0 !important;
+	width: 100% !important;
+	height: 100% !important;
+	background-color: #241E1C !important; /* Dark obsidian craft charcoal */
+	transform: scaleX(0) !important;
+	transform-origin: left !important;
+	transition: transform 0.38s cubic-bezier(0.25, 1, 0.5, 1) !important;
+	z-index: -1 !important;
+}
+
+.woocommerce div.product form.cart .single_add_to_cart_button:hover::before,
+.woocommerce div.product form.cart .bv-btn-add-to-cart:hover::before,
+.bv-btn-add-to-cart:hover::before,
+button.bv-btn-add-to-cart:hover::before {
+	transform: scaleX(1) !important;
 }
 
 .woocommerce div.product form.cart .single_add_to_cart_button:hover,
-.bv-btn-add-to-cart:hover {
-	background: #423835 !important;
-	border-color: #423835 !important;
+.woocommerce div.product form.cart .bv-btn-add-to-cart:hover,
+.bv-btn-add-to-cart:hover,
+button.bv-btn-add-to-cart:hover {
 	color: #FFFFFF !important;
+	border-color: #241E1C !important;
 }
 
 /* Inline "Mô tả" Section (Anh Ceramics Signature) */
 .bv-summary-desc-block {
-	margin-top: 26px;
-	padding-top: 22px;
+	margin-top: 24px;
+	margin-bottom: 24px;
+	padding-top: 20px;
 	border-top: 1px solid var(--bv-c-border);
 }
 
@@ -648,50 +679,18 @@ button.bv-btn-add-to-cart {
 	margin: 0 0 10px 0;
 }
 
-/* Buy Now Button */
-.bv-buynow-wrap {
-	margin-bottom: 14px;
-	width: 100%;
-}
-
-.bv-btn-buy-now {
-	width: 100% !important;
-	display: inline-flex !important;
-	align-items: center !important;
-	justify-content: center !important;
-	height: 50px !important;
-	background: var(--bv-c-clay) !important;
-	color: #FFFFFF !important;
-	border: 1px solid var(--bv-c-clay) !important;
-	border-radius: 4px !important;
-	font-size: 13.5px !important;
-	font-weight: 600 !important;
-	letter-spacing: 0.5px !important;
-	text-transform: uppercase !important;
-	cursor: pointer !important;
-	transition: all 0.25s ease !important;
-	box-shadow: none !important;
-	box-sizing: border-box !important;
-}
-
-.bv-btn-buy-now:hover {
-	background: var(--bv-c-clay-dark) !important;
-	border-color: var(--bv-c-clay-dark) !important;
-	color: #FFFFFF !important;
-}
-
 /* Zalo Consultation Button */
 .bv-btn-zalo-consult {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	width: 100%;
-	padding: 13px 20px;
+	padding: 11px 18px;
 	background: #FAF7F2;
 	border: 1px solid #D6CBC0;
-	border-radius: 4px;
+	border-radius: 3px;
 	color: var(--bv-c-ink);
-	font-size: 13.5px;
+	font-size: 13px;
 	font-weight: 500;
 	text-decoration: none;
 	transition: all 0.2s;
@@ -890,15 +889,17 @@ button.bv-btn-add-to-cart {
 }
 
 /* ==========================================================================
-   4. RELATED PRODUCTS SECTION
+   4. RELATED PRODUCTS SECTION (GỢI Ý TỪ XƯỞNG - TINH GỌN, TỰ NHIÊN, VỪA VẶN)
    ========================================================================== */
 .bv-related-section {
-	padding-top: 48px;
+	padding: 52px 0 44px;
+	border-top: 1px solid var(--bv-c-border);
+	background: #FAF7F2;
 }
 
 .bv-related-header {
 	text-align: center;
-	margin-bottom: 36px;
+	margin-bottom: 28px;
 }
 
 .bv-sub-tag {
@@ -908,39 +909,57 @@ button.bv-btn-add-to-cart {
 	letter-spacing: 2px;
 	text-transform: uppercase;
 	color: var(--bv-c-clay);
-	margin-bottom: 8px;
+	margin-bottom: 6px;
 }
 
 .bv-related-title {
 	font-family: var(--bv-font-serif);
-	font-size: 30px;
+	font-size: 26px;
 	font-weight: 700;
 	color: var(--bv-c-ink);
 	margin: 0;
 }
 
-/* 4-Column Grid for Related Products */
-.bv-related-section .bv-ceramic-grid {
-	display: grid !important;
-	grid-template-columns: repeat(4, 1fr) !important;
-	gap: 28px !important;
-	margin-top: 32px !important;
+.bv-container--compact {
+	max-width: 980px !important;
+	margin: 0 auto !important;
+	padding: 0 20px !important;
 }
 
-.bv-related-section .bv-product-card {
+/* 4-Column Grid for Related Products */
+.bv-related-section .bv-ceramic-grid,
+.bv-related-section .bv-related-grid,
+.bv-related-grid {
+	display: grid !important;
+	grid-template-columns: repeat(4, 1fr) !important;
+	gap: 16px !important;
+	width: 100% !important;
+	box-sizing: border-box !important;
+	margin: 0 auto !important;
+	padding: 0 !important;
+}
+
+.bv-related-section .bv-product-card,
+.bv-product-card--compact {
 	background: #FFFFFF !important;
 	border: 1px solid var(--bv-c-border) !important;
-	border-radius: 12px !important;
+	border-radius: 6px !important;
 	overflow: hidden !important;
 	display: flex !important;
 	flex-direction: column !important;
-	transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease !important;
+	width: 100% !important;
+	max-width: 230px !important;
+	margin: 0 auto !important;
+	box-sizing: border-box !important;
+	box-shadow: 0 1px 3px rgba(44, 37, 35, 0.04) !important;
+	transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
 	position: relative !important;
 }
 
-.bv-related-section .bv-product-card:hover {
-	transform: translateY(-6px) !important;
-	box-shadow: 0 14px 32px rgba(44, 37, 35, 0.1) !important;
+.bv-related-section .bv-product-card:hover,
+.bv-product-card--compact:hover {
+	transform: translateY(-3px) !important;
+	box-shadow: 0 6px 16px rgba(44, 37, 35, 0.08) !important;
 	border-color: #D6CBC0 !important;
 }
 
@@ -948,7 +967,8 @@ button.bv-btn-add-to-cart {
 	position: relative !important;
 	width: 100% !important;
 	aspect-ratio: 1 / 1 !important;
-	background: #FAF7F2 !important;
+	max-height: 220px !important;
+	background: #F8F5EF !important;
 	overflow: hidden !important;
 }
 
@@ -967,7 +987,7 @@ button.bv-btn-add-to-cart {
 	height: 100% !important;
 	object-fit: cover !important;
 	object-position: center !important;
-	transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1) !important;
+	transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1) !important;
 }
 
 .bv-related-section .bv-card-img--primary {
@@ -990,26 +1010,11 @@ button.bv-btn-add-to-cart {
 }
 
 .bv-related-section .bv-product-card:not(.has-hover-image):hover .bv-card-img--primary {
-	transform: scale(1.05) !important;
-}
-
-/* Compact Related Products Section */
-.bv-container--compact {
-	max-width: 980px !important;
-	margin: 0 auto !important;
-}
-
-.bv-related-grid {
-	grid-template-columns: repeat(4, 1fr) !important;
-	gap: 16px !important;
-}
-
-.bv-product-card--compact {
-	border-radius: 8px !important;
+	transform: scale(1.04) !important;
 }
 
 .bv-product-card--compact .bv-card-body {
-	padding: 10px 12px 14px !important;
+	padding: 10px 12px 12px !important;
 	display: flex !important;
 	flex-direction: column !important;
 	flex-grow: 1 !important;
@@ -1026,10 +1031,15 @@ button.bv-btn-add-to-cart {
 
 .bv-product-card--compact .bv-card-title {
 	font-family: var(--bv-font-sans) !important;
-	font-size: 13px !important;
+	font-size: 12.5px !important;
 	font-weight: 600 !important;
 	line-height: 1.4 !important;
 	margin: 0 0 6px !important;
+	display: -webkit-box !important;
+	-webkit-line-clamp: 2 !important;
+	-webkit-box-orient: vertical !important;
+	overflow: hidden !important;
+	min-height: 35px !important;
 }
 
 .bv-product-card--compact .bv-card-title a {
@@ -1048,6 +1058,7 @@ button.bv-btn-add-to-cart {
 	align-items: center !important;
 	justify-content: space-between !important;
 	margin-top: auto !important;
+	padding-top: 4px !important;
 }
 
 .bv-product-card--compact .bv-card-price {
@@ -1057,11 +1068,11 @@ button.bv-btn-add-to-cart {
 }
 
 .bv-product-card--compact .bv-pt-star-pill {
-	font-size: 10.5px !important;
-	padding: 2px 6px !important;
+	font-size: 10px !important;
+	padding: 2px 5px !important;
 	background: #FAF3EC !important;
 	border: 1px solid #E8DEC8 !important;
-	border-radius: 4px !important;
+	border-radius: 3px !important;
 	color: #B3592B !important;
 	font-weight: 600 !important;
 }
@@ -1083,6 +1094,12 @@ button.bv-btn-add-to-cart {
 	}
 	.bv-tab-content {
 		padding: 24px 20px;
+	}
+	.bv-related-section .bv-ceramic-grid,
+	.bv-related-section .bv-related-grid,
+	.bv-related-grid {
+		grid-template-columns: repeat(2, 1fr) !important;
+		gap: 14px !important;
 	}
 }
 
@@ -1113,7 +1130,7 @@ button.bv-btn-add-to-cart {
 
 @media (max-width: 600px) {
 	.bv-summary-title {
-		font-size: 26px;
+		font-size: 24px;
 	}
 	.bv-qty-and-cta {
 		flex-direction: column;
@@ -1121,5 +1138,11 @@ button.bv-btn-add-to-cart {
 	}
 	.bv-quantity-box {
 		justify-content: center;
+	}
+	.bv-related-section .bv-ceramic-grid,
+	.bv-related-section .bv-related-grid,
+	.bv-related-grid {
+		grid-template-columns: repeat(2, 1fr) !important;
+		gap: 10px !important;
 	}
 }
