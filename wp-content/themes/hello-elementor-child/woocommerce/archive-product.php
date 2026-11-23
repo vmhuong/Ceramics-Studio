@@ -1,7 +1,7 @@
 <?php
 /**
  * The Template for displaying product archives (Shop / Collections).
- * Style: Anh Ceramics 2-Column Minimalist Layout (Sticky Filter Sidebar + 4-Column Grid)
+ * Style: Anh Ceramics 2-Column Minimalist Layout (Sticky Filter Sidebar + Smooth Accordion + 4-Column Grid)
  * Inspired by Anh Ceramics.
  *
  * @package HelloElementorChild
@@ -99,64 +99,72 @@ if ( $is_featured ) {
 		<div class="bv-shop-layout">
 			
 			<!-- ===============================================================
-			     LEFT STICKY SIDEBAR FILTER (COLLAPSIBLE GROUPS & FUNCTIONAL PALETTE)
+			     LEFT STICKY SIDEBAR FILTER (SMOOTH ACCORDION COLLAPSE)
 			     =============================================================== -->
 			<aside class="bv-shop-sidebar" id="bv-shop-sidebar" aria-label="Bộ lọc sản phẩm">
 				
-				<!-- Group 1: Collection & Category Navigation (Collapsible) -->
+				<!-- Group 1: Collection Navigation Links (With toggle button for "Tất cả sản phẩm") -->
 				<div class="bv-filter-group bv-filter-collections" data-group-id="collections">
-					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
-						<span class="bv-filter-heading-text">DANH MỤC &amp; BỘ SƯU TẬP</span>
-						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
-					</div>
-					<div class="bv-filter-collapse-body">
-						<ul class="bv-filter-nav-list">
-							<li class="bv-filter-nav-item <?php echo $is_on_sale ? 'is-active' : ''; ?>">
-								<a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
-									<span class="bv-filter-text-wrap">
-										<strong class="bv-filter-title">Sản phẩm khuyến mãi</strong>
-										<span class="bv-filter-sub">Discounted product</span>
-									</span>
-								</a>
-							</li>
-							<li class="bv-filter-nav-item <?php echo $is_featured ? 'is-active' : ''; ?>">
-								<a href="<?php echo esc_url( add_query_arg( 'featured', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
-									<span class="bv-filter-text-wrap">
-										<strong class="bv-filter-title">Sản phẩm nổi bật</strong>
-									</span>
-								</a>
-							</li>
-							<li class="bv-filter-nav-item <?php echo ( ! $is_on_sale && ! $is_featured && ! $current_term && ! $cur_color && ! $cur_min && ! $cur_max ) ? 'is-active' : ''; ?>">
+					<ul class="bv-filter-nav-list">
+						<li class="bv-filter-nav-item <?php echo $is_on_sale ? 'is-active' : ''; ?>">
+							<a href="<?php echo esc_url( add_query_arg( 'on_sale', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
+								<span class="bv-filter-text-wrap">
+									<strong class="bv-filter-title">Sản phẩm khuyến mãi</strong>
+									<span class="bv-filter-sub">Discounted product</span>
+								</span>
+							</a>
+						</li>
+						<li class="bv-filter-nav-item <?php echo $is_featured ? 'is-active' : ''; ?>">
+							<a href="<?php echo esc_url( add_query_arg( 'featured', '1', $shop_url ) ); ?>" class="bv-filter-nav-link">
+								<span class="bv-filter-text-wrap">
+									<strong class="bv-filter-title">Sản phẩm nổi bật</strong>
+								</span>
+							</a>
+						</li>
+						
+						<!-- Item "Tất cả sản phẩm" with dedicated collapse/expand toggle button -->
+						<li class="bv-filter-nav-item bv-filter-all-item <?php echo ( ! $is_on_sale && ! $is_featured && ! $current_term && ! $cur_color && ! $cur_min && ! $cur_max ) ? 'is-active' : ''; ?>">
+							<div class="bv-all-row-wrap">
 								<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-filter-nav-link">
-									<span class="bv-filter-text-wrap">
-										<strong class="bv-filter-title">Tất cả sản phẩm</strong>
-									</span>
+									<strong class="bv-filter-title">Tất cả sản phẩm</strong>
 								</a>
-							</li>
+								<?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
+									<button type="button" class="bv-toggle-collapse-btn" data-target="bv-cat-sublist" aria-label="Thu gọn/Mở rộng danh mục" aria-expanded="true" title="Thu gọn/Mở rộng">
+										<span class="bv-toggle-sign">−</span>
+									</button>
+								<?php endif; ?>
+							</div>
+
+							<!-- Smooth Collapsible Sub-Categories List -->
 							<?php if ( ! empty( $categories ) && ! is_wp_error( $categories ) ) : ?>
-								<?php foreach ( $categories as $cat ) : 
-									$is_cat_active = ( $current_term && $current_term->term_id === $cat->term_id );
-								?>
-									<li class="bv-filter-nav-item bv-filter-cat-item <?php echo $is_cat_active ? 'is-active' : ''; ?>">
-										<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="bv-filter-nav-link">
-											<span class="bv-filter-text-wrap">
-												<span class="bv-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
-											</span>
-										</a>
-									</li>
-								<?php endforeach; ?>
+								<div class="bv-smooth-collapse" id="bv-cat-sublist">
+									<ul class="bv-sub-cat-list">
+										<?php foreach ( $categories as $cat ) : 
+											$is_cat_active = ( $current_term && $current_term->term_id === $cat->term_id );
+										?>
+											<li class="bv-filter-cat-item <?php echo $is_cat_active ? 'is-active' : ''; ?>">
+												<a href="<?php echo esc_url( get_term_link( $cat ) ); ?>" class="bv-filter-cat-link">
+													<span class="bv-cat-bullet">•</span>
+													<span class="bv-filter-cat-name"><?php echo esc_html( $cat->name ); ?></span>
+												</a>
+											</li>
+										<?php endforeach; ?>
+									</ul>
+								</div>
 							<?php endif; ?>
-						</ul>
-					</div>
+						</li>
+					</ul>
 				</div>
 
-				<!-- Group 2: Price Filter Checkboxes (Collapsible) -->
+				<!-- Group 2: Price Filter Checkboxes (Collapsible with smooth slide) -->
 				<div class="bv-filter-group bv-filter-price" data-group-id="price">
-					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
+					<div class="bv-filter-heading bv-collapsible-heading" data-target="bv-price-sublist" role="button" tabindex="0" aria-expanded="true">
 						<span class="bv-filter-heading-text">GIÁ SẢN PHẨM</span>
-						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
+						<button type="button" class="bv-toggle-collapse-btn" data-target="bv-price-sublist" aria-label="Thu gọn/Mở rộng giá" tabindex="-1">
+							<span class="bv-toggle-sign">−</span>
+						</button>
 					</div>
-					<div class="bv-filter-collapse-body">
+					<div class="bv-smooth-collapse" id="bv-price-sublist">
 						<ul class="bv-price-filter-list">
 							<?php
 							$price_ranges = [
@@ -203,13 +211,15 @@ if ( $is_featured ) {
 					</div>
 				</div>
 
-				<!-- Group 3: Color Swatches Grid (Functional Query Filter) -->
+				<!-- Group 3: Color Swatches Grid (Collapsible with smooth slide) -->
 				<div class="bv-filter-group bv-filter-colors" data-group-id="colors">
-					<div class="bv-filter-heading bv-collapsible-heading" role="button" tabindex="0" aria-expanded="true">
+					<div class="bv-filter-heading bv-collapsible-heading" data-target="bv-color-sublist" role="button" tabindex="0" aria-expanded="true">
 						<span class="bv-filter-heading-text">MÀU SẮC</span>
-						<span class="bv-filter-heading-icon" aria-hidden="true">−</span>
+						<button type="button" class="bv-toggle-collapse-btn" data-target="bv-color-sublist" aria-label="Thu gọn/Mở rộng màu sắc" tabindex="-1">
+							<span class="bv-toggle-sign">−</span>
+						</button>
 					</div>
-					<div class="bv-filter-collapse-body">
+					<div class="bv-smooth-collapse" id="bv-color-sublist">
 						<div class="bv-color-palette-grid">
 							<?php foreach ( $glaze_colors as $color ) : 
 								$is_color_active = ( $cur_color === $color['slug'] );
@@ -235,7 +245,7 @@ if ( $is_featured ) {
 
 						<?php if ( $cur_color ) : ?>
 							<div class="bv-color-clear-wrap">
-								<a href="<?php echo esc_url( remove_query_arg( 'color', $base_filter_url ) ); ?>" class="bv-color-clear-btn">
+								<a href="<?php echo esc_url( remove_query_arg( 'color' ) ); ?>" class="bv-color-clear-btn">
 									✕ Bỏ lọc màu (<?php echo esc_html( $active_color_name ); ?>)
 								</a>
 							</div>

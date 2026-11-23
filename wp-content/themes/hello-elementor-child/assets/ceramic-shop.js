@@ -205,27 +205,59 @@
 		}
 
 		// =====================================================================
-		// 6. COLLAPSIBLE SIDEBAR FILTER ACCORDION
+		// 6. COLLAPSIBLE SIDEBAR FILTER ACCORDION (SMOOTH SLIDE)
 		// =====================================================================
-		var collHeadings = document.querySelectorAll('.bv-collapsible-heading');
-		if (collHeadings.length > 0) {
-			collHeadings.forEach(function (heading) {
-				heading.addEventListener('click', function () {
-					var group = heading.closest('.bv-filter-group');
-					if (!group) return;
-					var isCollapsed = group.classList.toggle('is-collapsed');
-					var icon = heading.querySelector('.bv-filter-heading-icon');
-					if (icon) {
-						icon.textContent = isCollapsed ? '+' : '−';
-					}
-					heading.setAttribute('aria-expanded', isCollapsed ? 'false' : 'true');
-				});
-				heading.addEventListener('keydown', function (e) {
-					if (e.key === 'Enter' || e.key === ' ') {
-						e.preventDefault();
-						heading.click();
-					}
-				});
+		if (window.jQuery) {
+			var $ = window.jQuery;
+
+			function toggleSection($btn, $target) {
+				if (!$target.length) return;
+				var $sign = $btn.find('.bv-toggle-sign');
+				var isCurrentlyVisible = $target.is(':visible');
+
+				if (isCurrentlyVisible) {
+					$target.stop(true, false).slideUp(240, function () {
+						$btn.attr('aria-expanded', 'false');
+						if ($sign.length) $sign.text('+');
+						$btn.closest('.bv-filter-group').addClass('is-collapsed');
+					});
+				} else {
+					$btn.closest('.bv-filter-group').removeClass('is-collapsed');
+					$target.stop(true, false).slideDown(240, function () {
+						$btn.attr('aria-expanded', 'true');
+						if ($sign.length) $sign.text('−');
+					});
+				}
+			}
+
+			// Dedicated collapse buttons (e.g. for "Tất cả sản phẩm" sublist or inside headings)
+			$(document).on('click', '.bv-toggle-collapse-btn', function (e) {
+				e.preventDefault();
+				e.stopPropagation();
+				var $btn = $(this);
+				var targetId = $btn.attr('data-target');
+				var $target = $('#' + targetId);
+				toggleSection($btn, $target);
+			});
+
+			// Clickable filter headings (Price & Color)
+			$(document).on('click', '.bv-collapsible-heading', function (e) {
+				if ($(e.target).closest('.bv-toggle-collapse-btn').length) {
+					return;
+				}
+				var $heading = $(this);
+				var $btn = $heading.find('.bv-toggle-collapse-btn');
+				var targetId = $heading.attr('data-target');
+				var $target = $('#' + targetId);
+				toggleSection($btn.length ? $btn : $heading, $target);
+			});
+
+			// Accessibility keyboard support
+			$(document).on('keydown', '.bv-collapsible-heading', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					$(this).trigger('click');
+				}
 			});
 		}
 	}

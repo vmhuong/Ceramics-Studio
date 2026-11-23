@@ -4,6 +4,11 @@
  * Author: Vu Manh Huong (PM28.11)
  */
 
+html {
+	scrollbar-gutter: stable;
+	overflow-y: scroll;
+}
+
 :root {
 	--bv-c-bg: #FAF7F2;
 	--bv-c-white: #FFFFFF;
@@ -85,21 +90,12 @@
 	gap: 24px;
 	position: sticky;
 	top: 90px;
-	max-height: calc(100vh - 110px);
-	overflow-y: auto;
-	scrollbar-width: thin;
-	scrollbar-color: #D6CBC0 transparent;
-	padding-right: 8px;
+	width: 240px;
+	min-width: 240px;
+	max-width: 240px;
+	box-sizing: border-box;
+	overflow: visible;
 	z-index: 10;
-}
-
-.bv-shop-sidebar::-webkit-scrollbar {
-	width: 4px;
-}
-
-.bv-shop-sidebar::-webkit-scrollbar-thumb {
-	background-color: #D6CBC0;
-	border-radius: 4px;
 }
 
 .bv-filter-group {
@@ -111,24 +107,103 @@
 	border-bottom: none;
 }
 
-/* Collapsible Filter Groups */
+/* Collapsible Filter Groups & Smooth Accordion */
 .bv-collapsible-heading {
 	cursor: pointer;
 	user-select: none;
 	margin-bottom: 14px;
 	transition: opacity 0.2s;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 }
 
 .bv-collapsible-heading:hover {
 	opacity: 0.8;
 }
 
-.bv-filter-group.is-collapsed .bv-filter-collapse-body {
-	display: none;
+.bv-smooth-collapse {
+	overflow: hidden;
+}
+
+.bv-filter-group.is-collapsed {
+	padding-bottom: 12px;
 }
 
 .bv-filter-group.is-collapsed .bv-collapsible-heading {
 	margin-bottom: 0;
+}
+
+.bv-toggle-collapse-btn {
+	background: transparent;
+	border: none;
+	padding: 0 4px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	line-height: 1;
+	color: #8C7E74;
+	font-size: 18px;
+	font-weight: 400;
+	transition: color 0.2s, transform 0.2s;
+}
+
+.bv-toggle-collapse-btn:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-toggle-sign {
+	display: inline-block;
+	user-select: none;
+	font-family: inherit;
+}
+
+.bv-all-row-wrap {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+}
+
+.bv-sub-cat-list {
+	list-style: none;
+	margin: 10px 0 0 0;
+	padding: 0 0 0 12px;
+	border-left: 2px solid var(--bv-c-border);
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+}
+
+.bv-filter-cat-item {
+	margin: 0;
+	padding: 0;
+}
+
+.bv-filter-cat-link {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	font-size: 13.5px;
+	color: var(--bv-c-muted);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.bv-cat-bullet {
+	font-size: 10px;
+	color: #B8ADA3;
+}
+
+.bv-filter-cat-link:hover,
+.bv-filter-cat-item.is-active .bv-filter-cat-link {
+	color: var(--bv-c-clay);
+	font-weight: 600;
+}
+
+.bv-filter-cat-item.is-active .bv-cat-bullet {
+	color: var(--bv-c-clay);
 }
 
 .bv-filter-heading-icon {
@@ -276,6 +351,9 @@
 	display: grid;
 	grid-template-columns: repeat(6, 24px);
 	gap: 8px;
+	width: 184px;
+	box-sizing: border-box;
+	margin: 0;
 }
 
 .bv-palette-swatch-link {
@@ -285,21 +363,22 @@
 	border: 1px solid rgba(0, 0, 0, 0.12);
 	display: inline-block;
 	cursor: pointer;
-	transition: transform 0.2s, box-shadow 0.2s;
 	text-decoration: none;
+	position: relative;
 	box-sizing: border-box;
+	transition: outline 0.15s ease;
 }
 
 .bv-palette-swatch-link:hover {
-	transform: scale(1.18);
-	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-	z-index: 2;
+	outline: 2px solid #8C7E74;
+	outline-offset: 1px;
 }
 
 .bv-palette-swatch-link.is-active {
-	box-shadow: 0 0 0 2px #2C2523, 0 0 0 4px #FFFFFF !important;
-	transform: scale(1.15);
-	z-index: 3;
+	outline: 2px solid #2C2523 !important;
+	outline-offset: 2px;
+	box-shadow: none !important;
+	transform: none !important;
 }
 
 .bv-color-clear-wrap {

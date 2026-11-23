@@ -215,12 +215,12 @@ add_action( 'pre_get_posts', function ( $query ) {
  */
 function bv_get_product_ids_by_color( $color_slug ) {
 	$color_keywords = [
-		'be'       => [ 'mộc', 'be', 'cát', 'ngà', 'trắng ngà' ],
+		'be'       => [ 'mộc', 'be', 'cát', 'ngà', 'trắng ngà', 'mộc mạc' ],
 		'tro'      => [ 'tro', 'men tro', 'đá' ],
 		'dat-nung' => [ 'nung', 'đất nung', 'gạch', 'đồng quê' ],
 		'nau'      => [ 'nâu', 'rustic', 'nâu đỏ', 'nâu mộc' ],
 		'xam'      => [ 'xám', 'tro' ],
-		'suong'    => [ 'sương', 'xanh sương', 'pastel' ],
+		'suong'    => [ 'sương', 'xanh sương', 'pastel', 'men biển', 'men loang', 'xanh nhạt' ],
 		'cam'      => [ 'cam', 'màu cam', 'san hô' ],
 		'hong'     => [ 'hồng', 'hồng phấn', 'pastel' ],
 		'bien'     => [ 'biển', 'men biển', 'lam', 'men lam', 'xanh biển' ],
