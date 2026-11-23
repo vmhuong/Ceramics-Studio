@@ -124,5 +124,16 @@ add_filter( 'woocommerce_account_menu_items', function ( $items ) {
 	return $items;
 } );
 
+// Ensure shop archive displays exact multiples of 4 columns (12 products = 3 full rows)
+add_filter( 'loop_shop_per_page', function ( $cols ) {
+	return 12;
+}, 20 );
+
+add_action( 'pre_get_posts', function ( $query ) {
+	if ( ! is_admin() && $query->is_main_query() && ( $query->is_post_type_archive( 'product' ) || $query->is_tax( get_object_taxonomies( 'product' ) ) ) ) {
+		$query->set( 'posts_per_page', 12 );
+	}
+} );
+
 require_once __DIR__ . '/shopping-panels.php';
 require_once __DIR__ . '/product-detail.php';
