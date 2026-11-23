@@ -458,6 +458,94 @@ body.bv-panel-open {
     display: none !important;
 }
 
+/* ==========================================================================
+   COMPACT INDEPENDENT ATTRIBUTE PICKERS IN MINI-CART (SIZE / COLOR)
+   ========================================================================== */
+.bv-mcart-attr-rows {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 3px !important;
+    margin: 3px 0 6px 0 !important;
+    max-width: 100% !important;
+}
+
+.bv-mcart-attr-row {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    gap: 8px !important;
+    font-size: 11.5px !important;
+    line-height: 1.3 !important;
+}
+
+.bv-mcart-attr-label {
+    color: #8C7E74 !important;
+    font-size: 11px !important;
+    font-weight: 500 !important;
+    flex-shrink: 0 !important;
+    min-width: 60px !important;
+}
+
+.bv-mcart-attr-picker {
+    position: relative !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    cursor: pointer !important;
+    max-width: calc(100% - 68px) !important;
+}
+
+.bv-mcart-attr-badge {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 5px !important;
+    padding: 2px 7px !important;
+    background: #FAF7F2 !important;
+    border: 1px solid #E2D9CE !important;
+    border-radius: 3px !important;
+    font-size: 11px !important;
+    font-weight: 600 !important;
+    color: #2C2523 !important;
+    transition: all 0.2s ease !important;
+    line-height: 1.25 !important;
+    white-space: nowrap !important;
+    text-overflow: ellipsis !important;
+    overflow: hidden !important;
+}
+
+.bv-mcart-attr-picker:hover .bv-mcart-attr-badge {
+    background: #EFE8DE !important;
+    border-color: #2C2523 !important;
+    color: #1F1C1A !important;
+}
+
+.bv-mcart-attr-caret {
+    font-size: 9px !important;
+    color: #8C7E74 !important;
+    margin-left: 2px !important;
+    transition: transform 0.2s ease, color 0.2s ease !important;
+    flex-shrink: 0 !important;
+}
+
+.bv-mcart-attr-picker:hover .bv-mcart-attr-caret {
+    color: #2C2523 !important;
+    transform: translateY(1px) !important;
+}
+
+/* Invisible overlay select for native touch & desktop dropdown */
+.bv-mcart-attr-select {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    opacity: 0 !important;
+    cursor: pointer !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    z-index: 3 !important;
+    font-size: 12px !important;
+}
+
 .bv-mcart-variant-row {
     margin: 4px 0 8px 0;
 }

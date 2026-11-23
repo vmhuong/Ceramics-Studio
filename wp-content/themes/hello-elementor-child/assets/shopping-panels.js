@@ -207,7 +207,109 @@ jQuery(function ($) {
         }
     });
 
-    // AJAX VARIANT SWITCH IN MINI-CART
+    // AJAX INDEPENDENT ATTRIBUTE SWITCH IN MINI-CART (Size / Color / Finish)
+    $(document).on('change', '.bv-mcart-attr-select', function () {
+        var $changedSelect = $(this);
+        var $rowsWrap = $changedSelect.closest('.bv-mcart-attr-rows');
+        var cartKey = $rowsWrap.data('cart_item_key');
+        var variations = $rowsWrap.data('variations');
+        var $card = $rowsWrap.closest('.bv-mini-cart-card');
+
+        if (!cartKey || !variations || !variations.length || typeof bvShopping === 'undefined' || !bvShopping.switchVarUrl) return;
+
+        // Collect all currently selected attributes for this cart item
+        var currentAttrs = {};
+        $rowsWrap.find('.bv-mcart-attr-select').each(function () {
+            var $sel = $(this);
+            var key = $sel.data('attr-key');
+            var val = $sel.val();
+            currentAttrs[key] = val;
+            // Optimistically update the badge text
+            $sel.siblings('.bv-mcart-attr-badge').find('.bv-mcart-attr-val').text(val);
+        });
+
+        // Find matching variation in variations array
+        var matched = null;
+        for (var i = 0; i < variations.length; i++) {
+            var v = variations[i];
+            var isMatch = true;
+            for (var attrKey in currentAttrs) {
+                var chosenVal = currentAttrs[attrKey];
+                var vVal = v.attributes[attrKey];
+                if (typeof vVal === 'undefined') {
+                    var altKey = attrKey.indexOf('attribute_') === 0 ? attrKey.replace('attribute_', '') : ('attribute_' + attrKey);
+                    vVal = v.attributes[altKey];
+                }
+                if (typeof vVal !== 'undefined' && vVal !== '' && vVal !== chosenVal) {
+                    isMatch = false;
+                    break;
+                }
+            }
+            if (isMatch) {
+                matched = v;
+                break;
+            }
+        }
+
+        // If exact combination not found, fallback to best match with changed attribute
+        if (!matched) {
+            var changedKey = $changedSelect.data('attr-key');
+            var changedVal = $changedSelect.val();
+            for (var j = 0; j < variations.length; j++) {
+                var cand = variations[j];
+                var cVal = cand.attributes[changedKey] || cand.attributes[changedKey.replace('attribute_', '')] || cand.attributes['attribute_' + changedKey];
+                if (cVal === changedVal || cVal === '') {
+                    matched = cand;
+                    break;
+                }
+            }
+        }
+
+        if (!matched || !matched.id) {
+            return;
+        }
+
+        // Optimistically update line price and unit price for immediate visual feedback
+        if (matched.price_html) {
+            var qtyInput = $card.find('.bv-mcart-qty-input');
+            var qty = parseInt(qtyInput.val(), 10) || 1;
+            var newTotal = matched.price * qty;
+            // Format VNĐ
+            var formattedPrice = new Intl.NumberFormat('vi-VN').format(newTotal) + ' ₫';
+            $card.find('.bv-mcart-total-price').text(formattedPrice);
+            $card.find('.bv-mcart-unit-price').text(matched.price_html + '/món');
+        }
+
+        $card.addClass('is-updating');
+
+        $.ajax({
+            type: 'POST',
+            url: bvShopping.switchVarUrl,
+            data: {
+                cart_item_key: cartKey,
+                variation_id: matched.id,
+                nonce: bvShopping.qtyNonce
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response && response.fragments) {
+                    $.each(response.fragments, function (key, value) {
+                        $(key).replaceWith(value);
+                    });
+                    $(document.body).trigger('wc_fragments_refreshed');
+                    $(document.body).trigger('updated_wc_div');
+                }
+            },
+            error: function () {
+                $card.removeClass('is-updating');
+            },
+            complete: function () {
+                $card.removeClass('is-updating');
+            }
+        });
+    });
+
+    // Fallback: Legacy Single Variation Select if present
     $(document).on('change', '.bv-mcart-variant-select', function () {
         var $select = $(this);
         var cartKey = $select.data('cart_item_key');

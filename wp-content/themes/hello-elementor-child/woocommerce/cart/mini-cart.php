@@ -75,56 +75,88 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 							?>
 						</div>
 
-						<!-- Professional Variant Display & Inline Switcher -->
+						<!-- Compact Independent Attribute Pickers -->
 						<?php
 						$is_variation = ! empty( $cart_item['variation_id'] );
 						if ( $is_variation ) {
 							$parent_product = wc_get_product( $cart_item['product_id'] );
+							$var_attributes = ( $parent_product && $parent_product->is_type( 'variable' ) ) ? $parent_product->get_variation_attributes() : [];
 							$available_vars = ( $parent_product && $parent_product->is_type( 'variable' ) ) ? $parent_product->get_available_variations() : [];
 							
-							$current_attr_parts = [];
-							if ( ! empty( $cart_item['variation'] ) ) {
-								foreach ( $cart_item['variation'] as $attr_k => $attr_v ) {
-									$taxonomy = str_replace( 'attribute_', '', $attr_k );
-									$label = wc_attribute_label( $taxonomy );
-									$current_attr_parts[] = $label . ': ' . $attr_v;
-								}
+							$vars_json = [];
+							foreach ( $available_vars as $v ) {
+								$vars_json[] = [
+									'id'         => $v['variation_id'],
+									'attributes' => $v['attributes'],
+									'price'      => $v['display_price'],
+									'price_html' => wp_strip_all_tags( wc_price( $v['display_price'] ) ),
+								];
 							}
-							$current_attr_str = implode( ' • ', $current_attr_parts );
+							
+							$attr_fields = [];
+							foreach ( $var_attributes as $attr_name => $options ) {
+								$matched_key = '';
+								$current_val = '';
+								$candidates = [
+									'attribute_' . sanitize_title( $attr_name ),
+									'attribute_' . $attr_name,
+									sanitize_title( $attr_name ),
+									$attr_name,
+								];
+								foreach ( $candidates as $cand ) {
+									if ( isset( $cart_item['variation'][ $cand ] ) ) {
+										$matched_key = $cand;
+										$current_val = $cart_item['variation'][ $cand ];
+										break;
+									}
+								}
+								if ( ! $matched_key && ! empty( $available_vars ) ) {
+									foreach ( array_keys( $available_vars[0]['attributes'] ) as $k ) {
+										if ( strpos( $k, sanitize_title( $attr_name ) ) !== false ) {
+											$matched_key = $k;
+											if ( isset( $cart_item['variation'][ $k ] ) ) {
+												$current_val = $cart_item['variation'][ $k ];
+											}
+											break;
+										}
+									}
+								}
+								if ( ! $matched_key ) {
+									$matched_key = 'attribute_' . sanitize_title( $attr_name );
+								}
+								if ( ! $current_val && ! empty( $options ) ) {
+									$current_val = $options[0];
+								}
+								$attr_fields[] = [
+									'key'     => $matched_key,
+									'label'   => wc_attribute_label( $attr_name, $parent_product ),
+									'current' => $current_val,
+									'options' => $options,
+								];
+							}
 							?>
-							<div class="bv-mcart-variant-row" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>">
-								<?php if ( ! empty( $available_vars ) && count( $available_vars ) > 1 ) : ?>
-									<div class="bv-mcart-variant-picker-wrap">
-										<label class="bv-mcart-variant-picker-label" for="bv-var-select-<?php echo esc_attr( $cart_item_key ); ?>" title="Bấm để chọn phân loại khác">
-											<span class="bv-mcart-variant-pill">
-												<span class="bv-mcart-var-text"><?php echo esc_html( $current_attr_str ); ?></span>
-												<span class="bv-mcart-var-arrow" aria-hidden="true">▾</span>
-											</span>
-										</label>
-										<select id="bv-var-select-<?php echo esc_attr( $cart_item_key ); ?>" class="bv-mcart-variant-select" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>" aria-label="Đổi phân loại sản phẩm">
-											<?php foreach ( $available_vars as $v ) : 
-												$v_id = $v['variation_id'];
-												$v_attrs = [];
-												foreach ( $v['attributes'] as $attr_key => $attr_val ) {
-													$lbl = wc_attribute_label( str_replace( 'attribute_', '', $attr_key ) );
-													$v_attrs[] = $lbl . ': ' . $attr_val;
-												}
-												$v_label = implode( ' • ', $v_attrs );
-												$v_price = wc_price( $v['display_price'] );
-												$is_current = ( (int) $v_id === (int) $cart_item['variation_id'] );
-											?>
-												<option value="<?php echo esc_attr( $v_id ); ?>" <?php selected( $is_current ); ?>>
-													<?php echo esc_html( $v_label ); ?> (<?php echo wp_strip_all_tags( $v_price ); ?>)<?php echo $is_current ? ' ✓' : ''; ?>
-												</option>
-											<?php endforeach; ?>
-										</select>
-									</div>
-								<?php else : ?>
-									<div class="bv-mcart-variant-pill bv-mcart-variant-pill--static">
-										<span class="bv-mcart-var-text"><?php echo esc_html( $current_attr_str ); ?></span>
-									</div>
-								<?php endif; ?>
-							</div>
+							<?php if ( ! empty( $attr_fields ) ) : ?>
+								<div class="bv-mcart-attr-rows" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>" data-variations="<?php echo esc_attr( wp_json_encode( $vars_json ) ); ?>">
+									<?php foreach ( $attr_fields as $field ) : ?>
+										<div class="bv-mcart-attr-row">
+											<span class="bv-mcart-attr-label"><?php echo esc_html( $field['label'] ); ?>:</span>
+											<div class="bv-mcart-attr-picker" title="Bấm để chọn <?php echo esc_attr( strtolower( $field['label'] ) ); ?> khác">
+												<span class="bv-mcart-attr-badge">
+													<span class="bv-mcart-attr-val"><?php echo esc_html( $field['current'] ); ?></span>
+													<span class="bv-mcart-attr-caret" aria-hidden="true">▾</span>
+												</span>
+												<select class="bv-mcart-attr-select" data-attr-key="<?php echo esc_attr( $field['key'] ); ?>" aria-label="Chọn <?php echo esc_attr( $field['label'] ); ?>">
+													<?php foreach ( $field['options'] as $opt ) : ?>
+														<option value="<?php echo esc_attr( $opt ); ?>" <?php selected( $opt, $field['current'] ); ?>>
+															<?php echo esc_html( $opt ); ?>
+														</option>
+													<?php endforeach; ?>
+												</select>
+											</div>
+										</div>
+									<?php endforeach; ?>
+								</div>
+							<?php endif; ?>
 							<?php
 						} else {
 							echo wc_get_formatted_cart_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
