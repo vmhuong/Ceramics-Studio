@@ -144,11 +144,14 @@ $workshop_url = home_url( '/workshop/' );
 				<h2 class="bv-section-title">Gốm Mới Ra Lò</h2>
 				<p class="bv-section-desc">Mỗi tác phẩm là độc bản, số lượng giới hạn theo từng mẻ nung.</p>
 			</div>
-			<div class="bv-products-grid">
+			<div class="bv-products-grid bv-ceramic-grid">
 				<?php if ( ! empty( $pottery_products ) ) : ?>
 					<?php foreach ( $pottery_products as $product ) : 
-						$img_url      = wp_get_attachment_image_url( $product->get_image_id(), 'medium' ) ?: home_url( '/wp-content/uploads/woocommerce-placeholder.webp' );
+						$pid          = $product->get_id();
+						$permalink    = $product->get_permalink();
+						$title        = $product->get_name();
 						$is_on_sale   = $product->is_on_sale();
+						$is_in_stock  = $product->is_in_stock();
 						$price_html   = $product->get_price_html();
 						$discount_pct = 0;
 						if ( $is_on_sale ) {
@@ -158,47 +161,66 @@ $workshop_url = home_url( '/workshop/' );
 								$discount_pct = round( ( ( $reg - $sal ) / $reg ) * 100 );
 							}
 						}
+
+						// Images: Primary + Hover Flip
+						$image_id     = $product->get_image_id();
+						$primary_img  = wp_get_attachment_image_url( $image_id, 'woocommerce_thumbnail' ) ?: home_url( '/wp-content/uploads/woocommerce-placeholder.webp' );
+						$gallery_ids  = $product->get_gallery_image_ids();
+						$hover_img    = ! empty( $gallery_ids ) ? wp_get_attachment_image_url( $gallery_ids[0], 'woocommerce_thumbnail' ) : '';
+						$has_hover    = ! empty( $hover_img );
 					?>
-						<article class="bv-product-tile <?php echo $is_on_sale ? 'is-on-sale' : ''; ?>">
-							<div class="bv-pt-image-wrap">
-								<a href="<?php echo esc_url( $product->get_permalink() ); ?>" class="bv-pt-img-link" tabindex="-1">
-									<img src="<?php echo esc_url( $img_url ); ?>" alt="<?php echo esc_attr( $product->get_name() ); ?>" loading="lazy">
+						<article class="bv-product-card <?php echo $has_hover ? 'has-hover-image' : ''; ?> <?php echo $is_on_sale ? 'is-on-sale' : ''; ?>" data-product-id="<?php echo esc_attr( $pid ); ?>">
+							
+							<!-- Product Image Box with Hover Flip -->
+							<div class="bv-card-media">
+								<a href="<?php echo esc_url( $permalink ); ?>" class="bv-card-img-link" tabindex="-1">
+									<img src="<?php echo esc_url( $primary_img ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="bv-card-img bv-card-img--primary" loading="lazy">
+									<?php if ( $has_hover ) : ?>
+										<img src="<?php echo esc_url( $hover_img ); ?>" alt="<?php echo esc_attr( $title ); ?>" class="bv-card-img bv-card-img--hover" loading="lazy">
+									<?php endif; ?>
 								</a>
+
 								<?php if ( $discount_pct > 0 ) : ?>
-									<span class="bv-card-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
+									<span class="bv-sale-badge">-<?php echo esc_html( $discount_pct ); ?>%</span>
 								<?php endif; ?>
-								<div class="bv-card-actions-bar">
-									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-overlay-cart">
-										Thêm vào giỏ
-									</a>
+
+								<!-- Quick Actions overlay on hover -->
+								<div class="bv-card-actions">
+									<?php if ( $is_in_stock && $product->is_type( 'simple' ) ) : ?>
+										<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" data-product_id="<?php echo esc_attr( $pid ); ?>" class="bv-btn-quick-cart ajax_add_to_cart add_to_cart_button">
+											Thêm vào giỏ
+										</a>
+									<?php else : ?>
+										<a href="<?php echo esc_url( $permalink ); ?>" class="bv-btn-quick-cart bv-btn-quick-cart--view">
+											Xem chi tiết
+										</a>
+									<?php endif; ?>
 								</div>
 							</div>
-							<div class="bv-pt-body">
+
+							<!-- Product Info Body -->
+							<div class="bv-card-body">
 								<div class="bv-card-meta-line">Gốm Mộc Thủ Công</div>
-								<h3 class="bv-pt-title">
-									<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
-										<?php echo esc_html( $product->get_name() ); ?>
+
+								<!-- Title -->
+								<h3 class="bv-card-title">
+									<a href="<?php echo esc_url( $permalink ); ?>">
+										<?php echo esc_html( $title ); ?>
 									</a>
 								</h3>
-								<div class="bv-card-bottom-row">
-									<div class="bv-card-price-col">
-										<div class="bv-card-price-line">
-											<?php if ( $is_on_sale && $product->get_regular_price() ) : ?>
-												<del class="bv-price-del"><?php echo wc_price( $product->get_regular_price() ); ?></del>
-												<ins class="bv-price-ins"><?php echo wc_price( $product->get_sale_price() ); ?></ins>
-											<?php else : ?>
-												<span class="bv-price-main"><?php echo wp_kses_post( $price_html ); ?></span>
-											<?php endif; ?>
-										</div>
+
+								<!-- Price & Rating Inline -->
+								<div class="bv-card-price-bar">
+									<div class="bv-card-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
+										<?php echo wp_kses_post( $price_html ); ?>
 										<?php if ( $discount_pct > 0 ) : ?>
 											<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
 										<?php endif; ?>
 									</div>
-									<div class="bv-card-rating-badge">
-										<span class="bv-star">★</span> 5.0
-									</div>
+									<span class="bv-pt-star-pill">★ 5.0</span>
 								</div>
 							</div>
+
 						</article>
 					<?php endforeach; ?>
 				<?php endif; ?>

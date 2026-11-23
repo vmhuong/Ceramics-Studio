@@ -95,7 +95,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	}
 
 	// Ceramic Shop & Collections Assets (Anh Ceramics Style)
-	if ( function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() ) ) {
+	if ( ( function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() ) ) || is_front_page() ) {
 		$shop_css = get_stylesheet_directory() . '/assets/ceramic-shop.css';
 		$shop_js  = get_stylesheet_directory() . '/assets/ceramic-shop.js';
 		wp_enqueue_style( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.css', [ 'bv-wabi-sabi-header-footer' ], time() );
