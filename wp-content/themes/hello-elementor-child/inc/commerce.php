@@ -103,5 +103,26 @@ add_filter( 'gettext_with_context', function ( $translation, $text, $context, $d
 	return $translation;
 }, 10, 4 );
 
+// Customize WooCommerce My Account Navigation Menu Items
+add_filter( 'woocommerce_account_menu_items', function ( $items ) {
+	unset( $items['downloads'] ); // Remove downloads for ceramic craft studio
+	if ( isset( $items['dashboard'] ) ) {
+		$items['dashboard'] = 'Tổng quan tài khoản';
+	}
+	if ( isset( $items['orders'] ) ) {
+		$items['orders'] = 'Đơn hàng của tôi';
+	}
+	if ( isset( $items['edit-address'] ) ) {
+		$items['edit-address'] = 'Sổ địa chỉ nhận gốm';
+	}
+	if ( isset( $items['edit-account'] ) ) {
+		$items['edit-account'] = 'Thông tin & Mật khẩu';
+	}
+	if ( isset( $items['customer-logout'] ) ) {
+		$items['customer-logout'] = 'Đăng xuất';
+	}
+	return $items;
+} );
+
 require_once __DIR__ . '/shopping-panels.php';
 require_once __DIR__ . '/product-detail.php';
