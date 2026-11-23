@@ -216,3 +216,54 @@ body:not(.wp-admin), body .site-main, body .bv-page-surface {
 		font-size: 32px;
 	}
 }
+
+/* ==========================================================================
+   GLOBAL ANTI-PINK HOVER OVERRIDE (NEUTRALIZE HELLO ELEMENTOR #C36 DEFAULT)
+   ========================================================================== */
+button,
+[type="button"],
+[type="reset"],
+[type="submit"] {
+	border-color: initial;
+	color: inherit;
+}
+
+button:focus,
+button:hover,
+[type="button"]:focus,
+[type="button"]:hover,
+[type="reset"]:focus,
+[type="reset"]:hover,
+[type="submit"]:focus,
+[type="submit"]:hover {
+	background-color: transparent;
+	color: inherit;
+	border-color: initial;
+	text-decoration: none;
+}
+
+.bv-thumb-item,
+button.bv-thumb-item,
+.bv-ws-step-btn,
+button.bv-ws-step-btn,
+.bv-hero-dot,
+button.bv-hero-dot,
+.bv-toggle-collapse-btn {
+	background-color: transparent !important;
+	text-decoration: none !important;
+}
+
+.bv-thumb-item,
+button.bv-thumb-item,
+.bv-thumb-item:hover,
+.bv-thumb-item:focus,
+.bv-thumb-item.is-active,
+button.bv-thumb-item:hover,
+button.bv-thumb-item:focus,
+button.bv-thumb-item.is-active {
+	background: #FFFFFF !important;
+	background-color: #FFFFFF !important;
+	border-color: #2C2523 !important;
+}
+
+
