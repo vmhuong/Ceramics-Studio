@@ -451,6 +451,98 @@ body.bv-panel-open {
     text-decoration: underline !important;
 }
 
+/* ==========================================================================
+   MINI-CART PROFESSIONAL VARIATION DISPLAY & INLINE SWITCHER
+   ========================================================================== */
+.bv-shopping-panel .woocommerce-mini-cart dl.variation {
+    display: none !important;
+}
+
+.bv-mcart-variant-row {
+    margin: 4px 0 8px 0;
+}
+
+.bv-mcart-variant-picker-wrap {
+    position: relative;
+    display: inline-flex;
+    max-width: 100%;
+}
+
+.bv-mcart-variant-picker-label {
+    display: inline-flex;
+    margin: 0;
+    cursor: pointer;
+    max-width: 100%;
+}
+
+.bv-mcart-variant-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 8px;
+    background: #F7F3EE;
+    border: 1px solid #E6DDD2;
+    border-radius: 4px;
+    font-size: 11px;
+    font-weight: 500;
+    color: #5A4A3E;
+    line-height: 1.3;
+    transition: all 0.2s ease;
+    max-width: 100%;
+}
+
+.bv-mcart-variant-picker-wrap:hover .bv-mcart-variant-pill {
+    background: #EFE8DE;
+    border-color: #2C2523;
+    color: #2C2523;
+}
+
+.bv-mcart-var-text {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: 180px;
+}
+
+.bv-mcart-var-arrow {
+    font-size: 9px;
+    color: #8C7E74;
+    transition: transform 0.2s, color 0.2s;
+    flex-shrink: 0;
+}
+
+.bv-mcart-variant-picker-wrap:hover .bv-mcart-var-arrow {
+    color: #2C2523;
+    transform: translateY(1px);
+}
+
+/* Invisible overlay select for native touch & desktop dropdown */
+.bv-mcart-variant-select {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 0;
+    padding: 0;
+    z-index: 3;
+}
+
+/* Static fallback pill */
+.bv-mcart-variant-pill--static {
+    cursor: default;
+}
+
+/* Card updating opacity during AJAX switch */
+.bv-mini-cart-card.is-updating {
+    opacity: 0.45;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+}
+
 /* REMOVE BUTTON (XÓA) */
 .bv-shopping-panel .woocommerce-mini-cart li a.bv-mcart-remove,
 .bv-shopping-panel .woocommerce-mini-cart li a.remove {

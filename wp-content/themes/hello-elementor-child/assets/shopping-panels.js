@@ -207,6 +207,44 @@ jQuery(function ($) {
         }
     });
 
+    // AJAX VARIANT SWITCH IN MINI-CART
+    $(document).on('change', '.bv-mcart-variant-select', function () {
+        var $select = $(this);
+        var cartKey = $select.data('cart_item_key');
+        var newVarId = parseInt($select.val(), 10);
+        var $card = $select.closest('.bv-mini-cart-card');
+
+        if (!cartKey || !newVarId || typeof bvShopping === 'undefined' || !bvShopping.switchVarUrl) return;
+
+        $card.addClass('is-updating');
+
+        $.ajax({
+            type: 'POST',
+            url: bvShopping.switchVarUrl,
+            data: {
+                cart_item_key: cartKey,
+                variation_id: newVarId,
+                nonce: bvShopping.qtyNonce
+            },
+            dataType: 'json',
+            success: function (response) {
+                if (response && response.fragments) {
+                    $.each(response.fragments, function (key, value) {
+                        $(key).replaceWith(value);
+                    });
+                    $(document.body).trigger('wc_fragments_refreshed');
+                    $(document.body).trigger('updated_wc_div');
+                }
+            },
+            error: function () {
+                alert('Không thể đổi phân loại lúc này, vui lòng thử lại.');
+            },
+            complete: function () {
+                $card.removeClass('is-updating');
+            }
+        });
+    });
+
     // CART NOTE PERSISTENCE LOGIC
     var timer, pending = Promise.resolve(), savedNote = $('#bv-cart-note').val() || '';
     function saveNote() {

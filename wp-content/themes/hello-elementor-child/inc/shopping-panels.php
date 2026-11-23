@@ -30,10 +30,11 @@ add_action( 'wp_enqueue_scripts', function () {
     wp_enqueue_style( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.css', [ 'bv-commerce' ], time() );
     wp_enqueue_script( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.js', [ 'bv-commerce', 'wc-add-to-cart' ], time(), true );
     wp_localize_script( 'bv-shopping-panels', 'bvShopping', [ 
-        'noteUrl'  => WC_AJAX::get_endpoint( 'bv_cart_note' ), 
-        'nonce'    => wp_create_nonce( 'bv_cart_note' ),
-        'qtyUrl'   => WC_AJAX::get_endpoint( 'bv_update_cart_quantity' ),
-        'qtyNonce' => wp_create_nonce( 'bv_cart_qty_nonce' ),
+        'noteUrl'      => WC_AJAX::get_endpoint( 'bv_cart_note' ), 
+        'nonce'        => wp_create_nonce( 'bv_cart_note' ),
+        'qtyUrl'       => WC_AJAX::get_endpoint( 'bv_update_cart_quantity' ),
+        'qtyNonce'     => wp_create_nonce( 'bv_cart_qty_nonce' ),
+        'switchVarUrl' => WC_AJAX::get_endpoint( 'bv_switch_cart_variation' ),
     ] );
 }, 50 );
 
@@ -58,6 +59,50 @@ function bv_update_cart_quantity_ajax() {
         WC_AJAX::get_refreshed_fragments();
     } else {
         wp_send_json_error( [ 'message' => 'Mục không hợp lệ' ] );
+    }
+}
+
+// AJAX Handler for Switching Variant in Mini-Cart Drawer
+add_action( 'wc_ajax_bv_switch_cart_variation', 'bv_switch_cart_variation_ajax' );
+add_action( 'wp_ajax_bv_switch_cart_variation', 'bv_switch_cart_variation_ajax' );
+add_action( 'wp_ajax_nopriv_bv_switch_cart_variation', 'bv_switch_cart_variation_ajax' );
+
+function bv_switch_cart_variation_ajax() {
+    check_ajax_referer( 'bv_cart_qty_nonce', 'nonce' );
+    $old_cart_item_key = sanitize_text_field( $_POST['cart_item_key'] ?? '' );
+    $new_variation_id  = isset( $_POST['variation_id'] ) ? intval( $_POST['variation_id'] ) : 0;
+
+    if ( ! $old_cart_item_key || ! $new_variation_id || ! WC()->cart ) {
+        wp_send_json_error( [ 'message' => 'Dữ liệu không hợp lệ' ] );
+    }
+
+    $cart_item = WC()->cart->get_cart_item( $old_cart_item_key );
+    if ( ! $cart_item ) {
+        wp_send_json_error( [ 'message' => 'Không tìm thấy sản phẩm trong giỏ' ] );
+    }
+
+    $product_id = (int) $cart_item['product_id'];
+    $quantity   = (int) $cart_item['quantity'];
+
+    $variation_product = wc_get_product( $new_variation_id );
+    if ( ! $variation_product || ! $variation_product->is_type( 'variation' ) || (int) $variation_product->get_parent_id() !== $product_id ) {
+        wp_send_json_error( [ 'message' => 'Biến thể không hợp lệ' ] );
+    }
+
+    // Get variation attributes
+    $variation_attributes = $variation_product->get_variation_attributes();
+
+    // Remove old cart item
+    WC()->cart->remove_cart_item( $old_cart_item_key );
+
+    // Add new variation to cart
+    $new_cart_item_key = WC()->cart->add_to_cart( $product_id, $quantity, $new_variation_id, $variation_attributes );
+    WC()->cart->calculate_totals();
+
+    if ( $new_cart_item_key ) {
+        WC_AJAX::get_refreshed_fragments();
+    } else {
+        wp_send_json_error( [ 'message' => 'Không thể đổi biến thể' ] );
     }
 }
 

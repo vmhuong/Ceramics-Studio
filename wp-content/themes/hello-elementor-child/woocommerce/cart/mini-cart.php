@@ -75,7 +75,61 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 							?>
 						</div>
 
-						<?php echo wc_get_formatted_cart_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+						<!-- Professional Variant Display & Inline Switcher -->
+						<?php
+						$is_variation = ! empty( $cart_item['variation_id'] );
+						if ( $is_variation ) {
+							$parent_product = wc_get_product( $cart_item['product_id'] );
+							$available_vars = ( $parent_product && $parent_product->is_type( 'variable' ) ) ? $parent_product->get_available_variations() : [];
+							
+							$current_attr_parts = [];
+							if ( ! empty( $cart_item['variation'] ) ) {
+								foreach ( $cart_item['variation'] as $attr_k => $attr_v ) {
+									$taxonomy = str_replace( 'attribute_', '', $attr_k );
+									$label = wc_attribute_label( $taxonomy );
+									$current_attr_parts[] = $label . ': ' . $attr_v;
+								}
+							}
+							$current_attr_str = implode( ' • ', $current_attr_parts );
+							?>
+							<div class="bv-mcart-variant-row" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>">
+								<?php if ( ! empty( $available_vars ) && count( $available_vars ) > 1 ) : ?>
+									<div class="bv-mcart-variant-picker-wrap">
+										<label class="bv-mcart-variant-picker-label" for="bv-var-select-<?php echo esc_attr( $cart_item_key ); ?>" title="Bấm để chọn phân loại khác">
+											<span class="bv-mcart-variant-pill">
+												<span class="bv-mcart-var-text"><?php echo esc_html( $current_attr_str ); ?></span>
+												<span class="bv-mcart-var-arrow" aria-hidden="true">▾</span>
+											</span>
+										</label>
+										<select id="bv-var-select-<?php echo esc_attr( $cart_item_key ); ?>" class="bv-mcart-variant-select" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" data-product_id="<?php echo esc_attr( $product_id ); ?>" aria-label="Đổi phân loại sản phẩm">
+											<?php foreach ( $available_vars as $v ) : 
+												$v_id = $v['variation_id'];
+												$v_attrs = [];
+												foreach ( $v['attributes'] as $attr_key => $attr_val ) {
+													$lbl = wc_attribute_label( str_replace( 'attribute_', '', $attr_key ) );
+													$v_attrs[] = $lbl . ': ' . $attr_val;
+												}
+												$v_label = implode( ' • ', $v_attrs );
+												$v_price = wc_price( $v['display_price'] );
+												$is_current = ( (int) $v_id === (int) $cart_item['variation_id'] );
+											?>
+												<option value="<?php echo esc_attr( $v_id ); ?>" <?php selected( $is_current ); ?>>
+													<?php echo esc_html( $v_label ); ?> (<?php echo wp_strip_all_tags( $v_price ); ?>)<?php echo $is_current ? ' ✓' : ''; ?>
+												</option>
+											<?php endforeach; ?>
+										</select>
+									</div>
+								<?php else : ?>
+									<div class="bv-mcart-variant-pill bv-mcart-variant-pill--static">
+										<span class="bv-mcart-var-text"><?php echo esc_html( $current_attr_str ); ?></span>
+									</div>
+								<?php endif; ?>
+							</div>
+							<?php
+						} else {
+							echo wc_get_formatted_cart_item_data( $cart_item ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+						}
+						?>
 
 						<!-- Price & Quantity Stepper Controls -->
 						<div class="bv-mcart-controls-line">
