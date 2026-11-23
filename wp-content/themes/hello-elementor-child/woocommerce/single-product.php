@@ -130,30 +130,16 @@ while ( have_posts() ) : the_post();
 					<!-- ADD TO CART & BUY NOW ACTIONS -->
 					<div class="bv-summary-form-wrap">
 						<?php if ( $is_in_stock ) : ?>
-							<form class="cart bv-addcart-form" action="<?php echo esc_url( apply_filters( 'woocommerce_add_to_cart_form_action', $product->get_permalink() ) ); ?>" method="post" enctype="multipart/form-data">
+							<div class="bv-cart-actions-container">
+								<?php woocommerce_template_single_add_to_cart(); ?>
 								
-								<div class="bv-qty-and-cta">
-									<!-- Quantity Input [-] 1 [+] -->
-									<div class="bv-quantity-box">
-										<button type="button" class="bv-qty-btn bv-qty-minus" aria-label="Giảm">-</button>
-										<input type="number" id="bv-quantity" class="bv-qty-input" step="1" min="1" max="10" name="quantity" value="1" title="Số lượng">
-										<button type="button" class="bv-qty-btn bv-qty-plus" aria-label="Tăng">+</button>
-									</div>
-
-									<!-- Add to Cart Button -->
-									<button type="submit" name="add-to-cart" value="<?php echo esc_attr( $pid ); ?>" class="bv-btn-add-to-cart">
-										Thêm Vào Giỏ Hàng
-									</button>
-								</div>
-
 								<!-- Buy Now (Direct Checkout) Button -->
 								<div class="bv-buynow-wrap">
 									<button type="button" class="bv-btn-buy-now" data-product-id="<?php echo esc_attr( $pid ); ?>" data-checkout-url="<?php echo esc_url( wc_get_checkout_url() ); ?>">
 										Mua Ngay (Thanh toán VietQR)
 									</button>
 								</div>
-
-							</form>
+							</div>
 						<?php else : ?>
 							<div class="bv-out-of-stock-box">
 								<p>Tác phẩm hiện đã hết trong mẻ nung này. Mời bạn liên hệ xưởng để đặt làm cho mẻ nung tiếp theo.</p>

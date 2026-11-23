@@ -135,18 +135,30 @@
 		if (buyNowBtn) {
 			buyNowBtn.addEventListener('click', function (e) {
 				e.preventDefault();
+				var form = document.querySelector('form.cart');
 				var pid = buyNowBtn.getAttribute('data-product-id');
 				var checkoutUrl = buyNowBtn.getAttribute('data-checkout-url') || '/thanh-toan/';
-				var qty = qtyInput ? (parseInt(qtyInput.value, 10) || 1) : 1;
+
+				// If variable product, check if variation is selected
+				if (form && form.classList.contains('variations_form')) {
+					var varIdInput = form.querySelector('input.variation_id');
+					var varId = varIdInput ? parseInt(varIdInput.value, 10) : 0;
+					if (!varId || varId <= 0) {
+						alert('Vui lòng chọn đầy đủ phân loại sản phẩm (màu men, kích thước) trước khi mua hàng.');
+						var firstSelect = form.querySelector('.variations select');
+						if (firstSelect) firstSelect.focus();
+						return;
+					}
+				}
 
 				buyNowBtn.disabled = true;
 				var origText = buyNowBtn.innerHTML;
-				buyNowBtn.innerHTML = '<span>⏳ Đang chuyển tới thanh toán...</span>';
+				buyNowBtn.innerHTML = '<span>Đang chuyển tới thanh toán...</span>';
 
-				// Post to WooCommerce cart via fetch or form submit
-				var formData = new FormData();
-				formData.append('add-to-cart', pid);
-				formData.append('quantity', qty);
+				var formData = form ? new FormData(form) : new FormData();
+				if (!formData.has('add-to-cart')) {
+					formData.append('add-to-cart', pid);
+				}
 
 				fetch(window.location.href, {
 					method: 'POST',
@@ -154,8 +166,11 @@
 				}).then(function () {
 					window.location.href = checkoutUrl;
 				}).catch(function () {
-					// Fallback: direct redirect
-					window.location.href = checkoutUrl + '?add-to-cart=' + pid + '&quantity=' + qty;
+					if (form) {
+						form.submit();
+					} else {
+						window.location.href = checkoutUrl + '?add-to-cart=' + pid;
+					}
 				});
 			});
 		}

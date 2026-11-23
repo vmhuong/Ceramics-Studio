@@ -46,7 +46,8 @@ jQuery(function ($) {
     // Keep WooCommerce's selects as the source of truth for variation validation.
     $('.variations_form').each(function () {
         var form = $(this);
-        var price = form.closest('.summary').children('p.price').first();
+        var summary = form.closest('.bv-product-summary, .summary');
+        var price = summary.find('.bv-summary-price, p.price').first();
         var originalPrice = price.html();
         form.on('found_variation', function (event, variation) {
             if (price.length && variation.price_html) {
