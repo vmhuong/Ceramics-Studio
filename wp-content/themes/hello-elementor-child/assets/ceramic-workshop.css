@@ -1,0 +1,441 @@
+/**
+ * Ceramic Workshop Page Styling (Wabi-Sabi Luxury Craft Minimalism)
+ * Project: Ceramic Studio (Bookverse)
+ * Author: Vu Manh Huong (PM28.11)
+ * Rule: Pure Typography & Craft - Absolutely No Icons or Emojis
+ */
+
+:root {
+	--bv-c-bg: #FAF7F2;
+	--bv-c-white: #FFFFFF;
+	--bv-c-clay: #B3592B;
+	--bv-c-clay-dark: #8F401B;
+	--bv-c-wood: #6B4C35;
+	--bv-c-ink: #2C2523;
+	--bv-c-muted: #7A6D65;
+	--bv-c-border: #E8E2D8;
+	--bv-font-serif: 'Cormorant Garamond', Georgia, serif;
+	--bv-font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.bv-workshop-page {
+	background-color: var(--bv-c-bg);
+	min-height: 100vh;
+	padding-bottom: 90px;
+}
+
+.bv-container {
+	max-width: 1360px;
+	margin: 0 auto;
+	padding: 0 24px;
+}
+
+/* ==========================================================================
+   1. BREADCRUMBS
+   ========================================================================== */
+.bv-ws-breadcrumb {
+	padding: 18px 0;
+	border-bottom: 1px solid rgba(232, 226, 216, 0.7);
+	margin-bottom: 36px;
+}
+
+.bv-breadcrumb-trail {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px;
+	font-size: 13px;
+	color: var(--bv-c-muted);
+	line-height: 1.4;
+	margin: 0;
+	padding: 0;
+}
+
+.bv-breadcrumb-trail a {
+	color: var(--bv-c-ink);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+.bv-breadcrumb-trail a:hover {
+	color: var(--bv-c-clay);
+}
+
+.bv-b-sep {
+	color: #BDB2A7;
+	font-weight: 300;
+}
+
+.bv-b-current {
+	color: var(--bv-c-muted);
+	font-weight: 500;
+}
+
+/* ==========================================================================
+   2. HERO EDITORIAL
+   ========================================================================== */
+.bv-ws-hero {
+	padding: 20px 0 60px;
+}
+
+.bv-ws-hero-inner {
+	max-width: 820px;
+	margin: 0 auto 36px;
+	text-align: center;
+}
+
+.bv-ws-eyebrow {
+	display: inline-block;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 2.5px;
+	color: var(--bv-c-clay);
+	text-transform: uppercase;
+	margin-bottom: 12px;
+}
+
+.bv-ws-hero-title {
+	font-family: var(--bv-font-serif);
+	font-size: 44px;
+	font-weight: 700;
+	line-height: 1.2;
+	color: var(--bv-c-ink);
+	margin: 0 0 18px;
+	letter-spacing: 0.5px;
+}
+
+.bv-ws-hero-subtitle {
+	font-size: 16.5px;
+	line-height: 1.7;
+	color: var(--bv-c-muted);
+	margin: 0;
+}
+
+.bv-ws-hero-banner {
+	border-radius: 8px;
+	overflow: hidden;
+	border: 1px solid var(--bv-c-border);
+	box-shadow: 0 10px 30px rgba(44, 37, 35, 0.05);
+}
+
+.bv-ws-banner-img {
+	width: 100%;
+	height: 480px;
+	object-fit: cover;
+	display: block;
+}
+
+.bv-ws-banner-caption {
+	padding: 14px 20px;
+	background: #FFFFFF;
+	font-size: 13px;
+	color: var(--bv-c-muted);
+	text-align: center;
+	border-top: 1px solid var(--bv-c-border);
+}
+
+/* ==========================================================================
+   3. WORKSHOP BENEFITS (4 EDITORIAL CARDS)
+   ========================================================================== */
+.bv-ws-benefits-section {
+	padding: 70px 0;
+	border-bottom: 1px solid var(--bv-c-border);
+}
+
+.bv-section-header {
+	max-width: 680px;
+	margin: 0 auto 48px;
+	text-align: center;
+}
+
+.bv-section-eyebrow {
+	display: inline-block;
+	font-size: 11.5px;
+	font-weight: 700;
+	letter-spacing: 2px;
+	color: var(--bv-c-clay);
+	text-transform: uppercase;
+	margin-bottom: 10px;
+}
+
+.bv-section-title {
+	font-family: var(--bv-font-serif);
+	font-size: 36px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	line-height: 1.25;
+	margin: 0 0 12px;
+}
+
+.bv-section-desc {
+	font-size: 15.5px;
+	line-height: 1.7;
+	color: var(--bv-c-muted);
+	margin: 0;
+}
+
+.bv-benefits-grid {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 24px;
+}
+
+.bv-benefit-card {
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 6px;
+	padding: 30px 24px;
+	display: flex;
+	flex-direction: column;
+	transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.bv-benefit-card:hover {
+	transform: translateY(-4px);
+	border-color: var(--bv-c-clay);
+	box-shadow: 0 8px 24px rgba(44, 37, 35, 0.06);
+}
+
+.bv-benefit-num {
+	font-family: var(--bv-font-serif);
+	font-size: 32px;
+	font-weight: 700;
+	color: var(--bv-c-clay);
+	line-height: 1;
+	margin-bottom: 14px;
+}
+
+.bv-benefit-title {
+	font-family: var(--bv-font-serif);
+	font-size: 21px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	margin: 0 0 10px;
+	line-height: 1.3;
+}
+
+.bv-benefit-desc {
+	font-size: 14px;
+	line-height: 1.65;
+	color: var(--bv-c-muted);
+	margin: 0;
+}
+
+/* ==========================================================================
+   4. BOOKING SECTION OVERRIDE
+   ========================================================================== */
+.bv-ws-booking-section {
+	padding: 70px 0;
+	border-bottom: 1px solid var(--bv-c-border);
+}
+
+.bv-workshop-app {
+	background: #FFFFFF !important;
+	border: 1px solid var(--bv-c-border) !important;
+	border-radius: 8px !important;
+	box-shadow: 0 10px 36px rgba(44, 37, 35, 0.05) !important;
+	padding: 44px 36px !important;
+}
+
+.bv-ws-intro h2 {
+	font-family: var(--bv-font-serif) !important;
+	font-size: 32px !important;
+	color: var(--bv-c-ink) !important;
+	margin: 8px 0 14px !important;
+}
+
+.bv-ws-tag {
+	background: #F3ECE2 !important;
+	color: var(--bv-c-clay) !important;
+	font-size: 11.5px !important;
+	letter-spacing: 1.5px !important;
+	text-transform: uppercase !important;
+	border-radius: 4px !important;
+}
+
+.bv-step-header h3 {
+	font-family: var(--bv-font-serif) !important;
+	font-size: 20px !important;
+	color: var(--bv-c-ink) !important;
+}
+
+.bv-step-num {
+	font-family: var(--bv-font-serif) !important;
+	background: #2C2523 !important;
+	color: #FFFFFF !important;
+	border-radius: 4px !important;
+}
+
+.bv-pkg-title {
+	font-family: var(--bv-font-serif) !important;
+	font-size: 19px !important;
+	color: var(--bv-c-ink) !important;
+}
+
+.bv-pkg-price {
+	color: var(--bv-c-clay) !important;
+	font-weight: 700 !important;
+}
+
+.bv-btn-book {
+	background: #2C2523 !important;
+	border: 1px solid #2C2523 !important;
+	border-radius: 4px !important;
+	color: #FFFFFF !important;
+	font-size: 13.5px !important;
+	font-weight: 600 !important;
+	letter-spacing: 1px !important;
+	text-transform: uppercase !important;
+	padding: 14px 28px !important;
+	transition: all 0.25s ease !important;
+}
+
+.bv-btn-book:hover {
+	background: var(--bv-c-clay) !important;
+	border-color: var(--bv-c-clay) !important;
+	transform: translateY(-2px) !important;
+}
+
+/* ==========================================================================
+   5. FAQ SECTION
+   ========================================================================== */
+.bv-ws-faq-section {
+	padding: 80px 0;
+	border-bottom: 1px solid var(--bv-c-border);
+}
+
+.bv-faq-grid {
+	display: grid;
+	grid-template-columns: repeat(2, 1fr);
+	gap: 28px;
+}
+
+.bv-faq-card {
+	background: #FFFFFF;
+	border: 1px solid var(--bv-c-border);
+	border-radius: 6px;
+	padding: 28px 24px;
+	display: flex;
+	align-items: flex-start;
+	gap: 16px;
+}
+
+.bv-faq-num {
+	font-family: var(--bv-font-serif);
+	font-size: 20px;
+	font-weight: 700;
+	color: var(--bv-c-clay);
+	flex-shrink: 0;
+	line-height: 1.2;
+}
+
+.bv-faq-q {
+	font-family: var(--bv-font-serif);
+	font-size: 19px;
+	font-weight: 700;
+	color: var(--bv-c-ink);
+	margin: 0 0 10px;
+	line-height: 1.35;
+}
+
+.bv-faq-a {
+	font-size: 14px;
+	line-height: 1.65;
+	color: var(--bv-c-muted);
+	margin: 0;
+}
+
+/* ==========================================================================
+   6. CONTACT BAR
+   ========================================================================== */
+.bv-ws-contact-bar-section {
+	padding: 60px 0 20px;
+}
+
+.bv-ws-contact-bar {
+	background: #2C2523;
+	border-radius: 8px;
+	padding: 36px 40px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 24px;
+	color: #FFFFFF;
+}
+
+.bv-wsc-text h4 {
+	font-family: var(--bv-font-serif);
+	font-size: 24px;
+	color: #FFFFFF;
+	margin: 0 0 6px;
+}
+
+.bv-wsc-text p {
+	font-size: 14.5px;
+	color: #D6CBC2;
+	margin: 0;
+}
+
+.bv-wsc-text strong {
+	color: #FFFFFF;
+}
+
+.bv-btn-wsc-zalo {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 12px 24px;
+	background: #B3592B;
+	color: #FFFFFF !important;
+	border: 1px solid #B3592B;
+	border-radius: 4px;
+	font-size: 13px;
+	font-weight: 600;
+	letter-spacing: 0.5px;
+	text-transform: uppercase;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: all 0.25s ease;
+}
+
+.bv-btn-wsc-zalo:hover {
+	background: #8F401B;
+	transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (MEDIA QUERIES)
+   ========================================================================== */
+@media (max-width: 1024px) {
+	.bv-benefits-grid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+
+	.bv-faq-grid {
+		grid-template-columns: 1fr;
+	}
+}
+
+@media (max-width: 768px) {
+	.bv-ws-hero-title {
+		font-size: 32px;
+	}
+
+	.bv-ws-banner-img {
+		height: 280px;
+	}
+
+	.bv-benefits-grid {
+		grid-template-columns: 1fr;
+	}
+
+	.bv-ws-contact-bar {
+		flex-direction: column;
+		align-items: flex-start;
+		padding: 28px 20px;
+	}
+
+	.bv-btn-wsc-zalo {
+		width: 100%;
+	}
+}

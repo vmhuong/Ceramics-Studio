@@ -99,8 +99,8 @@ function bv_render_workshop_booking() {
 	?>
 	<div class="bv-workshop-app" id="bv-workshop-booking">
 		<div class="bv-ws-intro">
-			<span class="bv-ws-tag"><i class="eicon-paint-brush" aria-hidden="true"></i> Trải nghiệm thủ công</span>
-			<h2>Đặt lịch Workshop Làm Gốm</h2>
+			<span class="bv-ws-tag">Trải nghiệm thủ công</span>
+			<h2>Đặt Lịch Workshop Làm Gốm</h2>
 			<p>Dành một buổi rời xa màn hình, chạm tay vào đất sét mộc và tự tạo nên tác phẩm gốm mang dấu ấn của riêng bạn.</p>
 		</div>
 
@@ -108,7 +108,7 @@ function bv_render_workshop_booking() {
 			<!-- Bước 1: Chọn gói trải nghiệm -->
 			<div class="bv-ws-step">
 				<div class="bv-step-header">
-					<span class="bv-step-num">1</span>
+					<span class="bv-step-num">01</span>
 					<h3>Chọn gói trải nghiệm</h3>
 				</div>
 				<div class="bv-package-grid" role="radiogroup" aria-label="Gói trải nghiệm Workshop">
@@ -120,7 +120,7 @@ function bv_render_workshop_booking() {
 									<span class="bv-pkg-badge"><?php echo esc_html( $pkg['badge'] ); ?></span>
 								<?php endif; ?>
 								<h4 class="bv-pkg-title"><?php echo esc_html( $pkg['name'] ); ?></h4>
-								<span class="bv-pkg-duration"><i class="eicon-clock" aria-hidden="true"></i> <?php echo esc_html( $pkg['duration'] ); ?></span>
+								<span class="bv-pkg-duration">Thời lượng: <?php echo esc_html( $pkg['duration'] ); ?></span>
 								<p class="bv-pkg-desc"><?php echo esc_html( $pkg['description'] ); ?></p>
 								<div class="bv-pkg-price"><?php echo number_format( $pkg['price'], 0, ',', '.' ); ?> ₫ <small>/ học viên</small></div>
 							</div>
@@ -132,24 +132,23 @@ function bv_render_workshop_booking() {
 			<!-- Bước 2: Chọn ngày -->
 			<div class="bv-ws-step">
 				<div class="bv-step-header">
-					<span class="bv-step-num">2</span>
+					<span class="bv-step-num">02</span>
 					<h3>Chọn ngày học</h3>
 				</div>
 				<div class="bv-date-picker-wrap">
 					<label for="bv-ws-date" class="bv-field-label">Ngày dự kiến tham gia:</label>
-					<div class="bv-input-icon">
-						<i class="eicon-calendar" aria-hidden="true"></i>
+					<div class="bv-input-wrap">
 						<input type="date" id="bv-ws-date" name="ws_date" min="<?php echo esc_attr( $today ); ?>" max="<?php echo esc_attr( $max_date ); ?>" value="<?php echo esc_attr( $today ); ?>" required>
 					</div>
-					<small class="bv-hint">Xưởng mở cửa tất cả các ngày trong tuần. Ca Tối chỉ áp dụng Thứ 6, Thứ 7 & Chủ Nhật.</small>
+					<small class="bv-hint">Xưởng mở cửa tất cả các ngày trong tuần. Ca Tối chỉ áp dụng Thứ 6, Thứ 7 &amp; Chủ Nhật.</small>
 				</div>
 			</div>
 
 			<!-- Bước 3: Chọn ca học -->
 			<div class="bv-ws-step">
 				<div class="bv-step-header">
-					<span class="bv-step-num">3</span>
-					<h3>Chọn ca học & Thời gian</h3>
+					<span class="bv-step-num">03</span>
+					<h3>Chọn ca học &amp; Thời gian</h3>
 				</div>
 				<div class="bv-slots-grid" id="bv-slots-container" role="radiogroup" aria-label="Ca học">
 					<?php foreach ( $slots as $slot ) : 
@@ -174,7 +173,7 @@ function bv_render_workshop_booking() {
 			<!-- Bước 4: Số lượng học viên & Đặt chỗ -->
 			<div class="bv-ws-step">
 				<div class="bv-step-header">
-					<span class="bv-step-num">4</span>
+					<span class="bv-step-num">04</span>
 					<h3>Số lượng học viên</h3>
 				</div>
 				<div class="bv-attendees-wrap">
@@ -191,13 +190,13 @@ function bv_render_workshop_booking() {
 							<span>Tạm tính:</span>
 							<strong id="bv-ws-total" class="bv-total-price">350.000 ₫</strong>
 						</div>
-						<small>Đã bao gồm: Đất sét, dụng cụ, màu men khoáng, nung 2 lần và trà thảo mộc.</small>
+						<small>Đã bao gồm: Đất sét, dụng cụ tạo tác, men khoáng tự nhiên, nung 2 lần và trà thảo mộc.</small>
 					</div>
 				</div>
 
 				<div class="bv-action-row">
 					<button type="submit" id="bv-ws-submit" class="bv-btn-book">
-						<i class="eicon-cart" aria-hidden="true"></i> Tiến hành Đặt lịch & Thanh toán
+						Tiến Hành Đặt Lịch &amp; Thanh Toán
 					</button>
 					<span id="bv-ws-message" class="bv-ws-message" role="status"></span>
 				</div>

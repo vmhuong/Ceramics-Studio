@@ -40,6 +40,12 @@ if ( ! is_admin() ) {
 				return $contact;
 			}
 		}
+		if ( is_page( 'workshop' ) || is_page( 24 ) ) {
+			$ws = get_stylesheet_directory() . '/page-workshop.php';
+			if ( file_exists( $ws ) ) {
+				return $ws;
+			}
+		}
 		if ( function_exists( 'is_woocommerce' ) && is_woocommerce() ) {
 			$woo = get_stylesheet_directory() . '/woocommerce.php';
 			if ( file_exists( $woo ) ) {
@@ -80,6 +86,12 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( is_page( 'contact-us' ) || is_page( 18 ) ) {
 		$contact_css = get_stylesheet_directory() . '/assets/ceramic-contact.css';
 		wp_enqueue_style( 'bv-ceramic-contact', get_stylesheet_directory_uri() . '/assets/ceramic-contact.css', [ 'bv-wabi-sabi-header-footer' ], file_exists( $contact_css ) ? filemtime( $contact_css ) : '1.0.0' );
+	}
+
+	// Ceramic Workshop Page Assets
+	if ( is_page( 'workshop' ) || is_page( 24 ) ) {
+		$ws_css = get_stylesheet_directory() . '/assets/ceramic-workshop.css';
+		wp_enqueue_style( 'bv-ceramic-workshop', get_stylesheet_directory_uri() . '/assets/ceramic-workshop.css', [ 'bv-wabi-sabi-header-footer' ], file_exists( $ws_css ) ? filemtime( $ws_css ) : '1.0.0' );
 	}
 
 	// Ceramic Shop & Collections Assets (Anh Ceramics Style)
