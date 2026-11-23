@@ -97,7 +97,7 @@ while ( have_posts() ) : the_post();
 
 					<!-- Rating & Verification Meta (No cartoon stars) -->
 					<div class="bv-summary-rating-row">
-						<span class="bv-meta-rating">Đánh giá: 5.0 / 5.0</span>
+						<span class="bv-meta-rating"><span class="bv-star">★</span> 5.0</span>
 						<span class="bv-meta-sep">•</span>
 						<a href="#bv-product-tabs" class="bv-rating-count-link">18 nhận xét từ người dùng</a>
 						<span class="bv-meta-sep">•</span>

@@ -433,6 +433,41 @@
 	line-height: 1.2;
 }
 
+.bv-card-meta-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 8px;
+	margin-top: 10px;
+	font-size: 12px;
+}
+
+.bv-card-meta-row .bv-pt-rating-compact {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	background: #FAF7F2;
+	border: 1px solid #EBD9CB;
+	color: #B3592B;
+	font-size: 11.5px;
+	font-weight: 600;
+	padding: 2px 8px;
+	border-radius: 4px;
+	line-height: 1.3;
+}
+
+.bv-card-meta-row .bv-star {
+	color: #D9822B;
+	font-size: 11px;
+	line-height: 1;
+}
+
+.bv-card-meta-row .bv-pt-craft-tag {
+	font-size: 11.5px;
+	color: #9C8E84;
+	font-weight: 500;
+}
+
 .bv-card-price {
 	display: flex;
 	align-items: baseline;

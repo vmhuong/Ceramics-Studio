@@ -58,9 +58,14 @@ if ( $account ) {
 		</div>
 	<?php else : ?>
 		<header class="bv-commerce-heading">
-			<a class="bv-back-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">← Tiếp tục chọn gốm</a>
-			<?php if ( is_cart() || is_checkout() ) { bv_commerce_steps(); } ?>
-			<h1><?php echo esc_html( $title ); ?></h1>
+			<div class="bv-commerce-heading-top">
+				<a class="bv-back-link" href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>">← Tiếp tục chọn gốm</a>
+				<?php if ( is_cart() || is_checkout() ) { bv_commerce_steps(); } ?>
+			</div>
+			<div class="bv-commerce-heading-main">
+				<span class="bv-commerce-eyebrow">XƯỞNG GỐM MỘC & WORKSHOP</span>
+				<h1 class="bv-commerce-title"><?php echo esc_html( $title ); ?></h1>
+			</div>
 		</header>
 		<?php while ( have_posts() ) : the_post(); ?>
 			<div class="bv-commerce-content"><?php the_content(); ?></div>

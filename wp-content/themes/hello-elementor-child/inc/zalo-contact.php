@@ -11,10 +11,10 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'bv-zalo-contact', get_stylesheet_directory_uri() . '/assets/zalo-contact.css', [], filemtime( __DIR__ . '/../assets/zalo-contact.css' ) );
 } );
 
-// Floating Zalo Button on all frontend pages
+// Floating Zalo Button on frontend pages (hidden on Cart & Checkout to prevent blocking forms/buttons)
 add_action( 'wp_footer', function () {
-	// Do not display in WP admin or elementor preview editor
-	if ( is_admin() || ( function_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$instance->editor->is_edit_mode() ) ) {
+	// Do not display in WP admin, elementor preview editor, or cart/checkout flows
+	if ( is_admin() || ( function_exists( '\Elementor\Plugin' ) && \Elementor\Plugin::$instance->editor->is_edit_mode() ) || is_cart() || is_checkout() ) {
 		return;
 	}
 

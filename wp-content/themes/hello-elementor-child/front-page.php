@@ -168,9 +168,6 @@ $workshop_url = home_url( '/workshop/' );
 								<?php endif; ?>
 							</a>
 							<div class="bv-pt-body">
-								<div class="bv-pt-meta-rating">
-									<span>Đánh giá: 5.0 / 5.0</span>
-								</div>
 								<h3 class="bv-pt-title">
 									<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
 										<?php echo esc_html( $product->get_name() ); ?>
@@ -181,6 +178,12 @@ $workshop_url = home_url( '/workshop/' );
 									<?php if ( $discount_pct > 0 ) : ?>
 										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
 									<?php endif; ?>
+								</div>
+								<div class="bv-pt-meta-row">
+									<span class="bv-pt-rating-compact">
+										<span class="bv-star">★</span> 5.0
+									</span>
+									<span class="bv-pt-craft-tag">Gốm thủ công</span>
 								</div>
 								<div class="bv-pt-action">
 									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-cart">
@@ -280,7 +283,7 @@ $workshop_url = home_url( '/workshop/' );
 			</div>
 			<div class="bv-testimonials-grid">
 				<div class="bv-review-card">
-					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
+					<div class="bv-rc-rating"><span class="bv-star">★</span> 5.0 · Đánh giá trải nghiệm</div>
 					<p class="bv-rc-content">"Bình hoa gốm mộc đẹp xuất sắc ngoài mong đợi! Nước men lì sờ rất thích, cắm hoa sen hay cúc đều tôn dáng hoa. Xưởng đóng gói siêu kỹ, quấn 3 lớp bóng khí và chèn xốp đầy hộp, nhận hàng nguyên vẹn không tì vết!"</p>
 					<div class="bv-rc-author">
 						<strong>Thanh Thảo</strong>
@@ -288,7 +291,7 @@ $workshop_url = home_url( '/workshop/' );
 					</div>
 				</div>
 				<div class="bv-review-card">
-					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
+					<div class="bv-rc-rating"><span class="bv-star">★</span> 5.0 · Đánh giá trải nghiệm</div>
 					<p class="bv-rc-content">"Men tro tự nhiên màu rất có chiều sâu, uống cà phê sáng cầm cực kỳ đầm tay và giữ ấm tốt. Chiếc ly thủ công mộc mạc đúng gu mình tìm bấy lâu nay. Sẽ ủng hộ thêm set chén dĩa nữa."</p>
 					<div class="bv-rc-author">
 						<strong>Hoàng Nam</strong>
@@ -296,7 +299,7 @@ $workshop_url = home_url( '/workshop/' );
 					</div>
 				</div>
 				<div class="bv-review-card">
-					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
+					<div class="bv-rc-rating"><span class="bv-star">★</span> 5.0 · Đánh giá trải nghiệm</div>
 					<p class="bv-rc-content">"Hộp quà đóng gói chỉn chu, có dây thừng mộc và thiệp xinh xắn. Mình mua tặng tân gia đồng nghiệp ai cũng khen nức nở vì vừa tinh tế vừa khác biệt với đồ gốm công nghiệp. 10/10 điểm!"</p>
 					<div class="bv-rc-author">
 						<strong>Bảo Trâm</strong>

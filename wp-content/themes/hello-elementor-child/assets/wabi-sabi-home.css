@@ -484,6 +484,41 @@
     line-height: 1.3;
 }
 
+.bv-pt-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    margin-bottom: 14px;
+    font-size: 12px;
+}
+
+.bv-pt-rating-compact {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    background: #faf7f2;
+    border: 1px solid #ebd9cb;
+    color: #b3592b;
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 2px 8px;
+    border-radius: 4px;
+    line-height: 1.3;
+}
+
+.bv-pt-rating-compact .bv-star {
+    color: #d9822b;
+    font-size: 11px;
+    line-height: 1;
+}
+
+.bv-pt-craft-tag {
+    font-size: 11.5px;
+    color: #9c8e84;
+    font-weight: 500;
+}
+
 .bv-btn-cart {
     display: flex;
     align-items: center;

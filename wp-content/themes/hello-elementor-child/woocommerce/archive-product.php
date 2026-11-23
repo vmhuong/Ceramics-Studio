@@ -206,6 +206,13 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
 									<?php endif; ?>
 								</div>
+
+								<div class="bv-card-meta-row">
+									<span class="bv-pt-rating-compact">
+										<span class="bv-star">★</span> 5.0
+									</span>
+									<span class="bv-pt-craft-tag">Mộc Bát Tràng</span>
+								</div>
 							</div>
 
 						</article>

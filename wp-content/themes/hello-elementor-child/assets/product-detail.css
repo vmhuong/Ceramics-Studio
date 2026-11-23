@@ -72,13 +72,13 @@ body.single-product #content.bv-commerce-shell { max-width: 1320px; padding-top:
 body.single-product .bv-product-toast { position: fixed; right: 24px; bottom: 24px; z-index: 9998; width: min(380px, calc(100vw - 32px)); margin: 0; padding: 18px 42px 16px 50px; background: #fffaf0; color: #3a2626; border: 1px solid #dfd3c0; border-radius: 6px; box-shadow: 0 8px 30px #38202018; font-size: 14px; line-height: 1.5; animation: bv-toast-in .2s ease-out; }
 body.single-product .bv-product-toast::before, body.single-product .bv-product-toast::after { display: none; }
 body.single-product .bv-product-toast:focus { outline: none; }
-.bv-product-toast .bv-toast-icon { position: absolute; left: 18px; top: 21px; font-size: 21px; color: #7c292d; }
+.bv-product-toast .bv-toast-icon { position: absolute; left: 18px; top: 21px; font-size: 21px; color: #B3592B; }
 .bv-product-toast .bv-added-message strong, .bv-product-toast .bv-added-message > span { display: block; }
 .bv-product-toast .bv-added-message strong { font-size: 14px; font-weight: 600; }
 .bv-product-toast .bv-added-message > span { font-size: 12px; color: #796853; margin-top: 3px; }
-body.single-product .bv-product-toast .bv-added-link { display: inline-block; float: none; margin: 8px 0 0; padding: 0; background: transparent; color: #7c292d; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+body.single-product .bv-product-toast .bv-added-link { display: inline-block; float: none; margin: 8px 0 0; padding: 0; background: transparent; color: #B3592B; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
 body.single-product .bv-product-toast .bv-toast-close { position: absolute; top: 8px; right: 8px; width: 32px; height: 32px; padding: 0; border: 0; background: transparent; color: #796853; display: grid; place-items: center; }
-body.single-product .bv-product-toast .bv-toast-close:hover { background: #f0e7dc; color: #7c292d; }
+body.single-product .bv-product-toast .bv-toast-close:hover { background: #f0e7dc; color: #B3592B; }
 @keyframes bv-toast-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 @media (prefers-reduced-motion: reduce) { body.single-product .bv-product-toast { animation: none; } }
 @media (max-width: 1024px) {
