@@ -1,21 +1,23 @@
 /**
  * Workshop Booking Engine Styles - Ceramic Studio
+ * Multi-Step Wizard Flow (Matching Checkout Stepper Style)
  */
+
 .bv-workshop-app {
-    max-width: 860px;
+    max-width: 880px;
     margin: 40px auto;
-    padding: 36px 32px;
+    padding: 38px 36px;
     background: #fff;
     border-radius: 16px;
     border: 1px solid #ebd9cb;
-    box-shadow: 0 10px 30px rgba(80, 50, 30, 0.05);
+    box-shadow: 0 10px 32px rgba(80, 50, 30, 0.05);
     font-family: inherit;
     color: #3b281c;
 }
 
 .bv-ws-intro {
     text-align: center;
-    margin-bottom: 36px;
+    margin-bottom: 28px;
 }
 
 .bv-ws-tag {
@@ -46,46 +48,173 @@
     line-height: 1.6;
 }
 
-.bv-ws-step {
-    margin-bottom: 32px;
-    padding-bottom: 28px;
-    border-bottom: 1px dashed #e5d8cc;
-}
-
-.bv-ws-step:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.bv-step-header {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    margin-bottom: 18px;
-}
-
-.bv-step-num {
-    width: 28px;
-    height: 28px;
-    background: #b3592b;
-    color: #fff;
-    border-radius: 50%;
+/* ==========================================================================
+   1. STEPPER PROGRESS BAR (MATCHING CHECKOUT / IMAGE 2)
+   ========================================================================== */
+.bv-ws-steps-nav {
     display: flex;
     align-items: center;
     justify-content: center;
+    gap: 16px;
+    list-style: none;
+    margin: 0 auto 36px;
+    padding: 16px 20px;
+    border-bottom: 1px solid #f0e6dc;
     font-size: 14px;
-    font-weight: bold;
 }
 
-.bv-step-header h3 {
+.bv-ws-steps-nav li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.bv-ws-steps-nav li::after {
+    content: "──";
+    color: #D8CFBF;
+    font-size: 12px;
+    margin-left: 12px;
+    user-select: none;
+    letter-spacing: -1px;
+}
+
+.bv-ws-steps-nav li:last-child::after {
+    display: none;
+}
+
+.bv-ws-step-btn {
+    background: none;
+    border: none;
+    padding: 0;
     margin: 0;
-    font-size: 18px;
-    color: #3b281c;
+    font: inherit;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #8C7B6D;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.bv-ws-step-btn b {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid #D8CFBF;
+    font-size: 12px;
+    font-weight: 700;
+    color: #8C7B6D;
+    background: #FAF7F2;
+    transition: all 0.25s ease;
+}
+
+/* Active / Current step */
+.bv-ws-steps-nav .is-current .bv-ws-step-btn {
+    color: #B3592B;
+    font-weight: 700;
+    cursor: default;
+}
+
+.bv-ws-steps-nav .is-current b {
+    color: #FFFFFF;
+    background: #B3592B;
+    border-color: #B3592B;
+    box-shadow: 0 2px 10px rgba(179, 89, 43, 0.3);
+}
+
+/* Completed step */
+.bv-ws-steps-nav .is-complete .bv-ws-step-btn {
+    color: #2C2523;
+    font-weight: 600;
+}
+
+.bv-ws-steps-nav .is-complete b {
+    background: #FDF4EE;
+    border-color: #B3592B;
+    color: #B3592B;
+}
+
+.bv-ws-steps-nav .is-complete::after {
+    color: #B3592B;
+}
+
+/* ==========================================================================
+   2. WIZARD PANELS & ANIMATION
+   ========================================================================== */
+.bv-ws-wizard-panel {
+    display: none;
+}
+
+.bv-ws-wizard-panel.is-active {
+    display: block;
+    animation: bvWizardFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bvWizardFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.bv-panel-header {
+    margin-bottom: 24px;
+}
+
+.bv-panel-title {
+    margin: 0 0 6px;
+    font-size: 19px;
+    color: #2C2523;
     font-weight: 700;
 }
 
-/* Package Cards */
+.bv-panel-desc {
+    margin: 0;
+    font-size: 14px;
+    color: #7A6A5F;
+    line-height: 1.5;
+}
+
+/* Step 2 Pill */
+.bv-ws-chosen-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FAF7F2;
+    border: 1px solid #EBD9CB;
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 13px;
+    color: #6E5344;
+    margin-top: 10px;
+}
+
+.bv-ws-chosen-pill strong {
+    color: #B3592B;
+}
+
+.bv-ws-change-link {
+    background: none;
+    border: none;
+    color: #B3592B;
+    text-decoration: underline;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 0;
+    margin-left: 4px;
+}
+
+/* ==========================================================================
+   3. STEP 1: PACKAGE CARDS
+   ========================================================================== */
 .bv-package-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -178,9 +307,17 @@
     color: #8c786a;
 }
 
-/* Date picker */
+/* ==========================================================================
+   4. STEP 2: DATE PICKER & SLOTS
+   ========================================================================== */
+.bv-ws-schedule-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
 .bv-date-picker-wrap {
-    max-width: 380px;
+    max-width: 420px;
 }
 
 .bv-field-label {
@@ -191,23 +328,9 @@
     color: #4a3325;
 }
 
-.bv-input-icon {
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
-.bv-input-icon i {
-    position: absolute;
-    left: 14px;
-    color: #b3592b;
-    pointer-events: none;
-    font-size: 16px;
-}
-
-.bv-input-icon input[type="date"] {
+.bv-input-wrap input[type="date"] {
     width: 100%;
-    padding: 12px 14px 12px 42px;
+    padding: 12px 14px;
     border: 1px solid #ebd9cb;
     border-radius: 8px;
     background: #faf7f2;
@@ -217,7 +340,7 @@
     transition: all 0.2s ease;
 }
 
-.bv-input-icon input[type="date"]:focus {
+.bv-input-wrap input[type="date"]:focus {
     outline: none;
     border-color: #b3592b;
     box-shadow: 0 0 0 3px rgba(179, 89, 43, 0.15);
@@ -231,7 +354,10 @@
     color: #8c786a;
 }
 
-/* Slots */
+.bv-slots-wrapper {
+    margin-top: 8px;
+}
+
 .bv-slots-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -262,6 +388,7 @@
 .bv-slot-card:not(.is-full):hover .bv-slot-content {
     border-color: #c77b4b;
     background: #fff;
+    transform: translateY(-2px);
 }
 
 .bv-slot-card input[type="radio"]:checked + .bv-slot-content {
@@ -315,7 +442,67 @@
     color: #7a6e65;
 }
 
-/* Attendees & Summary */
+/* ==========================================================================
+   5. STEP 3: CONFIRMATION CARD & ATTENDEES
+   ========================================================================== */
+.bv-ws-confirm-card {
+    background: #FAF7F2;
+    border: 1px solid #EBD9CB;
+    border-radius: 12px;
+    padding: 20px 24px;
+    margin-bottom: 24px;
+}
+
+.bv-confirm-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 18px;
+}
+
+.bv-confirm-col {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.bv-confirm-label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: #8C786A;
+    font-weight: 600;
+}
+
+.bv-confirm-col strong {
+    font-size: 16px;
+    color: #2C2523;
+}
+
+.bv-confirm-col small {
+    font-size: 13px;
+    color: #6E5344;
+}
+
+.bv-ws-change-btn {
+    background: #FFF;
+    border: 1px solid #D8CFBF;
+    border-radius: 6px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #6E5344;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.bv-ws-change-btn:hover {
+    border-color: #B3592B;
+    color: #B3592B;
+    background: #FFF8F3;
+}
+
 .bv-attendees-wrap {
     display: flex;
     flex-wrap: wrap;
@@ -333,6 +520,7 @@
     display: flex;
     align-items: center;
     gap: 14px;
+    flex-wrap: wrap;
 }
 
 .bv-counter-box label {
@@ -387,6 +575,15 @@
     margin: 0;
 }
 
+.bv-remain-note {
+    font-size: 12px;
+    color: #2b7a40;
+    font-weight: 600;
+    background: #e6f3eb;
+    padding: 3px 8px;
+    border-radius: 10px;
+}
+
 .bv-summary-box {
     text-align: right;
 }
@@ -416,37 +613,68 @@
     color: #8c786a;
 }
 
-/* Actions */
-.bv-action-row {
+/* ==========================================================================
+   6. WIZARD ACTIONS & BUTTONS
+   ========================================================================== */
+.bv-ws-wizard-actions {
     display: flex;
-    flex-direction: column;
     align-items: center;
-    gap: 12px;
+    justify-content: space-between;
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #ebd9cb;
+    gap: 16px;
 }
 
+.bv-ws-wizard-actions--single {
+    justify-content: flex-end;
+}
+
+.bv-ws-btn-next,
 .bv-btn-book {
-    width: 100%;
-    max-width: 420px;
-    padding: 16px 28px;
+    padding: 14px 28px;
     background: #b3592b;
     color: #fff;
     border: none;
     border-radius: 8px;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
     cursor: pointer;
     transition: all 0.25s ease;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
-    box-shadow: 0 4px 14px rgba(179, 89, 43, 0.25);
+    gap: 8px;
+    box-shadow: 0 4px 14px rgba(179, 89, 43, 0.22);
 }
 
+.bv-ws-btn-next:hover,
 .bv-btn-book:hover {
     background: #96451e;
     transform: translateY(-2px);
-    box-shadow: 0 6px 18px rgba(179, 89, 43, 0.35);
+    box-shadow: 0 6px 18px rgba(179, 89, 43, 0.32);
+}
+
+.bv-ws-btn-prev {
+    padding: 13px 22px;
+    background: #FAF7F2;
+    border: 1.5px solid #D8CFBF;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #6E5344;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.bv-ws-btn-prev:hover {
+    border-color: #B3592B;
+    color: #B3592B;
+    background: #FFF;
+    transform: translateY(-1px);
 }
 
 .bv-btn-book:disabled {
@@ -454,6 +682,11 @@
     cursor: not-allowed;
     transform: none;
     box-shadow: none;
+}
+
+.bv-ws-msg-box {
+    margin-top: 12px;
+    text-align: center;
 }
 
 .bv-ws-message {
@@ -466,20 +699,67 @@
     color: #c93b2b;
 }
 
+/* ==========================================================================
+   7. RESPONSIVE DESIGN
+   ========================================================================== */
 @media (max-width: 680px) {
     .bv-workshop-app {
-        padding: 24px 18px;
+        padding: 24px 16px;
         margin: 20px 0;
     }
+
+    .bv-ws-steps-nav {
+        gap: 8px;
+        padding: 12px 0;
+        font-size: 12px;
+    }
+
+    .bv-ws-steps-nav li::after {
+        margin-left: 6px;
+    }
+
+    .bv-ws-step-btn b {
+        width: 24px;
+        height: 24px;
+        font-size: 11px;
+    }
+
     .bv-attendees-wrap {
         flex-direction: column;
         align-items: stretch;
         gap: 16px;
     }
+
     .bv-summary-box {
         text-align: left;
     }
+
     .bv-sum-row {
         justify-content: flex-start;
+    }
+
+    .bv-ws-wizard-actions {
+        flex-direction: column-reverse;
+        gap: 12px;
+    }
+
+    .bv-ws-wizard-actions button {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .bv-confirm-row {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .bv-confirm-col--action {
+        width: 100%;
+    }
+
+    .bv-ws-change-btn {
+        width: 100%;
+        text-align: center;
     }
 }

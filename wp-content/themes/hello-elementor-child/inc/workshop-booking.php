@@ -104,17 +104,39 @@ function bv_render_workshop_booking() {
 			<p>Dành một buổi rời xa màn hình, chạm tay vào đất sét mộc và tự tạo nên tác phẩm gốm mang dấu ấn của riêng bạn.</p>
 		</div>
 
+		<!-- STEPPER PROGRESS BAR (THEO LUỒNG THỨ TỰ NHƯ TRANG THANH TOÁN) -->
+		<ol class="bv-ws-steps-nav" aria-label="Các bước đặt lịch workshop">
+			<li class="is-current" data-step="1">
+				<button type="button" class="bv-ws-step-btn" data-step-target="1">
+					<b aria-hidden="true">1</b>
+					<span>Chọn gói</span>
+				</button>
+			</li>
+			<li data-step="2">
+				<button type="button" class="bv-ws-step-btn" data-step-target="2">
+					<b aria-hidden="true">2</b>
+					<span>Chọn lịch</span>
+				</button>
+			</li>
+			<li data-step="3">
+				<button type="button" class="bv-ws-step-btn" data-step-target="3">
+					<b aria-hidden="true">3</b>
+					<span>Xác nhận</span>
+				</button>
+			</li>
+		</ol>
+
 		<form id="bv-ws-form" class="bv-ws-form" method="post">
-			<!-- Bước 1: Chọn gói trải nghiệm -->
-			<div class="bv-ws-step">
-				<div class="bv-step-header">
-					<span class="bv-step-num">01</span>
-					<h3>Chọn gói trải nghiệm</h3>
+			<!-- BƯỚC 1: CHỌN GÓI TRẢI NGHIỆM -->
+			<div class="bv-ws-wizard-panel is-active" data-panel="1">
+				<div class="bv-panel-header">
+					<h3 class="bv-panel-title">1. Chọn gói trải nghiệm gốm mộc</h3>
+					<p class="bv-panel-desc">Mỗi gói học được thiết kế phù hợp cho cả người mới bắt đầu và người muốn sáng tạo chuyên sâu.</p>
 				</div>
 				<div class="bv-package-grid" role="radiogroup" aria-label="Gói trải nghiệm Workshop">
 					<?php foreach ( $packages as $pkg ) : ?>
 						<label class="bv-package-card">
-							<input type="radio" name="ws_package" value="<?php echo esc_attr( $pkg['id'] ); ?>" data-name="<?php echo esc_attr( $pkg['name'] ); ?>" data-price="<?php echo esc_attr( $pkg['price'] ); ?>" required <?php checked( $pkg['id'], 'ban-xoay' ); ?>>
+							<input type="radio" name="ws_package" value="<?php echo esc_attr( $pkg['id'] ); ?>" data-name="<?php echo esc_attr( $pkg['name'] ); ?>" data-price="<?php echo esc_attr( $pkg['price'] ); ?>" data-duration="<?php echo esc_attr( $pkg['duration'] ); ?>" required <?php checked( $pkg['id'], 'ban-xoay' ); ?>>
 							<div class="bv-package-content">
 								<?php if ( ! empty( $pkg['badge'] ) ) : ?>
 									<span class="bv-pkg-badge"><?php echo esc_html( $pkg['badge'] ); ?></span>
@@ -127,55 +149,93 @@ function bv_render_workshop_booking() {
 						</label>
 					<?php endforeach; ?>
 				</div>
+				<div class="bv-ws-wizard-actions bv-ws-wizard-actions--single">
+					<button type="button" class="bv-ws-btn-next" data-goto="2">
+						Tiếp tục: Chọn ngày &amp; ca học →
+					</button>
+				</div>
 			</div>
 
-			<!-- Bước 2: Chọn ngày -->
-			<div class="bv-ws-step">
-				<div class="bv-step-header">
-					<span class="bv-step-num">02</span>
-					<h3>Chọn ngày học</h3>
-				</div>
-				<div class="bv-date-picker-wrap">
-					<label for="bv-ws-date" class="bv-field-label">Ngày dự kiến tham gia:</label>
-					<div class="bv-input-wrap">
-						<input type="date" id="bv-ws-date" name="ws_date" min="<?php echo esc_attr( $today ); ?>" max="<?php echo esc_attr( $max_date ); ?>" value="<?php echo esc_attr( $today ); ?>" required>
+			<!-- BƯỚC 2: CHỌN NGÀY & CA HỌC -->
+			<div class="bv-ws-wizard-panel" data-panel="2" style="display: none;">
+				<div class="bv-panel-header">
+					<h3 class="bv-panel-title">2. Chọn ngày &amp; ca học</h3>
+					<div class="bv-ws-chosen-pill" id="bv-ws-chosen-pkg-badge">
+						<span>Đang chọn: </span><strong id="bv-ws-summary-pkg-name">Làm gốm bàn xoay thủ công</strong>
+						<button type="button" class="bv-ws-change-link" data-goto="1">Đổi gói</button>
 					</div>
-					<small class="bv-hint">Xưởng mở cửa tất cả các ngày trong tuần. Ca Tối chỉ áp dụng Thứ 6, Thứ 7 &amp; Chủ Nhật.</small>
+				</div>
+
+				<div class="bv-ws-schedule-grid">
+					<!-- Chọn ngày -->
+					<div class="bv-date-picker-wrap">
+						<label for="bv-ws-date" class="bv-field-label">Ngày dự kiến tham gia:</label>
+						<div class="bv-input-wrap">
+							<input type="date" id="bv-ws-date" name="ws_date" min="<?php echo esc_attr( $today ); ?>" max="<?php echo esc_attr( $max_date ); ?>" value="<?php echo esc_attr( $today ); ?>" required>
+						</div>
+						<small class="bv-hint">Xưởng mở cửa tất cả các ngày trong tuần. Ca Tối chỉ áp dụng Thứ 6, Thứ 7 &amp; Chủ Nhật.</small>
+					</div>
+
+					<!-- Chọn ca -->
+					<div class="bv-slots-wrapper">
+						<label class="bv-field-label">Chọn ca học &amp; Khung giờ:</label>
+						<div class="bv-slots-grid" id="bv-slots-container" role="radiogroup" aria-label="Ca học">
+							<?php foreach ( $slots as $slot ) : 
+								$booked = bv_get_booked_count( $today, $slot['id'] );
+								$remain = max( 0, $slot['capacity'] - $booked );
+								$is_full = $remain <= 0;
+							?>
+								<label class="bv-slot-card <?php echo $is_full ? 'is-full' : ''; ?>">
+									<input type="radio" name="ws_slot" value="<?php echo esc_attr( $slot['id'] ); ?>" data-label="<?php echo esc_attr( $slot['label'] . ' (' . $slot['time'] . ')' ); ?>" <?php disabled( $is_full ); ?> <?php checked( $slot['id'], 'morning' ); ?>>
+									<div class="bv-slot-content">
+										<span class="bv-slot-name"><?php echo esc_html( $slot['label'] ); ?></span>
+										<strong class="bv-slot-time"><?php echo esc_html( $slot['time'] ); ?></strong>
+										<span class="bv-slot-status <?php echo $remain <= 2 ? 'is-urgency' : ''; ?>">
+											<?php echo $is_full ? 'Đã kín chỗ' : 'Còn ' . esc_html( $remain ) . ' chỗ'; ?>
+										</span>
+									</div>
+								</label>
+							<?php endforeach; ?>
+						</div>
+					</div>
+				</div>
+
+				<div class="bv-ws-wizard-actions">
+					<button type="button" class="bv-ws-btn-prev" data-goto="1">
+						← Quay lại chọn gói
+					</button>
+					<button type="button" class="bv-ws-btn-next" data-goto="3">
+						Tiếp tục: Xác nhận đặt chỗ →
+					</button>
 				</div>
 			</div>
 
-			<!-- Bước 3: Chọn ca học -->
-			<div class="bv-ws-step">
-				<div class="bv-step-header">
-					<span class="bv-step-num">03</span>
-					<h3>Chọn ca học &amp; Thời gian</h3>
+			<!-- BƯỚC 3: XÁC NHẬN THÔNG TIN & ĐẶT VÉ -->
+			<div class="bv-ws-wizard-panel" data-panel="3" style="display: none;">
+				<div class="bv-panel-header">
+					<h3 class="bv-panel-title">3. Xác nhận thông tin &amp; Đặt vé</h3>
+					<p class="bv-panel-desc">Kiểm tra thông tin ca học và lựa chọn số lượng người tham gia trải nghiệm.</p>
 				</div>
-				<div class="bv-slots-grid" id="bv-slots-container" role="radiogroup" aria-label="Ca học">
-					<?php foreach ( $slots as $slot ) : 
-						$booked = bv_get_booked_count( $today, $slot['id'] );
-						$remain = max( 0, $slot['capacity'] - $booked );
-						$is_full = $remain <= 0;
-					?>
-						<label class="bv-slot-card <?php echo $is_full ? 'is-full' : ''; ?>">
-							<input type="radio" name="ws_slot" value="<?php echo esc_attr( $slot['id'] ); ?>" data-label="<?php echo esc_attr( $slot['label'] . ' (' . $slot['time'] . ')' ); ?>" <?php disabled( $is_full ); ?> <?php checked( $slot['id'], 'morning' ); ?>>
-							<div class="bv-slot-content">
-								<span class="bv-slot-name"><?php echo esc_html( $slot['label'] ); ?></span>
-								<strong class="bv-slot-time"><?php echo esc_html( $slot['time'] ); ?></strong>
-								<span class="bv-slot-status <?php echo $remain <= 2 ? 'is-urgency' : ''; ?>">
-									<?php echo $is_full ? 'Đã kín chỗ' : 'Còn ' . esc_html( $remain ) . ' chỗ'; ?>
-								</span>
-							</div>
-						</label>
-					<?php endforeach; ?>
-				</div>
-			</div>
 
-			<!-- Bước 4: Số lượng học viên & Đặt chỗ -->
-			<div class="bv-ws-step">
-				<div class="bv-step-header">
-					<span class="bv-step-num">04</span>
-					<h3>Số lượng học viên</h3>
+				<!-- Booking Confirmation Card -->
+				<div class="bv-ws-confirm-card">
+					<div class="bv-confirm-row">
+						<div class="bv-confirm-col">
+							<span class="bv-confirm-label">Gói trải nghiệm</span>
+							<strong id="bv-conf-pkg">Làm gốm bàn xoay thủ công</strong>
+							<small id="bv-conf-duration">Thời lượng: 2.5 giờ</small>
+						</div>
+						<div class="bv-confirm-col">
+							<span class="bv-confirm-label">Thời gian tham gia</span>
+							<strong id="bv-conf-date">Hôm nay</strong>
+							<small id="bv-conf-slot">Ca Sáng (09:00 - 11:30)</small>
+						</div>
+						<div class="bv-confirm-col bv-confirm-col--action">
+							<button type="button" class="bv-ws-change-btn" data-goto="2">Thay đổi lịch</button>
+						</div>
+					</div>
 				</div>
+
 				<div class="bv-attendees-wrap">
 					<div class="bv-counter-box">
 						<label for="bv-ws-qty">Số người tham gia:</label>
@@ -184,20 +244,26 @@ function bv_render_workshop_booking() {
 							<input type="number" id="bv-ws-qty" name="ws_qty" value="1" min="1" max="8" readonly>
 							<button type="button" class="bv-qty-btn" data-action="plus" aria-label="Tăng số người">+</button>
 						</div>
+						<span class="bv-remain-note" id="bv-ws-remain-hint">Còn 8 chỗ</span>
 					</div>
 					<div class="bv-summary-box">
 						<div class="bv-sum-row">
 							<span>Tạm tính:</span>
 							<strong id="bv-ws-total" class="bv-total-price">350.000 ₫</strong>
 						</div>
-						<small>Đã bao gồm: Đất sét, dụng cụ tạo tác, men khoáng tự nhiên, nung 2 lần và trà thảo mộc.</small>
+						<small>Đã bao gồm trọn gói: Đất sét không giới hạn, dụng cụ tạo tác, men khoáng tự nhiên, nung 2 lần và trà thảo mộc.</small>
 					</div>
 				</div>
 
-				<div class="bv-action-row">
+				<div class="bv-ws-wizard-actions">
+					<button type="button" class="bv-ws-btn-prev" data-goto="2">
+						← Quay lại chọn lịch
+					</button>
 					<button type="submit" id="bv-ws-submit" class="bv-btn-book">
 						Tiến Hành Đặt Lịch &amp; Thanh Toán
 					</button>
+				</div>
+				<div class="bv-ws-msg-box">
 					<span id="bv-ws-message" class="bv-ws-message" role="status"></span>
 				</div>
 			</div>
