@@ -98,7 +98,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	if ( function_exists( 'is_woocommerce' ) && ( is_shop() || is_product_taxonomy() ) ) {
 		$shop_css = get_stylesheet_directory() . '/assets/ceramic-shop.css';
 		$shop_js  = get_stylesheet_directory() . '/assets/ceramic-shop.js';
-		wp_enqueue_style( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.css', [ 'bv-wabi-sabi-header-footer' ], file_exists( $shop_css ) ? filemtime( $shop_css ) : '1.0.0' );
+		wp_enqueue_style( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.css', [ 'bv-wabi-sabi-header-footer' ], time() );
 		wp_enqueue_script( 'bv-ceramic-shop', get_stylesheet_directory_uri() . '/assets/ceramic-shop.js', [ 'jquery' ], file_exists( $shop_js ) ? filemtime( $shop_js ) : '1.0.0', true );
 	}
 

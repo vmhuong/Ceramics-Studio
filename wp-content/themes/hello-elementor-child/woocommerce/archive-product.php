@@ -199,19 +199,15 @@ $orderby = isset( $_GET['orderby'] ) ? sanitize_text_field( wp_unslash( $_GET['o
 									</a>
 								</h3>
 
-								<!-- Price -->
-								<div class="bv-card-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
-									<?php echo wp_kses_post( $price_html ); ?>
-									<?php if ( $discount_pct > 0 ) : ?>
-										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
-									<?php endif; ?>
-								</div>
-
-								<div class="bv-card-meta-row">
-									<span class="bv-pt-rating-compact">
-										<span class="bv-star">★</span> 5.0
-									</span>
-									<span class="bv-pt-craft-tag">Mộc Bát Tràng</span>
+								<!-- Price & Rating Inline -->
+								<div class="bv-card-price-bar">
+									<div class="bv-card-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
+										<?php echo wp_kses_post( $price_html ); ?>
+										<?php if ( $discount_pct > 0 ) : ?>
+											<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
+										<?php endif; ?>
+									</div>
+									<span class="bv-pt-star-pill">★ 5.0</span>
 								</div>
 							</div>
 

@@ -173,17 +173,14 @@ $workshop_url = home_url( '/workshop/' );
 										<?php echo esc_html( $product->get_name() ); ?>
 									</a>
 								</h3>
-								<div class="bv-pt-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
-									<?php echo wp_kses_post( $price_html ); ?>
-									<?php if ( $discount_pct > 0 ) : ?>
-										<span class="bv-price-save-tag">Tiết kiệm <?php echo esc_html( $discount_pct ); ?>%</span>
-									<?php endif; ?>
-								</div>
-								<div class="bv-pt-meta-row">
-									<span class="bv-pt-rating-compact">
-										<span class="bv-star">★</span> 5.0
-									</span>
-									<span class="bv-pt-craft-tag">Gốm thủ công</span>
+								<div class="bv-pt-price-bar">
+									<div class="bv-pt-price <?php echo $is_on_sale ? 'has-discount' : ''; ?>">
+										<?php echo wp_kses_post( $price_html ); ?>
+										<?php if ( $discount_pct > 0 ) : ?>
+											<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
+										<?php endif; ?>
+									</div>
+									<span class="bv-pt-star-pill">★ 5.0</span>
 								</div>
 								<div class="bv-pt-action">
 									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-cart">

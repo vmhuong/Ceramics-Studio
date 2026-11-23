@@ -11,7 +11,7 @@ add_action( 'wp_enqueue_scripts', function () {
 	wp_enqueue_style( 'elementor-icons' );
 	wp_enqueue_script( 'wc-cart-fragments' );
 	wp_enqueue_script( 'wc-add-to-cart' );
-	wp_enqueue_style( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.css', [ 'hello-elementor-child' ], filemtime( __DIR__ . '/../assets/commerce.css' ) );
+	wp_enqueue_style( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.css', [ 'hello-elementor-child' ], time() );
 	if ( is_account_page() ) {
 		wp_enqueue_style( 'bv-account', get_stylesheet_directory_uri() . '/assets/account.css', [ 'bv-commerce' ], filemtime( __DIR__ . '/../assets/account.css' ) );
 	}
