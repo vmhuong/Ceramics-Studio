@@ -1,6 +1,8 @@
 <?php
 /**
  * Wabi-Sabi Homepage Template - Ceramic Studio
+ * Style: Luxury Ceramic Craft Minimalism (No Icons / Pure Typography)
+ * Theme: Hello Elementor Child for Ceramic Studio
  *
  * @package HelloElementorChild
  */
@@ -18,6 +20,9 @@ $pottery_products = wc_get_products( [
 	'orderby' => 'date',
 	'order'   => 'DESC',
 ] );
+
+$shop_url     = wc_get_page_permalink( 'shop' );
+$workshop_url = home_url( '/workshop/' );
 ?>
 
 <main id="content" class="site-main bv-wabi-sabi-home">
@@ -26,17 +31,15 @@ $pottery_products = wc_get_products( [
 	<section class="bv-hero-section">
 		<div class="bv-hero-container">
 			<div class="bv-hero-content">
-				<span class="bv-hero-tag"><i class="eicon-dot" aria-hidden="true"></i> CERAMIC STUDIO • MỘC MẠC & TĨNH TẠI</span>
+				<span class="bv-hero-tag">CERAMIC STUDIO • MỘC MẠC &amp; TĨNH TẠI</span>
 				<h1 class="bv-hero-title">Nơi Đất Mẹ Gặp Lửa, Tạo Nên Những Tác Phẩm Có Hồn</h1>
 				<p class="bv-hero-desc">Mỗi món gốm tại xưởng đều được nặn tay, chuốt men khoáng tự nhiên và nung củi truyền thống, mang theo hơi thở bình yên cho không gian sống của bạn.</p>
 				<div class="bv-hero-actions">
-					<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-btn-primary">
-						<span>Khám phá Gốm mộc</span>
-						<i class="eicon-arrow-right" aria-hidden="true"></i>
+					<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-btn-primary">
+						Khám Phá Gốm Mộc
 					</a>
-					<a href="<?php echo esc_url( home_url( '/workshop/' ) ); ?>" class="bv-btn-secondary">
-						<i class="eicon-calendar" aria-hidden="true"></i>
-						<span>Đặt lịch Workshop</span>
+					<a href="<?php echo esc_url( $workshop_url ); ?>" class="bv-btn-secondary">
+						Đặt Lịch Workshop
 					</a>
 				</div>
 				<div class="bv-hero-highlights">
@@ -60,7 +63,6 @@ $pottery_products = wc_get_products( [
 				<div class="bv-hero-image-card">
 					<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-15-e3ec755cc48b7069c346.webp' ) ); ?>" alt="Đồ gốm mộc thủ công Ceramic Studio" class="bv-hero-img" loading="eager" fetchpriority="high">
 					<div class="bv-hero-floating-card">
-						<span class="bv-fc-icon"><i class="eicon-paint-brush" aria-hidden="true"></i></span>
 						<div>
 							<strong>Men Nâu Rustic</strong>
 							<small>Bộ sưu tập mùa thu</small>
@@ -80,44 +82,44 @@ $pottery_products = wc_get_products( [
 				<p class="bv-section-desc">Mỗi bộ sưu tập mang một ngôn ngữ tạo hình và kỹ thuật men khoáng riêng biệt.</p>
 			</div>
 			<div class="bv-collections-grid">
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-col-card">
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-col-card">
 					<div class="bv-col-thumb">
 						<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-20-8e65a9da8b2256ebbe41.webp' ) ); ?>" alt="Bình hoa gốm mộc" loading="lazy">
 					</div>
 					<div class="bv-col-info">
-						<h3>Bình hoa & Bình gốm dáng mộc</h3>
+						<h3>Bình hoa &amp; Bình gốm dáng mộc</h3>
 						<p>Dáng tròn, miệng hoa, dáng rượu men pastel thanh nhã.</p>
-						<span class="bv-col-link">Khám phá <i class="eicon-arrow-right" aria-hidden="true"></i></span>
+						<span class="bv-col-link">Khám phá bộ sưu tập</span>
 					</div>
 				</a>
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-col-card">
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-col-card">
 					<div class="bv-col-thumb">
 						<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-13-32f4983a4ea37d864f73.webp' ) ); ?>" alt="Tách ly cafe men tro" loading="lazy">
 					</div>
 					<div class="bv-col-info">
-						<h3>Tách ly & Mug Cafe thủ công</h3>
+						<h3>Tách ly &amp; Mug Cafe thủ công</h3>
 						<p>Men tro, men loang có quai, giữ nhiệt ấm áp cho buổi sáng.</p>
-						<span class="bv-col-link">Khám phá <i class="eicon-arrow-right" aria-hidden="true"></i></span>
+						<span class="bv-col-link">Khám phá bộ sưu tập</span>
 					</div>
 				</a>
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-col-card">
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-col-card">
 					<div class="bv-col-thumb">
 						<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-19-a77d35793ddead77097f.webp' ) ); ?>" alt="Bộ chén đĩa cơm nhà" loading="lazy">
 					</div>
 					<div class="bv-col-info">
-						<h3>Bộ bàn ăn & Chén đĩa cơm nhà</h3>
+						<h3>Bộ bàn ăn &amp; Chén đĩa cơm nhà</h3>
 						<p>Bát vành bèo, chén chấm lam, set 4 người ấm cúng gia đình.</p>
-						<span class="bv-col-link">Khám phá <i class="eicon-arrow-right" aria-hidden="true"></i></span>
+						<span class="bv-col-link">Khám phá bộ sưu tập</span>
 					</div>
 				</a>
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-col-card">
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-col-card">
 					<div class="bv-col-thumb">
 						<img src="<?php echo esc_url( home_url( '/wp-content/uploads/2026/09/gom-demo-14-fe71c673139dfcff9e29.webp' ) ); ?>" alt="Tranh gạch gốm nghệ thuật" loading="lazy">
 					</div>
 					<div class="bv-col-info">
-						<h3>Tranh gạch gốm & Set quà tặng</h3>
+						<h3>Tranh gạch gốm &amp; Set quà tặng</h3>
 						<p>Chủ đề Chim Lạc, Mai Lan Cúc Trúc, set quà trà chiều mộc.</p>
-						<span class="bv-col-link">Khám phá <i class="eicon-arrow-right" aria-hidden="true"></i></span>
+						<span class="bv-col-link">Khám phá bộ sưu tập</span>
 					</div>
 				</a>
 			</div>
@@ -144,13 +146,8 @@ $pottery_products = wc_get_products( [
 								<span class="bv-pt-badge">Thủ công</span>
 							</a>
 							<div class="bv-pt-body">
-								<div class="bv-pt-stars" aria-hidden="true">
-									<i class="eicon-star" style="color: #f5a623;"></i>
-									<i class="eicon-star" style="color: #f5a623;"></i>
-									<i class="eicon-star" style="color: #f5a623;"></i>
-									<i class="eicon-star" style="color: #f5a623;"></i>
-									<i class="eicon-star" style="color: #f5a623;"></i>
-									<small>(5.0)</small>
+								<div class="bv-pt-meta-rating">
+									<span>Đánh giá: 5.0 / 5.0</span>
 								</div>
 								<h3 class="bv-pt-title">
 									<a href="<?php echo esc_url( $product->get_permalink() ); ?>">
@@ -162,7 +159,7 @@ $pottery_products = wc_get_products( [
 								</div>
 								<div class="bv-pt-action">
 									<a href="<?php echo esc_url( $product->add_to_cart_url() ); ?>" class="bv-btn-cart">
-										<i class="eicon-cart" aria-hidden="true"></i> <?php echo esc_html( $product->add_to_cart_text() ); ?>
+										Thêm Vào Giỏ
 									</a>
 								</div>
 							</div>
@@ -171,9 +168,8 @@ $pottery_products = wc_get_products( [
 				<?php endif; ?>
 			</div>
 			<div class="bv-products-cta">
-				<a href="<?php echo esc_url( wc_get_page_permalink( 'shop' ) ); ?>" class="bv-btn-outline">
-					<span>Xem tất cả 32 tác phẩm gốm</span>
-					<i class="eicon-arrow-right" aria-hidden="true"></i>
+				<a href="<?php echo esc_url( $shop_url ); ?>" class="bv-btn-outline">
+					Xem Tất Cả Tác Phẩm Gốm
 				</a>
 			</div>
 		</div>
@@ -231,20 +227,19 @@ $pottery_products = wc_get_products( [
 		<div class="bv-container">
 			<div class="bv-ws-box">
 				<div class="bv-ws-box-content">
-					<span class="bv-ws-badge"><i class="eicon-paint-brush" aria-hidden="true"></i> TRẢI NGHIỆM CUỐI TUẦN</span>
+					<span class="bv-ws-badge">TRẢI NGHIỆM CUỐI TUẦN</span>
 					<h2>Rời Xa Màn Hình, Tự Tay Tạc Chiếc Ly Gốm Đầu Tiên</h2>
 					<p>Dành 2.5 giờ cuối tuần tại xưởng gốm: học kỹ thuật chuốt bàn xoay, tự do nặn tạo hình và vẽ men màu. Tác phẩm sau khi nung sẽ là kỷ niệm vô giá bạn mang về nhà.</p>
 					<ul class="bv-ws-features">
-						<li><i class="eicon-check" aria-hidden="true"></i> Có nghệ nhân kèm 1-1 cho người mới bắt đầu</li>
-						<li><i class="eicon-check" aria-hidden="true"></i> Bao trọn đất sét, dụng cụ, màu vẽ men và nung 2 lần</li>
-						<li><i class="eicon-check" aria-hidden="true"></i> Thưởng thức trà thảo mộc trong không gian âm nhạc mộc</li>
+						<li>Có nghệ nhân kèm 1-1 cho người mới bắt đầu</li>
+						<li>Bao trọn đất sét, dụng cụ, màu vẽ men và nung 2 lần</li>
+						<li>Thưởng thức trà thảo mộc trong không gian âm nhạc mộc</li>
 					</ul>
 					<div class="bv-ws-box-cta">
-						<a href="<?php echo esc_url( home_url( '/workshop/' ) ); ?>" class="bv-btn-primary bv-btn-lg">
-							<i class="eicon-calendar" aria-hidden="true"></i>
-							<span>Xem lịch ca học & Đặt chỗ ngay</span>
+						<a href="<?php echo esc_url( $workshop_url ); ?>" class="bv-btn-primary bv-btn-lg">
+							Xem Lịch Ca Học &amp; Đặt Chỗ Ngay
 						</a>
-						<span class="bv-ws-seat-note"><i class="eicon-info-circle" aria-hidden="true"></i> Giới hạn 8 học viên / ca để đảm bảo chất lượng</span>
+						<span class="bv-ws-seat-note">Giới hạn 8 học viên / ca để đảm bảo chất lượng</span>
 					</div>
 				</div>
 			</div>
@@ -260,33 +255,27 @@ $pottery_products = wc_get_products( [
 			</div>
 			<div class="bv-testimonials-grid">
 				<div class="bv-review-card">
-					<div class="bv-rc-stars">
-						<i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i>
-					</div>
+					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
 					<p class="bv-rc-content">"Bình hoa gốm mộc đẹp xuất sắc ngoài mong đợi! Nước men lì sờ rất thích, cắm hoa sen hay cúc đều tôn dáng hoa. Xưởng đóng gói siêu kỹ, quấn 3 lớp bóng khí và chèn xốp đầy hộp, nhận hàng nguyên vẹn không tì vết!"</p>
 					<div class="bv-rc-author">
 						<strong>Thanh Thảo</strong>
-						<span class="bv-rc-badge"><i class="eicon-check" aria-hidden="true"></i> Đã mua Bình hoa dáng tròn</span>
+						<span class="bv-rc-badge">Đã mua Bình hoa dáng tròn</span>
 					</div>
 				</div>
 				<div class="bv-review-card">
-					<div class="bv-rc-stars">
-						<i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i>
-					</div>
+					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
 					<p class="bv-rc-content">"Men tro tự nhiên màu rất có chiều sâu, uống cà phê sáng cầm cực kỳ đầm tay và giữ ấm tốt. Chiếc ly thủ công mộc mạc đúng gu mình tìm bấy lâu nay. Sẽ ủng hộ thêm set chén dĩa nữa."</p>
 					<div class="bv-rc-author">
 						<strong>Hoàng Nam</strong>
-						<span class="bv-rc-badge"><i class="eicon-check" aria-hidden="true"></i> Đã mua Ly gốm men tro</span>
+						<span class="bv-rc-badge">Đã mua Ly gốm men tro</span>
 					</div>
 				</div>
 				<div class="bv-review-card">
-					<div class="bv-rc-stars">
-						<i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i><i class="eicon-star"></i>
-					</div>
+					<div class="bv-rc-rating">Đánh giá: 5.0 / 5.0</div>
 					<p class="bv-rc-content">"Hộp quà đóng gói chỉn chu, có dây thừng mộc và thiệp xinh xắn. Mình mua tặng tân gia đồng nghiệp ai cũng khen nức nở vì vừa tinh tế vừa khác biệt với đồ gốm công nghiệp. 10/10 điểm!"</p>
 					<div class="bv-rc-author">
 						<strong>Bảo Trâm</strong>
-						<span class="bv-rc-badge"><i class="eicon-check" aria-hidden="true"></i> Đã mua Set quà trà chiều</span>
+						<span class="bv-rc-badge">Đã mua Set quà trà chiều</span>
 					</div>
 				</div>
 			</div>
@@ -298,17 +287,17 @@ $pottery_products = wc_get_products( [
 		<div class="bv-container">
 			<div class="bv-promises-grid">
 				<div class="bv-promise-item">
-					<span class="bv-pi-icon"><i class="eicon-box" aria-hidden="true"></i></span>
+					<span class="bv-pi-num">01</span>
 					<h4>Đóng gói chống sốc 3 lớp</h4>
 					<p>Bảo hành bể vỡ 100%: đổi mới ngay lập tức nếu có bất kỳ nứt mẻ nào trong quá trình vận chuyển.</p>
 				</div>
 				<div class="bv-promise-item">
-					<span class="bv-pi-icon"><i class="eicon-shield-check" aria-hidden="true"></i></span>
+					<span class="bv-pi-num">02</span>
 					<h4>Men khoáng an toàn 100%</h4>
 					<p>Tuyệt đối không sử dụng men chì, an toàn cho đồ ăn uống nóng, lò vi sóng và máy rửa chén.</p>
 				</div>
 				<div class="bv-promise-item">
-					<span class="bv-pi-icon"><i class="eicon-gift" aria-hidden="true"></i></span>
+					<span class="bv-pi-num">03</span>
 					<h4>Hộp quà mộc thân thiện</h4>
 					<p>Bao bì mộc mạc từ giấy carton tái chế, dây cói tự nhiên và thiệp dặn dò viết tay ấm áp.</p>
 				</div>
