@@ -62,11 +62,17 @@ if ( $active_color_name ) {
 	$page_title .= ' • Màu ' . $active_color_name;
 }
 
-// Fetch all product categories with products
+// Fetch all product categories with products (exclude default uncategorized and internal workshop tickets)
+$excluded_cats = array_filter( [ (int) get_option( 'default_product_cat' ) ] );
+$workshop_cat  = get_term_by( 'slug', 've-workshop-noi-bo', 'product_cat' );
+if ( $workshop_cat && ! is_wp_error( $workshop_cat ) ) {
+	$excluded_cats[] = (int) $workshop_cat->term_id;
+}
+
 $categories = get_terms( [
 	'taxonomy'   => 'product_cat',
 	'hide_empty' => true,
-	'exclude'    => get_option( 'default_product_cat' ),
+	'exclude'    => $excluded_cats,
 ] );
 
 // Base URL for preserving or clearing query args
@@ -140,6 +146,9 @@ if ( $is_featured ) {
 								<div class="bv-smooth-collapse" id="bv-cat-sublist">
 									<ul class="bv-sub-cat-list">
 										<?php foreach ( $categories as $cat ) : 
+											if ( $cat->slug === 've-workshop-noi-bo' || false !== stripos( $cat->name, 'vé workshop' ) || false !== stripos( $cat->name, 'nội bộ' ) ) {
+												continue;
+											}
 											$is_cat_active = ( $current_term && $current_term->term_id === $cat->term_id );
 										?>
 											<li class="bv-filter-cat-item <?php echo $is_cat_active ? 'is-active' : ''; ?>">

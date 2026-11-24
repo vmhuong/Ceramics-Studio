@@ -7,7 +7,7 @@ services:
     ports:
       - "${NGINX_PORT:-8080}:80"
     volumes:
-      - ./:/var/www/html
+      - bookverse_code:/var/www/html
       - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
       - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
     depends_on:
@@ -23,7 +23,7 @@ services:
     container_name: bookverse_php
     restart: unless-stopped
     volumes:
-      - ./:/var/www/html
+      - bookverse_code:/var/www/html
       - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
     environment:
       WORDPRESS_DB_HOST: db:3306
@@ -96,6 +96,8 @@ networks:
     driver: bridge
 
 volumes:
+  bookverse_code:
+    external: true
   db_data:
     driver: local
   redis_data:
