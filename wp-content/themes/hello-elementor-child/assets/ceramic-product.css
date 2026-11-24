@@ -1114,6 +1114,8 @@ button.single_add_to_cart_button:hover {
 	font-size: 13px !important;
 	font-weight: 700 !important;
 	color: var(--bv-c-clay) !important;
+	white-space: nowrap !important;
+	flex-wrap: nowrap !important;
 }
 
 .bv-product-card--compact .bv-pt-star-pill {

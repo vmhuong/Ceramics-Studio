@@ -699,7 +699,7 @@ span.bv-toggle-collapse-btn:active {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 6px;
+	gap: 4px;
 	margin-top: 6px;
 }
 
@@ -730,13 +730,21 @@ span.bv-toggle-collapse-btn:active {
 .bv-card-price {
 	display: flex;
 	align-items: baseline;
-	flex-wrap: wrap;
-	gap: 6px 10px;
-	font-size: 16.5px;
+	flex-wrap: nowrap;
+	white-space: nowrap;
+	gap: 2px 6px;
+	font-size: 14.5px;
 	font-weight: 700;
 	color: var(--bv-c-clay, #b3592b);
 	margin-top: auto;
 	line-height: 1.3;
+	min-width: 0;
+}
+
+.bv-card-price .woocommerce-Price-amount,
+.bv-card-price del,
+.bv-card-price ins {
+	white-space: nowrap;
 }
 
 .bv-card-price del {
@@ -885,8 +893,14 @@ span.bv-toggle-collapse-btn:active {
 	.bv-card-title {
 		font-size: 13.5px;
 	}
+	.bv-card-price-bar {
+		flex-wrap: wrap;
+		gap: 4px;
+	}
 	.bv-card-price {
-		font-size: 14.5px;
+		font-size: 13.5px;
+		white-space: nowrap;
+		flex-wrap: nowrap;
 	}
 	/* Always show cart button on mobile */
 	.bv-card-actions {

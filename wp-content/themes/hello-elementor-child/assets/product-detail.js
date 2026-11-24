@@ -211,22 +211,4 @@ jQuery(function ($) {
         });
     }
 
-    // Single Add To Cart Stepper (+ / -)
-    $(document).on('click', '.bv-quantity-step', function (e) {
-        e.preventDefault();
-        var stepBtn = $(this);
-        var dir = parseInt(stepBtn.data('step'), 10) || 1;
-        var input = stepBtn.siblings('.qty');
-        if (!input.length) return;
-
-        var val = parseInt(input.val(), 10) || 1;
-        var min = parseInt(input.attr('min'), 10) || 1;
-        var max = parseInt(input.attr('max'), 10) || 99;
-
-        var newVal = val + dir;
-        if (newVal >= min && newVal <= max) {
-            input.val(newVal).trigger('change');
-        }
-    });
-
 });
