@@ -1,6 +1,20 @@
 jQuery(function ($) {
     'use strict';
 
+    // Purge stale mini-cart cache in sessionStorage if it lacks selective checkboxes
+    try {
+        var fragKey = typeof wc_cart_fragments_params !== 'undefined' ? wc_cart_fragments_params.fragment_name : null;
+        if (fragKey) {
+            var cached = sessionStorage.getItem(fragKey);
+            if (cached && cached.indexOf('bv-cart-item-checkbox') === -1) {
+                sessionStorage.removeItem(fragKey);
+                if (wc_cart_fragments_params.cart_hash_key) {
+                    sessionStorage.removeItem(wc_cart_fragments_params.cart_hash_key);
+                }
+            }
+        }
+    } catch (e) {}
+
     var panels = Array.from(document.querySelectorAll('.bv-shopping-panel'));
 
     function openDrawer(id, trigger) {

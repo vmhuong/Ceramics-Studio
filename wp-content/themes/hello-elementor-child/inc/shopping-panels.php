@@ -254,6 +254,19 @@ function bv_toggle_cart_selection_ajax() {
     ] );
 }
 
+// Invalidate stale browser sessionStorage mini-cart cache
+add_filter( 'woocommerce_cart_hash', function ( $hash ) {
+    return md5( $hash . '_bv_sel_v4' );
+} );
+
+// Ensure WooCommerce fragment refresh always delivers updated mini-cart
+add_filter( 'woocommerce_add_to_cart_fragments', function ( $fragments ) {
+    ob_start();
+    woocommerce_mini_cart();
+    $fragments['div.widget_shopping_cart_content'] = '<div class="widget_shopping_cart_content">' . ob_get_clean() . '</div>';
+    return $fragments;
+} );
+
 // Stash unselected items when entering Checkout, and Restore when returning to Cart or after order
 add_action( 'template_redirect', 'bv_handle_checkout_stash_restore' );
 function bv_handle_checkout_stash_restore() {
