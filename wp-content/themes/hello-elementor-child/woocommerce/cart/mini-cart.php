@@ -10,19 +10,33 @@ defined( 'ABSPATH' ) || exit;
 
 do_action( 'woocommerce_before_mini_cart' ); ?>
 
-<?php if ( WC()->cart && ! WC()->cart->is_empty() ) : ?>
+<?php if ( WC()->cart && ! WC()->cart->is_empty() ) : 
+	$cart_summary = function_exists( 'bv_get_selected_cart_summary' ) ? bv_get_selected_cart_summary() : [ 'all_selected' => true, 'count' => count( WC()->cart->get_cart() ), 'subtotal_html' => WC()->cart->get_cart_subtotal() ];
+	$cart_items   = WC()->cart->get_cart();
+	$total_count  = count( $cart_items );
+?>
+
+	<!-- Select All Toolbar -->
+	<div class="bv-mcart-select-all-bar">
+		<label class="bv-cart-checkbox-label">
+			<input type="checkbox" class="bv-cart-select-all-checkbox" <?php checked( ! empty( $cart_summary['all_selected'] ) ); ?> aria-label="Chọn tất cả sản phẩm">
+			<span class="bv-cart-custom-check" aria-hidden="true"></span>
+			<span class="bv-select-all-text">Chọn tất cả (<strong><?php echo esc_html( $total_count ); ?></strong> món)</span>
+		</label>
+	</div>
 
 	<ul class="woocommerce-mini-cart cart_list product_list_widget <?php echo esc_attr( $args['list_class'] ?? '' ); ?>">
 		<?php
 		do_action( 'woocommerce_before_mini_cart_contents' );
 
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
+		foreach ( $cart_items as $cart_item_key => $cart_item ) {
 			$_product   = apply_filters( 'woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key );
 			$product_id = apply_filters( 'woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key );
 
 			$visible = apply_filters( 'woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key );
 
 			if ( $_product instanceof WC_Product && $_product->exists() && $cart_item['quantity'] > 0 && $visible ) {
+				$is_selected       = function_exists( 'bv_is_cart_item_selected' ) ? bv_is_cart_item_selected( $cart_item_key ) : true;
 				$product_name      = apply_filters( 'woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key );
 				$thumbnail         = apply_filters( 'woocommerce_cart_item_thumbnail', $_product->get_image( 'woocommerce_thumbnail' ), $cart_item, $cart_item_key );
 				$product_price     = apply_filters( 'woocommerce_cart_item_price', WC()->cart->get_product_price( $_product ), $cart_item, $cart_item_key );
@@ -32,7 +46,15 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 				$max_qty           = $_product->get_max_purchase_quantity();
 				$max_qty_attr      = $max_qty > 0 ? 'max="' . esc_attr( $max_qty ) . '"' : 'max="99"';
 				?>
-				<li class="woocommerce-mini-cart-item bv-mini-cart-card mini_cart_item" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>">
+				<li class="woocommerce-mini-cart-item bv-mini-cart-card mini_cart_item <?php echo $is_selected ? '' : 'is-unselected'; ?>" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>">
+					<!-- Selection Checkbox -->
+					<div class="bv-mcart-item-select">
+						<label class="bv-cart-checkbox-label">
+							<input type="checkbox" class="bv-cart-item-checkbox" data-cart_item_key="<?php echo esc_attr( $cart_item_key ); ?>" <?php checked( $is_selected ); ?> aria-label="Chọn thanh toán món này">
+							<span class="bv-cart-custom-check" aria-hidden="true"></span>
+						</label>
+					</div>
+
 					<!-- Thumbnail -->
 					<div class="bv-mcart-thumb">
 						<?php if ( empty( $product_permalink ) ) : ?>
@@ -189,19 +211,18 @@ do_action( 'woocommerce_before_mini_cart' ); ?>
 	</ul>
 
 	<p class="woocommerce-mini-cart__total total">
-		<?php
-		/**
-		 * Hook: woocommerce_widget_shopping_cart_total.
-		 *
-		 * @hooked woocommerce_widget_shopping_cart_subtotal - 10
-		 */
-		do_action( 'woocommerce_widget_shopping_cart_total' );
-		?>
+		<strong>Tạm tính:</strong>
+		<span class="woocommerce-Price-amount amount bv-selected-subtotal"><?php echo $cart_summary['subtotal_html']; ?></span>
 	</p>
 
 	<?php do_action( 'woocommerce_widget_shopping_cart_before_buttons' ); ?>
 
-	<p class="woocommerce-mini-cart__buttons buttons"><?php do_action( 'woocommerce_widget_shopping_cart_buttons' ); ?></p>
+	<p class="woocommerce-mini-cart__buttons buttons">
+		<a href="<?php echo esc_url( wc_get_cart_url() ); ?>" class="button wc-forward bv-view-cart-btn">Xem giỏ hàng</a>
+		<a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="button checkout wc-forward bv-checkout-btn <?php echo ( $cart_summary['count'] === 0 ) ? 'is-disabled' : ''; ?>" <?php echo ( $cart_summary['count'] === 0 ) ? 'aria-disabled="true"' : ''; ?>>
+			Thanh toán (<span class="bv-btn-count"><?php echo esc_html( $cart_summary['count'] ); ?></span>)
+		</a>
+	</p>
 
 	<?php do_action( 'woocommerce_widget_shopping_cart_after_buttons' ); ?>
 

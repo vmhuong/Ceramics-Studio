@@ -373,7 +373,89 @@ jQuery(function ($) {
         timer = setTimeout(function () { saveNote().catch(function () {}); }, 500);
     });
 
+    // ==========================================================================
+    // SELECTIVE CART CHECKOUT (CHỌN MÓN THANH TOÁN / CHỌN TẤT CẢ)
+    // ==========================================================================
+    var selectionXhr = null;
+    function syncCartSelection(postData) {
+        if (typeof bvShopping === 'undefined' || !bvShopping.selectUrl) return;
+
+        if (selectionXhr && selectionXhr.readyState !== 4) {
+            selectionXhr.abort();
+        }
+
+        postData.nonce = bvShopping.selectNonce;
+
+        selectionXhr = $.ajax({
+            type: 'POST',
+            url: bvShopping.selectUrl,
+            data: postData,
+            dataType: 'json',
+            success: function (res) {
+                if (res && res.success && res.data) {
+                    var d = res.data;
+                    // Update subtotal formatted text
+                    $('.bv-selected-subtotal').html(d.subtotal_html);
+                    // Update count numbers on checkout buttons
+                    $('.bv-btn-count').text(d.selected_count);
+                    // Update Select All checkbox state
+                    $('.bv-cart-select-all-checkbox').prop('checked', d.all_selected);
+
+                    // Update checkout button disabled state
+                    var $checkoutBtns = $('.bv-checkout-btn, .checkout-button');
+                    if (d.is_empty_selection) {
+                        $checkoutBtns.addClass('is-disabled').attr('aria-disabled', 'true');
+                    } else {
+                        $checkoutBtns.removeClass('is-disabled').removeAttr('aria-disabled');
+                    }
+                }
+            }
+        });
+    }
+
+    // Toggle single item checkbox
+    $(document).on('change', '.bv-cart-item-checkbox', function () {
+        var $checkbox = $(this);
+        var key = $checkbox.data('cart_item_key');
+        var isChecked = $checkbox.is(':checked');
+        var $row = $checkbox.closest('.bv-mini-cart-card, .bv-cart-item-row');
+
+        $row.toggleClass('is-unselected', !isChecked);
+
+        // Check if all are checked
+        var $allItemChecks = $('.bv-cart-item-checkbox');
+        var totalItems = $allItemChecks.length;
+        var checkedCount = $allItemChecks.filter(':checked').length;
+        $('.bv-cart-select-all-checkbox').prop('checked', totalItems > 0 && checkedCount === totalItems);
+
+        syncCartSelection({ cart_item_key: key, selected: isChecked ? 1 : 0 });
+    });
+
+    // Toggle Select All checkbox
+    $(document).on('change', '.bv-cart-select-all-checkbox', function () {
+        var isChecked = $(this).is(':checked');
+        $('.bv-cart-select-all-checkbox').prop('checked', isChecked);
+        $('.bv-cart-item-checkbox').prop('checked', isChecked);
+        $('.bv-mini-cart-card, .bv-cart-item-row').toggleClass('is-unselected', !isChecked);
+
+        syncCartSelection({ select_all: isChecked ? 1 : 0 });
+    });
+
+    // Prevent proceeding to checkout when 0 items are selected
+    $(document).on('click', '.bv-checkout-btn.is-disabled, .checkout-button.is-disabled', function (e) {
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        alert('Vui lòng chọn ít nhất một sản phẩm trong giỏ để tiến hành thanh toán.');
+        return false;
+    });
+
     $(document).on('click', 'body.woocommerce-cart .checkout-button, body.woocommerce-cart .woocommerce-mini-cart__buttons .checkout', function (event) {
+        if ($(this).hasClass('is-disabled')) {
+            event.preventDefault();
+            event.stopImmediatePropagation();
+            alert('Vui lòng chọn ít nhất một sản phẩm trong giỏ để tiến hành thanh toán.');
+            return false;
+        }
         if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey) return;
         event.preventDefault();
         var href = this.href;

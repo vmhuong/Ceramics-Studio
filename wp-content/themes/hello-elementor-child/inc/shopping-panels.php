@@ -35,6 +35,8 @@ add_action( 'wp_enqueue_scripts', function () {
         'qtyUrl'       => WC_AJAX::get_endpoint( 'bv_update_cart_quantity' ),
         'qtyNonce'     => wp_create_nonce( 'bv_cart_qty_nonce' ),
         'switchVarUrl' => WC_AJAX::get_endpoint( 'bv_switch_cart_variation' ),
+        'selectUrl'    => WC_AJAX::get_endpoint( 'bv_toggle_cart_selection' ),
+        'selectNonce'  => wp_create_nonce( 'bv_cart_select_nonce' ),
     ] );
 }, 50 );
 
@@ -103,6 +105,231 @@ function bv_switch_cart_variation_ajax() {
         WC_AJAX::get_refreshed_fragments();
     } else {
         wp_send_json_error( [ 'message' => 'Không thể đổi biến thể' ] );
+    }
+}
+
+// ==========================================================================
+// SELECTIVE CART CHECKOUT (CHỌN MÓN THANH TOÁN / CHỌN TẤT CẢ)
+// ==========================================================================
+
+/**
+ * Get list of currently selected cart item keys.
+ * Default: all items in cart are selected.
+ */
+function bv_get_selected_cart_item_keys() {
+    if ( ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
+        return [];
+    }
+    $cart_keys = array_keys( WC()->cart->get_cart() );
+    $selected  = WC()->session->get( 'bv_selected_cart_items' );
+
+    if ( null === $selected || ! is_array( $selected ) ) {
+        $selected = $cart_keys;
+        WC()->session->set( 'bv_selected_cart_items', $selected );
+    } else {
+        // Intersect to ensure only valid cart items remain
+        $selected = array_values( array_intersect( $selected, $cart_keys ) );
+    }
+    return $selected;
+}
+
+/**
+ * Check if a specific cart item is selected.
+ */
+function bv_is_cart_item_selected( $cart_item_key ) {
+    $selected_keys = bv_get_selected_cart_item_keys();
+    return in_array( $cart_item_key, $selected_keys, true );
+}
+
+/**
+ * Calculate subtotal and count for currently selected cart items.
+ */
+function bv_get_selected_cart_summary() {
+    if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+        return [
+            'subtotal'      => 0,
+            'subtotal_html' => wc_price( 0 ),
+            'count'         => 0,
+            'total_items'   => 0,
+            'all_selected'  => true,
+        ];
+    }
+
+    $cart          = WC()->cart->get_cart();
+    $total_items   = count( $cart );
+    $selected_keys = bv_get_selected_cart_item_keys();
+    $subtotal      = 0.0;
+    $count         = 0;
+
+    foreach ( $cart as $key => $item ) {
+        if ( in_array( $key, $selected_keys, true ) ) {
+            $_product = $item['data'] ?? null;
+            if ( $_product && $_product->exists() ) {
+                $qty = (int) $item['quantity'];
+                $price = (float) $_product->get_price();
+                $subtotal += ( $price * $qty );
+                $count += $qty;
+            }
+        }
+    }
+
+    $all_selected = ( $total_items > 0 && count( $selected_keys ) === $total_items );
+
+    return [
+        'subtotal'      => $subtotal,
+        'subtotal_html' => wc_price( $subtotal ),
+        'count'         => $count,
+        'total_items'   => $total_items,
+        'all_selected'  => $all_selected,
+    ];
+}
+
+// When item is added to cart, make sure it is marked as selected
+add_action( 'woocommerce_add_to_cart', function ( $cart_item_key ) {
+    if ( WC()->session ) {
+        $selected = WC()->session->get( 'bv_selected_cart_items', [] );
+        if ( is_array( $selected ) && ! in_array( $cart_item_key, $selected, true ) ) {
+            $selected[] = $cart_item_key;
+            WC()->session->set( 'bv_selected_cart_items', $selected );
+        }
+    }
+} );
+
+// When item is removed from cart, clean up from selected keys
+add_action( 'woocommerce_cart_item_removed', function ( $cart_item_key ) {
+    if ( WC()->session ) {
+        $selected = WC()->session->get( 'bv_selected_cart_items', [] );
+        if ( is_array( $selected ) ) {
+            $selected = array_values( array_diff( $selected, [ $cart_item_key ] ) );
+            WC()->session->set( 'bv_selected_cart_items', $selected );
+        }
+    }
+} );
+
+// AJAX Handler for toggling selection (single item or all items)
+add_action( 'wc_ajax_bv_toggle_cart_selection', 'bv_toggle_cart_selection_ajax' );
+add_action( 'wp_ajax_bv_toggle_cart_selection', 'bv_toggle_cart_selection_ajax' );
+add_action( 'wp_ajax_nopriv_bv_toggle_cart_selection', 'bv_toggle_cart_selection_ajax' );
+
+function bv_toggle_cart_selection_ajax() {
+    check_ajax_referer( 'bv_cart_select_nonce', 'nonce' );
+    if ( ! WC()->session || ! WC()->cart ) {
+        wp_send_json_error( [ 'message' => 'Phiên giỏ hàng không hợp lệ' ] );
+    }
+
+    $all_keys = array_keys( WC()->cart->get_cart() );
+    $selected_keys = WC()->session->get( 'bv_selected_cart_items' );
+    if ( null === $selected_keys || ! is_array( $selected_keys ) ) {
+        $selected_keys = $all_keys;
+    }
+
+    if ( isset( $_POST['select_all'] ) ) {
+        $select_all = (bool) intval( $_POST['select_all'] );
+        $selected_keys = $select_all ? $all_keys : [];
+    } elseif ( isset( $_POST['cart_item_key'] ) ) {
+        $key = sanitize_text_field( $_POST['cart_item_key'] );
+        $is_checked = isset( $_POST['selected'] ) ? (bool) intval( $_POST['selected'] ) : true;
+
+        if ( $is_checked ) {
+            if ( ! in_array( $key, $selected_keys, true ) && in_array( $key, $all_keys, true ) ) {
+                $selected_keys[] = $key;
+            }
+        } else {
+            $selected_keys = array_values( array_diff( $selected_keys, [ $key ] ) );
+        }
+    }
+
+    WC()->session->set( 'bv_selected_cart_items', $selected_keys );
+    $summary = bv_get_selected_cart_summary();
+
+    wp_send_json_success( [
+        'selected_keys'      => $selected_keys,
+        'subtotal_html'      => $summary['subtotal_html'],
+        'subtotal_raw'       => $summary['subtotal'],
+        'selected_count'     => $summary['count'],
+        'total_items'        => $summary['total_items'],
+        'all_selected'       => $summary['all_selected'],
+        'is_empty_selection' => ( $summary['count'] === 0 ),
+        'checkout_text'      => 'Thanh toán (' . $summary['count'] . ')',
+    ] );
+}
+
+// Stash unselected items when entering Checkout, and Restore when returning to Cart or after order
+add_action( 'template_redirect', 'bv_handle_checkout_stash_restore' );
+function bv_handle_checkout_stash_restore() {
+    if ( ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
+        return;
+    }
+
+    // 1. If on any non-checkout page (Cart, Shop, Home, etc.):
+    // Restore any stashed items from an abandoned checkout!
+    if ( ! is_checkout() || is_cart() ) {
+        $stashed = WC()->session->get( 'bv_stashed_cart_items' );
+        if ( ! empty( $stashed ) && is_array( $stashed ) ) {
+            foreach ( $stashed as $item ) {
+                WC()->cart->add_to_cart(
+                    $item['product_id'],
+                    $item['quantity'],
+                    $item['variation_id'] ?? 0,
+                    $item['variation'] ?? [],
+                    $item
+                );
+            }
+            WC()->session->__unset( 'bv_stashed_cart_items' );
+            WC()->cart->calculate_totals();
+        }
+    }
+
+    // 2. If on Checkout page (and not order-received/thankyou or pay endpoint):
+    if ( is_checkout() && ! is_wc_endpoint_url( 'order-received' ) && ! is_wc_endpoint_url( 'order-pay' ) ) {
+        $selected_keys = bv_get_selected_cart_item_keys();
+        $cart_items    = WC()->cart->get_cart();
+
+        // If zero items selected, redirect back to cart
+        if ( empty( $selected_keys ) && ! empty( $cart_items ) ) {
+            wc_add_notice( 'Vui lòng chọn ít nhất một sản phẩm để thanh toán.', 'notice' );
+            wp_safe_redirect( wc_get_cart_url() );
+            exit;
+        }
+
+        $stashed = WC()->session->get( 'bv_stashed_cart_items', [] );
+        $has_new_stash = false;
+
+        foreach ( $cart_items as $key => $item ) {
+            if ( ! in_array( $key, $selected_keys, true ) ) {
+                $stashed[] = $item;
+                WC()->cart->remove_cart_item( $key );
+                $has_new_stash = true;
+            }
+        }
+
+        if ( $has_new_stash ) {
+            WC()->session->set( 'bv_stashed_cart_items', $stashed );
+            WC()->cart->calculate_totals();
+        }
+    }
+}
+
+// 3. After order is placed, restore remaining stashed items so they stay in cart
+add_action( 'woocommerce_checkout_order_processed', 'bv_restore_stashed_after_order' );
+function bv_restore_stashed_after_order( $order_id ) {
+    if ( ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
+        return;
+    }
+    $stashed = WC()->session->get( 'bv_stashed_cart_items' );
+    if ( ! empty( $stashed ) && is_array( $stashed ) ) {
+        foreach ( $stashed as $item ) {
+            WC()->cart->add_to_cart(
+                $item['product_id'],
+                $item['quantity'],
+                $item['variation_id'] ?? 0,
+                $item['variation'] ?? [],
+                $item
+            );
+        }
+        WC()->session->__unset( 'bv_stashed_cart_items' );
+        WC()->session->__unset( 'bv_selected_cart_items' );
+        WC()->cart->calculate_totals();
     }
 }
 
@@ -242,9 +469,30 @@ add_filter( 'woocommerce_checkout_get_value', function ( $value, $key ) {
     return 'order_comments' === $key && null === $value && WC()->session ? WC()->session->get( 'bv_cart_note', '' ) : $value;
 }, 10, 2 );
 add_action( 'woocommerce_cart_emptied', function () { if ( WC()->session ) { WC()->session->__unset( 'bv_cart_note' ); } } );
+
+// Customize Proceed to Checkout button on Cart Page to reflect selected count
+remove_action( 'woocommerce_proceed_to_checkout', 'woocommerce_button_proceed_to_checkout', 20 );
+add_action( 'woocommerce_proceed_to_checkout', function () {
+    $summary     = function_exists( 'bv_get_selected_cart_summary' ) ? bv_get_selected_cart_summary() : [ 'count' => ( WC()->cart ? count( WC()->cart->get_cart() ) : 0 ) ];
+    $is_disabled = ( empty( $summary['count'] ) );
+    ?>
+    <a href="<?php echo esc_url( wc_get_checkout_url() ); ?>" class="checkout-button button alt wc-forward bv-checkout-btn <?php echo $is_disabled ? 'is-disabled' : ''; ?>" <?php echo $is_disabled ? 'aria-disabled="true"' : ''; ?>>
+        Tiến hành thanh toán (<span class="bv-btn-count"><?php echo esc_html( $summary['count'] ); ?></span>)
+    </a>
+    <?php
+}, 20 );
+
 add_action( 'woocommerce_proceed_to_checkout', function () {
     echo '<a class="bv-cart-continue" href="' . esc_url( wc_get_page_permalink( 'shop' ) ) . '">Tiếp tục mua hàng</a>';
 }, 30 );
+
+add_filter( 'woocommerce_cart_subtotal', function ( $subtotal, $compound, $cart ) {
+    if ( ( is_cart() || wp_doing_ajax() ) && function_exists( 'bv_get_selected_cart_summary' ) ) {
+        $summary = bv_get_selected_cart_summary();
+        return '<span class="bv-selected-subtotal">' . $summary['subtotal_html'] . '</span>';
+    }
+    return $subtotal;
+}, 10, 3 );
 
 add_action( 'woocommerce_register_form_start', function () {
     foreach ( [ 'last_name' => 'Họ', 'first_name' => 'Tên' ] as $key => $label ) {
