@@ -808,13 +808,15 @@ body.bv-panel-open {
 }
 
 .bv-shopping-panel .woocommerce-mini-cart__buttons a {
-    display: block !important;
-    min-height: 38px !important;
-    height: 38px !important;
-    line-height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 40px !important;
+    height: 40px !important;
+    line-height: 1 !important;
     text-align: center !important;
     border-radius: 6px !important;
-    font-size: 13px !important;
+    font-size: 13.5px !important;
     font-weight: 600 !important;
     letter-spacing: 0.3px !important;
     text-decoration: none !important;
@@ -1284,11 +1286,17 @@ body.woocommerce-cart table.shop_table.cart td.product-remove {
     border-bottom: 1px solid #E8E2D9;
 }
 
-.bv-cart-collaterals .wc-proceed-to-checkout .checkout-button {
-    display: block !important;
+.bv-cart-collaterals .wc-proceed-to-checkout .checkout-button,
+.bv-commerce-shell .woocommerce .wc-proceed-to-checkout .checkout-button,
+.wc-proceed-to-checkout .checkout-button {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     width: 100% !important;
-    height: 44px !important;
-    line-height: 42px !important;
+    min-height: 48px !important;
+    height: 48px !important;
+    line-height: 1 !important;
+    padding: 0 20px !important;
     text-align: center !important;
     background: #B3592B !important;
     border: 1px solid #B3592B !important;
@@ -1299,6 +1307,7 @@ body.woocommerce-cart table.shop_table.cart td.product-remove {
     box-shadow: 0 2px 8px rgba(179, 89, 43, 0.22) !important;
     transition: all 0.25s ease !important;
     margin-top: 16px !important;
+    box-sizing: border-box !important;
 }
 
 .bv-cart-collaterals .wc-proceed-to-checkout .checkout-button:hover {
