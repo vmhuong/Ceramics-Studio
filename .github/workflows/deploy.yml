@@ -1,0 +1,69 @@
+name: Build, Test & Deploy CI/CD Pipeline
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch: # Cho phép bấm nút kích hoạt thủ công từ giao diện GitHub
+
+jobs:
+  # GIAI ĐOẠN 1: TỰ ĐỘNG KIỂM TRA MÃ NGUỒN (CI - Continuous Integration)
+  lint-and-test:
+    name: Kiểm tra cú pháp PHP & Cấu hình Docker
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Tải mã nguồn từ GitHub (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Khởi tạo môi trường PHP 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, mysqli, gd, opcache, zip
+
+      - name: Kiểm tra cú pháp PHP (PHP Syntax Lint)
+        run: |
+          echo "=== KIỂM TRA LỖI CÚ PHÁP CÁC FILE PHP TRONG THEME ==="
+          find wp-content/themes/hello-elementor-child -type f -name "*.php" -print0 | while IFS= read -r -d '' file; do
+            php -l "$file" || exit 1
+          done
+          echo "Tất cả các tệp PHP đều đạt chuẩn cú pháp 100%!"
+
+      - name: Kiểm tra tính hợp lệ của tệp docker-compose.yml
+        run: |
+          echo "=== KIỂM TRA CẤU TRÚC TỆP DOCKER COMPOSE ==="
+          docker compose config --quiet
+          echo "Tệp docker-compose.yml hoàn toàn hợp lệ!"
+
+  # GIAI ĐOẠN 2: TỰ ĐỘNG TRIỂN KHAI LÊN MÁY CHỦ (CD - Continuous Deployment)
+  deploy:
+    name: Triển khai lên máy chủ VPS qua SSH
+    needs: lint-and-test
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kết nối SSH và cập nhật hệ thống trên Máy chủ
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
+          script: |
+            echo "=== BẮT ĐẦU CẬP NHẬT TRÊN MÁY CHỦ ==="
+            cd ${{ secrets.DEPLOY_PATH || '/var/www/bookverse' }}
+
+            # Kéo code mới nhất từ GitHub
+            git pull origin master
+
+            # Tái tạo và khởi động các container Docker
+            docker compose down
+            docker compose up -d --build
+
+            # Dọn dẹp các image cũ không còn dùng
+            docker image prune -f
+
+            echo "=== TRIỂN KHAI THÀNH CÔNG VÀ AN TOÀN! ==="

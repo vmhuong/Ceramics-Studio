@@ -1,0 +1,86 @@
+services:
+  # 1. DỊCH VỤ MÁY CHỦ WEB NGINX
+  nginx:
+    image: nginx:alpine
+    container_name: bookverse_nginx
+    restart: unless-stopped
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    volumes:
+      - ./:/var/www/html
+      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
+    depends_on:
+      - wordpress
+    networks:
+      - bookverse_net
+
+  # 2. DỊCH VỤ XỬ LÝ ỨNG DỤNG (PHP-FPM + WORDPRESS + REDIS EXTENSION)
+  wordpress:
+    build:
+      context: .
+      dockerfile: .docker/php/Dockerfile
+    container_name: bookverse_php
+    restart: unless-stopped
+    volumes:
+      - ./:/var/www/html
+      - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
+    environment:
+      WORDPRESS_DB_HOST: db:3306
+      WORDPRESS_DB_NAME: ${DB_NAME:-bookverse}
+      WORDPRESS_DB_USER: ${DB_USER:-bookverse_user}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-BookversePass2026@}
+    depends_on:
+      - db
+      - redis
+    networks:
+      - bookverse_net
+
+  # 3. DỊCH VỤ CƠ SỞ DỮ LIỆU MARIADB (CHUẨN HÓA CHO WOOCOMMERCE)
+  db:
+    image: mariadb:10.11
+    container_name: bookverse_db
+    restart: unless-stopped
+    command: [
+      'mysqld',
+      '--character-set-server=utf8mb4',
+      '--collation-server=utf8mb4_unicode_ci',
+      '--max_connections=150',
+      '--innodb_buffer_pool_size=256M'
+    ]
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-RootPassSec2026@}
+      MYSQL_DATABASE: ${DB_NAME:-bookverse}
+      MYSQL_USER: ${DB_USER:-bookverse_user}
+      MYSQL_PASSWORD: ${DB_PASSWORD:-BookversePass2026@}
+    volumes:
+      - db_data:/var/lib/mysql
+    ports:
+      - "${DB_PORT:-3307}:3306"
+    networks:
+      - bookverse_net
+
+  # 4. DỊCH VỤ BỘ NHỚ ĐỆM TỐC HÀNH REDIS
+  redis:
+    image: redis:7-alpine
+    container_name: bookverse_redis
+    restart: unless-stopped
+    command: redis-server /usr/local/etc/redis/redis.conf
+    volumes:
+      - ./.docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
+      - redis_data:/data
+    ports:
+      - "${REDIS_PORT:-6380}:6379"
+    networks:
+      - bookverse_net
+
+# ĐỊNH NGHĨA MẠNG NỘI BỘ VÀ VÙNG LƯU TRỮ BỀN VỮNG
+networks:
+  bookverse_net:
+    driver: bridge
+
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
