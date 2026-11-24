@@ -430,7 +430,20 @@ function bv_get_or_create_workshop_product( $package ) {
 		$product->set_price( $package['price'] );
 		$product->set_virtual( true ); // Virtual product (no shipping needed)
 		$product->set_description( $package['description'] );
+
+		// Set default workshop image
+		$ws_img_id = (int) get_option( 'bv_workshop_default_img', 26 );
+		if ( $ws_img_id ) {
+			$product->set_image_id( $ws_img_id );
+		}
+
 		$product_id = $product->save();
+
+		// Assign to internal ticket category so it never pollutes uncategorized
+		$term = get_term_by( 'slug', 've-workshop-noi-bo', 'product_cat' );
+		if ( $term && $product_id ) {
+			wp_set_object_terms( $product_id, [ (int) $term->term_id ], 'product_cat' );
+		}
 	}
 
 	return $product_id;

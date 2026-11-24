@@ -119,6 +119,23 @@ function bv_define_vietqr_class() {
 						'qr_only'  => 'Chỉ mã QR',
 					],
 				],
+				'webhook_section' => [
+					'title'       => 'Cấu hình Webhook Tự Động Duyệt Tiền (SePay / Casso)',
+					'type'        => 'title',
+					'description' => 'Tự động kích hoạt trạng thái "Đã thanh toán" ngay khi tiền về tài khoản MBBank qua cổng SePay hoặc Casso.<br><strong>URL Webhook của bạn:</strong> <code>' . esc_url( rest_url( 'bv-vietqr/v1/webhook' ) ) . '</code>',
+				],
+				'webhook_enabled' => [
+					'title'   => 'Bật duyệt tự động',
+					'type'    => 'checkbox',
+					'label'   => 'Kích hoạt tự động duyệt đơn khi tiền về tài khoản ngân hàng',
+					'default' => 'yes',
+				],
+				'webhook_token'   => [
+					'title'       => 'Mã Secret Token (API Key)',
+					'type'        => 'text',
+					'description' => 'Nhập cùng chuỗi bí mật này vào cấu hình Webhook của SePay hoặc Casso để bảo mật kết nối.',
+					'default'     => 'vietqr_sec_' . substr( md5( wp_salt() ), 0, 16 ),
+				],
 			];
 		}
 
