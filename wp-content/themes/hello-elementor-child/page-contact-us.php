@@ -27,6 +27,73 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['bv_contact_submit']
 		if ( empty( $name ) || empty( $phone ) ) {
 			$form_error = 'Vui lòng nhập họ tên và số điện thoại / Zalo để xưởng tiện liên hệ lại.';
 		} else {
+			// 1. Tự động lưu bản ghi vào Fluent Forms để chủ xưởng xem và quản lý trong Admin
+			global $wpdb;
+			$ff_form = $wpdb->get_row( "SELECT id FROM {$wpdb->prefix}fluentform_forms WHERE title LIKE '%Liên Hệ%' LIMIT 1" );
+			if ( $ff_form ) {
+				$ff_form_id  = (int) $ff_form->id;
+				$last_serial = (int) $wpdb->get_var( $wpdb->prepare(
+					"SELECT MAX(serial_number) FROM {$wpdb->prefix}fluentform_submissions WHERE form_id = %d",
+					$ff_form_id
+				) );
+				$serial_number = $last_serial + 1;
+
+				$response_data = [
+					'names'            => $name,
+					'phone'            => $phone,
+					'email'            => $email ?: '',
+					'service'          => $service,
+					'message'          => $message ?: '',
+					'_wp_http_referer' => '/contact-us/',
+				];
+
+				$inserted = $wpdb->insert(
+					$wpdb->prefix . 'fluentform_submissions',
+					[
+						'form_id'       => $ff_form_id,
+						'serial_number' => $serial_number,
+						'response'      => wp_json_encode( $response_data, JSON_UNESCAPED_UNICODE ),
+						'source_url'    => home_url( '/contact-us/' ),
+						'user_id'       => get_current_user_id() ?: null,
+						'status'        => 'unread',
+						'ip'            => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : '',
+						'browser'       => isset( $_SERVER['HTTP_USER_AGENT'] ) ? substr( sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ), 0, 45 ) : 'Chrome',
+						'device'        => 'Desktop',
+						'created_at'    => current_time( 'mysql' ),
+						'updated_at'    => current_time( 'mysql' ),
+					]
+				);
+
+				if ( $inserted ) {
+					$submission_id = $wpdb->insert_id;
+					$details = [
+						'names'   => $name,
+						'phone'   => $phone,
+						'email'   => $email ?: '',
+						'service' => $service,
+						'message' => $message ?: '',
+					];
+
+					foreach ( $details as $field_k => $field_v ) {
+						if ( '' !== $field_v ) {
+							$wpdb->insert(
+								$wpdb->prefix . 'fluentform_entry_details',
+								[
+									'form_id'        => $ff_form_id,
+									'submission_id'  => $submission_id,
+									'field_name'     => $field_k,
+									'sub_field_name' => '',
+									'field_value'    => (string) $field_v,
+								]
+							);
+						}
+					}
+
+					do_action( 'fluentform/submission_inserted', $submission_id, $response_data, $ff_form );
+				}
+			}
+
+			// 2. Gửi email thông báo cho chủ xưởng
 			$to      = 'vmhuong05@gmail.com';
 			$subject = sprintf( '[Ceramic Studio] Liên hệ mới từ %s (%s)', $name, $phone );
 			$body    = sprintf(
