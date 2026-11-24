@@ -410,6 +410,12 @@ jQuery(function ($) {
                     var d = res.data;
                     // Update subtotal formatted text
                     $('.bv-selected-subtotal').html(d.subtotal_html);
+                    $('.cart-subtotal .amount').html(d.subtotal_html);
+                    // Update total formatted text
+                    if ($('.bv-selected-total').length) {
+                        $('.bv-selected-total').html(d.total_html);
+                    }
+                    $('.order-total .amount').html(d.total_html);
                     // Update count numbers on checkout buttons
                     $('.bv-btn-count').text(d.selected_count);
                     // Update Select All checkbox state

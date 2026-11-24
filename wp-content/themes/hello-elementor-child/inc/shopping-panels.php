@@ -184,6 +184,47 @@ function bv_get_selected_cart_summary() {
     ];
 }
 
+/**
+ * Check if selective cart calculation is currently active.
+ * Inactive during checkout processing so WooCommerce calculates natively.
+ */
+function bv_is_cart_selection_active() {
+    if ( ! function_exists( 'WC' ) || ! WC()->session || ! WC()->cart ) {
+        return false;
+    }
+    if ( function_exists( 'is_checkout' ) && is_checkout() ) {
+        return false;
+    }
+    $stashed = WC()->session->get( 'bv_stashed_cart_items' );
+    if ( ! empty( $stashed ) ) {
+        return false;
+    }
+    return true;
+}
+
+/**
+ * Calculate grand total for currently selected cart items.
+ */
+function bv_get_selected_cart_total() {
+    if ( ! function_exists( 'WC' ) || ! WC()->cart ) {
+        return 0.0;
+    }
+
+    $summary = bv_get_selected_cart_summary();
+    if ( empty( $summary['count'] ) ) {
+        return 0.0;
+    }
+
+    $subtotal       = (float) $summary['subtotal'];
+    $shipping_total = (float) WC()->cart->get_shipping_total();
+    $shipping_tax   = (float) WC()->cart->get_shipping_tax();
+    $fee_total      = (float) WC()->cart->get_fee_total();
+    $discount_total = (float) WC()->cart->get_discount_total();
+
+    $grand_total = $subtotal + $shipping_total + $shipping_tax + $fee_total - $discount_total;
+    return max( 0.0, $grand_total );
+}
+
 // When item is added to cart, make sure it is marked as selected
 add_action( 'woocommerce_add_to_cart', function ( $cart_item_key ) {
     if ( WC()->session ) {
@@ -241,11 +282,14 @@ function bv_toggle_cart_selection_ajax() {
 
     WC()->session->set( 'bv_selected_cart_items', $selected_keys );
     $summary = bv_get_selected_cart_summary();
+    $total   = bv_get_selected_cart_total();
 
     wp_send_json_success( [
         'selected_keys'      => $selected_keys,
         'subtotal_html'      => $summary['subtotal_html'],
         'subtotal_raw'       => $summary['subtotal'],
+        'total_html'         => wc_price( $total ),
+        'total_raw'          => $total,
         'selected_count'     => $summary['count'],
         'total_items'        => $summary['total_items'],
         'all_selected'       => $summary['all_selected'],
@@ -256,7 +300,7 @@ function bv_toggle_cart_selection_ajax() {
 
 // Invalidate stale browser sessionStorage mini-cart cache
 add_filter( 'woocommerce_cart_hash', function ( $hash ) {
-    return md5( $hash . '_bv_sel_v4' );
+    return md5( $hash . '_bv_sel_v5' );
 } );
 
 // Ensure WooCommerce fragment refresh always delivers updated mini-cart
@@ -500,12 +544,27 @@ add_action( 'woocommerce_proceed_to_checkout', function () {
 }, 30 );
 
 add_filter( 'woocommerce_cart_subtotal', function ( $subtotal, $compound, $cart ) {
-    if ( ( is_cart() || wp_doing_ajax() ) && function_exists( 'bv_get_selected_cart_summary' ) ) {
+    if ( function_exists( 'bv_is_cart_selection_active' ) && bv_is_cart_selection_active() && function_exists( 'bv_get_selected_cart_summary' ) ) {
         $summary = bv_get_selected_cart_summary();
         return '<span class="bv-selected-subtotal">' . $summary['subtotal_html'] . '</span>';
     }
     return $subtotal;
 }, 10, 3 );
+
+add_filter( 'woocommerce_cart_get_total', function ( $total ) {
+    if ( function_exists( 'bv_is_cart_selection_active' ) && bv_is_cart_selection_active() && function_exists( 'bv_get_selected_cart_total' ) ) {
+        return bv_get_selected_cart_total();
+    }
+    return $total;
+}, 10, 1 );
+
+add_filter( 'woocommerce_cart_total', function ( $total_html ) {
+    if ( function_exists( 'bv_is_cart_selection_active' ) && bv_is_cart_selection_active() && function_exists( 'bv_get_selected_cart_total' ) ) {
+        $total = bv_get_selected_cart_total();
+        return '<span class="bv-selected-total">' . wc_price( $total ) . '</span>';
+    }
+    return $total_html;
+}, 10, 1 );
 
 add_action( 'woocommerce_register_form_start', function () {
     foreach ( [ 'last_name' => 'Họ', 'first_name' => 'Tên' ] as $key => $label ) {
