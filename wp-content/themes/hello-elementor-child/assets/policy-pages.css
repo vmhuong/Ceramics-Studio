@@ -1,0 +1,302 @@
+/**
+ * Policy Pages Styling - Ceramic Studio (Wabi-Sabi Luxury Craft)
+ * @package HelloElementorChild
+ */
+
+.bv-policy-shell {
+    background-color: #FAF7F2;
+    padding: 40px 0 80px;
+    min-height: 80vh;
+}
+
+.bv-policy-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Breadcrumb */
+.bv-policy-breadcrumb {
+    margin-bottom: 24px;
+    font-size: 13.5px;
+    color: #796853;
+}
+
+.bv-policy-breadcrumb a {
+    color: #796853;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.bv-policy-breadcrumb a:hover {
+    color: #B3592B;
+}
+
+.bv-policy-breadcrumb .bv-sep {
+    margin: 0 8px;
+    opacity: 0.5;
+}
+
+.bv-policy-breadcrumb .bv-current {
+    color: #2C2523;
+    font-weight: 600;
+}
+
+/* Two-column Layout */
+.bv-policy-layout {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 40px;
+    align-items: start;
+}
+
+/* Left Sidebar Navigation */
+.bv-policy-sidebar {
+    position: sticky;
+    top: 90px;
+}
+
+.bv-policy-nav-box {
+    background: #FFFFFF;
+    border: 1px solid #E8E2D9;
+    border-radius: 8px;
+    padding: 24px;
+    box-shadow: 0 2px 12px rgba(44, 37, 35, 0.04);
+    margin-bottom: 24px;
+}
+
+.bv-policy-nav-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: #B3592B;
+    margin: 0 0 16px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid #F0EAE1;
+}
+
+.bv-policy-nav-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.bv-policy-nav-item {
+    margin-bottom: 8px;
+}
+
+.bv-policy-nav-item:last-child {
+    margin-bottom: 0;
+}
+
+.bv-policy-nav-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #4A3C31;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.bv-policy-nav-link:hover {
+    background: #F7F3EE;
+    color: #B3592B;
+}
+
+.bv-policy-nav-link.is-active {
+    background: #B3592B;
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+.bv-policy-nav-link .bv-arrow {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.bv-policy-nav-link.is-active .bv-arrow {
+    opacity: 1;
+}
+
+/* Support Box in Sidebar */
+.bv-policy-support-box {
+    background: #F4EFEA;
+    border: 1px dashed #D6CBC0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.bv-policy-support-box h4 {
+    font-size: 15px;
+    font-weight: 700;
+    color: #2C2523;
+    margin: 0 0 8px;
+}
+
+.bv-policy-support-box p {
+    font-size: 13px;
+    line-height: 1.6;
+    color: #5C4E42;
+    margin: 0 0 14px;
+}
+
+.bv-policy-zalo-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    height: 40px;
+    background: #B3592B;
+    color: #FFFFFF;
+    font-size: 13.5px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: background 0.2s ease;
+}
+
+.bv-policy-zalo-btn:hover {
+    background: #8F401B;
+}
+
+/* Right Content Article */
+.bv-policy-content-card {
+    background: #FFFFFF;
+    border: 1px solid #E8E2D9;
+    border-radius: 8px;
+    padding: 40px 48px;
+    box-shadow: 0 2px 12px rgba(44, 37, 35, 0.04);
+}
+
+.bv-policy-header {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #F0EAE1;
+}
+
+.bv-policy-eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    color: #B3592B;
+    margin-bottom: 8px;
+}
+
+.bv-policy-title {
+    font-family: Georgia, 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #2C2523;
+    margin: 0 0 12px;
+}
+
+.bv-policy-meta {
+    font-size: 13px;
+    color: #9C8E80;
+}
+
+/* Rich Prose Typography */
+.bv-policy-body {
+    font-size: 15px;
+    line-height: 1.8;
+    color: #3C312C;
+}
+
+.bv-policy-body h2 {
+    font-family: Georgia, 'Playfair Display', serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #2C2523;
+    margin: 36px 0 14px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #F4EFEA;
+}
+
+.bv-policy-body h3 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #4A3C31;
+    margin: 24px 0 10px;
+}
+
+.bv-policy-body p {
+    margin-bottom: 16px;
+}
+
+.bv-policy-body ul, .bv-policy-body ol {
+    margin: 0 0 20px 20px;
+    padding: 0;
+}
+
+.bv-policy-body li {
+    margin-bottom: 8px;
+}
+
+.bv-policy-body strong {
+    color: #2C2523;
+}
+
+/* Highlighted Callout Alert Boxes */
+.bv-policy-callout {
+    background: #FAF5F0;
+    border-left: 4px solid #B3592B;
+    border-radius: 0 6px 6px 0;
+    padding: 18px 22px;
+    margin: 24px 0;
+}
+
+.bv-policy-callout h4 {
+    margin: 0 0 8px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #B3592B;
+}
+
+.bv-policy-callout p {
+    margin: 0;
+    font-size: 14px;
+    color: #4A3C31;
+}
+
+/* Step badges */
+.bv-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    background: #B3592B;
+    color: #FFFFFF;
+    font-size: 12px;
+    font-weight: 700;
+    border-radius: 50%;
+    margin-right: 8px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .bv-policy-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .bv-policy-sidebar {
+        position: static;
+    }
+
+    .bv-policy-content-card {
+        padding: 28px 20px;
+    }
+
+    .bv-policy-title {
+        font-size: 24px;
+    }
+}

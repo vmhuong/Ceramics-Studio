@@ -67,7 +67,7 @@ $contact_url  = home_url( '/contact-us/' );
 					<li><a href="<?php echo esc_url( $workshop_url ); ?>">Khóa xoay gốm bàn xoay tự do</a></li>
 					<li><a href="<?php echo esc_url( $workshop_url ); ?>">Ca trải nghiệm đôi &amp; gia đình</a></li>
 					<li><a href="<?php echo esc_url( $workshop_url ); ?>">Teambuilding &amp; đoàn thể</a></li>
-					<li><a href="<?php echo esc_url( $contact_url ); ?>">Quy trình nhận thành phẩm sau nung</a></li>
+					<li><a href="<?php echo esc_url( home_url( '/quy-dinh-workshop/' ) ); ?>">Quy định đặt &amp; đổi lịch</a></li>
 				</ul>
 			</div>
 
@@ -108,11 +108,13 @@ $contact_url  = home_url( '/contact-us/' );
 					&copy; <?php echo date( 'Y' ); ?> <strong>Ceramic Studio</strong> — Vũ Mạnh Hướng (PM28.11). Giữ trọn tinh hoa gốm thủ công Việt.
 				</p>
 				<div class="bv-footer-trust-notes">
-					<span>Bảo hành bể vỡ 100%</span>
+					<a href="<?php echo esc_url( home_url( '/chinh-sach-doi-tra/' ) ); ?>">Bảo hành bể vỡ 100%</a>
 					<span class="bv-dot-sep">•</span>
-					<span>Đổi trả trong 7 ngày</span>
+					<a href="<?php echo esc_url( home_url( '/chinh-sach-doi-tra/' ) ); ?>">Đổi trả trong 7 ngày</a>
 					<span class="bv-dot-sep">•</span>
-					<span>Đóng gói mộc an toàn</span>
+					<a href="<?php echo esc_url( home_url( '/chinh-sach-bao-mat/' ) ); ?>">Chính sách bảo mật</a>
+					<span class="bv-dot-sep">•</span>
+					<a href="<?php echo esc_url( home_url( '/quy-dinh-workshop/' ) ); ?>">Quy định workshop</a>
 				</div>
 			</div>
 		</div>
