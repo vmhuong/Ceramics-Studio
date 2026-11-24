@@ -695,14 +695,19 @@ span.bv-toggle-collapse-btn:active {
 	line-height: 1.2;
 }
 
-.bv-card-price-bar {
+.bv-card-meta-line {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	gap: 4px;
-	margin-top: 6px;
+	font-size: 11px;
+	color: #9C8E84;
+	font-weight: 500;
+	margin-bottom: 6px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
 }
 
+.bv-card-meta-line .bv-pt-star-pill,
 .bv-card-price-bar .bv-pt-star-pill {
 	display: inline-flex;
 	align-items: center;
@@ -716,15 +721,15 @@ span.bv-toggle-collapse-btn:active {
 	border-radius: 4px;
 	line-height: 1.2;
 	flex-shrink: 0;
+	text-transform: none;
+	letter-spacing: normal;
 }
 
-.bv-card-meta-line {
-	font-size: 11.5px;
-	color: #9C8E84;
-	font-weight: 500;
-	margin-bottom: 6px;
-	text-transform: uppercase;
-	letter-spacing: 0.5px;
+.bv-card-price-bar {
+	display: flex;
+	align-items: center;
+	margin-top: 8px;
+	width: 100%;
 }
 
 .bv-card-price {
@@ -732,13 +737,13 @@ span.bv-toggle-collapse-btn:active {
 	align-items: baseline;
 	flex-wrap: nowrap;
 	white-space: nowrap;
-	gap: 2px 6px;
-	font-size: 14.5px;
+	gap: 3px 8px;
+	font-size: 15.5px;
 	font-weight: 700;
 	color: var(--bv-c-clay, #b3592b);
 	margin-top: auto;
 	line-height: 1.3;
-	min-width: 0;
+	width: 100%;
 }
 
 .bv-card-price .woocommerce-Price-amount,

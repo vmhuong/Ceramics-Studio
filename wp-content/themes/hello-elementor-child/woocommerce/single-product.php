@@ -323,7 +323,10 @@ while ( have_posts() ) : the_post();
 								</a>
 							</div>
 							<div class="bv-card-body">
-								<div class="bv-card-meta-line">Gốm Mộc Thủ Công</div>
+								<div class="bv-card-meta-line">
+									<span>Gốm Mộc Thủ Công</span>
+									<span class="bv-pt-star-pill">★ 5.0</span>
+								</div>
 								<h3 class="bv-card-title">
 									<a href="<?php echo esc_url( $r_prod->get_permalink() ); ?>">
 										<?php echo esc_html( $r_prod->get_name() ); ?>
@@ -333,7 +336,6 @@ while ( have_posts() ) : the_post();
 									<div class="bv-card-price">
 										<?php echo wp_kses_post( $r_prod->get_price_html() ); ?>
 									</div>
-									<span class="bv-pt-star-pill">★ 5.0</span>
 								</div>
 							</div>
 						</article>

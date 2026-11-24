@@ -1070,12 +1070,20 @@ button.single_add_to_cart_button:hover {
 }
 
 .bv-product-card--compact .bv-card-meta-line {
+	display: flex !important;
+	align-items: center !important;
+	justify-content: space-between !important;
 	font-size: 10px !important;
 	font-weight: 700 !important;
 	text-transform: uppercase !important;
 	letter-spacing: 0.8px !important;
 	color: var(--bv-c-clay) !important;
 	margin-bottom: 4px !important;
+}
+
+.bv-product-card--compact .bv-card-meta-line .bv-pt-star-pill {
+	text-transform: none !important;
+	letter-spacing: normal !important;
 }
 
 .bv-product-card--compact .bv-card-title {

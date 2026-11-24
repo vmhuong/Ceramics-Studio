@@ -346,7 +346,10 @@ if ( $is_featured ) {
 
 								<!-- Product Info Body -->
 								<div class="bv-card-body">
-									<div class="bv-card-meta-line">Gốm Mộc Thủ Công</div>
+									<div class="bv-card-meta-line">
+										<span>Gốm Mộc Thủ Công</span>
+										<span class="bv-pt-star-pill">★ 5.0</span>
+									</div>
 
 									<h3 class="bv-card-title">
 										<a href="<?php echo esc_url( $permalink ); ?>">
@@ -354,7 +357,7 @@ if ( $is_featured ) {
 										</a>
 									</h3>
 
-									<!-- Price & Rating Inline -->
+									<!-- Price Bar (Full Width) -->
 									<div class="bv-card-price-bar">
 										<div class="bv-card-price <?php echo $is_on_sale_p ? 'has-discount' : ''; ?>">
 											<?php echo wp_kses_post( $price_html ); ?>
@@ -362,7 +365,6 @@ if ( $is_featured ) {
 												<span class="bv-price-save-tag">-<?php echo esc_html( $discount_pct ); ?>%</span>
 											<?php endif; ?>
 										</div>
-										<span class="bv-pt-star-pill">★ 5.0</span>
 									</div>
 								</div>
 
