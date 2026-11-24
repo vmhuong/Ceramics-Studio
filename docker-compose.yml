@@ -74,6 +74,22 @@ services:
     networks:
       - bookverse_net
 
+  # 5. DỊCH VỤ QUẢN TRỊ CƠ SỞ DỮ LIỆU PHPMYADMIN
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: bookverse_pma
+    restart: unless-stopped
+    ports:
+      - "${PMA_PORT:-8081}:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      UPLOAD_LIMIT: 64M
+    depends_on:
+      - db
+    networks:
+      - bookverse_net
+
 # ĐỊNH NGHĨA MẠNG NỘI BỘ VÀ VÙNG LƯU TRỮ BỀN VỮNG
 networks:
   bookverse_net:
