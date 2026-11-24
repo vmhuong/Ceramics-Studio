@@ -52,7 +52,7 @@ function bv_handle_vietqr_webhook( WP_REST_Request $request ) {
 	$params = $request->get_json_params() ?: $request->get_params();
 
 	// Support both SePay & Casso payload formats
-	$content = $params['content'] ?? $params['description'] ?? '';
+	$content = $params['content'] ?? $params['description'] ?? $params['transactionContent'] ?? '';
 	$amount  = (float) ( $params['transferAmount'] ?? $params['amount'] ?? $params['amountIn'] ?? 0 );
 	$ref_id  = sanitize_text_field( $params['referenceCode'] ?? $params['id'] ?? $params['transaction_id'] ?? '' );
 
