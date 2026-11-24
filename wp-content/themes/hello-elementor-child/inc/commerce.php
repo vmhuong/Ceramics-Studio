@@ -9,13 +9,16 @@ add_action( 'wp_enqueue_scripts', function () {
 		return;
 	}
 	wp_enqueue_style( 'elementor-icons' );
-	wp_enqueue_script( 'wc-cart-fragments' );
+	// Only load cart fragments when necessary (not on static content pages when cart is empty)
+	if ( ! is_front_page() && ! is_page( [ 've-xuong-gom', 'lien-he', 'workshop' ] ) || ( WC()->cart && ! WC()->cart->is_empty() ) ) {
+		wp_enqueue_script( 'wc-cart-fragments' );
+	}
 	wp_enqueue_script( 'wc-add-to-cart' );
 	wp_enqueue_style( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.css', [ 'hello-elementor-child' ], time() );
 	if ( is_account_page() ) {
 		wp_enqueue_style( 'bv-account', get_stylesheet_directory_uri() . '/assets/account.css', [ 'bv-commerce' ], time() );
 	}
-	wp_enqueue_script( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.js', [ 'jquery', 'wc-cart-fragments' ], time(), true );
+	wp_enqueue_script( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.js', [ 'jquery' ], time(), true );
 }, 40 );
 
 function bv_header_cart() {
