@@ -1,42 +1,98 @@
+# =============================================================
+# BOOKVERSE - DOCKER COMPOSE (PRODUCTION STANDARD)
+# =============================================================
+# Nguyen tac:
+#   - Moi service build image rieng voi config da bake-in
+#   - Chi mount volume du lieu (code, database, cache)
+#   - KHONG mount config file (day la production standard)
+#   - Moi thay doi config -> rebuild image -> restart service
+# =============================================================
+
 services:
-  # 1. DỊCH VỤ MÁY CHỦ WEB NGINX
+
+  # ── 1. NGINX ─ Web Server ──────────────────────────────────
+  # Build tu .docker/nginx/Dockerfile (config da COPY vao image)
   nginx:
-    image: nginx:alpine
+    build:
+      context: .docker/nginx
+    image: bookverse/nginx:latest
     container_name: bookverse_nginx
     restart: unless-stopped
     ports:
       - "${NGINX_PORT:-8080}:80"
     volumes:
-      - bookverse_code:/var/www/html
-      - ./.docker/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
-      - ./.docker/nginx/conf.d:/etc/nginx/conf.d:ro
+      - bookverse_code:/var/www/html:ro   # chi doc - nginx khong can ghi
     depends_on:
-      - wordpress
+      wordpress:
+        condition: service_healthy
     networks:
       - bookverse_net
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://127.0.0.1/"]
+      interval: 15s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
-  # 2. DỊCH VỤ XỬ LÝ ỨNG DỤNG (PHP-FPM + WORDPRESS + REDIS EXTENSION)
+  # ── 2. PHP-FPM ─ Application ───────────────────────────────
+  # Build tu .docker/php/Dockerfile (OPcache, extensions, PHP-FPM pool da COPY vao image)
   wordpress:
     build:
       context: .
       dockerfile: .docker/php/Dockerfile
+    image: bookverse/php:latest
     container_name: bookverse_php
     restart: unless-stopped
     volumes:
-      - bookverse_code:/var/www/html
-      - ./.docker/php/local.ini:/usr/local/etc/php/conf.d/local.ini:ro
+      - bookverse_code:/var/www/html      # doc/ghi - PHP can ghi file
     environment:
       WORDPRESS_DB_HOST: db:3306
       WORDPRESS_DB_NAME: ${DB_NAME:-bookverse}
       WORDPRESS_DB_USER: ${DB_USER:-bookverse_user}
-      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD:-BookversePass2026@}
+      WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      REDIS_PASSWORD: ${REDIS_PASSWORD}
     depends_on:
-      - db
-      - redis
+      db:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
     networks:
       - bookverse_net
+    healthcheck:
+      test: ["CMD", "nc", "-z", "127.0.0.1", "9000"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.5'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 128M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
-  # 3. DỊCH VỤ CƠ SỞ DỮ LIỆU MARIADB (CHUẨN HÓA CHO WOOCOMMERCE)
+  # ── 3. MARIADB ─ Database ──────────────────────────────────
+  # Dung image chinh thuc, config qua --command flags
   db:
     image: mariadb:10.11
     container_name: bookverse_db
@@ -46,35 +102,91 @@ services:
       '--character-set-server=utf8mb4',
       '--collation-server=utf8mb4_unicode_ci',
       '--max_connections=150',
-      '--innodb_buffer_pool_size=256M'
+      '--innodb_buffer_pool_size=256M',
+      '--slow_query_log=1',
+      '--slow_query_log_file=/var/log/mysql/slow.log',
+      '--long_query_time=2',
+      '--log_queries_not_using_indexes=1',
+      '--tmp_table_size=64M',
+      '--max_heap_table_size=64M'
     ]
     environment:
-      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-RootPassSec2026@}
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD}
       MYSQL_DATABASE: ${DB_NAME:-bookverse}
       MYSQL_USER: ${DB_USER:-bookverse_user}
-      MYSQL_PASSWORD: ${DB_PASSWORD:-BookversePass2026@}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
     volumes:
-      - db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql            # du lieu DB luu tru ben vung
     ports:
       - "${DB_PORT:-3307}:3306"
     networks:
       - bookverse_net
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 40s
+    deploy:
+      resources:
+        limits:
+          cpus: '1.0'
+          memory: 512M
+        reservations:
+          cpus: '0.25'
+          memory: 256M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
-  # 4. DỊCH VỤ BỘ NHỚ ĐỆM TỐC HÀNH REDIS
+  # ── 4. REDIS ─ Cache ───────────────────────────────────────
+  # Dung image chinh thuc, config qua --command args (password tu env var)
   redis:
     image: redis:7-alpine
     container_name: bookverse_redis
     restart: unless-stopped
-    command: redis-server /usr/local/etc/redis/redis.conf
+    command: >
+      redis-server
+      --maxmemory 256mb
+      --maxmemory-policy allkeys-lru
+      --save ""
+      --appendonly no
+      --timeout 300
+      --tcp-keepalive 60
+      --requirepass ${REDIS_PASSWORD}
+      --rename-command FLUSHALL ""
+      --rename-command FLUSHDB ""
+      --rename-command DEBUG ""
     volumes:
-      - ./.docker/redis/redis.conf:/usr/local/etc/redis/redis.conf:ro
-      - redis_data:/data
+      - redis_data:/data                  # du lieu cache (neu can persistence)
     ports:
       - "${REDIS_PORT:-6380}:6379"
     networks:
       - bookverse_net
+    healthcheck:
+      test: ["CMD", "redis-cli", "-a", "${REDIS_PASSWORD}", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 10s
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 300M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
 
-  # 5. DỊCH VỤ QUẢN TRỊ CƠ SỞ DỮ LIỆU PHPMYADMIN
+  # ── 5. PHPMYADMIN ─ DB Admin (Dev Only) ───────────────────
+  # Ghi chu: o production that su, service nay se bi xoa bo
   phpmyadmin:
     image: phpmyadmin:latest
     container_name: bookverse_pma
@@ -86,18 +198,33 @@ services:
       PMA_PORT: 3306
       UPLOAD_LIMIT: 64M
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     networks:
       - bookverse_net
+    deploy:
+      resources:
+        limits:
+          cpus: '0.25'
+          memory: 128M
+        reservations:
+          cpus: '0.1'
+          memory: 64M
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "5m"
+        max-file: "3"
 
-# ĐỊNH NGHĨA MẠNG NỘI BỘ VÀ VÙNG LƯU TRỮ BỀN VỮNG
+# ── NETWORK ────────────────────────────────────────────────
 networks:
   bookverse_net:
     driver: bridge
 
+# ── VOLUMES ────────────────────────────────────────────────
 volumes:
   bookverse_code:
-    external: true
+    external: true          # volume nay da ton tai truoc, khong tu dong tao
   db_data:
     driver: local
   redis_data:
