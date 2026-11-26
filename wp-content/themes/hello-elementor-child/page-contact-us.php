@@ -11,10 +11,123 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'bv_get_or_create_contact_fluent_form' ) ) {
+	/**
+	 * Ensure the "Liên Hệ Xưởng Gốm" form exists in Fluent Forms so submissions appear in Admin.
+	 */
+	function bv_get_or_create_contact_fluent_form() {
+		global $wpdb;
+		$table = $wpdb->prefix . 'fluentform_forms';
+		$form  = $wpdb->get_row( "SELECT * FROM {$table} WHERE title LIKE '%Liên Hệ%' LIMIT 1" );
+		if ( $form ) {
+			return $form;
+		}
+
+		$fields_schema = [
+			'fields' => [
+				[
+					'index'      => 0,
+					'element'    => 'input_text',
+					'attributes' => [ 'type' => 'text', 'name' => 'names', 'value' => '', 'placeholder' => 'Họ và tên' ],
+					'settings'   => [
+						'label'            => 'Họ và tên',
+						'admin_field_label'=> 'Họ và tên',
+						'label_placement'  => 'top',
+						'validation_rules' => [ 'required' => [ 'value' => true, 'message' => 'Trường này là bắt buộc' ] ],
+					],
+					'editor_options' => [ 'title' => 'Simple Text', 'template' => 'inputText' ],
+					'uniqElKey'      => 'el_bv_contact_names',
+				],
+				[
+					'index'      => 1,
+					'element'    => 'input_text',
+					'attributes' => [ 'type' => 'tel', 'name' => 'phone', 'value' => '', 'placeholder' => 'Số điện thoại / Zalo' ],
+					'settings'   => [
+						'label'            => 'Số điện thoại / Zalo',
+						'admin_field_label'=> 'Số điện thoại / Zalo',
+						'label_placement'  => 'top',
+						'validation_rules' => [ 'required' => [ 'value' => true, 'message' => 'Trường này là bắt buộc' ] ],
+					],
+					'editor_options' => [ 'title' => 'Simple Text', 'template' => 'inputText' ],
+					'uniqElKey'      => 'el_bv_contact_phone',
+				],
+				[
+					'index'      => 2,
+					'element'    => 'input_email',
+					'attributes' => [ 'type' => 'email', 'name' => 'email', 'value' => '', 'placeholder' => 'Email' ],
+					'settings'   => [
+						'label'            => 'Email',
+						'admin_field_label'=> 'Email',
+						'label_placement'  => 'top',
+						'validation_rules' => [ 'required' => [ 'value' => false ], 'email' => [ 'value' => true, 'message' => 'Email chưa hợp lệ' ] ],
+					],
+					'editor_options' => [ 'title' => 'Email Address', 'template' => 'inputText' ],
+					'uniqElKey'      => 'el_bv_contact_email',
+				],
+				[
+					'index'      => 3,
+					'element'    => 'select',
+					'attributes' => [ 'name' => 'service', 'value' => '' ],
+					'settings'   => [
+						'label'            => 'Chủ đề quan tâm',
+						'admin_field_label'=> 'Chủ đề quan tâm',
+						'label_placement'  => 'top',
+						'advanced_options' => [
+							[ 'label' => 'Tư vấn mua tác phẩm gốm mộc', 'value' => 'Tư vấn mua tác phẩm gốm mộc' ],
+							[ 'label' => 'Đăng ký tham gia Workshop làm gốm', 'value' => 'Đăng ký workshop trải nghiệm' ],
+							[ 'label' => 'Đặt quà tặng gốm độc bản / Sự kiện', 'value' => 'Đặt quà tặng doanh nghiệp độc bản' ],
+							[ 'label' => 'Đặt tạo tác theo yêu cầu riêng', 'value' => 'Đặt hàng theo kích thước riêng' ],
+							[ 'label' => 'Câu hỏi khác', 'value' => 'Khác' ],
+						],
+					],
+					'editor_options' => [ 'title' => 'Dropdown', 'template' => 'select' ],
+					'uniqElKey'      => 'el_bv_contact_service',
+				],
+				[
+					'index'      => 4,
+					'element'    => 'textarea',
+					'attributes' => [ 'name' => 'message', 'value' => '', 'rows' => 4 ],
+					'settings'   => [
+						'label'            => 'Lời nhắn',
+						'admin_field_label'=> 'Lời nhắn',
+						'label_placement'  => 'top',
+					],
+					'editor_options' => [ 'title' => 'Text Area', 'template' => 'inputTextarea' ],
+					'uniqElKey'      => 'el_bv_contact_message',
+				],
+			],
+			'submitButton' => [
+				'uniqElKey'  => 'el_bv_contact_submit',
+				'element'    => 'button',
+				'attributes' => [ 'type' => 'submit', 'class' => '' ],
+				'settings'   => [ 'button_ui' => [ 'type' => 'default', 'text' => 'Gửi Lời Nhắn Đến Xưởng' ] ],
+			],
+		];
+
+		$now = current_time( 'mysql' );
+		$wpdb->insert(
+			$table,
+			[
+				'title'       => 'Liên Hệ Xưởng Gốm',
+				'status'      => 'published',
+				'form_fields' => wp_json_encode( $fields_schema, JSON_UNESCAPED_UNICODE ),
+				'has_payment' => 0,
+				'type'        => 'form',
+				'created_by'  => get_current_user_id() ?: 1,
+				'created_at'  => $now,
+				'updated_at'  => $now,
+			]
+		);
+
+		$new_id = (int) $wpdb->insert_id;
+		return $new_id ? $wpdb->get_row( $wpdb->prepare( "SELECT * FROM {$table} WHERE id = %d", $new_id ) ) : null;
+	}
+}
+
 $form_submitted = false;
 $form_error     = '';
 
-if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['bv_contact_submit'] ) ) {
+if ( ( $_SERVER['REQUEST_METHOD'] ?? '' ) === 'POST' && isset( $_POST['bv_contact_submit'] ) ) {
 	if ( ! isset( $_POST['bv_contact_nonce'] ) || ! wp_verify_nonce( sanitize_key( $_POST['bv_contact_nonce'] ), 'bv_contact_action' ) ) {
 		$form_error = 'Yêu cầu không hợp lệ. Vui lòng tải lại trang và thử lại.';
 	} else {
@@ -29,7 +142,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['bv_contact_submit']
 		} else {
 			// 1. Tự động lưu bản ghi vào Fluent Forms để chủ xưởng xem và quản lý trong Admin
 			global $wpdb;
-			$ff_form = $wpdb->get_row( "SELECT id FROM {$wpdb->prefix}fluentform_forms WHERE title LIKE '%Liên Hệ%' LIMIT 1" );
+			$ff_form = bv_get_or_create_contact_fluent_form();
 			if ( $ff_form ) {
 				$ff_form_id  = (int) $ff_form->id;
 				$last_serial = (int) $wpdb->get_var( $wpdb->prepare(
@@ -58,7 +171,7 @@ if ( $_SERVER['REQUEST_METHOD'] === 'POST' && isset( $_POST['bv_contact_submit']
 						'status'        => 'unread',
 						'ip'            => isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( $_SERVER['REMOTE_ADDR'] ) : '',
 						'browser'       => isset( $_SERVER['HTTP_USER_AGENT'] ) ? substr( sanitize_text_field( $_SERVER['HTTP_USER_AGENT'] ), 0, 45 ) : 'Chrome',
-						'device'        => 'Desktop',
+						'device'        => wp_is_mobile() ? 'Mobile' : 'Desktop',
 						'created_at'    => current_time( 'mysql' ),
 						'updated_at'    => current_time( 'mysql' ),
 					]

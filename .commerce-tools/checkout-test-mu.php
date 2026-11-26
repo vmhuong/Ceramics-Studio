@@ -2,7 +2,9 @@
 // Temporary local test guard, inactive while stored in .commerce-tools.
 defined( 'ABSPATH' ) || exit;
 $bv_test = get_option( 'bv_checkout_test' );
-if ( ! is_array( $bv_test ) || $bv_test['expires'] < time() || ! in_array( $_SERVER['REMOTE_ADDR'] ?? '', [ '127.0.0.1', '::1' ], true ) || ! hash_equals( $bv_test['token'], $_SERVER['HTTP_X_BV_CHECKOUT_TEST'] ?? '' ) ) { return; }
+$remote_ip = $_SERVER['REMOTE_ADDR'] ?? '';
+$is_local_host = in_array( $remote_ip, [ '127.0.0.1', '::1' ], true ) || (bool) preg_match( '/^(172\.(1[6-9]|2\d|3[01])\.|192\.168\.)/', $remote_ip );
+if ( ! is_array( $bv_test ) || $bv_test['expires'] < time() || ! $is_local_host || ! hash_equals( $bv_test['token'], $_SERVER['HTTP_X_BV_CHECKOUT_TEST'] ?? '' ) ) { return; }
 add_filter( 'pre_wp_mail', '__return_true', PHP_INT_MAX );
 add_action( 'send_headers', function () { header( 'X-BV-Test-Mail: blocked' ); } );
 add_action( 'woocommerce_checkout_create_order', function ( $order ) use ( $bv_test ) {

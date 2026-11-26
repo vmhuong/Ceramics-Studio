@@ -1,4 +1,5 @@
 import sys
+import re
 import json
 import subprocess
 from pathlib import Path
@@ -7,17 +8,17 @@ root = Path(__file__).parent
 sys.path.insert(0, str(root / 'vendor'))
 from playwright.sync_api import sync_playwright, expect
 expect.set_options(timeout=20000)
-php = r'D:\usbwebserver_v8.6.5\usbwebserver\php\php.exe'
-fixture = json.loads(subprocess.check_output([php, str(root / 'account-fixture.php')], text=True))
+base = 'http://localhost:8080/'
+fixture = json.loads(subprocess.check_output(['docker', 'exec', 'bookverse_php', 'php', '/var/www/html/.commerce-tools/account-fixture.php'], text=True))
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(channel='chrome', headless=True)
         page = browser.new_page(viewport={'width':1440, 'height':1000})
-        page.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost/') else r.abort())
-        page.goto('http://localhost/bookverse/san-pham-gom/', wait_until='domcontentloaded')
+        page.route('**/*', lambda r: r.continue_() if r.request.url.startswith(base) else r.abort())
+        page.goto(base + 'san-pham-gom/', wait_until='domcontentloaded')
         rules = json.dumps(json.loads(page.locator('script[type="speculationrules"]').inner_text()))
         for slug in ['gio-hang-gom', 'thanh-toan-gom', 'tai-khoan']:
-            assert '/bookverse/' + slug + '*' in rules, 'Missing session-page prerender exclusion'
+            assert '/' + slug + '*' in rules, 'Missing session-page prerender exclusion'
         page.locator('.bv-header-account').click()
         expect(page.locator('#bv-account-panel')).to_be_visible()
         page.screenshot(path=str(root / 'new-panel-account.png'))
@@ -33,16 +34,18 @@ try:
         page.locator('.bv-header-cart').click()
         expect(page.locator('.woocommerce-mini-cart__empty-message')).to_be_visible()
         page.keyboard.press('Escape')
-        page.locator('a.ajax_add_to_cart[data-product_id="567"]').first.click()
+        page.locator('a.ajax_add_to_cart[data-product_id="680"]').first.click()
         expect(page.locator('#bv-cart-panel')).to_be_visible()
         expect(page.locator('.bv-cart-count')).to_have_text('1')
         expect(page.locator('.woocommerce-mini-cart-item')).to_have_count(1)
+        page.wait_for_timeout(400)
         page.screenshot(path=str(root / 'new-panel-cart.png'))
-        page.locator('.remove_from_cart_button').click()
+        page.locator('#bv-cart-panel .remove_from_cart_button').click()
         expect(page.locator('.woocommerce-mini-cart__empty-message')).to_be_visible()
         expect(page.locator('.bv-cart-count')).to_have_text('0')
         page.keyboard.press('Escape')
-        page.locator('a.ajax_add_to_cart[data-product_id="567"]').first.click()
+        expect(page.locator('#bv-cart-panel')).not_to_be_visible()
+        page.locator('a.ajax_add_to_cart[data-product_id="680"]').first.click()
         expect(page.locator('#bv-cart-panel')).to_be_visible()
         expect(page.locator('.bv-cart-count')).to_have_text('1')
         expect(page.locator('.woocommerce-mini-cart-item')).to_have_count(1)
@@ -63,7 +66,7 @@ try:
         page.locator('#bv-panel-password').fill(fixture['password'])
         page.locator('#bv-account-panel button[name="login"]').click()
         expect(page.locator('.woocommerce-MyAccount-navigation')).to_be_visible()
-        expect(page.locator('.bv-account-status')).to_be_visible()
+        expect(page.locator('.bv-dash-title')).to_be_visible()
         page.locator('.bv-header-account').click()
         expect(page.locator('.bv-panel-account-links')).to_be_visible()
         page.screenshot(path=str(root / 'new-panel-signed-in.png'))
@@ -77,8 +80,10 @@ try:
             assert page.evaluate('document.documentElement.scrollWidth <= innerWidth')
             page.locator('.bv-header-account').click()
             expect(page.locator('#bv-account-panel')).to_be_visible()
+            expect(page.locator('#bv-account-panel')).to_have_class(re.compile('is-active'))
+            page.wait_for_timeout(450)
             r = page.locator('#bv-account-panel').bounding_box()
-            assert r['x'] >= 0 and r['x'] + r['width'] <= width + 1
+            assert r['x'] >= 0 and r['x'] + r['width'] <= width + 1, (width, r)
             page.screenshot(path=str(root / ('new-panel-mobile-' + str(width) + '.png')))
             page.keyboard.press('Escape')
         page.get_by_role('tab', name='Đăng ký', exact=True).click()
@@ -88,4 +93,4 @@ try:
         print('PASS: header login, authenticated links, logout, registration fields and mobile panels.',flush=True)
         browser.close()
 finally:
-    subprocess.run([php, str(root / 'account-fixture.php'), 'delete', str(fixture['id'])],check=True)
+    subprocess.run(['docker', 'exec', 'bookverse_php', 'php', '/var/www/html/.commerce-tools/account-fixture.php', 'delete', str(fixture['id'])], check=True)

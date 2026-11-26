@@ -1068,16 +1068,26 @@ body.woocommerce-cart .bv-commerce-shell .cart-collaterals .cart_totals {
     .bv-commerce-shell form.checkout {
         column-gap: 24px;
     }
+    body.woocommerce-cart .bv-commerce-shell .bv-commerce-content > .woocommerce {
+        display: block !important;
+    }
     body.woocommerce-cart .bv-commerce-shell .woocommerce-cart-form {
-        width: 100%;
-        float: none;
+        width: 100% !important;
+        float: none !important;
+        box-sizing: border-box !important;
     }
     body.woocommerce-cart .bv-commerce-shell .cart-collaterals {
-        width: 100%;
+        width: 100% !important;
         max-width: 520px;
         margin-top: 24px;
-        float: none;
+        float: none !important;
+        position: static !important;
+        box-sizing: border-box !important;
     }
+}
+
+.select2-container--open {
+    z-index: 99999 !important;
 }
 
 @media (max-width: 767px) {
@@ -1104,11 +1114,31 @@ body.woocommerce-cart .bv-commerce-shell .cart-collaterals .cart_totals {
     }
     
     .bv-commerce-shell form.checkout {
-        display: block;
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .bv-commerce-shell form.checkout #customer_details,
+    .bv-commerce-shell #customer_details,
+    .bv-commerce-shell #order_review_heading,
+    .bv-commerce-shell #order_review {
+        grid-column: auto !important;
+        grid-row: auto !important;
+        width: 100% !important;
+        min-width: 0 !important;
+        max-width: 100% !important;
+        box-sizing: border-box !important;
+    }
+    .bv-commerce-shell form.checkout #customer_details {
+        padding: 22px 18px !important;
     }
     .bv-commerce-shell #order_review_heading {
-        margin-top: 24px;
-        border-radius: 10px 10px 0 0;
+        margin-top: 24px !important;
+        padding: 20px 18px 14px !important;
+        border-radius: 10px 10px 0 0 !important;
+    }
+    .bv-commerce-shell #order_review {
+        padding: 0 18px 22px !important;
     }
     .bv-commerce-shell .woocommerce .form-row-first,
     .bv-commerce-shell .woocommerce .form-row-last {

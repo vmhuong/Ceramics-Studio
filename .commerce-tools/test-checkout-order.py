@@ -8,17 +8,16 @@ root = Path(__file__).parent
 sys.path.insert(0, str(root / 'vendor'))
 from playwright.sync_api import sync_playwright, expect
 expect.set_options(timeout=60000)
-php = r'D:\usbwebserver_v8.6.5\usbwebserver\php\php.exe'
 def fixture(command):
-    return subprocess.check_output([php, str(root / 'checkout-fixture.php'), command], text=True)
+    return subprocess.check_output(['docker', 'exec', 'bookverse_php', 'php', '/var/www/html/.commerce-tools/checkout-fixture.php', command], text=True)
 assert (root.parent / 'wp-content/mu-plugins/bv-checkout-test.php').is_file(), 'Install the local test mail guard before running.'
 state = json.loads(fixture('create'))
 customer = None
-base = 'http://localhost/bookverse/'
+base = 'http://localhost:8080/'
 try:
     with sync_playwright() as p:
         browser = p.chromium.launch(channel='chrome', headless=True)
-        customer = json.loads(subprocess.check_output([php, str(root / 'account-fixture.php')], text=True))
+        customer = json.loads(subprocess.check_output(['docker', 'exec', 'bookverse_php', 'php', '/var/www/html/.commerce-tools/account-fixture.php'], text=True))
         for mode in ['guest', 'customer']:
             gateway = 'cod'
             context = browser.new_context(extra_http_headers={'X-BV-Checkout-Test': state['token']}, viewport={'width':390 if mode == 'customer' else 1440, 'height':1000})
@@ -48,12 +47,16 @@ try:
             page.locator('#billing_phone').fill('0900000000')
             page.locator('#billing_email').fill('bv-checkout@example.invalid')
             page.locator('#billing_address_1').fill('BV test address - not a delivery')
+            page.locator('#select2-billing_state-container').evaluate('e => e.scrollIntoView({block:"center"})')
             page.locator('#select2-billing_state-container').click()
-            page.locator('.select2-results__option').filter(has_text='Thành phố Hà Nội').click()
+            page.locator('.select2-search__field').fill('Hà Nội')
+            page.keyboard.press('Enter')
             page.wait_for_function('document.querySelector("#billing_city").options.length > 1')
             ward = page.locator('#billing_city').evaluate('(e) => e.options[1].textContent')
+            page.locator('#select2-billing_city-container').evaluate('e => e.scrollIntoView({block:"center"})')
             page.locator('#select2-billing_city-container').click()
-            page.locator('.select2-results__option').filter(has_text=ward).first.click()
+            page.locator('.select2-search__field').fill(ward)
+            page.keyboard.press('Enter')
             page.locator('#payment_method_' + gateway).check()
             if page.locator('#terms').count():
                 page.locator('#terms').check()
@@ -80,7 +83,7 @@ try:
             assert order['customer'] == (customer['id'] if mode == 'customer' else 0), data
             if mode == 'customer':
                 page.goto(base + 'tai-khoan/orders/', wait_until='domcontentloaded')
-                link = page.locator(f'a[href*="view-order/{order["id"]}"]').first
+                link = page.locator(f'a.woocommerce-button.view[href*="view-order/{order["id"]}"]').first
                 expect(link).to_be_visible()
                 page.screenshot(path=str(root / 'verified-account-orders.png'), full_page=True)
                 link.click()
@@ -93,4 +96,4 @@ try:
 finally:
     print(fixture('delete'), flush=True)
     if customer:
-        subprocess.run([php, str(root / 'account-fixture.php'), 'delete', str(customer['id'])], check=True)
+        subprocess.run(['docker', 'exec', 'bookverse_php', 'php', '/var/www/html/.commerce-tools/account-fixture.php', 'delete', str(customer['id'])], check=True)

@@ -5,12 +5,12 @@ root = Path(__file__).parent
 sys.path.insert(0, str(root / 'vendor'))
 from playwright.sync_api import sync_playwright, expect
 expect.set_options(timeout=30000)
-base = 'http://localhost/bookverse/'
+base = 'http://localhost:8080/'
 with sync_playwright() as p:
     browser = p.chromium.launch(channel='chrome', headless=True)
     page = browser.new_page(viewport={'width':1440,'height':1000})
     page.set_default_timeout(60000)
-    page.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost/') else r.abort())
+    page.route('**/*', lambda r: r.continue_() if r.request.url.startswith('http://localhost:8080/') else r.abort())
     for slug in ['binh-gom-dang-ruou-bo-suu-tap-men-pastel', 'chen-cham-thap-9cm']:
         page.goto(base + 'san-pham/' + slug + '/', wait_until='domcontentloaded')
         expect(page.locator('.summary .single_add_to_cart_button')).to_be_enabled()

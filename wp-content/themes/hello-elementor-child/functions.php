@@ -42,3 +42,15 @@ require_once get_stylesheet_directory() . '/inc/zalo-contact.php';
 require_once get_stylesheet_directory() . '/inc/performance.php';
 require_once get_stylesheet_directory() . '/inc/product-reviews.php';
 require_once get_stylesheet_directory() . '/inc/header-footer.php';
+
+// Chan lo danh sach user qua REST API khi chua dang nhap
+add_filter(
+	'rest_endpoints',
+	function ( $endpoints ) {
+		if ( ! is_user_logged_in() ) {
+			unset( $endpoints['/wp/v2/users'] );
+			unset( $endpoints['/wp/v2/users/(?P<id>[\d]+)'] );
+		}
+		return $endpoints;
+	}
+);

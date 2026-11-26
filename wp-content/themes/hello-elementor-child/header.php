@@ -67,7 +67,7 @@ $logged_in    = is_user_logged_in();
 			<!-- ACTIONS: ACCOUNT & CART (HOTLINE & WORKSHOP CTA REMOVED) -->
 			<div class="bv-header-actions">
 				<!-- User Account / Login Link -->
-				<a class="bv-header-account" href="<?php echo esc_url( $account_url ); ?>" title="<?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?>">
+				<a class="bv-header-account<?php echo $logged_in ? ' is-signed-in is-logged-in' : ''; ?>" href="<?php echo esc_url( $account_url ); ?>" title="<?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?>">
 					<span class="bv-account-label"><?php echo $logged_in ? 'Tài khoản' : 'Đăng nhập'; ?></span>
 				</a>
 

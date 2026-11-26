@@ -1140,6 +1140,9 @@ ul.woocommerce-error a {
     border-radius: 8px;
     padding: 20px;
     margin: 24px 0 20px;
+    min-width: 0;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 
 .woocommerce-account .woocommerce-EditAccountForm legend {
@@ -1174,13 +1177,15 @@ ul.woocommerce-error a {
    RESPONSIVE LAYOUT
    ========================================================================== */
 @media (max-width: 960px) {
+    .woocommerce-account .bv-account-page:not(.bv-account-guest) .bv-commerce-content > .woocommerce,
     .woocommerce-account .bv-account-page .bv-commerce-content > .woocommerce {
+        display: block !important;
         grid-template-columns: 1fr !important;
         gap: 24px !important;
     }
 
     .bv-account-guest-wrapper {
-        grid-template-columns: 1fr;
+        grid-template-columns: minmax(0, 1fr);
         gap: 30px;
         margin-top: 20px;
     }
@@ -1188,6 +1193,9 @@ ul.woocommerce-error a {
     .bv-account-story-card,
     .bv-account-form-card {
         padding: 32px 24px;
+        min-width: 0;
+        max-width: 100%;
+        box-sizing: border-box;
     }
 
     .woocommerce-account .bv-account-page .woocommerce-MyAccount-navigation,
@@ -1213,6 +1221,13 @@ ul.woocommerce-error a {
 }
 
 @media (max-width: 480px) {
+    .bv-account-guest-wrapper {
+        padding: 0 12px;
+    }
+    .bv-account-story-card,
+    .bv-account-form-card {
+        padding: 24px 16px;
+    }
     .bv-story-title {
         font-size: 22px;
     }

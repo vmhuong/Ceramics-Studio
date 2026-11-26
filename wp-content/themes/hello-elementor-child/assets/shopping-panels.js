@@ -21,15 +21,28 @@ jQuery(function ($) {
         var panel = document.getElementById(id);
         if (!panel || !panel.showModal) return false;
 
+        if (panel._closeTimer) {
+            clearTimeout(panel._closeTimer);
+            panel._closeTimer = null;
+        }
+
         // Close any other open dialogs
         panels.forEach(function (other) {
-            if (other !== panel && other.open) {
-                other.close();
+            if (other !== panel) {
+                if (other._closeTimer) {
+                    clearTimeout(other._closeTimer);
+                    other._closeTimer = null;
+                }
+                if (other.open) {
+                    other.close();
+                }
             }
         });
 
         panel.bvTrigger = trigger;
-        panel.showModal();
+        if (!panel.open) {
+            panel.showModal();
+        }
         document.body.classList.add('bv-panel-open');
         requestAnimationFrame(function () {
             panel.classList.add('is-active');
@@ -41,9 +54,13 @@ jQuery(function ($) {
 
     function closeDrawer(panel) {
         if (!panel || !panel.open) return;
+        if (panel._closeTimer) {
+            clearTimeout(panel._closeTimer);
+        }
         panel.classList.remove('is-active');
         // Allow CSS transition to finish before calling close()
-        setTimeout(function () {
+        panel._closeTimer = setTimeout(function () {
+            panel._closeTimer = null;
             if (panel.open) panel.close();
         }, 280);
     }

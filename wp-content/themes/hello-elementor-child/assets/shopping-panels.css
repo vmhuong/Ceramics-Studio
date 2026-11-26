@@ -37,6 +37,10 @@ body.bv-panel-open {
     font-family: inherit;
 }
 
+.bv-shopping-panel.bv-side-drawer:not([open]) {
+    display: none !important;
+}
+
 .bv-shopping-panel.bv-side-drawer.is-active,
 .bv-shopping-panel.bv-side-drawer[open].is-active {
     transform: translateX(0) !important;
@@ -170,11 +174,16 @@ body.bv-panel-open {
     padding-right: 54px !important;
 }
 
+.bv-panel-password .show-password-input {
+    display: none !important;
+}
+
 .bv-password-toggle {
     position: absolute;
     right: 8px;
     top: 50%;
     transform: translateY(-50%);
+    z-index: 2;
     background: transparent !important;
     border: none !important;
     color: #B3592B !important;
