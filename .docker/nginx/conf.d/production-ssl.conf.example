@@ -1,0 +1,104 @@
+# =============================================================
+# MAU CAU HINH NGINX PRODUCTION (HTTPS + HTTP/2)
+# Thay "your-domain.com" bang ten mien that cua ban truoc khi dung!
+# Copy file nay thanh .docker/nginx/conf.d/production-ssl.conf tren VPS.
+# =============================================================
+
+# 1. Chuyen huong toan bo HTTP (port 80) sang HTTPS (port 443)
+server {
+    listen 80;
+    server_name your-domain.com www.your-domain.com;
+
+    # Phuc vu xac thuc gia han SSL tu dong (Certbot / Let's Encrypt)
+    location /.well-known/acme-challenge/ {
+        root /var/www/certbot;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# 2. May chu chinh HTTPS + HTTP/2
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name your-domain.com www.your-domain.com;
+
+    root /var/www/html;
+    index index.php index.html index.htm;
+
+    # Chung chi SSL Let's Encrypt
+    ssl_certificate /etc/letsencrypt/live/your-domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/your-domain.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_session_cache shared:SSL:10m;
+    ssl_session_timeout 1d;
+
+    access_log /var/log/nginx/bookverse_access.log;
+    error_log /var/log/nginx/bookverse_error.log;
+
+    # Security Headers (them HSTS cho HTTPS)
+    add_header Strict-Transport-Security "max-age=31536000; includeSubDomains" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+    add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+    add_header Permissions-Policy "geolocation=(), microphone=(), camera=()" always;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location = /wp-login.php {
+        limit_req zone=wp_login burst=3 nodelay;
+        limit_req_status 429;
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param HTTPS on;
+        fastcgi_read_timeout 300;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    location /wp-json/ {
+        limit_req zone=wp_api burst=50 nodelay;
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        try_files $uri =404;
+        fastcgi_split_path_info ^(.+\.php)(/.+)$;
+        fastcgi_pass wordpress:9000;
+        fastcgi_index index.php;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param PATH_INFO $fastcgi_path_info;
+        fastcgi_param HTTPS on;
+        fastcgi_buffer_size 128k;
+        fastcgi_buffers 256 16k;
+        fastcgi_busy_buffers_size 256k;
+        fastcgi_temp_file_write_size 256k;
+        fastcgi_read_timeout 300;
+        fastcgi_hide_header X-Powered-By;
+    }
+
+    location ~* \.(jpg|jpeg|gif|png|webp|svg|css|js|ico|woff|woff2|ttf|eot)$ {
+        expires 30d;
+        add_header Cache-Control "public, no-transform";
+        access_log off;
+        log_not_found off;
+    }
+
+    location ~* /(?:uploads|files)/.*\.php$ { deny all; }
+    location ~ /\. { deny all; access_log off; log_not_found off; }
+    location = /wp-config.php { deny all; access_log off; log_not_found off; }
+    location = /xmlrpc.php { deny all; access_log off; log_not_found off; }
+    location = /favicon.ico { access_log off; log_not_found off; }
+    location = /robots.txt { access_log off; log_not_found off; }
+}

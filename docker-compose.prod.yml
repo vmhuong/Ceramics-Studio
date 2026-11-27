@@ -1,0 +1,32 @@
+# =============================================================
+# BOOKVERSE - PRODUCTION OVERRIDE (DUNG KHI DEPLOY LEN VPS)
+# =============================================================
+# Cach chay tren VPS:
+#   docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --build
+#
+# Tac dung:
+#   1. Dong port MariaDB (3307) & Redis (6380) khoi Internet
+#   2. Tat phpMyAdmin (chi chay khi dev local)
+#   3. Mo port 80 & 443 (HTTPS + HTTP/2) cho Nginx
+# =============================================================
+
+services:
+  nginx:
+    ports: !override
+      - "80:80"
+      - "443:443"
+    volumes:
+      - bookverse_code:/var/www/html:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+      - /var/www/certbot:/var/www/certbot:ro
+      - ./.docker/nginx/conf.d/production-ssl.conf:/etc/nginx/conf.d/default.conf:ro
+
+  db:
+    ports: !reset []
+
+  redis:
+    ports: !reset []
+
+  phpmyadmin:
+    profiles:
+      - dev-only
