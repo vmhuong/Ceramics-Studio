@@ -17,15 +17,13 @@ wp-content/upgrade-temp-backup/
 debug.log
 error_log
 
-# Commerce tools python virtualenv & visual test screenshots
-.commerce-tools/vendor/
-.commerce-tools/*.png
-.commerce-tools/pottery-catalog/
+# Commerce tools, local AI instructions & visual test screenshots
+.commerce-tools/
+AGENTS.md
 
 # OS metadata
 .DS_Store
 Thumbs.db
 ehthumbs.db
 Desktop.ini
-up
 
