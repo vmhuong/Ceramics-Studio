@@ -37,9 +37,7 @@ Code tùy biến nằm tại `wp-content/themes/hello-elementor-child/`:
 ├── docker-compose.yml               # Cấu hình Docker môi trường phát triển (Dev)
 ├── docker-compose.prod.yml          # Ghi đè cấu hình an toàn cho Production
 ├── .env.example                     # Mẫu biến môi trường (không chứa thông tin nhạy cảm)
-├── Makefile                         # Các lệnh tắt quản lý Docker
-├── HUONG_DAN_DOCKER_A_Z.md          # Tài liệu vận hành Docker chi tiết
-└── HUONG_DAN_DEPLOY_VPS.md          # Hướng dẫn triển khai lên VPS Production
+└── Makefile                         # Các lệnh tắt quản lý Docker
 ```
 
 ## Hướng dẫn chạy nhanh (Local Development)
@@ -58,5 +56,3 @@ Code tùy biến nằm tại `wp-content/themes/hello-elementor-child/`:
    ```bash
    docker compose ps
    ```
-
-Chi tiết về cấu hình Production, SSL/HTTPS và backup tự động, xem thêm tại [HUONG_DAN_DEPLOY_VPS.md](HUONG_DAN_DEPLOY_VPS.md).

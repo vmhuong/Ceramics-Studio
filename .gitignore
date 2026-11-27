@@ -20,6 +20,7 @@ error_log
 # Commerce tools, local AI instructions & visual test screenshots
 .commerce-tools/
 AGENTS.md
+HUONG_DAN_*.md
 
 # OS metadata
 .DS_Store
