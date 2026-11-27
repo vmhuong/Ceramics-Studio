@@ -1,0 +1,43 @@
+name: CI - Kiem tra Code & Docker
+
+on:
+  push:
+    branches: [ master, main ]
+  pull_request:
+    branches: [ master, main ]
+  workflow_dispatch:
+
+jobs:
+  lint-and-build:
+    name: Kiem tra PHP, Script & Docker Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Tai ma nguon (Checkout)
+        uses: actions/checkout@v4
+
+      - name: Khoi tao PHP 8.1
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.1'
+          extensions: mbstring, mysqli, gd, opcache, zip
+
+      - name: Kiem tra cu phap PHP trong Theme
+        run: |
+          find wp-content/themes/hello-elementor-child -type f -name "*.php" -print0 | while IFS= read -r -d '' file; do
+            php -l "$file" || exit 1
+          done
+
+      - name: Kiem tra cu phap Script Backup
+        run: bash -n scripts/backup-db.sh
+
+      - name: Kiem tra cau hinh Docker Compose (Dev & Prod)
+        run: |
+          cp .env.example .env
+          docker compose -f docker-compose.yml config --quiet
+          docker compose -f docker-compose.yml -f docker-compose.prod.yml config --quiet
+
+      - name: Kiem tra Build Docker Images (PHP & Nginx)
+        run: |
+          cp .env.example .env
+          docker compose build wordpress nginx
