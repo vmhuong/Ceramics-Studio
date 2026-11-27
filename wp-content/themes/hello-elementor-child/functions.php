@@ -9,6 +9,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+if ( ! function_exists( 'bv_asset_ver' ) ) {
+	/**
+	 * Return file modification timestamp for cache-busting without defeating browser cache.
+	 */
+	function bv_asset_ver( $rel_path ) {
+		$full = get_stylesheet_directory() . $rel_path;
+		return file_exists( $full ) ? (string) filemtime( $full ) : '1.0.0';
+	}
+}
+
 add_action(
 	'wp_enqueue_scripts',
 	function () {
@@ -27,7 +37,7 @@ add_action(
 		wp_enqueue_script( 'bv-scroll-reveal', get_stylesheet_directory_uri() . '/assets/scroll-reveal.js', [], file_exists( $reveal_js ) ? filemtime( $reveal_js ) : '1.0.0', true );
 
 		if ( is_front_page() ) {
-			wp_enqueue_style( 'bv-wabi-sabi-home', get_stylesheet_directory_uri() . '/assets/wabi-sabi-home.css', [ 'hello-elementor-child' ], time() );
+			wp_enqueue_style( 'bv-wabi-sabi-home', get_stylesheet_directory_uri() . '/assets/wabi-sabi-home.css', [ 'hello-elementor-child' ], bv_asset_ver( '/assets/wabi-sabi-home.css' ) );
 		}
 	},
 	30
@@ -42,6 +52,7 @@ require_once get_stylesheet_directory() . '/inc/zalo-contact.php';
 require_once get_stylesheet_directory() . '/inc/performance.php';
 require_once get_stylesheet_directory() . '/inc/product-reviews.php';
 require_once get_stylesheet_directory() . '/inc/header-footer.php';
+require_once get_stylesheet_directory() . '/inc/emails.php';
 
 // Chan lo danh sach user qua REST API khi chua dang nhap
 add_filter(

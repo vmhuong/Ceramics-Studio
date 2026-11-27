@@ -500,6 +500,10 @@ ul.woocommerce-error a {
     padding: 0 !important;
 }
 
+.bv-account-form-card #customer_login [hidden] {
+    display: none !important;
+}
+
 .bv-account-form-card form.woocommerce-form-login,
 .bv-account-form-card form.woocommerce-form-register {
     width: 100% !important;

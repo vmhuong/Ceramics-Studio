@@ -72,6 +72,65 @@ function bv_add_booking_seat( $date, $slot_id, $seats = 1 ) {
 	update_option( 'bv_workshop_bookings', $bookings );
 }
 
+// Release seats for expired unpaid pending Workshop orders (> 10 minutes)
+function bv_release_single_workshop_order( $order ) {
+	if ( ! is_a( $order, 'WC_Order' ) || 'pending' !== $order->get_status() ) {
+		return false;
+	}
+	if ( 'yes' === $order->get_meta( '_ws_seats_released' ) ) {
+		return false;
+	}
+	$created = $order->get_date_created();
+	if ( ! $created || ( time() - $created->getTimestamp() ) < 600 ) {
+		return false;
+	}
+
+	$bookings = get_option( 'bv_workshop_bookings', [] );
+	$changed  = false;
+	foreach ( $order->get_items() as $item ) {
+		$date    = $item->get_meta( '_ws_date_raw' );
+		$slot_id = $item->get_meta( '_ws_slot_id' );
+		$qty     = (int) $item->get_quantity();
+		if ( $date && $slot_id && isset( $bookings[ $date ][ $slot_id ] ) ) {
+			$bookings[ $date ][ $slot_id ] = max( 0, (int) $bookings[ $date ][ $slot_id ] - $qty );
+			$changed = true;
+		}
+	}
+	if ( $changed ) {
+		update_option( 'bv_workshop_bookings', $bookings );
+	}
+	$order->update_meta_data( '_ws_seats_released', 'yes' );
+	$order->update_status( 'cancelled', 'Tự động hủy giữ chỗ Workshop do quá 10 phút chưa thanh toán.' );
+	$order->save();
+	return true;
+}
+
+function bv_release_expired_workshop_seats( $order_id = 0 ) {
+	if ( ! function_exists( 'wc_get_order' ) ) {
+		return;
+	}
+	if ( $order_id > 0 ) {
+		$order = wc_get_order( (int) $order_id );
+		if ( $order ) {
+			bv_release_single_workshop_order( $order );
+		}
+		return;
+	}
+	if ( get_transient( 'bv_ws_cleanup_lock' ) ) {
+		return;
+	}
+	set_transient( 'bv_ws_cleanup_lock', 1, 60 );
+	$pending_orders = wc_get_orders( [
+		'status'       => 'pending',
+		'limit'        => 20,
+		'date_created' => '<' . ( time() - 600 ),
+	] );
+	foreach ( $pending_orders as $order ) {
+		bv_release_single_workshop_order( $order );
+	}
+}
+add_action( 'bv_release_expired_workshop_order', 'bv_release_expired_workshop_seats' );
+
 add_action( 'wp_enqueue_scripts', function () {
 	wp_register_style( 'bv-workshop-booking', get_stylesheet_directory_uri() . '/assets/workshop-booking.css', [ 'bv-commerce' ], filemtime( __DIR__ . '/../assets/workshop-booking.css' ) );
 	wp_register_script( 'bv-workshop-booking', get_stylesheet_directory_uri() . '/assets/workshop-booking.js', [ 'jquery' ], filemtime( __DIR__ . '/../assets/workshop-booking.js' ), true );
@@ -89,6 +148,7 @@ function bv_render_workshop_booking() {
 
 	wp_enqueue_style( 'bv-workshop-booking' );
 	wp_enqueue_script( 'bv-workshop-booking' );
+	bv_release_expired_workshop_seats();
 
 	$packages = bv_get_workshop_packages();
 	$slots    = bv_get_workshop_slots();
@@ -104,7 +164,7 @@ function bv_render_workshop_booking() {
 			<p>Dành một buổi rời xa màn hình, chạm tay vào đất sét mộc và tự tạo nên tác phẩm gốm mang dấu ấn của riêng bạn.</p>
 		</div>
 
-		<!-- STEPPER PROGRESS BAR (THEO LUỒNG THỨ TỰ NHƯ TRANG THANH TOÁN) -->
+		<!-- STEPPER PROGRESS BAR -->
 		<ol class="bv-ws-steps-nav" aria-label="Các bước đặt lịch workshop">
 			<li class="is-current" data-step="1">
 				<button type="button" class="bv-ws-step-btn" data-step-target="1">
@@ -121,7 +181,13 @@ function bv_render_workshop_booking() {
 			<li data-step="3">
 				<button type="button" class="bv-ws-step-btn" data-step-target="3">
 					<b aria-hidden="true">3</b>
-					<span>Xác nhận</span>
+					<span>Thông tin</span>
+				</button>
+			</li>
+			<li data-step="4">
+				<button type="button" class="bv-ws-step-btn" data-step-target="4">
+					<b aria-hidden="true">4</b>
+					<span>Thanh toán QR</span>
 				</button>
 			</li>
 		</ol>
@@ -255,16 +321,52 @@ function bv_render_workshop_booking() {
 					</div>
 				</div>
 
+				<?php
+				$cur_user       = is_user_logged_in() ? wp_get_current_user() : null;
+				$prefill_name   = $cur_user ? trim( $cur_user->display_name ) : '';
+				$prefill_email  = $cur_user ? $cur_user->user_email : '';
+				$prefill_phone  = $cur_user ? get_user_meta( $cur_user->ID, 'billing_phone', true ) : '';
+				?>
+				<div class="bv-ws-customer-box">
+					<h4 class="bv-ws-customer-heading">Thông tin người tham gia</h4>
+					<p class="bv-ws-customer-sub">Xưởng giữ chỗ và gửi mã xác nhận qua Zalo / Email của bạn (không cần nhập địa chỉ giao hàng).</p>
+					<div class="bv-ws-customer-grid">
+						<div class="bv-ws-field">
+							<label for="bv-ws-name">Họ và tên <span class="bv-req">*</span></label>
+							<input type="text" id="bv-ws-name" name="ws_name" value="<?php echo esc_attr( $prefill_name ); ?>" placeholder="Ví dụ: Nguyễn Minh An" required>
+						</div>
+						<div class="bv-ws-field">
+							<label for="bv-ws-phone">Số điện thoại / Zalo <span class="bv-req">*</span></label>
+							<input type="tel" id="bv-ws-phone" name="ws_phone" value="<?php echo esc_attr( $prefill_phone ); ?>" placeholder="Ví dụ: 0912 345 678" required>
+						</div>
+						<div class="bv-ws-field">
+							<label for="bv-ws-email">Email nhận vé</label>
+							<input type="email" id="bv-ws-email" name="ws_email" value="<?php echo esc_attr( $prefill_email ); ?>" placeholder="email@example.com">
+						</div>
+						<div class="bv-ws-field">
+							<label for="bv-ws-note">Ghi chú thêm</label>
+							<input type="text" id="bv-ws-note" name="ws_note" placeholder="Ví dụ: Đi cùng trẻ nhỏ, khung giờ mong muốn...">
+						</div>
+					</div>
+				</div>
+
 				<div class="bv-ws-wizard-actions">
 					<button type="button" class="bv-ws-btn-prev" data-goto="2">
 						← Quay lại chọn lịch
 					</button>
 					<button type="submit" id="bv-ws-submit" class="bv-btn-book">
-						Tiến Hành Đặt Lịch &amp; Thanh Toán
+						Tạo Mã QR Thanh Toán →
 					</button>
 				</div>
 				<div class="bv-ws-msg-box">
 					<span id="bv-ws-message" class="bv-ws-message" role="status"></span>
+				</div>
+			</div>
+
+			<!-- BƯỚC 4: THANH TOÁN VIETQR TẠI CHỖ & XÁC NHẬN WEBHOOK -->
+			<div class="bv-ws-wizard-panel" data-panel="4" style="display: none;">
+				<div class="bv-ws-qr-panel" id="bv-ws-qr-container">
+					<!-- Được JS điền dữ liệu VietQR sau khi tạo đơn thành công -->
 				</div>
 			</div>
 		</form>
@@ -279,6 +381,7 @@ add_action( 'wp_ajax_nopriv_bv_get_date_slots', 'bv_ajax_get_date_slots' );
 
 function bv_ajax_get_date_slots() {
 	check_ajax_referer( 'bv_workshop_nonce', 'nonce' );
+	bv_release_expired_workshop_seats();
 	$date = isset( $_POST['date'] ) ? sanitize_text_field( wp_unslash( $_POST['date'] ) ) : date( 'Y-m-d' );
 	$slots = bv_get_workshop_slots();
 	$day_of_week = (int) date( 'w', strtotime( $date ) ); // 0 = Sun, 5 = Fri, 6 = Sat
@@ -304,7 +407,7 @@ function bv_ajax_get_date_slots() {
 	wp_send_json_success( $result );
 }
 
-// AJAX: Book workshop and add to cart
+// AJAX: Create WooCommerce order directly with VietQR (without clearing shopping cart)
 add_action( 'wp_ajax_bv_book_workshop', 'bv_ajax_book_workshop' );
 add_action( 'wp_ajax_nopriv_bv_book_workshop', 'bv_ajax_book_workshop' );
 
@@ -315,12 +418,19 @@ function bv_ajax_book_workshop() {
 	$date       = sanitize_text_field( wp_unslash( $_POST['date'] ?? '' ) );
 	$slot_id    = sanitize_text_field( wp_unslash( $_POST['slot'] ?? '' ) );
 	$qty        = max( 1, (int) ( $_POST['qty'] ?? 1 ) );
+	$name       = sanitize_text_field( wp_unslash( $_POST['name'] ?? '' ) );
+	$phone      = sanitize_text_field( wp_unslash( $_POST['phone'] ?? '' ) );
+	$email      = sanitize_email( wp_unslash( $_POST['email'] ?? '' ) );
+	$note       = sanitize_textarea_field( wp_unslash( $_POST['note'] ?? '' ) );
 
 	$packages = bv_get_workshop_packages();
 	$slots    = bv_get_workshop_slots();
 
 	if ( ! isset( $packages[ $package_id ] ) || ! isset( $slots[ $slot_id ] ) || empty( $date ) ) {
 		wp_send_json_error( [ 'message' => 'Thông tin đặt lịch không hợp lệ.' ] );
+	}
+	if ( empty( $name ) || empty( $phone ) ) {
+		wp_send_json_error( [ 'message' => 'Vui lòng nhập đầy đủ họ tên và số điện thoại / Zalo.' ] );
 	}
 
 	$package = $packages[ $package_id ];
@@ -333,33 +443,125 @@ function bv_ajax_book_workshop() {
 		wp_send_json_error( [ 'message' => sprintf( 'Ca học này chỉ còn lại %d chỗ trống.', $remain ) ] );
 	}
 
-	// Find or create a shadow product for workshop booking
 	$product_id = bv_get_or_create_workshop_product( $package );
-
-	// Custom cart item data
-	$cart_item_data = [
-		'bv_workshop' => [
-			'package_name' => $package['name'],
-			'package_id'   => $package_id,
-			'date'         => $date,
-			'slot_label'   => $slot['label'] . ' (' . $slot['time'] . ')',
-			'slot_id'      => $slot_id,
-			'price'        => $package['price'],
-			'attendees'    => $qty,
-		],
-	];
-
-	// Add to cart
-	WC()->cart->empty_cart(); // Clear previous items so user can checkout workshop cleanly
-	$cart_item_key = WC()->cart->add_to_cart( $product_id, $qty, 0, [], $cart_item_data );
-
-	if ( $cart_item_key ) {
-		wp_send_json_success( [
-			'redirect' => wc_get_checkout_url(),
-		] );
-	} else {
-		wp_send_json_error( [ 'message' => 'Không thể thêm vé workshop vào giỏ hàng. Vui lòng thử lại.' ] );
+	$product    = wc_get_product( $product_id );
+	if ( ! $product ) {
+		wp_send_json_error( [ 'message' => 'Không tìm thấy gói workshop. Vui lòng thử lại.' ] );
 	}
+
+	// Create WooCommerce order directly without touching WC()->cart
+	$order = wc_create_order( [
+		'customer_id' => get_current_user_id(),
+	] );
+	if ( is_wp_error( $order ) ) {
+		wp_send_json_error( [ 'message' => 'Không thể khởi tạo đơn đặt vé. Vui lòng thử lại.' ] );
+	}
+
+	$item_id = $order->add_product( $product, $qty, [
+		'subtotal' => (float) $package['price'] * $qty,
+		'total'    => (float) $package['price'] * $qty,
+	] );
+
+	$slot_label     = $slot['label'] . ' (' . $slot['time'] . ')';
+	$date_formatted = date( 'd/m/Y', strtotime( $date ) );
+	$item           = $order->get_item( $item_id );
+	if ( $item ) {
+		$item->add_meta_data( 'Gói workshop', $package['name'], true );
+		$item->add_meta_data( 'Ngày trải nghiệm', $date_formatted, true );
+		$item->add_meta_data( 'Ca học', $slot_label, true );
+		$item->add_meta_data( '_ws_date_raw', $date, true );
+		$item->add_meta_data( '_ws_slot_id', $slot_id, true );
+		$item->add_meta_data( '_ws_attendees', $qty, true );
+		$item->save();
+	}
+
+	$order->set_billing_first_name( $name );
+	$order->set_billing_phone( $phone );
+	if ( ! empty( $email ) && is_email( $email ) ) {
+		$order->set_billing_email( $email );
+	}
+	if ( ! empty( $note ) ) {
+		$order->set_customer_note( $note );
+	}
+
+	$order->set_payment_method( 'vietqr' );
+	$order->set_payment_method_title( 'Chuyển khoản VietQR (Quét mã tự động)' );
+	$order->calculate_totals();
+	$order->set_status( 'pending', 'Đặt lịch Workshop trực tiếp — chờ thanh toán chuyển khoản VietQR.' );
+	$order->save();
+
+	// Reserve seats immediately and auto-release if unpaid after 10 minutes
+	bv_add_booking_seat( $date, $slot_id, $qty );
+	wp_schedule_single_event( time() + 600, 'bv_release_expired_workshop_order', [ $order->get_id() ] );
+
+	// Build VietQR payload using gateway settings
+	$vietqr_settings = get_option( 'woocommerce_vietqr_settings', [] );
+	$bank_id         = $vietqr_settings['bank_id'] ?? 'MB';
+	$account_no      = $vietqr_settings['account_no'] ?? '0363292271';
+	$account_name    = $vietqr_settings['account_name'] ?? 'VU MANH HUONG';
+	$prefix          = $vietqr_settings['prefix'] ?? 'HD';
+	$template        = $vietqr_settings['template'] ?? 'compact2';
+	$order_id        = $order->get_id();
+	$total_amount    = (int) round( (float) $order->get_total() );
+	$transfer_memo   = trim( $prefix . ' ' . $order_id );
+
+	$qr_url = class_exists( 'WC_Gateway_VietQR' )
+		? ( new WC_Gateway_VietQR() )->get_vietqr_url( $order )
+		: sprintf(
+			'https://img.vietqr.io/image/%s-%s-%s.png?amount=%d&addInfo=%s&accountName=%s',
+			rawurlencode( $bank_id ),
+			rawurlencode( $account_no ),
+			rawurlencode( $template ),
+			$total_amount,
+			rawurlencode( $transfer_memo ),
+			rawurlencode( $account_name )
+		);
+
+	wp_send_json_success( [
+		'order_id'         => $order_id,
+		'order_key'        => $order->get_order_key(),
+		'qr_url'           => $qr_url,
+		'bank_id'          => $bank_id,
+		'account_no'       => $account_no,
+		'account_name'     => $account_name,
+		'amount'           => $total_amount,
+		'amount_formatted' => number_format( $total_amount, 0, ',', '.' ) . ' ₫',
+		'transfer_content' => $transfer_memo,
+		'package_name'     => $package['name'],
+		'date_formatted'   => $date_formatted,
+		'slot_label'       => $slot_label,
+		'qty'              => $qty,
+		'status'           => $order->get_status(),
+		'order_view_url'   => is_user_logged_in() ? wc_get_endpoint_url( 'view-order', $order_id, wc_get_page_permalink( 'myaccount' ) ) : '',
+	] );
+}
+
+// AJAX: Poll order payment status for Workshop Step 4 (verified by order_key)
+add_action( 'wp_ajax_bv_check_workshop_payment', 'bv_ajax_check_workshop_payment' );
+add_action( 'wp_ajax_nopriv_bv_check_workshop_payment', 'bv_ajax_check_workshop_payment' );
+
+function bv_ajax_check_workshop_payment() {
+	check_ajax_referer( 'bv_workshop_nonce', 'nonce' );
+
+	$order_id  = (int) ( $_POST['order_id'] ?? 0 );
+	$order_key = sanitize_text_field( wp_unslash( $_POST['order_key'] ?? '' ) );
+	$order     = $order_id ? wc_get_order( $order_id ) : false;
+
+	if ( ! $order || empty( $order_key ) || ! hash_equals( $order->get_order_key(), $order_key ) ) {
+		wp_send_json_error( [ 'message' => 'Không xác thực được đơn đặt vé.' ], 403 );
+	}
+
+	bv_release_single_workshop_order( $order );
+	$status     = $order->get_status();
+	$is_paid    = in_array( $status, [ 'processing', 'completed' ], true );
+	$is_expired = in_array( $status, [ 'cancelled', 'failed' ], true );
+
+	wp_send_json_success( [
+		'order_id'   => $order_id,
+		'status'     => $status,
+		'is_paid'    => $is_paid,
+		'is_expired' => $is_expired,
+	] );
 }
 
 // Display workshop custom metadata in Cart & Checkout

@@ -14,11 +14,11 @@ add_action( 'wp_enqueue_scripts', function () {
 		wp_enqueue_script( 'wc-cart-fragments' );
 	}
 	wp_enqueue_script( 'wc-add-to-cart' );
-	wp_enqueue_style( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.css', [ 'hello-elementor-child' ], time() );
+	wp_enqueue_style( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.css', [ 'hello-elementor-child' ], bv_asset_ver( '/assets/commerce.css' ) );
 	if ( is_account_page() ) {
-		wp_enqueue_style( 'bv-account', get_stylesheet_directory_uri() . '/assets/account.css', [ 'bv-commerce' ], time() );
+		wp_enqueue_style( 'bv-account', get_stylesheet_directory_uri() . '/assets/account.css', [ 'bv-commerce' ], bv_asset_ver( '/assets/account.css' ) );
 	}
-	wp_enqueue_script( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.js', [ 'jquery' ], time(), true );
+	wp_enqueue_script( 'bv-commerce', get_stylesheet_directory_uri() . '/assets/commerce.js', [ 'jquery' ], bv_asset_ver( '/assets/commerce.js' ), true );
 }, 40 );
 
 function bv_header_cart() {

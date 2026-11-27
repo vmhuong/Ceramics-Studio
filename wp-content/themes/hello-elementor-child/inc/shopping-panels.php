@@ -27,8 +27,8 @@ add_filter( 'gettext', function ( $translation, $text, $domain ) {
 
 add_action( 'wp_enqueue_scripts', function () {
     if ( ! function_exists( 'WC' ) ) { return; }
-    wp_enqueue_style( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.css', [ 'bv-commerce' ], time() );
-    wp_enqueue_script( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.js', [ 'bv-commerce', 'wc-add-to-cart' ], time(), true );
+    wp_enqueue_style( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.css', [ 'bv-commerce' ], bv_asset_ver( '/assets/shopping-panels.css' ) );
+    wp_enqueue_script( 'bv-shopping-panels', get_stylesheet_directory_uri() . '/assets/shopping-panels.js', [ 'bv-commerce', 'wc-add-to-cart' ], bv_asset_ver( '/assets/shopping-panels.js' ), true );
     wp_localize_script( 'bv-shopping-panels', 'bvShopping', [ 
         'noteUrl'      => WC_AJAX::get_endpoint( 'bv_cart_note' ), 
         'nonce'        => wp_create_nonce( 'bv_cart_note' ),
